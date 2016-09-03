@@ -2,3 +2,6 @@
 - include: api.yml
   tags: [contrail.controller.config.api]
 
+- include: nodemanager.yaml
+  tags: [contrail.controller.config.nodemanager]
+

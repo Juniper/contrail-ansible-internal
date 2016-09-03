@@ -1,0 +1,12 @@
+---
+- name: configure config nodemanager discovery server
+  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=server value={{ disc_server_ip }}
+  notify: restart config nodemanager
+
+- name: configure config nodemanager discovery server port
+  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=port value={{ disc_server_port }}
+  notify: restart config nodemanager
+
+# Service management
+- name: Make sure config nodemanager service is up
+  supervisorctl: name="contrail-config-nodemgr" state=started config=/etc/contrail/supervisord_config.conf

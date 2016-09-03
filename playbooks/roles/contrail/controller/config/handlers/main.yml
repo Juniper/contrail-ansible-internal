@@ -1,2 +1,5 @@
 - name: restart config api
   supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
+
+- name: restart config nodemanager
+  supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
