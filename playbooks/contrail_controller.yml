@@ -1,0 +1,11 @@
+---
+- name: "Setup Controller"
+  hosts: localhost
+  connection: local
+
+  roles:
+    - role: contrail/controller/config
+      tags: [contrail.controller, contrail.controller.config]
+
+  vars:
+      cloud_orchestrator: kubernetes
