@@ -13,3 +13,8 @@ auth: keystone
 # Node manager
 nodemanager_conf: "/etc/contrail/contrail-config-nodemgr.conf"
 
+# Schema Transormer
+schema_conf: /etc/contrail/contrail-schema.conf
+schema_log: /var/log/contrail/contrail-schema.log
+schema_log_level: SYS_NOTICE
+

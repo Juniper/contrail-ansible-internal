@@ -1,0 +1,64 @@
+---
+- name: configure schema log file
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_file value={{ schema_log }}
+  notify: restart schema
+
+- name: configure schema log local
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_local value=1
+  notify: restart schema
+
+- name: configure schema log level
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_level value={{ schema_log_level }}
+  notify: restart schema
+
+- name: configure schema disc_server_ip
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
+  notify: restart schema
+
+- name: configure schema disc_server_port
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
+  notify: restart schema
+
+- name: configure schema ifmap_server_ip
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_server_ip value={{ ifmap_server_ip }}
+  notify: restart schema
+
+- name: configure schema ifmap_server_port
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_server_port value={{ ifmap_server_port }}
+  notify: restart schema
+
+- name: configure schema ifmap_username
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_username value={{ config_ifmap_username }}
+  notify: restart schema
+
+- name: configure schema ifmap_password
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_password value={{ config_ifmap_password }}
+  notify: restart schema
+
+- name: configure schema cassandra_server_list
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  notify: restart schema
+
+- name: configure schema api_server_ip
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=api_server_ip value={{ api_server_ip }}
+  notify: restart schema
+
+- name: configure schema api_server_port
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=api_server_port value={{ api_server_port }}
+  notify: restart schema
+
+- name: configure schema api_server_use_ssl
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=api_server_use_ssl value={{ api_server_use_ssl }}
+  notify: restart schema
+
+- name: configure schema zk_server_ip
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  notify: restart schema
+
+- name: configure schema rabbit_server
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  notify: restart schema
+
+# Service management
+- name: Make sure schema service is up
+  supervisorctl: name="contrail-schema" state=started config=/etc/contrail/supervisord_config.conf

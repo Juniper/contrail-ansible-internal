@@ -5,3 +5,6 @@
 - include: nodemanager.yaml
   tags: [contrail.controller.config.nodemanager]
 
+- include: schema.yaml
+  tags: [contrail.controller.config.schema]
+
