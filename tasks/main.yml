@@ -52,11 +52,11 @@
   become: yes
   become_user: root
   with_items: '{{docker_config_files}}'
-  register: docker_config_written
   template: >-
     src={{item.d}}/{{item.f}}.j2
     dest=/{{item.d}}/{{item.f}}
     mode={{item.m}}
+  notify: restart docker
 
 - name: create root user docker config directory
   become: yes
@@ -78,6 +78,7 @@
     src={{item.f}}
     dest=/root/.docker/{{item.t}}
     mode={{item.m}}
+  notify: restart docker
 
 - name: write /etc/profile.d/docker.sh
   become: yes
@@ -88,12 +89,6 @@
     src={{item}}.j2
     dest=/{{item}}
     mode=0644
-    
-- name: init-system reload 
-  when: docker_config_written|changed and docker_init == 'systemd'
-  become: yes
-  become_user: root
-  command: systemctl daemon-reload
 
 - name : launch docker...
   become: yes
