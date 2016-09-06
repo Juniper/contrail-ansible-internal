@@ -19,3 +19,11 @@ schema_log: /var/log/contrail/contrail-schema.log
 schema_log_level: SYS_NOTICE
 
 # Ifmap server specific configuration
+ifmap_basicauth_properties_file: /etc/ifmap-server/basicauthusers.properties
+ifmap_properties_file: /etc/ifmap-server/ifmap.properties
+ifmap_users:
+  - api-server:api-server
+  - schema-transformer:schema-transformer
+  - reader:reader
+  - svc-monitor:svc-monitor
+  - control-node:control-node

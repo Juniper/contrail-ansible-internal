@@ -1,0 +1,36 @@
+---
+# Configure basicauthusers.properties
+- name: Setting up users (from ifmap_users variable) in ifmap
+  lineinfile: dest={{ifmap_basicauth_properties_file}}
+              line={{ item }}
+              state=present
+  with_items: "{{ ifmap_users }}"
+  notify: restart ifmap
+
+- name: Setting up ifmap users for control nodes
+  lineinfile: dest={{ifmap_basicauth_properties_file}}
+              line={{ hostvars[item]['ansible_default_ipv4']['address'] }}:{{hostvars[item]['ansible_default_ipv4']['address']}}
+              regexp="^{{hostvars[item]['ansible_default_ipv4']['address']}}:"
+              state=present
+  with_items: "{{ groups['contrail-controllers'] }}"
+  notify: restart ifmap
+
+- name: Setting up ifmap users for dns nodes
+  lineinfile: dest={{ifmap_basicauth_properties_file}}
+              line={{ hostvars[item]['ansible_default_ipv4']['address'] }}.dns:{{hostvars[item]['ansible_default_ipv4']['address']}}.dns
+              regexp="^{{hostvars[item]['ansible_default_ipv4']['address']}}.dns:"
+              state=present
+  with_items: "{{ groups['contrail-controllers'] }}"
+  notify: restart ifmap
+
+# Configure ifmap.properties
+- name: Setup ifmap basicauth port
+  lineinfile: dest={{ifmap_properties_file}}
+              line=irond.comm.basicauth.port={{ifmap_server_port}}
+              regexp="^irond.comm.basicauth.port="
+              state=present
+  notify: restart ifmap
+
+# Service managemnt
+- name: Make sure ifmap is up
+  supervisorctl: name="ifmap" state=started config=/etc/contrail/supervisord_config.conf

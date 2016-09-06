@@ -8,3 +8,5 @@
 - include: schema.yml
   tags: [contrail.controller.config.schema]
 
+- include: ifmap.yml
+  tags: [contrail.controller.config.ifmap]

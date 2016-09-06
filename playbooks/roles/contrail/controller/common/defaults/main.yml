@@ -10,7 +10,9 @@ zk_server_ip: "{{ ansible_default_ipv4.address }}"
 zk_port: 2181
 rabbit_server_ip: "{{ ansible_default_ipv4.address }}"
 rabbit_port: 5672
-api_server_ip: "{{ ansible_default_ipv4.address }}"
+controller_ip: "{{ ansible_default_ipv4.address }}"
+config_ip: "{{ controller_ip }}"
+api_server_ip: "{{ config_ip }}"
 api_server_port: 8082
 api_server_use_ssl: False
 

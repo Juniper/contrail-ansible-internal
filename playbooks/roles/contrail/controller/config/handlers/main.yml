@@ -6,3 +6,6 @@
 
 - name: restart config schema
   supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
+
+- name: restart ifmap
+  supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
