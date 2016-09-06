@@ -2,9 +2,9 @@
 - include: api.yml
   tags: [contrail.controller.config.api]
 
-- include: nodemanager.yaml
+- include: nodemanager.yml
   tags: [contrail.controller.config.nodemanager]
 
-- include: schema.yaml
+- include: schema.yml
   tags: [contrail.controller.config.schema]
 

@@ -1,0 +1,11 @@
+---
+cloud_orchestrator: openstack
+controller_image: >-
+  {%- if contrail_docker_registry -%}{{ contrail_docker_registry }}/contrail-controller-liberty:{{ contrail_version }}
+  {%- else %}contrail-controller-liberty:{{ contrail_version }}{%- endif %}
+analytics_image: >-
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-analytics-liberty:{{ contrail_version }}
+  {%- else %}contrail-analytics-liberty:{{ contrail_version }}{%- endif %}
+agent_image: >-
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-agent-liberty:{{ contrail_version }}
+  {%- else %}contrail-agent-liberty:{{ contrail_version }}{%- endif %}

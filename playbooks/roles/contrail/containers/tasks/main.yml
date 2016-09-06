@@ -1,0 +1,43 @@
+---
+- name: "Make sure docker-py is installed"
+  pip: name=docker-py
+
+- name: "Start contrail controller container"
+  docker_container:
+    name: controller
+    image: "{{ controller_image }}"
+    privileged: true
+    pid_mode: host
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+
+- name: "Start contrail analytics container"
+  docker_container:
+    name: analytics
+    image: "{{ analytics_image }}"
+    privileged: true
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+
+- name: "Start contrail agent container"
+  docker_container:
+    name: agent
+    image: "{{ agent_image }}"
+    privileged: true
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+    volumes:
+      - "/lib/modules:/lib/modules"
+      - "/usr/src:/usr/src"

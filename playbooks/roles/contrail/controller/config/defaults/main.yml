@@ -18,3 +18,4 @@ schema_conf: /etc/contrail/contrail-schema.conf
 schema_log: /var/log/contrail/contrail-schema.log
 schema_log_level: SYS_NOTICE
 
+# Ifmap server specific configuration

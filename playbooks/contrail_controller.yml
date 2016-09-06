@@ -1,7 +1,7 @@
 ---
 - name: "Setup Controller"
-  hosts: localhost
-  connection: local
+  hosts: contrail-controllers
+
 
   roles:
     - role: contrail/controller/config
