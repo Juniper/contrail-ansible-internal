@@ -1,6 +1,6 @@
 ---
 - name: "Make sure docker-py is installed"
-  pip: name=docker-py
+  pip: name=docker-py version={{ docker_py_version }}
 
 - name: "Start contrail controller container"
   docker_container:
