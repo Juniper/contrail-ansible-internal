@@ -60,6 +60,9 @@ Vagrant.configure("2") do |config|
           vb.customize ['storageattach', :id, '--storagectl', 'SATAController', '--port', 1, '--device', 0, '--type', 'hdd', '--medium', "#{disk_file}" ]
         end
       end
+
+      config.vm.synced_folder("../", "/vagrant")
+
       hostname = node_name.gsub('_','-')
       config.vm.host_name = "#{hostname}.domain.name"
 
@@ -89,8 +92,9 @@ EOF
 
       inventory = ENV['ansible_inventory'] || "svl_allinone_wo_os"
       config.vm.provision 'shell', :inline => <<EOF
-      cd /vagrant/playbooks
+      cd /vagrant
       ansible-galaxy install -r requirements.yml
+      cd playbooks/
       ansible-playbook -i inventory/#{inventory} site.yml
 EOF
       net_prefix = ENV['NET_PREFIX'] || "192.168.100.0"
