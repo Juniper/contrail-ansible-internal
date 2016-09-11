@@ -62,3 +62,4 @@
 # Service management
 - name: Make sure schema service is up
   supervisorctl: name="contrail-schema" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.schema.service, contrail.controller.service, contrail.config.service]
