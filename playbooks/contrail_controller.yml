@@ -5,7 +5,5 @@
 
   roles:
     - role: contrail/controller/config
-      tags: [contrail.controller, contrail.controller.config]
+      tags: [contrail.controller, contrail.config]
 
-  vars:
-      cloud_orchestrator: kubernetes

@@ -27,3 +27,16 @@ ifmap_users:
   - reader:reader
   - svc-monitor:svc-monitor
   - control-node:control-node
+
+config_packages:
+  - contrail-utils
+  - contrail-lib
+  - contrail-config
+  - contrail-f5
+  - contrail-nodemgr
+  - supervisor
+  - python-keystoneclient
+  - python-iniparse
+  - python-bottle
+  - ifmap-server
+  - ifmap-python-client

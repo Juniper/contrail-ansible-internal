@@ -1,0 +1,12 @@
+---
+- include: ifmap.yml
+  tags: [contrail.ifmap, contrail.ifmap.provision]
+
+- include: nodemanager.yml
+  tags: [contrail.config.nodemanager, contrail.config.nodemanager.provision]
+
+- include: schema.yml
+  tags: [contrail.schema, contrail.schema.provision]
+
+- include: api.yml
+  tags: [contrail.api, contrail.api.provision]

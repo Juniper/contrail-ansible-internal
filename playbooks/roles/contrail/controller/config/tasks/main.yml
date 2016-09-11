@@ -1,12 +1,6 @@
 ---
-- include: api.yml
-  tags: [contrail.controller.config.api]
+- include: install.yml
+  tags: [contrail.controller.install, contrail.config.install, install]
 
-- include: nodemanager.yml
-  tags: [contrail.controller.config.nodemanager]
-
-- include: schema.yml
-  tags: [contrail.controller.config.schema]
-
-- include: ifmap.yml
-  tags: [contrail.controller.config.ifmap]
+- include: provision.yml
+  tags: [contrail.controller.provision, contrail.config.provision, provision]
