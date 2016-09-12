@@ -80,3 +80,4 @@
 # Service management
 - name: Make sure config api service is up
   supervisorctl: name="contrail-api:0" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.api.service, contrail.controller.service, contrail.config.service]

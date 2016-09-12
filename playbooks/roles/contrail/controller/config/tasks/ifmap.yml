@@ -34,3 +34,4 @@
 # Service managemnt
 - name: Make sure ifmap is up
   supervisorctl: name="ifmap" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]

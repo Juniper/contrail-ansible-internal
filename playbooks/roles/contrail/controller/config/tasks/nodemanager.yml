@@ -10,3 +10,4 @@
 # Service management
 - name: Make sure config nodemanager service is up
   supervisorctl: name="contrail-config-nodemgr" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]

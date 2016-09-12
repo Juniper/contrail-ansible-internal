@@ -1,0 +1,4 @@
+---
+- name: install contrail-config related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ config_packages }}"
