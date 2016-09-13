@@ -46,6 +46,11 @@ svc_monitor_conf: /etc/contrail/contrail-svc-monitor.conf
 svc_monitor_log: /var/log/contrail/contrail-svc-monitor.log
 svc_monitor_log_level: SYS_NOTICE
 
+# device-manager
+device_manager_conf: /etc/contrail/contrail-device-manager.conf
+device_manager_log: /var/log/contrail/contrail-device-manager.log
+device_manager_log_level: SYS_NOTICE
+
 
 # Installation
 config_packages:

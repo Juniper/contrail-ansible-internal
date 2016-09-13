@@ -1,0 +1,49 @@
+---
+- name: configure device-manager rabbit_server
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  notify: restart restart device-manager
+
+- name: configure device-manager api_server_ip
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=api_server_ip value={{ api_server_ip }}
+  notify: restart restart device-manager
+
+- name: configure device-manager api_server_port
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=api_server_port value={{ api_server_port }}
+  notify: restart restart device-manager
+
+- name: configure device-manager api_server_use_ssl
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=api_server_use_ssl value={{ api_server_use_ssl }}
+  notify: restart restart device-manager
+
+- name: configure device-manager zk_server_ip
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  notify: restart restart device-manager
+
+- name: configure device-manager log_file
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=log_file value={{ device_manager_log }}
+  notify: restart restart device-manager
+
+- name: configure device-manager log_level
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=log_level value={{ device_manager_log_level }}
+  notify: restart restart device-manager
+
+- name: configure device-manager log_local
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=log_local value=1
+  notify: restart restart device-manager
+
+- name: configure device-manager cassandra_server_list
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  notify: restart restart device-manager
+
+- name: configure device-manager disc_server_ip
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
+  notify: restart restart device-manager
+
+- name: configure device-manager disc_server_port
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
+  notify: restart restart device-manager
+
+# Service management
+- name: Make sure device-manager service is up
+  supervisorctl: name="contrail-device-manager" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]

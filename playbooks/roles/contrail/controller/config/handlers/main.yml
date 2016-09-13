@@ -15,3 +15,6 @@
 
 - name: restart svc-monitor
   supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
+
+- name: restart device-manager
+  supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf

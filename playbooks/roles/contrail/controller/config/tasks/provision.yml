@@ -16,3 +16,6 @@
 
 - include: svc-monitor.yml
   tags: [contrail.svc-monitor, contrail.svc-monitor.provision]
+
+- include: device-manager.yml
+  tags: [contrail.device-manager, contrail.device-manager.provision]
