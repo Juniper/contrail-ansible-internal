@@ -1,0 +1,77 @@
+---
+- name: configure svc-monitor ifmap_server_ip
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_server_ip value={{ ifmap_server_ip }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor ifmap_server_port
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_server_port value={{ ifmap_server_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor ifmap_username
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_username value={{ config_ifmap_username }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor ifmap_password
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_password value={{ config_ifmap_password }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor cassandra_server_list
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor api_server_ip
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=api_server_ip value={{ api_server_ip }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor api_server_port
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=api_server_port value={{ api_server_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor api_server_use_ssl
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=api_server_use_ssl value={{ api_server_use_ssl }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor log_file
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=log_file value={{ svc_monitor_log }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor log_local
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=log_local value=1
+  notify: restart svc-monitor
+
+- name: configure svc-monitor log_level
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=log_level value={{ svc_monitor_log_level }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor disc_server_ip
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor disc_server_port
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor zk_server_ip
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor rabbit_server
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor region_name
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=region_name value={{ region }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor analytics_server_ip
+  ini_file: dest={{ svc_monitor_conf }} section=SCHEDULER option=analytics_server_ip value={{ analytics_server_ip }}
+  notify: restart svc-monitor
+
+- name: configure svc-monitor analytics_server_port
+  ini_file: dest={{ svc_monitor_conf }} section=SCHEDULER option=analytics_server_port value={{ analytics_server_port }}
+  notify: restart svc-monitor
+
+# Service management
+- name: Make sure contrail svc-monitor service is up
+  supervisorctl: name=contrail-svc-monitor state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.svc-monitor.service, contrail.controller.service, contrail.config.service]

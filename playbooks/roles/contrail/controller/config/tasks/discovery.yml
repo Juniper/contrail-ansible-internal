@@ -1,0 +1,61 @@
+---
+- name: configure discovery zk_server_ip
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}
+  notify: restart discovery
+
+- name: configure discovery zk_server_port
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_port value={{ zk_port }}
+  notify: restart discovery
+
+- name: configure discovery listen_ip_addr
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=listen_ip_addr value={{ discovery_listen_address }}
+  notify: restart discovery
+
+- name: configure discovery listen_port
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=listen_port value={{ discovery_listen_port }}
+  notify: restart discovery
+
+- name: configure discovery log_local
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_local value=1
+  notify: restart discovery
+
+- name: configure discovery log_file
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_file value={{ discovery_log }}
+  notify: restart discovery
+
+- name: configure discovery log_level
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_level value={{ discovery_log_level }}
+  notify: restart discovery
+
+- name: configure discovery cassandra_server_list
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  notify: restart discovery
+
+- name: configure discovery ttl_min
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_min value={{ discovery_ttl_min }}
+  notify: restart discovery
+
+- name: configure discovery ttl_max
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_max value={{ discovery_ttl_max }}
+  notify: restart discovery
+
+- name: configure discovery hc_interval
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=hc_interval value={{ discovery_hc_interval }}
+  notify: restart discovery
+
+- name: configure discovery hc_max_miss
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=hc_max_miss value={{ discovery_hc_max_miss }}
+  notify: restart discovery
+
+- name: configure discovery ttl_short
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_short value={{ discovery_ttl_short }}
+  notify: restart discovery
+
+- name: configure discovery dns server policy
+  ini_file: dest={{ discovery_conf }} section=DNS-SERVER option=policy value={{ discovery_dns_server_policy }}
+  notify: restart discovery
+
+# Service management
+- name: Make sure contrail discovery service is up
+  supervisorctl: name="contrail-discovery" state=started config=/etc/contrail/supervisord_config.conf
+  tags: [service, contrail.discovery.service, contrail.controller.service, contrail.config.service]

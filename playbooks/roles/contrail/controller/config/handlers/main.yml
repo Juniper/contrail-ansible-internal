@@ -9,3 +9,9 @@
 
 - name: restart ifmap
   supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
+
+- name: restart discovery
+  supervisorctl: name="contrail-discovery" state=restarted config=/etc/contrail/supervisord_config.conf
+
+- name: restart svc-monitor
+  supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
