@@ -13,3 +13,6 @@
 
 - include: discovery.yml
   tags: [contrail.discovery, contrail.discovery.provision]
+
+- include: svc-monitor.yml
+  tags: [contrail.svc-monitor, contrail.svc-monitor.provision]

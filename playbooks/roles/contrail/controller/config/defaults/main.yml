@@ -41,6 +41,12 @@ discovery_hc_interval: 5
 discovery_hc_max_miss: 3
 discovery_dns_server_policy: fixed
 
+# svc-monitor
+svc_monitor_conf: /etc/contrail/contrail-svc-monitor.conf
+svc_monitor_log: /var/log/contrail/contrail-svc-monitor.log
+svc_monitor_log_level: SYS_NOTICE
+
+
 # Installation
 config_packages:
   - contrail-utils
