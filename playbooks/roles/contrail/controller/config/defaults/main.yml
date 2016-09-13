@@ -28,6 +28,20 @@ ifmap_users:
   - svc-monitor:svc-monitor
   - control-node:control-node
 
+# Discovery
+discovery_conf: /etc/contrail/contrail-discovery.conf
+discovery_log: /var/log/contrail/contrail-discovery.log
+discovery_log_level: SYS_NOTICE
+discovery_listen_address: 0.0.0.0
+discovery_listen_port: 5998
+discovery_ttl_min: 300
+discovery_ttl_max: 1800
+discovery_ttl_short: 1
+discovery_hc_interval: 5
+discovery_hc_max_miss: 3
+discovery_dns_server_policy: fixed
+
+# Installation
 config_packages:
   - contrail-utils
   - contrail-lib

@@ -10,3 +10,6 @@
 
 - include: api.yml
   tags: [contrail.api, contrail.api.provision]
+
+- include: discovery.yml
+  tags: [contrail.discovery, contrail.discovery.provision]
