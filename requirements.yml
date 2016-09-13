@@ -1,2 +1,4 @@
 - src: https://github.com/hkumarmk/ansible-docker
   name: docker
+- src: https://github.com/hkumarmk/ansible-rabbitmq
+  name: rabbitmq

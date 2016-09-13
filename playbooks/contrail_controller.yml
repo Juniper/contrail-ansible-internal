@@ -7,3 +7,5 @@
     - role: contrail/controller/config
       tags: [contrail.controller, contrail.config]
 
+    - role: rabbitmq
+      tags: [contrail.rabbitmq, rabbitmq]
