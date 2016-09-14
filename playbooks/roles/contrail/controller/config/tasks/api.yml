@@ -1,51 +1,13 @@
 ---
-- name: configure config api log file
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=log_file value={{ api_log }}
-  notify: restart config api
 
-- name: configure config api log level
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=log_level value={{ api_log_level }}
+- name: configure config api - set all common entries in DEFAULTS section
+  ini_file: dest={{ api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
   notify: restart config api
-
-- name: configure config api log_local
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=log_local value=1
-  notify: restart config api
-
-- name: configure config api ifmap username
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=ifmap_username value={{ config_ifmap_username }}
-  notify: restart config api
-
-- name: configure config api ifmap password
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=ifmap_password value={{ config_ifmap_password }}
-  notify: restart config api
-
-- name: configure config api cassandra_server_list
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
-  notify: restart config api
-
-- name: configure config api discovery server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
-  notify: restart config api
-
-- name: configure config api discovery server port
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
-  notify: restart config api
-
-- name: configure config api ifmap server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=ifmap_server_ip value={{ ifmap_server_ip }}
-  notify: restart config api
-
-- name: configure config api ifmap server port
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=ifmap_server_port value={{ ifmap_server_port }}
-  notify: restart config api
-
-- name: configure config api Listen address
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=listen_ip_addr value={{ api_listen_address }}
-  notify: restart config api
-
-- name: configure config api listen_port
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=listen_port value={{ api_listen_port }}
-  notify: restart config api
+  with_dict: "{{ config_ifmap_configs|
+                combine(config_infra_configs)|\
+                combine(config_discovery_configs)|\
+                combine(api_specific_configs.DEFAULTS)
+             }}"
 
 - name: configure config api multi tenancy in case of openstack
   ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value={{ multi_tenancy }}
@@ -56,19 +18,6 @@
   ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value=False
   notify: restart config api
   when: cloud_orchestrator != "openstack"
-
-- name: configure config api zookeeper server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_servers_with_port }}
-  notify: restart config api
-
-- name: configure config api rabbitmq server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
-  notify: restart config api
-
-- name: configure config api list_optimization_enabled
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=list_optimization_enabled value={{ list_optimization_enabled }}
-  when: list_optimization_enabled
-  notify: restart config api
 
 - name: configure config api auth
   ini_file: dest={{ api_conf }} section=DEFAULTS option=auth value={{ auth }}

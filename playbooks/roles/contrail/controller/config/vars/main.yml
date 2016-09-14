@@ -1,0 +1,37 @@
+---
+##
+# Making common reusable variable templates to reduce duplication
+##
+# ifmap server configuration for various config files
+config_ifmap_configs:
+  ifmap_username: "{{ config_ifmap_username }}"
+  ifmap_password: "{{ config_ifmap_password }}"
+  ifmap_server_ip: "{{ ifmap_server_ip }}"
+  ifmap_server_port: "{{ ifmap_server_port }}"
+
+# Infra configuration entries like cassandra, rabbitmq etc
+config_infra_configs:
+  log_local: 1
+  cassandra_server_list: "{{ cassandra_servers_with_port }}"
+  zk_server_ip: "{{ zk_servers_with_port }}"
+  rabbit_server: "{{ rabbitmq_servers_with_port }}"
+
+# Discovery server config entries
+config_discovery_configs:
+  disc_server_ip: "{{ disc_server_ip }}"
+  disc_server_port: "{{ disc_server_port }}"
+
+# Api server config entries
+config_api_configs:
+  api_server_ip: "{{ api_server_ip }}"
+  api_server_port: "{{ api_server_port }}"
+  api_server_use_ssl: "{{ api_server_use_ssl }}"
+
+# Now add config api specific config entries
+api_specific_configs:
+  DEFAULTS:
+    log_file: "{{ api_log }}"
+    log_level: "{{ api_log_level }}"
+    listen_ip_addr: "{{ api_listen_address }}"
+    listen_port: "{{ api_listen_port }}"
+    list_optimization_enabled: "{{ list_optimization_enabled }}"
