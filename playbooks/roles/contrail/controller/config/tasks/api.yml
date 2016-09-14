@@ -19,9 +19,8 @@
   ini_file: dest={{ api_conf }} section=DEFAULTS option=ifmap_password value={{ config_ifmap_password }}
   notify: restart config api
 
-# FIXME: This will only handle single node
 - name: configure config api cassandra_server_list
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
   notify: restart config api
 
 - name: configure config api discovery server
@@ -58,13 +57,12 @@
   notify: restart config api
   when: cloud_orchestrator != "openstack"
 
-#FIXME: this will only handle single node configuration, need to be fixed
 - name: configure config api zookeeper server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_servers_with_port }}
   notify: restart config api
 
 - name: configure config api rabbitmq server
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
   notify: restart config api
 
 - name: configure config api list_optimization_enabled

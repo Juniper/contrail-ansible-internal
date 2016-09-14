@@ -1,6 +1,6 @@
 ---
 - name: configure device-manager rabbit_server
-  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
   notify: restart restart device-manager
 
 - name: configure device-manager api_server_ip
@@ -16,7 +16,7 @@
   notify: restart restart device-manager
 
 - name: configure device-manager zk_server_ip
-  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_servers_with_port }}
   notify: restart restart device-manager
 
 - name: configure device-manager log_file
@@ -32,7 +32,7 @@
   notify: restart restart device-manager
 
 - name: configure device-manager cassandra_server_list
-  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
   notify: restart restart device-manager
 
 - name: configure device-manager disc_server_ip

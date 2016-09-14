@@ -1,6 +1,6 @@
 ---
-- name: configure discovery zk_server_ip
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}
+- name: configure discovery zk_server_ip (comma separated list of zk server ips)
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_list | join(',') }}
   notify: restart discovery
 
 - name: configure discovery zk_server_port
@@ -28,7 +28,7 @@
   notify: restart discovery
 
 - name: configure discovery cassandra_server_list
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
   notify: restart discovery
 
 - name: configure discovery ttl_min

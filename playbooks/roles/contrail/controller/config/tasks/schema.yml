@@ -36,7 +36,7 @@
   notify: restart schema
 
 - name: configure schema cassandra_server_list
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_server_list }}:{{ cassandra_port }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
   notify: restart schema
 
 - name: configure schema api_server_ip
@@ -52,11 +52,11 @@
   notify: restart schema
 
 - name: configure schema zk_server_ip
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_ip }}:{{ zk_port }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_servers_with_port }}
   notify: restart schema
 
 - name: configure schema rabbit_server
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=rabbit_server value={{ rabbit_server_ip }}:{{ rabbit_port }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
   notify: restart schema
 
 # Service management

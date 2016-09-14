@@ -1,17 +1,24 @@
 ---
 cloud_orchestrator: openstack
-cassandra_server_list: "{{ ansible_default_ipv4.address }}"
-cassandra_port: 9160
-disc_server_ip: "{{ ansible_default_ipv4.address }}"
-disc_server_port: 5998
-ifmap_server_ip: "{{ ansible_default_ipv4.address }}"
-ifmap_server_port: 8443
-zk_server_ip: "{{ ansible_default_ipv4.address }}"
-zk_port: 2181
-rabbit_server_ip: "{{ ansible_default_ipv4.address }}"
-rabbit_port: 5672
 controller_ip: "{{ ansible_default_ipv4.address }}"
+
+# List of cassandra servers
+cassandra_server_list: ["{{ controller_ip }}"]
+cassandra_port: 9160
+
+# List of zookeeper servers
+zk_server_list: ["{{ controller_ip }}"]
+zk_port: 2181
+
+# List of rabbitmq servers
+rabbit_server_list: ["{{ controller_ip }}"]
+rabbit_port: 5672
+
 config_ip: "{{ controller_ip }}"
+disc_server_ip: "{{ config_ip }}"
+disc_server_port: 5998
+ifmap_server_ip: "{{ config_ip }}"
+ifmap_server_port: 8443
 api_server_ip: "{{ config_ip }}"
 api_server_port: 8082
 api_server_use_ssl: False
