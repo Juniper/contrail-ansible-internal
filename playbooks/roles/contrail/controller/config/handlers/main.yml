@@ -4,7 +4,7 @@
 - name: restart config nodemanager
   supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
 
-- name: restart config schema
+- name: restart schema
   supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
 
 - name: restart ifmap
