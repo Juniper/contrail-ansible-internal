@@ -1,0 +1,2 @@
+[contrail-controllers]
+localhost   ansible_connection=local
