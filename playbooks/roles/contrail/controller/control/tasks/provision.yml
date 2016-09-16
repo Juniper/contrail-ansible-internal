@@ -4,3 +4,6 @@
 
 - include: dns.yml
   tags: [contrail.dns, contrail.dns.provision]
+
+- include: nodemanager.yml
+  tags: [contrail.control.nodemgr, contrail.control.nodemgr.provision]

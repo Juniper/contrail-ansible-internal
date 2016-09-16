@@ -16,3 +16,4 @@ dns_log_local: "{{ log_local }}"
 dns_ifmap_username: "{{ control_ip }}.dns"
 dns_ifmap_password: "{{ control_ip }}.dns"
 
+nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
