@@ -1,3 +1,6 @@
 ---
+- include: install.yml
+  tags: [contrail.controller.install, contrail.controlnode.install, install]
+
 - include: provision.yml
   tags: [contrail.controller.provision, contrail.controlnode.provision, provision]

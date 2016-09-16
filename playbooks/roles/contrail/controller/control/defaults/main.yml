@@ -17,3 +17,6 @@ dns_ifmap_username: "{{ control_ip }}.dns"
 dns_ifmap_password: "{{ control_ip }}.dns"
 
 nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
+
+control_packages:
+  - contrail-openstack-control
