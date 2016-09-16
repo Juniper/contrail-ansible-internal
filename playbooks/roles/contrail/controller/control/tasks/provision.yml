@@ -1,3 +1,6 @@
 ---
 - include: control.yml
   tags: [contrail.control, contrail.control.provision]
+
+- include: dns.yml
+  tags: [contrail.dns, contrail.dns.provision]

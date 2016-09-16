@@ -19,3 +19,15 @@ control_specific_configs:
     user: "{{ control_ifmap_username }}"
     password: "{{ control_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
+
+# contrail-dns specific config entries
+dns_specific_configs:
+  DEFAULT:
+    log_file: "{{ dns_log }}"
+    log_level: "{{ dns_log_level }}"
+  DISCOVERY:
+    server: "{{ disc_server_ip }}"
+  IFMAP:
+    user: "{{ dns_ifmap_username }}"
+    password: "{{ dns_ifmap_username }}"
+    certs_store: "{{ ifmap_certs_store|default('') }}"
