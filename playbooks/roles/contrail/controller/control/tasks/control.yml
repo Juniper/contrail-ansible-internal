@@ -1,0 +1,20 @@
+---
+- name: configure contrail-control set all entries in DEFAULT section
+  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  notify: restart control
+  with_dict: "{{ control_infra_configs|combine(control_specific_configs.DEFAULT) }}"
+
+- name: configure contrail-control set entries in DISCOVERY section
+  ini_file: dest={{ control_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
+  notify: restart control
+  with_dict: "{{ control_specific_configs.DISCOVERY }}"
+
+- name: configure contrail-control set entries in IFMAP section
+  ini_file: dest={{ control_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
+  notify: restart control
+  with_dict: "{{ control_specific_configs.IFMAP }}"
+
+# Service management
+- name: Make sure control service is up
+  supervisorctl: name="contrail-control" state=started config=/etc/contrail/supervisord_control.conf
+  tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]

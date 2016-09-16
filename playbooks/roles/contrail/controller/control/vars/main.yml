@@ -1,0 +1,21 @@
+---
+##
+# Making common reusable variable templates to reduce duplication
+##
+# Infra configuration entries like cassandra, rabbitmq etc
+control_infra_configs:
+  log_local: "{{ log_local }}"
+  hostip: "{{ control_ip }}"
+  hostname: "{{ ansible_hostname }}"
+
+# Now add contrail-control specific config entries
+control_specific_configs:
+  DEFAULT:
+    log_file: "{{ control_log }}"
+    log_level: "{{ control_log_level }}"
+  DISCOVERY:
+    server: "{{ disc_server_ip }}"
+  IFMAP:
+    user: "{{ control_ifmap_username }}"
+    password: "{{ control_ifmap_username }}"
+    certs_store: "{{ ifmap_certs_store|default('') }}"

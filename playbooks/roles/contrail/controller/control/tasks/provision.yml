@@ -1,0 +1,3 @@
+---
+- include: control.yml
+  tags: [contrail.control, contrail.control.provision]

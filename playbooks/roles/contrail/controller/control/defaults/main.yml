@@ -1,0 +1,10 @@
+---
+# contrail-control
+control_conf: /etc/contrail/contrail-control.conf
+control_log: /var/log/contrail/contrail-control.log
+control_log_level: "{{ log_level }}"
+control_log_local: "{{ log_local }}"
+
+control_ifmap_username: "{{ control_ip }}"
+control_ifmap_password: "{{ control_ip }}"
+
