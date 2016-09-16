@@ -1,0 +1,22 @@
+---
+# contrail-control
+control_conf: /etc/contrail/contrail-control.conf
+control_log: /var/log/contrail/contrail-control.log
+control_log_level: "{{ log_level }}"
+control_log_local: "{{ log_local }}"
+
+control_ifmap_username: "{{ control_ip }}"
+control_ifmap_password: "{{ control_ip }}"
+
+dns_conf: /etc/contrail/contrail-dns.conf
+dns_log: /var/log/contrail/contrail-dns.log
+dns_log_level: "{{ log_level }}"
+dns_log_local: "{{ log_local }}"
+
+dns_ifmap_username: "{{ control_ip }}.dns"
+dns_ifmap_password: "{{ control_ip }}.dns"
+
+nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
+
+control_packages:
+  - contrail-openstack-control

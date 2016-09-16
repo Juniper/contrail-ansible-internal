@@ -1,0 +1,8 @@
+- name: restart control
+  supervisorctl: name="contrail-control" state=restarted config=/etc/contrail/supervisord_control.conf
+
+- name: restart contrail-dns
+  supervisorctl: name="contrail-dns" state=restarted config=/etc/contrail/supervisord_control.conf
+
+- name: restart control-nodemgr
+  supervisorctl: name="contrail-control-nodemgr" state=restarted config=/etc/contrail/supervisord_control.conf
