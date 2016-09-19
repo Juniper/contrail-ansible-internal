@@ -1,0 +1,5 @@
+---
+- name: install contrail-analytics related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ analytics_packages }}"
+  when: not running_in_docker
