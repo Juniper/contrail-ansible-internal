@@ -1,0 +1,3 @@
+---
+- include: webui.yml
+  tags: [contrail.webui, contrail.webui.provision]

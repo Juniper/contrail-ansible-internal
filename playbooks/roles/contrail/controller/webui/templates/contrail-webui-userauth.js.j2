@@ -1,0 +1,14 @@
+/*
+ * Copyright (c) 2014 Juniper Networks, Inc. All rights reserved.
+ */
+
+/****************************************************************************
+ * Specify the authentication parameters for admin user
+ ****************************************************************************/
+var auth = {};
+auth.admin_user = '{{ webui_admin_user }}';
+auth.admin_password = '{{ webui_admin_password }}';
+auth.admin_token = '';
+auth.admin_tenant_name = '{{ webui_admin_tenant_name }}';
+
+module.exports = auth;
