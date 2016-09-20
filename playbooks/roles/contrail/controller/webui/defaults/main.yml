@@ -1,0 +1,22 @@
+---
+# contrail-webui
+# Webui take listen address as a list
+webui_listen_address: ['0.0.0.0']
+webui_http_listen_port: 8080
+webui_https_listen_port: 8143
+webui_worker_count: 1
+webui_use_ssl: true
+webui_max_active_jobs: 10
+
+webui_redis_db_index: 3
+webui_redis_password: ''
+webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
+webui_log_level: debug
+
+# admin credentials for webui
+webui_admin_user: admin
+webui_admin_password: admin
+webui_admin_tenant_name: admin
+
+webui_packages:
+ - contrail-openstack-webui

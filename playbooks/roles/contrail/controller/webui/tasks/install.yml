@@ -1,0 +1,4 @@
+---
+- name: install contrail-webui related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ webui_packages }}"
