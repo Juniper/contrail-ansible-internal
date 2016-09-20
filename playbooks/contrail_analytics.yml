@@ -9,3 +9,6 @@
     - role: contrail/analytics
       tags: [contrail.analytics]
 
+    - role: redis
+      tags: [contrail.redis, redis]
+

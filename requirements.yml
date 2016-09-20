@@ -2,3 +2,5 @@
   name: docker
 - src: https://github.com/hkumarmk/ansible-rabbitmq
   name: rabbitmq
+- src: geerlingguy.redis
+  name: redis

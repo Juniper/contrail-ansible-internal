@@ -1,5 +1,0 @@
----
-
-- name: Set up redis config
-  template: src="redis_config_file.j2" dest={{redis_config_file}}
-  notify: restart redis

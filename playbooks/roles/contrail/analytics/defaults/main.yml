@@ -2,6 +2,3 @@
 
 analytics_packages: 
   - contrail-analytics
-
-redis_config_file: "/etc/redis/redis.conf"
-redis_server_analytics_port: 6381

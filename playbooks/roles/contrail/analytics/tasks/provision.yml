@@ -1,3 +1,5 @@
 ---
 
-- include: redis.yml
+- name: Contrail specific redis configuration
+  template: src=redis_config_file.j2 dest=/etc/redis/redis_contrail.conf
+
