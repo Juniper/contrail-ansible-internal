@@ -13,8 +13,10 @@ webui_redis_password: ''
 webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
 webui_log_level: debug
 
-# Static auth for webui
-webui_static_auth: false
+# admin credentials for webui
 webui_admin_user: admin
-webui_admin_password: contrail123
+webui_admin_password: admin
 webui_admin_tenant_name: admin
+
+webui_packages:
+ - contrail-openstack-webui
