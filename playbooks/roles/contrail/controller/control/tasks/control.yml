@@ -18,3 +18,4 @@
 - name: Make sure control service is up
   supervisorctl: name="contrail-control" state=started config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
+  when: supervisor_control_ready
