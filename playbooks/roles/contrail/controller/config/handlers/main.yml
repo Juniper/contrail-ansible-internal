@@ -1,20 +1,27 @@
 - name: restart config api
   supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart config nodemanager
   supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart schema
   supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart ifmap
   supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart discovery
   supervisorctl: name="contrail-discovery" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart svc-monitor
   supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready
 
 - name: restart device-manager
   supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready

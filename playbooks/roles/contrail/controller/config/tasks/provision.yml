@@ -1,4 +1,13 @@
 ---
+
+- name: Check if supervisor is running and register it to supervisor_config_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_config.conf" || true
+  register: supervisor_config_ready_cmd
+  always_run: yes
+
+- name: "Setting a fact for supervisor_config_ready"
+  set_fact: supervisor_config_ready={{ (supervisor_config_ready_cmd.stdout) | ternary(true, false) }}
+
 - include: ifmap.yml
   tags: [contrail.ifmap, contrail.ifmap.provision]
 
@@ -19,3 +28,5 @@
 
 - include: device-manager.yml
   tags: [contrail.device-manager, contrail.device-manager.provision]
+
+- meta: flush_handlers
