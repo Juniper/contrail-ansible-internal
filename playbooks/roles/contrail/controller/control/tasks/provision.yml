@@ -1,4 +1,14 @@
 ---
+- name: Check if supervisord for control is running and register it to supervisor_control_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_control.conf" || true
+  register: supervisor_control_ready_cmd
+  always_run: yes
+  tags: [always]
+
+- name: "Setting a fact for supervisor_control_ready"
+  set_fact: supervisor_control_ready={{ (supervisor_control_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+
 - include: control.yml
   tags: [contrail.control, contrail.control.provision]
 
