@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/JioCloud/puppet-rjil.svg?branch=master)](https://travis-ci.org/hkumarmk/ansible-role-cassandra)
 # ansible-role-cassandra
 An ansible role for best practice Cassandra configuration and management.
 

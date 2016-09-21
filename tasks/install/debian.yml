@@ -1,0 +1,18 @@
+---
+- name: Install curl
+  apt: name=curl state=installed
+
+- name: Install JRE and other dependencies mentioned as cassandra dependencies
+  apt: pkg={{ item }} state=installed
+  register: jdk_installed
+  with_items: "{{ cassandra_dependencies }}"
+  tags: [dependencies, cassandra.dependencies]
+
+- name: Update java alternatives
+  action: command update-java-alternatives -s java-1.7.0-openjdk-amd64
+  when: jdk_installed.changed
+
+- name: Install Cassandra
+  apt: pkg={{ item }} update-cache=yes force=yes state=present
+  register: cassandra_install
+  with_items: "{{ cassandra_packages }}"

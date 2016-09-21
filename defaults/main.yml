@@ -1,12 +1,13 @@
 ---
 # defaults file for ansible-role-cassandra
----
 cassandra_distro: dsc
 cassandra_version: '2.1'
 cassandra_version_branch: 'stable'
 cassandra_deps:
   - 'openjdk-7-jre'
   - 'openjdk-7-jdk'
+
+cassandra_packages: [cassandra, opscenter]
 
 cassandra_1_2:
   repo:
