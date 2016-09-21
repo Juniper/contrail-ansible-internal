@@ -1,0 +1,11 @@
+- name: Install Cassandra config file
+  template: src=cassandra-{{cassandra_version_branch}}.j2 dest=/etc/cassandra/cassandra.yaml
+
+- name: Install Cassandra DC config file
+  template: src=cassandra-topology.yml.j2 dest=/etc/cassandra/cassandra-topology.yml
+
+- name: Install Cassandra Java Config File
+  template: src=cassandra-{{cassandra_version_branch}}-env.j2 dest=/etc/cassandra/cassandra-env.yaml
+
+- name: Install log4j config file
+  template: src=log4j-server.properties.j2 dest=/etc/cassandra/log4j-server.properties

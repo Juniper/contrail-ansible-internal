@@ -46,3 +46,16 @@ cassandra_stable:
       debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
 
 manage_repo: false
+
+cassandra_cluster_name: MyCluster
+cassandra_commitlog_dir: /var/lib/cassandra/commitlog
+cassandra_saved_caches_dir: /var/lib/cassandra/saved_caches
+cassandra_data_dirs:
+  - /var/lib/cassandra/data
+cassandra_seeds:
+  - "{{ ansible_default_ipv4.address }}"
+cassandra_listen_address: 0.0.0.0
+cassandra_cql_port: 9042
+cassandra_start_cql: true
+cassandra_rpc_port: 9160
+cassandra_start_rpc: true

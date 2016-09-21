@@ -1,0 +1,7 @@
+topology:
+  #FIXME: hkumarmk: this one should be dynamic
+  - dc_name: CLOUD
+    racks:
+      - rack_name: r1
+        nodes:
+          - broadcast_address: {{ ansible_eth0['ipv4']['address'] }}
