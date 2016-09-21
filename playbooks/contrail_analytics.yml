@@ -4,15 +4,15 @@
 
   pre_tasks:
     - name: "Contrail specific redis configuration"
-      template: src=redis_config_file.j2 dest=/etc/redis/redis_contrail.conf
-      tags: [contrail.redis, contrail.analytics]
+      copy: src=redis_contrail.conf dest=/etc/redis/redis_contrail.conf
+      tags: [contrail.analytics, contrail.analytics.provision, provision]
 
   roles:
     - role: contrail/common
       tags: [contrail.common, contrail.analytics]
 
     - role: redis
-      tags: [contrail.analytics, contrail.redis, redis]
+      tags: [contrail.analytics, contrail.analytics.install, install]
 
     - role: contrail/analytics
       tags: [contrail.analytics]
