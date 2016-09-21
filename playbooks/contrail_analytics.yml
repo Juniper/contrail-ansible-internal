@@ -2,13 +2,18 @@
 - name: "Setup Analytics Node"
   hosts: contrail-analytics
 
+  pre_tasks:
+    - name: "Contrail specific redis configuration"
+      template: src=redis_config_file.j2 dest=/etc/redis/redis_contrail.conf
+      tags: [contrail.redis, contrail.analytics]
+
   roles:
     - role: contrail/common
-      tags: [contrail.common]
+      tags: [contrail.common, contrail.analytics]
+
+    - role: redis
+      tags: [contrail.analytics, contrail.redis, redis]
 
     - role: contrail/analytics
       tags: [contrail.analytics]
-
-    - role: redis
-      tags: [contrail.redis, redis]
 

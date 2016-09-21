@@ -1,7 +1,6 @@
 daemonize yes
 pidfile /var/run/redis/redis-server.pid
 # Analytics redis port should be different from that of config redis, as that would help to run both of them on same node
-port {{ redis_port }}
 timeout 0
 tcp-keepalive 0
 loglevel notice
