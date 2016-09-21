@@ -1,0 +1,6 @@
+---
+- include: install.yml
+  tags: [contrail.analytics.install, install]
+
+- include: provision.yml
+  tags: [contrail.analytics.provision, provision]

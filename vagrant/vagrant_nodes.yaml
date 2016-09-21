@@ -9,6 +9,11 @@ resources:
     number: 2
     image: trusty
     flavor: large
+  # Analytics (ca)
+  ca: 
+    number: 2
+    image: trusty
+    flavor: large
 maps:
   image:
     virtualbox:
