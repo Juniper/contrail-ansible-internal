@@ -1,2 +1,47 @@
 ---
 # defaults file for ansible-role-cassandra
+---
+cassandra_distro: dsc
+cassandra_version: '2.1'
+cassandra_version_branch: 'stable'
+cassandra_deps:
+  - 'openjdk-7-jre'
+  - 'openjdk-7-jdk'
+
+cassandra_1_2:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 1.2 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 12x main'
+
+cassandra_2_0:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.0 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 20x main'
+
+cassandra_2_1:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.1 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
+
+cassandra_2_2:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.2 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 22x main'
+
+cassandra_stable:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community stable main'
+    apache:
+      # There is no "stable" branch there, but since dsc call 2.1 as stable, just using same version for apache also
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
+
+manage_repo: false

@@ -1,2 +1,5 @@
 ---
 # tasks file for ansible-role-cassandra
+- include: install/repo/debian.yml
+  when: ansible_os_family == 'Debian' and manage_repo
+  tags: [cassandra.install, install]
