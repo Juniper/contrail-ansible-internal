@@ -1,4 +1,7 @@
 ---
+- name: install policy-rc.d to selectively disable automated service start by apt
+  copy: src=policy-rc.d dest=/usr/sbin/policy-rc.d mode=0755
+
 - name: Install curl
   apt: name=curl state=installed
 
