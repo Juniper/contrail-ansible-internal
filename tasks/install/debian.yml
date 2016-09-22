@@ -5,8 +5,8 @@
 - name: Install JRE and other dependencies mentioned as cassandra dependencies
   apt: pkg={{ item }} state=installed
   register: jdk_installed
-  with_items: "{{ cassandra_dependencies }}"
-  tags: [dependencies, cassandra.dependencies]
+  with_items: "{{ cassandra_deps }}"
+  tags: [deps, cassandra.deps]
 
 - name: Update java alternatives
   action: command update-java-alternatives -s java-1.7.0-openjdk-amd64
