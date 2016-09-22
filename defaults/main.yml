@@ -1,8 +1,8 @@
 ---
 # defaults file for ansible-role-cassandra
 cassandra_distro: dsc
-cassandra_version: '2.1'
-cassandra_version_branch: 'stable'
+cassandra_version: '2.2'
+cassandra_version_branch: '2.2'
 cassandra_deps:
   - 'openjdk-7-jre'
   - 'openjdk-7-jdk'
@@ -37,15 +37,7 @@ cassandra_2_2:
     apache:
       debian: 'deb http://www.apache.org/dist/cassandra/debian 22x main'
 
-cassandra_stable:
-  repo:
-    dsc:
-      debian: 'deb http://debian.datastax.com/community stable main'
-    apache:
-      # There is no "stable" branch there, but since dsc call 2.1 as stable, just using same version for apache also
-      debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
-
-manage_repo: false
+cassandra_manage_repo: false
 
 cassandra_cluster_name: MyCluster
 cassandra_commitlog_dir: /var/lib/cassandra/commitlog
@@ -54,8 +46,19 @@ cassandra_data_dirs:
   - /var/lib/cassandra/data
 cassandra_seeds:
   - "{{ ansible_default_ipv4.address }}"
-cassandra_listen_address: 0.0.0.0
+cassandra_listen_address: "{{ ansible_default_ipv4.address }}"
 cassandra_cql_port: 9042
 cassandra_start_cql: true
 cassandra_rpc_port: 9160
 cassandra_start_rpc: true
+
+
+cassandra_java_max_heap_size: 512M
+cassandra_java_max_heap_newsize: 100M
+
+cassandra_log_level: info
+
+cassandra_service_manage: true
+cassandra_service_ensure: "started"
+cassandra_service_enable: yes
+cassandra_service_name: cassandra

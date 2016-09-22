@@ -4,4 +4,4 @@ topology:
     racks:
       - rack_name: r1
         nodes:
-          - broadcast_address: {{ ansible_eth0['ipv4']['address'] }}
+          - broadcast_address: {{ cassandra_listen_address }}
