@@ -1,5 +1,7 @@
 - name: restart webui
   supervisorctl: name="contrail-webui" state=restarted config=/etc/contrail/supervisord_webui.conf
+  when: supervisor_webui_ready
 
 - name: restart webui-middleware
   supervisorctl: name="contrail-webui-middleware" state=restarted config=/etc/contrail/supervisord_webui.conf
+  when: supervisor_webui_ready
