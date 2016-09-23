@@ -1,4 +1,12 @@
 ---
+- name: Do not auto start supervisor-webui (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-webui state=present create=yes
+  when: ansible_os_family == 'Debian'
+
 - name: install contrail-webui related packages
   package: name={{ item }} state=latest
   with_items: "{{ webui_packages }}"
+
+- name: Remove supervisor-webui from /etc/sensitive_servies (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-webui state=absent
+  when: ansible_os_family == 'Debian'

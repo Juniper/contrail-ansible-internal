@@ -1,4 +1,14 @@
 ---
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/16
+- name: Do not auto start supervisor-config (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-config state=present create=yes
+  when: ansible_os_family == 'Debian'
+
 - name: install contrail-config related packages
   package: name={{ item }} state=latest
   with_items: "{{ config_packages }}"
+
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/16
+- name: Remove supervisor-config from /etc/sensitive_servies (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-config state=absent
+  when: ansible_os_family == 'Debian'
