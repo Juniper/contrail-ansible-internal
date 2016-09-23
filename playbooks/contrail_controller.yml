@@ -3,6 +3,9 @@
   hosts: contrail-controllers
 
   roles:
+    - role: common
+      tags: always
+
     - role: contrail/controller/config
       tags: [contrail.controller, contrail.config]
 
