@@ -13,7 +13,8 @@
     - bridge-utils
   package: name={{item}} state=present
 
-- stat: path=/usr/bin/docker
+- name: checking docker binary exists
+  stat: path=/usr/bin/docker
   become: yes
   become_user: root
   register: dockerBinary
@@ -37,7 +38,7 @@
   become_user: root
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int < 16
   include_vars: upstart-vars.yml
-    
+
 - name : creating init-system config directory...
   become: yes
   become_user: root
@@ -47,7 +48,7 @@
     path=/{{item.d}}
     state=directory
     mode=0755
-    
+
 - name: configuring init-system...
   become: yes
   become_user: root
@@ -65,7 +66,7 @@
     path=/root/.docker
     state=directory
     mode=0700
-    
+
 - name: configuring docker access for the root user...
   become: yes
   become_user: root
@@ -95,3 +96,4 @@
   become_user: root
   service: name=docker state=started enabled=yes
 
+- meta: flush_handlers

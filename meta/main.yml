@@ -25,4 +25,3 @@ galaxy_info:
 dependencies:
   - role: andrewrothstein.curl
     version: v1.0.0
-  
