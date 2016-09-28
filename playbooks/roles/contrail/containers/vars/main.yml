@@ -1,0 +1,7 @@
+container_agent_common_env:
+  CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+  COMPILE_VROUTER_MODULE: "{{ agent_compile_vrouter_module|default('yes') }}"
+  VROUTER_PHYSICAL_INTERFACE: "{{ vrouter_physical_interface|default('') }}"
+  CONFIG_IP: "{{ config_ip }}"
+
+agent_env: "{{ container_agent_common_env|combine(container_agent_extra_env) }}"

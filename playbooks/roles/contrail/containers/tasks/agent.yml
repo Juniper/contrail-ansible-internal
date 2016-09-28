@@ -8,8 +8,7 @@
     state: started
     capabilities:
       - AUDIT_WRITE
-    env:
-      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+    env: "{{ agent_env }}"
     volumes:
       - "/lib/modules:/lib/modules"
       - "/usr/src:/usr/src"
