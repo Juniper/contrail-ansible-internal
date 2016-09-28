@@ -8,6 +8,7 @@
       tags: [contrail.analytics, contrail.analytics.provision, provision]
 
   roles:
+    - role: common
     - role: contrail/common
       tags: [contrail.common, contrail.analytics]
 
