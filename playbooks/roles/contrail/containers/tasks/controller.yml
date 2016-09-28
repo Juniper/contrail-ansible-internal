@@ -1,0 +1,25 @@
+---
+- name: "Start contrail controller container"
+  docker_container:
+    name: controller
+    image: "{{ controller_image }}"
+    privileged: true
+    pid_mode: host
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+
+- name: "Start contrail analytics container"
+  docker_container:
+    name: analytics
+    image: "{{ analytics_image }}"
+    privileged: true
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
