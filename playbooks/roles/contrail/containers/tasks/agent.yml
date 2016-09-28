@@ -1,0 +1,15 @@
+---
+- name: "Start contrail agent container"
+  docker_container:
+    name: agent
+    image: "{{ agent_image }}"
+    privileged: true
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+    volumes:
+      - "/lib/modules:/lib/modules"
+      - "/usr/src:/usr/src"
