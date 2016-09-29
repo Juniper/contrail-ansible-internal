@@ -36,7 +36,7 @@
   notify: restart schema
 
 - name: configure schema cassandra_server_list
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=cassandra_server_list value={{ configdb_servers_with_port }}
   notify: restart schema
 
 - name: configure schema api_server_ip

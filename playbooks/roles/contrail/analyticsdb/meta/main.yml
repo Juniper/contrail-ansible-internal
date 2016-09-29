@@ -3,3 +3,6 @@ dependencies:
   - contrail/common
   - role: contrail/infra
     contrailinfra_enable_cassandra: true
+    cassandra_cql_port: "{{ configdb_cql_port }}"
+    cassandra_rpc_port: "{{ configdb_port }}"
+    enable_contrail_database: true

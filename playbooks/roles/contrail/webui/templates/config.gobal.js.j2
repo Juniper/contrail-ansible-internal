@@ -226,8 +226,8 @@ config.files.download_path = '/tmp';
 
 /* Cassandra Server */
 config.cassandra = {};
-config.cassandra.server_ips = {{ cassandra_server_list|to_json }};
-config.cassandra.server_port = '{{ cassandra_cql_port }}';
+config.cassandra.server_ips = {{ configdb_server_list|to_json }};
+config.cassandra.server_port = '{{ configdb_cql_port }}';
 {# What is for enable_edit? #}
 config.cassandra.enable_edit = false;
 

@@ -32,7 +32,7 @@
   notify: restart device-manager
 
 - name: configure device-manager cassandra_server_list
-  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=cassandra_server_list value={{ configdb_servers_with_port }}
   notify: restart device-manager
 
 - name: configure device-manager disc_server_ip

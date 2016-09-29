@@ -16,7 +16,7 @@
   notify: restart svc-monitor
 
 - name: configure svc-monitor cassandra_server_list
-  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=cassandra_server_list value={{ configdb_servers_with_port }}
   notify: restart svc-monitor
 
 - name: configure svc-monitor api_server_ip
