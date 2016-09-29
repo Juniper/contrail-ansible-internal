@@ -5,5 +5,7 @@ else
   name="$1"
 fi
 sensitive_services_list=/etc/sensitive_services
-grep -x "$name" "$sensitive_services_list" && exit 101
+if [ -e $sensitive_services_list ]; then
+    grep -x "$name" "$sensitive_services_list" && exit 101
+fi
 exit 0
