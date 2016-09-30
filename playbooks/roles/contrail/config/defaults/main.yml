@@ -65,3 +65,4 @@ config_packages:
   - ifmap-server
   - ifmap-python-client
   - contrail-config-openstack
+  - zookeeper

@@ -28,7 +28,7 @@
   notify: restart discovery
 
 - name: configure discovery cassandra_server_list
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ cassandra_servers_with_port }}
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ configdb_servers_with_port }}
   notify: restart discovery
 
 - name: configure discovery ttl_min
