@@ -9,6 +9,10 @@ analytics_image: >-
 agent_image: >-
   {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-agent-liberty:{{ contrail_version }}
   {%- else %}contrail-agent-liberty:{{ contrail_version }}{%- endif %}
+vrouter_compiler_image_redhat7: >-
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/vrouter-module-compiler-redhat7:{{ contrail_version }}
+  {%- else %}vrouter-module-compiler-redhat7:{{ contrail_version }}{%- endif %}
 docker_py_version: 1.9.0
 
 container_agent_extra_env: {}
+external_vrouter_compile: false
