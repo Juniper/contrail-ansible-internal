@@ -13,6 +13,9 @@
   when: ansible_os_family == 'Debian'
   tags: [package, cassandra.package, cassandra.install, install]
 
+- include: common.yml
+  tags: [cassandra.install, install, configure]
+
 - include: configure.yml
   tags: [configure, cassandra.configure]
 
