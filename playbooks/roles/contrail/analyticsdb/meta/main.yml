@@ -5,4 +5,6 @@ dependencies:
     contrailinfra_enable_cassandra: true
     cassandra_cql_port: "{{ configdb_cql_port }}"
     cassandra_rpc_port: "{{ configdb_port }}"
-    enable_contrail_database: true
+    cassandra_rmi_port: "{{ configdb_rmi_port }}"
+    cassandra_storage_port: "{{ configdb_storage_port }}"
+    cassandra_ssl_storage_port: "{{ configdb_ssl_storage_port }}"
