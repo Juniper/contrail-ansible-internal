@@ -1,0 +1,7 @@
+---
+- name: "Setup Contrail analytics db"
+  hosts: contrail-analyticsdb
+  roles:
+    - role: common
+    - role: contrail/analyticsdb
+      tags: [contrail.analyticsdb]
