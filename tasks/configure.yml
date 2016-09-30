@@ -8,7 +8,7 @@
   notify: restart cassandra
 
 - name: Install Cassandra Java Config File
-  template: src=cassandra-{{cassandra_version_branch}}-env.j2 dest=/etc/cassandra/cassandra-env.yaml
+  template: src=cassandra-{{cassandra_version_branch}}-env.j2 dest=/etc/cassandra/cassandra-env.sh
   notify: restart cassandra
 
 - name: Install log4j config file
