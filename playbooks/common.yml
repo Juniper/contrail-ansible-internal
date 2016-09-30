@@ -1,0 +1,6 @@
+---
+- name: Common settings
+  hosts: all
+
+  roles:
+    - role: common
