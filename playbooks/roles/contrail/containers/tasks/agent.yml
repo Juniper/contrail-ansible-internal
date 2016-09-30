@@ -1,4 +1,31 @@
 ---
+- name: resolve platform specific vars
+  include_vars: "{{item}}"
+  with_first_found:
+    - "{{ansible_distribution}}-{{ansible_distribution_release}}.yml"
+    - "{{ansible_distribution}}.yml"
+    - "{{ansible_os_family}}.yml"
+
+- name: "Compile vrouter module"
+  docker_container:
+    name: agent
+    image: "{{ vrouter_compiler_image_redhat7 }}"
+    privileged: true
+    state: started
+    detach: false
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      INSTALL_VROUTER_MODULE: true
+    volumes:
+      - "/lib/modules:/lib/modules"
+      - "/usr/src:/usr/src"
+    when: external_vrouter_compile and ansible_os_family == 'RedHat'
+
+- name: "Fail if external_vrouter_compile is true and unsupported OS family"
+  shell: "echo 'Unsupported OS family for external vrouter compilation {{ ansible_os_family }}';false"
+  when: external_vrouter_compile and ansible_os_family != 'RedHat'
+
 - name: "Start contrail agent container"
   docker_container:
     name: agent
@@ -8,8 +35,7 @@
     state: started
     capabilities:
       - AUDIT_WRITE
-    env:
-      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+    env: "{{ agent_env }}"
     volumes:
       - "/lib/modules:/lib/modules"
       - "/usr/src:/usr/src"
