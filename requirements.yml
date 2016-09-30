@@ -4,3 +4,6 @@
   name: rabbitmq
 - src: geerlingguy.redis
   name: redis
+- src: https://github.com/hkumarmk/ansible-role-cassandra
+  version: master
+  name: cassandra
