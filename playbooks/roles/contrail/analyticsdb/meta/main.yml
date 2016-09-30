@@ -1,0 +1,5 @@
+---
+dependencies:
+  - contrail/common
+  - role: contrail/infra
+    contrailinfra_enable_cassandra: true

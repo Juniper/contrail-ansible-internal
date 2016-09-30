@@ -1,2 +1,5 @@
 [contrail-controllers]
 localhost   ansible_connection=local
+
+[contrail-analyticsdb]
+localhost   ansible_connection=local
