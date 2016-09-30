@@ -5,11 +5,11 @@
   roles:
     - role: common
 
-    - role: contrail/controller/config
+    - role: contrail/config
       tags: [contrail.controller, contrail.config]
 
-    - role: contrail/controller/control
+    - role: contrail/control
       tags: [contrail.controller, contrail.controlnode]
 
-    - role: contrail/controller/webui
+    - role: contrail/webui
       tags: [contrail.controller, contrail.webui]
