@@ -12,3 +12,4 @@
 - include: federation.yml
   tags: [configure, rabbitmq.configure]
   when: rabbitmq_federation
+- meta: flush_handlers
