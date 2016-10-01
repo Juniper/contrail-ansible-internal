@@ -1,0 +1,3 @@
+---
+- name: Make sure rabbitmq-server started and enabled on boot
+  service: name=rabbitmq-server state=started enabled=yes
