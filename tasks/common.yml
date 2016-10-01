@@ -1,0 +1,10 @@
+---
+- name: Make sure cassandra_commitlog_dir exist
+  file: path="{{ cassandra_commitlog_dir }}" state=directory mode=0755 owner=cassandra group=cassandra
+
+- name: Make sure cassandra_saved_caches_dir exist
+  file: path="{{ cassandra_saved_caches_dir }}" state=directory mode=0755 owner=cassandra group=cassandra
+
+- name: Make sure cassandra_data_dirs exist
+  file: path="{{ item }}" state=directory mode=0755 owner=cassandra group=cassandra
+  with_items: "{{ cassandra_data_dirs }}"
