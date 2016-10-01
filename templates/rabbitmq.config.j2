@@ -5,7 +5,11 @@
    declare it.
 #}
 {% if rabbitmq_conf_tcp_listeners_address != '' %}
-    {tcp_listeners, [{"{{ rabbitmq_conf_tcp_listeners_address }}", {{ rabbitmq_conf_tcp_listeners_port }}}]}{% if rabbitmq_ssl %},
+    {tcp_listeners, [{"{{ rabbitmq_conf_tcp_listeners_address }}", {{ rabbitmq_conf_tcp_listeners_port }}}]}
+    {% if (not rabbitmq_remove_default_user and rabbitmq_allow_remote_guest) or rabbitmq_ssl %},{% endif %}
+{% endif %}
+{% if not rabbitmq_remove_default_user and rabbitmq_allow_remote_guest %}
+    {loopback_users, []}{% if rabbitmq_ssl %},
 {% endif %}
 {#
    Otherwise, shut down the listenner.

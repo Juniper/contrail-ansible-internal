@@ -42,3 +42,4 @@ rabbitmq_conf_ssl_options_fail_if_no_peer_cert: "true"
 rabbitmq_env: false
 
 rabbitmq_remove_default_user: true
+rabbitmq_allow_remote_guest: false
