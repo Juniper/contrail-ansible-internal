@@ -1,9 +1,11 @@
 - src: https://github.com/hkumarmk/ansible-docker
   name: docker
-- src: https://github.com/hkumarmk/ansible-rabbitmq
+  version: 4486a0f1ab29f227cca1cf469c0d142862e337c8
+- src: https://github.com/hkumarmk/ansible-playbook-rabbitmq
+  version: 49e311e8d99db0775bd43a9b77c2601ec36293bd
   name: rabbitmq
 - src: geerlingguy.redis
   name: redis
 - src: https://github.com/hkumarmk/ansible-role-cassandra
-  version: master
+  version: 4c0c5065e661cda0ee0d9b5fa202134bef01667d
   name: cassandra
