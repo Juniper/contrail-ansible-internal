@@ -32,10 +32,11 @@
     state=absent
   register: rm_guest_hostname
   ignore_errors: true
+  when: rabbitmq_remove_default_user
 
 - name: remove guest user (default)
   rabbitmq_user:
     user=guest
     vhost=/
     state=absent
-  when: rm_guest_hostname|failed
+  when: rm_guest_hostname|failed and rabbitmq_remove_default_user
