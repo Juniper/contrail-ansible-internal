@@ -66,3 +66,10 @@ config_packages:
   - ifmap-python-client
   - contrail-config-openstack
   - zookeeper
+
+# Rabbitmq details
+contrail_rabbitmq_os_package: true
+contrail_rabbitmq_remove_default_user: false
+contrail_rabbitmq_ssl: false
+contrail_rabbitmq_listen_address: 0.0.0.0
+contrail_rabbitmq_allow_remote_guest: true
