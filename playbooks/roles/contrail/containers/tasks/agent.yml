@@ -2,9 +2,11 @@
 - name: resolve platform specific vars
   include_vars: "{{item}}"
   with_first_found:
-    - "{{ansible_distribution}}-{{ansible_distribution_release}}.yml"
-    - "{{ansible_distribution}}.yml"
-    - "{{ansible_os_family}}.yml"
+    - files:
+      - "{{ansible_distribution}}-{{ansible_distribution_release}}.yml"
+      - "{{ansible_distribution}}.yml"
+      - "{{ansible_os_family}}.yml"
+      skip: true
 
 - name: "Compile vrouter module"
   docker_container:
@@ -20,7 +22,7 @@
     volumes:
       - "/lib/modules:/lib/modules"
       - "/usr/src:/usr/src"
-    when: external_vrouter_compile and ansible_os_family == 'RedHat'
+  when: external_vrouter_compile and ansible_os_family == 'RedHat'
 
 - name: "Fail if external_vrouter_compile is true and unsupported OS family"
   shell: "echo 'Unsupported OS family for external vrouter compilation {{ ansible_os_family }}';false"
