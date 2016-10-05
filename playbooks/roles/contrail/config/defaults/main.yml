@@ -65,7 +65,6 @@ config_packages:
   - ifmap-server
   - ifmap-python-client
   - contrail-config-openstack
-  - zookeeper
 
 # Rabbitmq details
 contrail_rabbitmq_os_package: true
