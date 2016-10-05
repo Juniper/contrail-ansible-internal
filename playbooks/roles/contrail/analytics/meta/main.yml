@@ -1,3 +1,6 @@
 ---
 dependencies:
   - contrail/common
+  - role: redis
+    redis_port: "{{ analytics_redis_port }}"
+    tags: [redis, install, configure, redis.install, redis.configure]

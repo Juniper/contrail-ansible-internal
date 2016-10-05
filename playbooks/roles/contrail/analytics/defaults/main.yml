@@ -2,3 +2,5 @@
 
 analytics_packages: 
   - contrail-analytics
+
+analytics_redis_port: 6381
