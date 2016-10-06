@@ -9,3 +9,5 @@
   set_fact: supervisor_analytics_ready={{ (supervisor_analytics_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
 
+- include: alarm-gen.yml
+  tags: [contrail.alarmgen, contrail.alarmgen.provision]

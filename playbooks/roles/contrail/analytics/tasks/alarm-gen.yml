@@ -1,0 +1,31 @@
+---
+- name: configure /etc/contrail/contrail-alarm-gen.conf DEFAULTS section
+  ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  notify: restart alarm-gen
+  with_dict:
+    host_ip: "{{ analytics_host_ip }}"
+    log_file: "{{ alarmgen_log }}"
+    log_level: "{{ alarmgen_log_level }}"
+    log_local: "{{ log_local }}"
+    kafka_broker_list: "{{ kafka_brokers_with_port }}"
+    zk_list: "{{ zk_servers_with_port }}"
+
+- name: configure /etc/contrail/contrail-alarm-gen.conf DISCOVERY section
+  ini_file: dest={{ alarmgen_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
+  notify: restart alarm-gen
+  with_dict:
+    disc_server_ip: "{{ disc_server_ip }}"
+    disc_server_port: "{{ disc_server_port }}"
+
+- name: configure /etc/contrail/contrail-alarm-gen.conf REDIS section
+  ini_file: dest={{ alarmgen_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
+  notify: restart alarm-gen
+  with_dict:
+    redis_server_ip: "{{ analytics_redis_ip }}"
+    redis_server_port: "{{ analytics_redis_port }}"
+
+# Service management
+- name: Make sure alarmgen service is up
+  supervisorctl: name="contrail-alarm-gen" state=started config=/etc/contrail/supervisord_analytics.conf
+  tags: [service, contrail.alarmgen.service, contrail.analytics.service]
+  when: supervisor_analytics_ready

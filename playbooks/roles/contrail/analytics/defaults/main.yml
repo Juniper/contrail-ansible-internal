@@ -4,3 +4,10 @@ analytics_packages:
   - contrail-openstack-analytics
 
 analytics_redis_port: 6381
+analytics_redis_ip: 127.0.0.1
+analytics_host_ip: "{{ analytics_server_ip }}"
+
+# Alarmgen
+alarmgen_conf: "/etc/contrail/contrail-alarm-gen.conf"
+alarmgen_log: /var/log/contrail/contrail-alarm-gen.log
+alarmgen_log_level: "{{ log_level }}"

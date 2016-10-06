@@ -3,3 +3,6 @@ localhost   ansible_connection=local
 
 [contrail-analyticsdb]
 localhost   ansible_connection=local
+
+[contrail-analytics]
+localhost   ansible_connection=local
