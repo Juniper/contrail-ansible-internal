@@ -1,6 +1,6 @@
 ---
 
 analytics_packages: 
-  - contrail-analytics
+  - contrail-openstack-analytics
 
 analytics_redis_port: 6381
