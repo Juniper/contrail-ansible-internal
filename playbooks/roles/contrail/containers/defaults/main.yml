@@ -1,14 +1,17 @@
 ---
 cloud_orchestrator: openstack
 controller_image: >-
-  {%- if contrail_docker_registry -%}{{ contrail_docker_registry }}/contrail-controller-liberty:{{ contrail_version }}
-  {%- else %}contrail-controller-liberty:{{ contrail_version }}{%- endif %}
+  {%- if contrail_docker_registry -%}{{ contrail_docker_registry }}/contrail-controller:{{ contrail_version }}
+  {%- else %}contrail-controller:{{ contrail_version }}{%- endif %}
 analytics_image: >-
-  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-analytics-liberty:{{ contrail_version }}
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-analytics:{{ contrail_version }}
   {%- else %}contrail-analytics-liberty:{{ contrail_version }}{%- endif %}
+analyticsdb_image: >-
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-analyticsdb:{{ contrail_version }}
+  {%- else %}contrail-analyticsdb-liberty:{{ contrail_version }}{%- endif %}
 agent_image: >-
-  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-agent-liberty:{{ contrail_version }}
-  {%- else %}contrail-agent-liberty:{{ contrail_version }}{%- endif %}
+  {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/contrail-agent:{{ contrail_version }}
+  {%- else %}contrail-agent:{{ contrail_version }}{%- endif %}
 vrouter_compiler_image_redhat7: >-
   {%- if contrail_docker_registry -%}{{contrail_docker_registry}}/vrouter-module-compiler-redhat7:{{ contrail_version }}
   {%- else %}vrouter-module-compiler-redhat7:{{ contrail_version }}{%- endif %}
@@ -16,3 +19,4 @@ docker_py_version: 1.9.0
 
 container_agent_extra_env: {}
 external_vrouter_compile: false
+vrouter_physical_interface: "{{ ansible_default_ipv4.interface }}"

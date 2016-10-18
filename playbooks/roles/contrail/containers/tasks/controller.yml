@@ -12,6 +12,18 @@
     env:
       CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
 
+- name: "Start contrail analyticsdb container"
+  docker_container:
+    name: analyticsdb
+    image: "{{ analyticsdb_image }}"
+    privileged: true
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"
+
 - name: "Start contrail analytics container"
   docker_container:
     name: analytics
