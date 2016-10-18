@@ -24,7 +24,6 @@
   ini_file: dest={{ alarmgen_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
   notify: restart alarm-gen
   with_dict:
-    redis_server_ip: "{{ analytics_redis_ip }}"
     redis_server_port: "{{ analytics_redis_port }}"
 
 # Service management
