@@ -11,3 +11,6 @@
 
 - include: alarm-gen.yml
   tags: [contrail.alarmgen, contrail.alarmgen.provision]
+
+- include: api.yml
+  tags: [contrail.api, contrail.api.provision]

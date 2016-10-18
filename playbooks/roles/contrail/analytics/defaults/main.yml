@@ -7,6 +7,17 @@ analytics_redis_port: 6381
 analytics_redis_ip: 127.0.0.1
 analytics_host_ip: "{{ analytics_server_ip }}"
 
+# analaytics-api
+analytics_api_conf: "/etc/contrail/contrail-analytics-api.conf"
+analytics_api_log: /var/log/contrail/contrail-analytics-api.log
+analytics_api_log_level: "{{ log_level }}"
+analytics_api_introspect_port: 8090
+analytics_api_port: "{{ analytics_server_port }}"
+analytics_data_ttl: -1
+analytics_statistics_ttl: -1
+analytics_config_audit_ttl: -1
+analytics_flow_ttl: -1
+
 # Alarmgen
 alarmgen_conf: "/etc/contrail/contrail-alarm-gen.conf"
 alarmgen_log: /var/log/contrail/contrail-alarm-gen.log
