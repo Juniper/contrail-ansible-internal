@@ -5,6 +5,8 @@
 
 - include: controller.yml
   tags: [container.controller, controller]
+  when: container_enable_controller is defined
 
 - include: agent.yml
   tags: [container.agent, agent]
+  when: container_enable_agent is defined
