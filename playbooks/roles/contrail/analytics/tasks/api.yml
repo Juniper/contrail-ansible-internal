@@ -1,0 +1,40 @@
+---
+- name: configure /etc/contrail/contrail-analytics-api.conf DEFAULTS section
+  ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  notify: restart analytics-api
+  with_dict:
+    host_ip: "{{ analytics_host_ip }}"
+    log_file: "{{ analytics_api_log }}"
+    log_level: "{{ analytics_api_log_level }}"
+    log_local: "{{ log_local }}"
+    cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
+    partitions: "{{ anlaytics_uve_partition_count }}"
+    api_server: "{{ api_server_ip }}:{{ api_server_port }}"
+    http_server_port: "{{ analytics_api_introspect_port }}"
+    rest_api_port: "{{ analytics_api_port }}"
+    analytics_data_ttl: "{{ analytics_data_ttl }}"
+    analytics_statistics_ttl: "{{ analytics_statistics_ttl }}"
+    analytics_config_audit_ttl: "{{ analytics_config_audit_ttl }}"
+    analytics_flow_ttl: "{{ analytics_flow_ttl }}"
+    aaa_mode: "{{ analytics_aaa_mode_orig }}"
+
+- name: configure /etc/contrail/contrail-analytics-api.conf DISCOVERY section
+  ini_file: dest={{ analytics_api_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
+  notify: restart analytics-api
+  with_dict:
+    disc_server_ip: "{{ disc_server_ip }}"
+    disc_server_port: "{{ disc_server_port }}"
+
+- name: configure /etc/contrail/contrail-analytics-api.conf REDIS section
+  ini_file: dest={{ analytics_api_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
+  notify: restart analytics-api
+  with_dict:
+    redis_query_port: "{{ analytics_redis_port }}"
+    redis_server_port: "{{ analytics_redis_port }}"
+    server: "{{ analytics_redis_ip }}"
+
+# Service management
+- name: Make sure analytics_api service is up
+  supervisorctl: name="contrail-analytics-api" state=started config=/etc/contrail/supervisord_analytics.conf
+  tags: [service, contrail.analytics_api.service, contrail.analytics.service]
+  when: supervisor_analytics_ready
