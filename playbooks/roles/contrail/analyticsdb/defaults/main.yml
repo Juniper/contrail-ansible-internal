@@ -1,0 +1,8 @@
+---
+# contrail database
+contrail_database_packages:
+  - contrail-openstack-database
+  - opscenter
+
+# Node manager
+nodemanager_conf: "/etc/contrail/contrail-database-nodemgr.conf"
