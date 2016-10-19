@@ -14,3 +14,6 @@
 
 - include: api.yml
   tags: [contrail.api, contrail.api.provision]
+
+- include: nodemanager.yml
+  tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.provision]
