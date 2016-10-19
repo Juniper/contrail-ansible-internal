@@ -26,3 +26,10 @@ alarmgen_log_level: "{{ log_level }}"
 anlaytics_uve_partition_count: 30
 
 nodemanager_conf: /etc/contrail/contrail-analytics-nodemgr.conf
+
+analytics_collector_conf: /etc/contrail/contrail-collector.conf
+analytics_collector_log: /var/log/contrail/contrail-collector.log
+analytics_collector_log_level: "{{ log_level }}"
+analytics_collector_introspect_port: 8089
+# TCP and UDP ports to listen on for receiving syslog messages. -1 to disable.
+analytics_collector_syslog_port: -1

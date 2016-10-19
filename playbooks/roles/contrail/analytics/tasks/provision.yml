@@ -17,3 +17,6 @@
 
 - include: nodemanager.yml
   tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.provision]
+
+- include: collector.yml
+  tags: [contrail.collector, contrail.collector.provision]
