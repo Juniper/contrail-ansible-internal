@@ -26,3 +26,6 @@
 
 - include: snmp-collector.yml
   tags: [contrail.snmp-collector, contrail.snmp-collector.provision]
+
+- include: topology.yml
+  tags: [contrail.topology, contrail.topology.provision]

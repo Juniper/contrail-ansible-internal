@@ -1,0 +1,23 @@
+---
+- name: configure /etc/contrail/contrail-topology.conf DEFAULT section
+  ini_file: dest={{ analytics_topology_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  notify: restart analytics topology
+  with_dict:
+    zookeeper: "{{ zk_servers_with_port }}"
+    log_file: "{{ analytics_topology_log }}"
+    log_level: "{{ analytics_topology_log_level }}"
+    log_local: "{{ log_local }}"
+    http_server_port: "{{ analytics_topology_introspect_port }}"
+
+- name: configure /etc/contrail/contrail-topology.conf DISCOVERY section
+  ini_file: dest={{ analytics_topology_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
+  notify: restart analytics topology
+  with_dict:
+    server: "{{ disc_server_ip }}"
+    port: "{{ disc_server_port }}"
+
+# Service management
+- name: Make sure contrail-topology service is up
+  supervisorctl: name="contrail-topology" state=started config=/etc/contrail/supervisord_analytics.conf
+  tags: [service, contrail.topology.service, contrail.analytics.service]
+  when: supervisor_analytics_ready
