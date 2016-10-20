@@ -10,3 +10,8 @@
 - name: Remove supervisor-webui from /etc/sensitive_servies (WA for issue contrail-docker/16)
   lineinfile: dest=/etc/sensitive_services line=supervisor-webui state=absent
   when: ansible_os_family == 'Debian'
+
+# Changing minfds need to be done in install stage as supervisord itself need to be restarted after that
+# and it is managed by container entrypoint script and not by ansible.
+- name: change minfds for supervisord_webui
+  ini_file: dest=/etc/contrail/supervisord_webui.conf section=supervisord option=minfds value={{ supervisord_webui_minfds }}

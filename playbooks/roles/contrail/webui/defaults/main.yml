@@ -20,3 +20,7 @@ webui_admin_tenant_name: admin
 
 webui_packages:
  - contrail-openstack-webui
+
+# This is to configure minimum number of file descriptors that must be available before supervisord will start
+# successfully - default is 1024 but supervisord_webui need more than that.
+supervisord_webui_minfds: 10240
