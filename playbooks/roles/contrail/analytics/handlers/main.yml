@@ -17,3 +17,7 @@
 - name: restart analytics query-engine
   supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
   when: supervisor_analytics_ready
+
+- name: restart analytics snmp-collector
+  supervisorctl: name="contrail-snmp-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready

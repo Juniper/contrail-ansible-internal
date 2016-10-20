@@ -23,3 +23,6 @@
 
 - include: query-engine.yml
   tags: [contrail.query-engine, contrail.query-engine.provision]
+
+- include: snmp-collector.yml
+  tags: [contrail.snmp-collector, contrail.snmp-collector.provision]
