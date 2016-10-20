@@ -13,7 +13,7 @@
   tags: [contrail.alarmgen, contrail.alarmgen.provision]
 
 - include: api.yml
-  tags: [contrail.api, contrail.api.provision]
+  tags: [contrail.analytics.api, contrail.analytics.api.provision]
 
 - include: nodemanager.yml
   tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.provision]

@@ -36,5 +36,5 @@
 # Service management
 - name: Make sure analytics_api service is up
   supervisorctl: name="contrail-analytics-api" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.analytics_api.service, contrail.analytics.service]
+  tags: [service, contrail.analytics.api.service, contrail.analytics.service]
   when: supervisor_analytics_ready
