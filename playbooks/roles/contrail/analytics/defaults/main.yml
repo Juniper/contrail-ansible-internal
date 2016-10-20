@@ -33,3 +33,9 @@ analytics_collector_log_level: "{{ log_level }}"
 analytics_collector_introspect_port: 8089
 # TCP and UDP ports to listen on for receiving syslog messages. -1 to disable.
 analytics_collector_syslog_port: -1
+
+#query engine defaults
+analytics_query_engine_conf: /etc/contrail/contrail-query-engine.conf
+analytics_query_engine_log: /var/log/contrail/contrail-query-engine.log
+analytics_query_engine_log_level: "{{ log_level }}"
+analytics_query_engine_introspect_port: 8091

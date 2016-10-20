@@ -20,3 +20,6 @@
 
 - include: collector.yml
   tags: [contrail.collector, contrail.collector.provision]
+
+- include: query-engine.yml
+  tags: [contrail.query-engine, contrail.query-engine.provision]

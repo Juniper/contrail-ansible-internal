@@ -13,3 +13,7 @@
 - name: restart analytics collector
   supervisorctl: name="contrail-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
   when: supervisor_analytics_ready
+
+- name: restart analytics query-engine
+  supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready

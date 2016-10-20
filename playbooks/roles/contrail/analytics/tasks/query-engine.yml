@@ -1,0 +1,31 @@
+---
+- name: configure /etc/contrail/contrail-query-engine.conf DEFAULT section
+  ini_file: dest={{ analytics_query_engine_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  notify: restart analytics query-engine
+  with_dict:
+    cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
+    hostip: "{{ analytics_host_ip }}"
+    log_file: "{{ analytics_query_engine_log }}"
+    log_level: "{{ analytics_query_engine_log_level }}"
+    log_local: "{{ log_local }}"
+    http_server_port: "{{ analytics_query_engine_introspect_port }}"
+
+- name: configure /etc/contrail/contrail-query-engine.conf DISCOVERY section
+  ini_file: dest={{ analytics_query_engine_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
+  notify: restart analytics query-engine
+  with_dict:
+    server: "{{ disc_server_ip }}"
+    port: "{{ disc_server_port }}"
+
+- name: configure /etc/contrail/contrail-query-engine.conf REDIS section
+  ini_file: dest={{ analytics_query_engine_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
+  notify: restart analytics query-engine
+  with_dict:
+    port: "{{ analytics_redis_port }}"
+    server: "{{ analytics_redis_ip }}"
+
+# Service management
+- name: Make sure analytics query-engine service is up
+  supervisorctl: name="contrail-query-engine" state=started config=/etc/contrail/supervisord_analytics.conf
+  tags: [service, contrail.query-engine.service, contrail.analytics.service]
+  when: supervisor_analytics_ready
