@@ -5,3 +5,7 @@
 - name: restart analytics-api
   supervisorctl: name="contrail-analytics-api" state=restarted config=/etc/contrail/supervisord_analytics.conf
   when: supervisor_analytics_ready
+
+- name: restart analytics nodemanager
+  supervisorctl: name="contrail-analytics-nodemgr" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready
