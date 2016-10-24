@@ -2,6 +2,10 @@
 - name: "Setup Controller"
   hosts: contrail-controllers
 
+  pre_tasks:
+    - include_vars: contrail_controller.yml
+      tags: always
+
   roles:
     - role: common
 

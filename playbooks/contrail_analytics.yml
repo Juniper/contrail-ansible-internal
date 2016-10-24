@@ -2,6 +2,10 @@
 - name: "Setup Contrail Analytics"
   hosts: contrail-analytics
 
+  pre_tasks:
+    - include_vars: contrail_analytics.yml
+      tags: always
+
   roles:
     - role: common
 
