@@ -1,6 +1,11 @@
 ---
 - name: "Setup Contrail analytics db"
   hosts: contrail-analyticsdb
+
+  pre_tasks:
+    - include_vars: contrail_analyticsdb.yml
+      tags: always
+
   roles:
     - role: common
     - role: contrail/analyticsdb
