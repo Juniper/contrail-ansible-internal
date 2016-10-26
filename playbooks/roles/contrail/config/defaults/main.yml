@@ -20,16 +20,6 @@ schema_log_level: SYS_NOTICE
 schema_ifmap_username: schema-transformer
 schema_ifmap_password: schema-transformer
 
-# Ifmap server specific configuration
-ifmap_basicauth_properties_file: /etc/ifmap-server/basicauthusers.properties
-ifmap_properties_file: /etc/ifmap-server/ifmap.properties
-ifmap_users:
-  - "{{ config_ifmap_username }}:{{ config_ifmap_password }}"
-  - "{{ schema_ifmap_username }}:{{ schema_ifmap_password }}"
-  - reader:reader
-  - svc-monitor:svc-monitor
-  - control-node:control-node
-
 # Discovery
 discovery_conf: /etc/contrail/contrail-discovery.conf
 discovery_log: /var/log/contrail/contrail-discovery.log
@@ -47,6 +37,8 @@ discovery_dns_server_policy: fixed
 svc_monitor_conf: /etc/contrail/contrail-svc-monitor.conf
 svc_monitor_log: /var/log/contrail/contrail-svc-monitor.log
 svc_monitor_log_level: SYS_NOTICE
+svc_monitor_ifmap_username: svc-monitor
+svc_monitor_ifmap_password: svc-monitor
 
 # device-manager
 device_manager_conf: /etc/contrail/contrail-device-manager.conf
@@ -74,3 +66,13 @@ contrail_rabbitmq_remove_default_user: false
 contrail_rabbitmq_ssl: false
 contrail_rabbitmq_listen_address: 0.0.0.0
 contrail_rabbitmq_allow_remote_guest: true
+
+# Ifmap server specific configuration
+ifmap_basicauth_properties_file: /etc/ifmap-server/basicauthusers.properties
+ifmap_properties_file: /etc/ifmap-server/ifmap.properties
+ifmap_users:
+  - "{{ config_ifmap_username }}:{{ config_ifmap_password }}"
+  - "{{ schema_ifmap_username }}:{{ schema_ifmap_password }}"
+  - reader:reader
+  - "{{ svc_monitor_ifmap_username }}:{{ svc_monitor_ifmap_password }}"
+  - control-node:control-node
