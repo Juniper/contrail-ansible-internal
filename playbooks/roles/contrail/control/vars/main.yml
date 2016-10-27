@@ -13,6 +13,9 @@ control_specific_configs:
   DEFAULT:
     log_file: "{{ control_log }}"
     log_level: "{{ control_log_level }}"
+    http_server_port: "{{ control_introspect_port }}"
+    xmpp_server_port: "{{ xmpp_server_port }}"
+    bgp_port: "{{ bgp_port }}"
   DISCOVERY:
     server: "{{ disc_server_ip }}"
   IFMAP:
