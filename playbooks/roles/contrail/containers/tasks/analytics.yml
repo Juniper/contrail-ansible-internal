@@ -1,10 +1,9 @@
 ---
-- name: "Start contrail controller container"
+- name: "Start contrail analytics container"
   docker_container:
-    name: controller
-    image: "{{ controller_image }}"
+    name: analytics
+    image: "{{ analytics_image }}"
     privileged: true
-    pid_mode: host
     network_mode: host
     state: started
     capabilities:
