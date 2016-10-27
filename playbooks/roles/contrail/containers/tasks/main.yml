@@ -7,6 +7,14 @@
   tags: [container.controller, controller]
   when: container_enable_controller is defined
 
+- include: analyticsdb.yml
+  tags: [container.analyicsdb, analyticsdb]
+  when: container_enable_analyticsdb is defined
+
+- include: analytics.yml
+  tags: [container.analytics, analytics]
+  when: container_enable_analytics is defined
+
 - include: agent.yml
   tags: [container.agent, agent]
   when: container_enable_agent is defined
