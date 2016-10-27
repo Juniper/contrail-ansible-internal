@@ -15,7 +15,12 @@ dns_conf: /etc/contrail/contrail-dns.conf
 dns_log: /var/log/contrail/contrail-dns.log
 dns_log_level: "{{ log_level }}"
 dns_log_local: "{{ log_local }}"
-
+named_config_file: contrail-named.conf
+named_config_directory: /etc/contrail/dns
+named_log_file: /var/log/contrail/contrail-named.log
+rndc_config_file: contrail-rndc.conf
+dns_introspect_port: 8092
+dns_server_port: 53
 dns_ifmap_username: "{{ control_ip }}.dns"
 dns_ifmap_password: "{{ control_ip }}.dns"
 

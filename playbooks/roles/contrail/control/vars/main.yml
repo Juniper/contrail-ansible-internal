@@ -28,6 +28,12 @@ dns_specific_configs:
   DEFAULT:
     log_file: "{{ dns_log }}"
     log_level: "{{ dns_log_level }}"
+    named_config_file: "{{ named_config_file }}"
+    named_config_directory: "{{ named_config_directory }}"
+    named_log_file: "{{ named_log_file }}"
+    rndc_config_file: "{{ rndc_config_file }}"
+    http_server_port: "{{ dns_introspect_port }}"
+    dns_server_port: "{{ dns_server_port }}"
   DISCOVERY:
     server: "{{ disc_server_ip }}"
   IFMAP:
