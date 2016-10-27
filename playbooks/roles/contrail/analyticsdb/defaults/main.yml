@@ -6,3 +6,7 @@ contrail_database_packages:
 
 # Node manager
 nodemanager_conf: "/etc/contrail/contrail-database-nodemgr.conf"
+
+# Cassandra defaults
+analyticsdb_cassandra_deps: openjdk-7-jre-headless
+analyticsdb_cassandra_cluster_name: analyticsdb

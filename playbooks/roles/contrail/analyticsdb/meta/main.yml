@@ -1,5 +1,6 @@
 ---
 dependencies:
   - contrail/common
-  - role: contrail/infra
-    contrailinfra_enable_cassandra: true
+  - role: cassandra
+    cassandra_deps: "{{ analyticsdb_cassandra_deps }}"
+    cassandra_cluster_name: "{{ analyticsdb_cassandra_cluster_name }}"
