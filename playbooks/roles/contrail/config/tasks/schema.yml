@@ -28,11 +28,11 @@
   notify: restart schema
 
 - name: configure schema ifmap_username
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_username value={{ config_ifmap_username }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_username value={{ schema_ifmap_username }}
   notify: restart schema
 
 - name: configure schema ifmap_password
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_password value={{ config_ifmap_password }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=ifmap_password value={{ schema_ifmap_password }}
   notify: restart schema
 
 - name: configure schema cassandra_server_list
