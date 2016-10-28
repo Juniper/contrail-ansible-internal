@@ -12,6 +12,7 @@
     partitions: "{{ anlaytics_uve_partition_count }}"
     rabbitmq_server_list: "{{ rabbit_server_list | join(',') }}"
     rabbitmq_port: "{{ rabbit_port }}"
+    http_server_port: "{{ alarmgen_introspect_port }}"
 
 - name: configure /etc/contrail/contrail-alarm-gen.conf DISCOVERY section
   ini_file: dest={{ alarmgen_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
