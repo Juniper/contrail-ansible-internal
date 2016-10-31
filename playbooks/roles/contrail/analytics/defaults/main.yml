@@ -52,6 +52,8 @@ analytics_snmp_collector_conf: /etc/contrail/contrail-snmp-collector.conf
 analytics_snmp_collector_log: /var/log/contrail/contrail-snmp-collector.log
 analytics_snmp_collector_log_level: "{{ log_level }}"
 analytics_snmp_collector_introspect_port: 5920
+analytics_snmp_collector_scan_frequency: 600
+analytics_snmp_collector_fast_scan_frequency: 60
 
 #snmp topology defaults
 analytics_topology_conf: /etc/contrail/contrail-topology.conf
