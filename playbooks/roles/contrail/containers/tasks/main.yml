@@ -1,4 +1,8 @@
 ---
+- name: Make sure pip is installed
+  package: name=pip, state=installed
+  tags: [always]
+
 - name: "Make sure docker-py is installed"
   pip: name=docker-py version={{ docker_py_version }}
   tags: [always]
