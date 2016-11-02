@@ -1,4 +1,8 @@
 ---
+- name: Install python-setuptools
+  package: name=python-setuptools state=present
+  tags: [always]
+
 - name: Make sure pip is installed
   easy_install: name=pip state=present
   tags: [always]
