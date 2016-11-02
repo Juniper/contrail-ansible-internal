@@ -1,6 +1,6 @@
 ---
 - name: Make sure pip is installed
-  package: name=pip, state=installed
+  easy_install: name=pip state=present
   tags: [always]
 
 - name: "Make sure docker-py is installed"

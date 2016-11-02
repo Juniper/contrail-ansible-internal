@@ -23,3 +23,4 @@ docker_py_version: 1.9.0
 container_agent_extra_env: {}
 external_vrouter_compile: false
 vrouter_physical_interface: "{{ ansible_default_ipv4.interface }}"
+kernel_source_packages: []
