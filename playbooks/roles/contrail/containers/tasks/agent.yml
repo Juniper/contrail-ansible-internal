@@ -8,6 +8,10 @@
       - "{{ansible_os_family}}.yml"
       skip: true
 
+- name: Install kernel headers to compile vrouter module
+  package: name="{{ item }}" state=present
+  with_items: "{{ kernel_source_packages }}"
+
 - name: "Compile vrouter module"
   docker_container:
     name: vrouter-compiler
