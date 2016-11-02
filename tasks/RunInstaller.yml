@@ -1,5 +1,0 @@
----
-- name : Install docker
-  shell: curl -s -L {{docker_mirror}} | sh
-  args:
-    creates: /usr/bin/docker
