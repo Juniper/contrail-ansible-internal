@@ -1,0 +1,13 @@
+---
+- name: "Start Loadbalancer container"
+  docker_container:
+    name: loadbalancer
+    image: "{{ loadbalancer_image }}"
+    privileged: true
+    pid_mode: host
+    network_mode: host
+    state: started
+    capabilities:
+      - AUDIT_WRITE
+    env:
+      CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"

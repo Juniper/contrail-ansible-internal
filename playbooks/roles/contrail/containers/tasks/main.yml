@@ -7,6 +7,10 @@
   pip: name=docker-py version={{ docker_py_version }}
   tags: [always]
 
+- include: loadbalancer.yml
+  tags: [container.loadbalancer, loadbalancer]
+  when: container_enable_loadbalancer is defined
+
 - include: controller.yml
   tags: [container.controller, controller]
   when: container_enable_controller is defined
