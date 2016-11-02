@@ -12,51 +12,38 @@
   with_items:
     - bridge-utils
   package: name={{item}} state=present
+  when: docker_network_bridge
 
-- name: checking docker binary exists
-  stat: path=/usr/bin/docker
-  become: yes
-  become_user: root
-  register: dockerBinary
+- name: install docker using installer from get.docker.com
+  shell: curl -s -L {{docker_mirror}} | sh
+  args:
+    creates: /usr/bin/docker
+  when: docker_install_method == 'installer'
 
-- name: install....
-  when: dockerBinary.stat.exists == False
-  become: yes
-  become_user: root
-  include: RunInstaller.yml
+- name: install docker using package
+  package: name="{{ docker_package_name }}" state=installed
+  when: docker_install_method == 'package'
 
-- name: loading systemd variables...
-  become: yes
-  become_user: root
-  when: >-
-    ansible_distribution != "Ubuntu"
-    or (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16)
-  include_vars: systemd-vars.yml
+- name: Added OPTIONS to docker start in case of using installer
+  ini_file: dest=/usr/lib/systemd/system/docker.service
+            section=Service option=ExecStart
+            value="/usr/bin/dockerd $OPTIONS"
+  when: ansible_service_mgr == "systemd" and docker_install_method == 'installer'
 
-- name: loading upstart variables...
-  become: yes
-  become_user: root
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int < 16
-  include_vars: upstart-vars.yml
+- name: Adding EnvironmentFile to docker systemd file
+  #EnvironmentFile=-/etc/sysconfig/docker
+  ini_file: dest=/usr/lib/systemd/system/docker.service
+            section=Service option=EnvironmentFile
+            value="{{ docker_env_file }}"
+  when: ansible_service_mgr == "systemd"
+  notify: restart docker
 
-- name : creating init-system config directory...
-  become: yes
-  become_user: root
-  with_items: '{{docker_config_files}}'
-  file: >
-    group={{docker_group}}
-    path=/{{item.d}}
-    state=directory
-    mode=0755
-
-- name: configuring init-system...
-  become: yes
-  become_user: root
-  with_items: '{{docker_config_files}}'
-  template: >-
-    src={{item.d}}/{{item.f}}.j2
-    dest=/{{item.d}}/{{item.f}}
-    mode={{item.m}}
+- name: Adding DOCKER OPTIONS for docker init scripts
+  lineinfile: dest="{{ docker_env_file }}"
+              line="{{ docker_options_var }}={{ docker_opts }}"
+              regexp="^{{ docker_options_var }}="
+              state=present
+              create=yes
   notify: restart docker
 
 - name: create root user docker config directory

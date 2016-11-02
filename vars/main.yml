@@ -44,6 +44,9 @@ docker_dns_daemon_args : >-
   {% endfor %}
   {% endif %}
 
+docker_redhat_opts: >-
+  {% if ansible_os_family == 'RedHat' %}--selinux-enabled --log-driver=journald{% endif %}
+
 docker_bip_daemon_args : >-
   {% if docker_bip is defined %}--bip="{{ docker_bip }}"{% endif %}
 
@@ -62,12 +65,8 @@ docker_storage_driver_args: >-
   --storage-driver={{docker_storage_driver}}
   {% endif %}
 
-docker_systemd_socket: >-
-  {% if ansible_service_mgr == "systemd" %} -H fd:// {% endif %}
-
 docker_opts : >-
-  {% if docker_daemon_args is defined %}{{docker_daemon_args}}{% endif %}
-  {{ docker_systemd_socket }}
+  "{% if docker_daemon_args is defined %}{{docker_daemon_args}}{% endif %}
   {{docker_insecure_registries_daemon_args}}
   {{docker_dns_daemon_args}}
   {{docker_bip_daemon_args}}
@@ -75,6 +74,7 @@ docker_opts : >-
   {{docker_cluster_advertise_args}}
   {{docker_cluster_store_args}}
   {{docker_storage_driver_args}}
+  {{ docker_redhat_opts }}"
 
 docker_http_proxy: >-
   {% if proxy_env is defined and proxy_env.http_proxy is defined %}
@@ -95,4 +95,3 @@ docker_proxy_args : |
   {{docker_http_proxy}}
   {{docker_https_proxy}}
   {{docker_no_proxy}}
-  
