@@ -12,7 +12,10 @@ analytics_api_conf: "/etc/contrail/contrail-analytics-api.conf"
 analytics_api_log: /var/log/contrail/contrail-analytics-api.log
 analytics_api_log_level: "{{ log_level }}"
 analytics_api_introspect_port: 8090
-analytics_api_port: "{{ analytics_server_port }}"
+analytics_api_listen_port: "{{ analytics_server_port }}"
+analytics_api_listen_address: 0.0.0.0
+sandesh_send_rate_limit: 100
+
 analytics_data_ttl: -1
 analytics_statistics_ttl: -1
 analytics_config_audit_ttl: -1
