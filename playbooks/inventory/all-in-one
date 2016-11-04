@@ -1,3 +1,6 @@
+[contrail-lb]
+localhost   ansible_connection=local
+
 [contrail-controllers]
 localhost   ansible_connection=local
 

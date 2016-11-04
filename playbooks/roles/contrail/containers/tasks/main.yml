@@ -2,9 +2,9 @@
 - include: host.yml
   tags: [always]
 
-- include: loadbalancer.yml
-  tags: [container.loadbalancer, loadbalancer]
-  when: container_enable_loadbalancer is defined
+- include: lb.yml
+  tags: [container.lb, lb]
+  when: container_enable_lb is defined
 
 - include: controller.yml
   tags: [container.controller, controller]

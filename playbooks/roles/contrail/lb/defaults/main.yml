@@ -1,6 +1,6 @@
 ---
 # Installation
-loadbalancer_packages:
+lb_packages:
   - haproxy
 
 haproxy_socket: /var/lib/haproxy/stats
@@ -16,12 +16,12 @@ stats_port: 5937
 # Frontend settings.
 #Default frontend ports
 contrail_api_frontend_port: 8082
-contrail_discovery_frontend_port: 9100
+contrail_discovery_frontend_port: 5998
 neutron_frontend_port: 9696
 
 #Default backend ports
+contrail_api_backend_port: 9100
 contrail_discovery_backend_port: 9110
-contrail_api_backend_port: 5998
 neutron_backend_port: 9797
 
 # Backend settings.

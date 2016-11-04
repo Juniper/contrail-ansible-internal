@@ -1,0 +1,13 @@
+---
+- name: "Setup Contrail Loadbalancer"
+  hosts: contrail-lb
+
+  pre_tasks:
+    - include_vars: contrail_lb.yml
+      tags: always
+
+  roles:
+    - role: common
+
+    - role: contrail/lb
+      tags: [contrail.lb]

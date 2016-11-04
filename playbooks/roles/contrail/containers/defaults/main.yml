@@ -1,6 +1,6 @@
 ---
 cloud_orchestrator: openstack
-loadbalancer_image: >-
+lb_image: >-
   {%- if contrail_docker_registry -%}{{ contrail_docker_registry }}/contrail-lb:{{ contrail_version }}
   {%- else %}contrail-lb:{{ contrail_version }}{%- endif %}
 controller_image: >-
