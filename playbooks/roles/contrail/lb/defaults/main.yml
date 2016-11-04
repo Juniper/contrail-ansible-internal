@@ -17,12 +17,10 @@ stats_port: 5937
 #Default frontend ports
 contrail_api_frontend_port: 8082
 contrail_discovery_frontend_port: 5998
-neutron_frontend_port: 9696
 
 #Default backend ports
 contrail_api_backend_port: 9100
 contrail_discovery_backend_port: 9110
-neutron_backend_port: 9797
 
 # Backend settings.
 check_interval:  2000
@@ -30,7 +28,6 @@ check_interval:  2000
 # List of backend servers.
 contrail_api_server_list: "{{ controller_list }}"
 contrail_discovery_server_list: "{{ controller_list }}"
-neutron_server_list: "{{ controller_list }}"
 
 # Extra global vars (see README for example usage).
 haproxy_global_vars: []

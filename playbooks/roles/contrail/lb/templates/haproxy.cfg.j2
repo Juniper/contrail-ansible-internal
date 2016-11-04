@@ -69,11 +69,3 @@ backend contrail-discovery-backend
     {% for discovery_ip in contrail_discovery_server_list %}
     server {{ discovery_ip }} {{ discovery_ip }}:{{ contrail_discovery_backend_port }} check inter {{ check_interval }} rise 2 fall 3
     {% endfor %}
-
-#
-# Neutron server's haproxy section
-#
-
-{% if neutron_haproxy is defined %}
-{% include 'neutron_haproxy.cfg.j2' %}
-{%- endif %}
