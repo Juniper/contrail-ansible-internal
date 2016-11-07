@@ -14,7 +14,9 @@ docker_pki_ca_cert_dest : '{{docker_ssl_key_pki_cacert_dir}}/{{docker_pki_ca_fil
 docker_insecure_registries_daemon_args : >-
   {% if docker_insecure_registries is defined %}
   {% if docker_insecure_registries is string %}
+  {% if docker_insecure_registries %}
   --insecure-registry {{docker_insecure_registries}}
+  {% endif %}
   {% else %}
   {% for ir in docker_insecure_registries %} --insecure-registry {{ir}}
   {% endfor %}
