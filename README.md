@@ -30,11 +30,11 @@ process to run contrail containers using contrail-ansible.
 4. Create an inventory file - please refer the [sample inventory file provided](playbooks/inventory/examples/single-controller-multi-compute-svl)
    to create one for you. For a standard single controller, multi-compute setup, it would only need to add/change the IP
    addresses. You may also have to refer ansible code and variable defaults for more advanced configurations
-5. Run ansible-playbook with base_host.yml pointing to your own inventory file
+5. Run ansible-playbook with contrail_containers.yml pointing to your own inventory file
 
     ```
     $ cd playbooks
-    $ ansible-playbook -i inventory/examples/single-controller-multi-compute-svl base_host.yml
+    $ ansible-playbook -i inventory/examples/single-controller-multi-compute-svl contrail_containers.yml
     ```
 
 Now contrail-controller node should have all contrail-controller specific containers running and all computes have agent
