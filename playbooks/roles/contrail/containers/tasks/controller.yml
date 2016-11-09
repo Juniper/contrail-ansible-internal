@@ -12,6 +12,15 @@
     load_path: "/tmp/{{ contrail_controller_image_archive }}"
   when: contrail_docker_registry is not defined or load_contrail_controller_image is defined
 
+- name: "Copy contrailctl/controller.conf"
+  copy: src={{ item }} dest={{ contrailctl_config_directory }}
+  with_first_found:
+    - files:
+      - contrailctl/controller.conf
+      - "{{ playbook_dir }}/contrailctl/controller.conf"
+      - /etc/contrailctl/controller.conf
+      skip: true
+
 - name: "Start contrail controller container"
   docker_container:
     name: controller
@@ -22,5 +31,7 @@
     state: started
     capabilities:
       - AUDIT_WRITE
+    volumes:
+      - "{{ contrailctl_config_directory }}:/etc/contrailctl/"
     env:
       CLOUD_ORCHESTRATOR: "{{ cloud_orchestrator }}"

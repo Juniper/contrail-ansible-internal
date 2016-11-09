@@ -17,3 +17,6 @@
   service: name=iptables state=stopped enabled=no
   when: ansible_os_family == "RedHat"
   ignore_errors: yes
+
+- name: Create contrailctl config directory
+  file: path="{{ contrailctl_config_directory }}" state=directory

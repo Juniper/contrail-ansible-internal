@@ -33,3 +33,5 @@ contrail_analytics_image_archive: "contrail-analytics-{{ contrail_version }}.tar
 contrail_analyticsdb_image_archive: "contrail-analyticsdb-{{ contrail_version }}.tar.gz"
 contrail_agent_image_archive: "contrail-agent-{{ contrail_version }}.tar.gz"
 vrouter_module_compiler_redhat7_image_archive: "vrouter-module-compiler-redhat7-{{ contrail_version }}.tar.gz"
+
+contrailctl_config_directory: /etc/contrailctl
