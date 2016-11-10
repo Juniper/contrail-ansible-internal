@@ -2,6 +2,5 @@
 # Service management
 - name: Make sure cassandra service is the state as requested
   service: name={{ cassandra_service_name }} state={{ cassandra_service_ensure }} enabled={{ cassandra_service_enable }}
-  tags: [service, cassandra.service]
   when: "{{ cassandra_service_manage }}"
 
