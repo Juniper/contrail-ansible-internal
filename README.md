@@ -18,19 +18,46 @@ systems like server manager. This functionality is supposed to provide a basic a
 handle operating system setup on base nodes and run/orchestrate containers on top of them. This section brief about the
 process to run contrail containers using contrail-ansible.
 
-1. Install ansible version >= 2.0 - please refer http://docs.ansible.com/ansible/intro_installation.html
-2. Get contrail-ansible code - you may get from github repository or any other packaged versions.
-3. Install any dependent roles - this step will eventually go away once we moved all dependent roles inside contrail-ansible
+* Install ansible version >= 2.0 - please refer http://docs.ansible.com/ansible/intro_installation.html
+* Get contrail-ansible code - you may get from github repository or any other packaged versions.
+* Install any dependent roles - this step will eventually go away once we moved all dependent roles inside contrail-ansible
 
     ```
     $ cd contrail-ansible
     $ ansible-galaxy install -r requirements.yml
     ```
 
-4. Create an inventory file - please refer the [sample inventory file provided](playbooks/inventory/examples/single-controller-multi-compute-svl)
+* Create an inventory file - please refer the [sample inventory file provided](playbooks/inventory/examples/single-controller-multi-compute-svl)
    to create one for you. For a standard single controller, multi-compute setup, it would only need to add/change the IP
    addresses. You may also have to refer ansible code and variable defaults for more advanced configurations
-5. Run ansible-playbook with contrail_containers.yml pointing to your own inventory file
+
+    * Set variable contrail_docker_registry to valid registry server address in case of using docker registry to distribute
+     docker container images
+
+       ```
+     
+       contrail_docker_registry=10.84.34.155:5000
+       contrail_docker_registry_insecure=True
+    
+       ```
+
+    * Copy container image tar files to contrail-ansible/playbooks/container_images/ and make sure contrail_docker_registry
+    is NOT set in the inventory, in case of NOT using docker registry to distribute the images and to have ansible to
+    distribute and load docker images.
+
+      ```
+      $ ls ~/contrail-ansible/playbooks/container_images/
+        contrail-agent-3.2.0.0-3004.tar.gz      contrail-analyticsdb-3.2.0.0-3004.tar.gz  contrail-lb-3.2.0.0-3004.tar.gz
+        contrail-analytics-3.2.0.0-3004.tar.gz  contrail-controller-3.2.0.0-3004.tar.gz   vrouter-module-compiler-redhat7-3.2.0.0-3004.tar.gz
+    
+      ```
+* Copy and edit contrailctl config files - there are per container config files i.e controller.conf for controller,
+    analytics.conf for analytics, analyticsdb.conf for analyticsdb, lb.conf for lb. Ansible playbook expect those config
+    files are configured separately and present in three possible locations within the ansible node filesystem -
+    playbooks/files/contrailctl/, playbooks/contrailctl/, /etc/contrailctl/. Please refer example configuration files
+    kept under [contrail-docker](https://github.com/Juniper/contrail-docker/tree/master/tools/python-contrailctl/examples/configs)
+    for more details.
+* Run ansible-playbook with contrail_containers.yml pointing to your own inventory file
 
     ```
     $ cd playbooks
