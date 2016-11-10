@@ -6,7 +6,7 @@
   apt: name=curl state=installed
 
 - name: Install JRE and other dependencies mentioned as cassandra dependencies
-  apt: pkg={{ item }} state=installed
+  apt: pkg={{ item }} state=installed force=yes
   register: jdk_installed
   with_items: "{{ cassandra_deps }}"
   tags: [deps, cassandra.deps]
