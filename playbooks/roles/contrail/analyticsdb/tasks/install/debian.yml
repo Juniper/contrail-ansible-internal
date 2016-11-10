@@ -5,7 +5,7 @@
   tags: [contrail.database.install]
 
 - name: install contrail-database related packages
-  package: name={{ item }} state=latest
+  apt: name={{ item }} state=latest force=yes
   with_items: "{{ contrail_database_packages }}"
   tags: [contrail.database.install]
 
