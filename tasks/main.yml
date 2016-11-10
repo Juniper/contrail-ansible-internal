@@ -22,3 +22,6 @@
 - name: Remove cassandra from /etc/sensitive_servies to enable automated starts
   lineinfile: dest=/etc/sensitive_services line=cassandra state=absent
   when: ansible_os_family == 'Debian'
+
+- include: service.yml
+  tags: [service, cassandra.service]
