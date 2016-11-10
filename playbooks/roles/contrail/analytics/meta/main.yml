@@ -2,6 +2,6 @@
 dependencies:
   - contrail/common
   - role: redis
-    redis_bind_interface: "{{ ansible_all_ipv4_addresses | join(' ') +  }}"
+    redis_bind_interface: "{{ ansible_all_ipv4_addresses | join(' ') + ' 127.0.0.1' }}"
     redis_port: "{{ analytics_redis_port }}"
     tags: [redis, install, configure, redis.install, redis.configure]
