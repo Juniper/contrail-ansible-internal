@@ -1,6 +1,6 @@
 ---
 - name: configure discovery zk_server_ip (comma separated list of zk server ips)
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_list | join(',') }}
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_list | join(',') }}  create=yes
   notify: restart discovery
 
 - name: configure discovery zk_server_port

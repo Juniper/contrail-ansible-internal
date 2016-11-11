@@ -1,6 +1,6 @@
 ---
 - name: configure device-manager rabbit_server
-  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
+  ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}  create=yes
   notify: restart device-manager
 
 - name: configure device-manager api_server_ip
