@@ -1,5 +1,6 @@
 ---
-- include: install.yml
+- include: install/debian.yml
+  when: ansible_os_family == 'Debian'
   tags: [contrail.analytics.install, install]
 
 - include: provision.yml
