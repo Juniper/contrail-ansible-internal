@@ -1,12 +1,10 @@
 ---
 - name: Do not auto start supervisor-control (WA for issue contrail-docker/16)
   lineinfile: dest=/etc/sensitive_services line=supervisor-control state=present create=yes
-  when: ansible_os_family == 'Debian'
 
 - name: install contrail-control related packages
-  package: name={{ item }} state=latest
+  apt: name={{ item }} state=latest force=yes
   with_items: "{{ control_packages }}"
 
 - name: Remove supervisor-control from /etc/sensitive_servies (WA for issue contrail-docker/16)
   lineinfile: dest=/etc/sensitive_services line=supervisor-control state=absent
-  when: ansible_os_family == 'Debian'
