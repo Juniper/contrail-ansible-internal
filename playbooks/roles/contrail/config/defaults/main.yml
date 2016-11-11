@@ -76,3 +76,5 @@ ifmap_users:
   - reader:reader
   - "{{ svc_monitor_ifmap_username }}:{{ svc_monitor_ifmap_password }}"
   - control-node:control-node
+
+configdb_cassandra_deps: openjdk-7-jre-headless
