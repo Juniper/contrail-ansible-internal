@@ -17,6 +17,7 @@ dependencies:
     cassandra_storage_port: "{{ configdb_storage_port }}"
     cassandra_ssl_storage_port: "{{ configdb_ssl_storage_port }}"
     cassandra_deps: "{{ configdb_cassandra_deps }}"
+    cassandra_seeds: "{{ configdb_server_list }}"
     tags: [configdb]
 
   - role: zookeeper
