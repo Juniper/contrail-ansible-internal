@@ -1,6 +1,6 @@
 ---
 - name: configure /etc/contrail/contrail-alarm-gen.conf DEFAULTS section
-  ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart alarm-gen
   with_dict:
     host_ip: "{{ analytics_host_ip }}"

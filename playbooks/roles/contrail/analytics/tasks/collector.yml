@@ -1,6 +1,6 @@
 ---
 - name: configure /etc/contrail/contrail-collector.conf DEFAULT section
-  ini_file: dest={{ analytics_collector_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ analytics_collector_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart analytics collector
   with_dict:
     cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"

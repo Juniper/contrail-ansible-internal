@@ -1,6 +1,6 @@
 ---
 - name: configure /etc/contrail/contrail-snmp-collector.conf DEFAULTS section
-  ini_file: dest={{ analytics_snmp_collector_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ analytics_snmp_collector_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart analytics snmp-collector
   with_dict:
     zookeeper: "{{ zk_servers_with_port }}"
