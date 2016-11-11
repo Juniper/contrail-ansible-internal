@@ -1,6 +1,6 @@
 ---
 - name: configure contrail-control set all entries in DEFAULT section
-  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart control
   with_dict: "{{ control_infra_configs|combine(control_specific_configs.DEFAULT) }}"
 
