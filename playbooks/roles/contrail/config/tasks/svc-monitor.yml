@@ -1,6 +1,6 @@
 ---
 - name: configure svc-monitor ifmap_server_ip
-  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_server_ip value={{ ifmap_server_ip }}
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=ifmap_server_ip value={{ ifmap_server_ip }}  create=yes
   notify: restart svc-monitor
 
 - name: configure svc-monitor ifmap_server_port

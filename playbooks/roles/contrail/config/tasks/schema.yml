@@ -1,6 +1,6 @@
 ---
 - name: configure schema log file
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_file value={{ schema_log }}
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_file value={{ schema_log }}  create=yes
   notify: restart schema
 
 - name: configure schema log local

@@ -1,10 +1,10 @@
 ---
 - name: configure config nodemanager discovery server
-  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=server value={{ disc_server_ip }}
+  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=server value={{ disc_server_ip }} create=yes
   notify: restart config nodemanager
 
 - name: configure config nodemanager discovery server port
-  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=port value={{ disc_server_port }}
+  ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=port value={{ disc_server_port }} create=yes
   notify: restart config nodemanager
 
 # Service management

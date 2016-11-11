@@ -1,7 +1,7 @@
 ---
 
 - name: configure config api - set all common entries in DEFAULTS section
-  ini_file: dest={{ api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart config api
   with_dict: "{{ config_ifmap_configs|
                 combine(config_infra_configs)|\
