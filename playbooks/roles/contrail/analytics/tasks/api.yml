@@ -1,6 +1,6 @@
 ---
 - name: configure /etc/contrail/contrail-analytics-api.conf DEFAULTS section
-  ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart analytics-api
   with_dict:
     host_ip: "{{ analytics_host_ip }}"
