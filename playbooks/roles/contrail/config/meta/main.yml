@@ -21,4 +21,5 @@ dependencies:
 
   - role: zookeeper
     zookeeper_debian_apt_install: true
+    zookeeper_hosts: "{{ zk_server_list }}"
     tags: [zookeeper, zookeeper.install, zookeeper.configure, install, configure]
