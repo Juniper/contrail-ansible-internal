@@ -1,6 +1,6 @@
 ---
 - name: configure contrail-dns set all entries in DEFAULT section
-  ini_file: dest={{ dns_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  ini_file: dest={{ dns_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart contrail-dns
   with_dict: "{{ control_infra_configs|combine(dns_specific_configs.DEFAULT) }}"
 
