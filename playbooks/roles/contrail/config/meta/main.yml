@@ -10,13 +10,14 @@ dependencies:
     rabbitmq_allow_remote_guest: "{{ contrail_rabbitmq_allow_remote_guest }}"
     tags: [rabbitmq]
 
-  - role: contrail/infra
-    contrailinfra_enable_cassandra: true
+  - role: cassandra
     cassandra_cql_port: "{{ configdb_cql_port }}"
     cassandra_rpc_port: "{{ configdb_port }}"
     cassandra_rmi_port: "{{ configdb_rmi_port }}"
     cassandra_storage_port: "{{ configdb_storage_port }}"
     cassandra_ssl_storage_port: "{{ configdb_ssl_storage_port }}"
+    cassandra_deps: "{{ configdb_cassandra_deps }}"
+    cassandra_seeds: "{{ configdb_server_list }}"
     tags: [configdb]
 
   - role: zookeeper
