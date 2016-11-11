@@ -16,3 +16,5 @@
   when: no_upstart is defined
 
 - include: common-config.yml
+
+- meta: flush_handlers
