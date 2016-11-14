@@ -9,3 +9,6 @@ localhost   ansible_connection=local
 
 [contrail-analytics]
 localhost   ansible_connection=local
+
+[contrail-compute]
+localhost   ansible_connection=local

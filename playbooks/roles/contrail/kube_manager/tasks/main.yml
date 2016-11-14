@@ -1,0 +1,7 @@
+---
+- include: install/debian.yml
+  when: ansible_os_family == 'Debian'
+  tags: [install, contrail.kube_manager.install]
+
+- include: configure.yml
+  tags: [contrail.kube_manager.configure, configure]
