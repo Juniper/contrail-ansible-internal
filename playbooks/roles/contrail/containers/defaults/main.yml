@@ -18,6 +18,10 @@ agent_image: >-
 vrouter_compiler_image_redhat7: >-
   {%- if contrail_docker_registry is defined and load_contrail_vrouter_module_compiler_redhat7_image is not defined -%}{{contrail_docker_registry}}/vrouter-module-compiler-redhat7:{{ contrail_version }}
   {%- else %}vrouter-module-compiler-redhat7:{{ contrail_version }}{%- endif %}
+contrail_kube_manager_image: >-
+  {%- if contrail_docker_registry is defined and load_contrail_kube_manager_image is not defined -%}{{contrail_docker_registry}}/contrail-kube-manager:{{ contrail_version }}
+  {%- else %}contrail-kube-manager:{{ contrail_version }}{%- endif %}
+
 docker_py_version: 1.9.0
 
 container_agent_extra_env: {}
@@ -33,5 +37,6 @@ contrail_analytics_image_archive: "contrail-analytics-{{ contrail_version }}.tar
 contrail_analyticsdb_image_archive: "contrail-analyticsdb-{{ contrail_version }}.tar.gz"
 contrail_agent_image_archive: "contrail-agent-{{ contrail_version }}.tar.gz"
 vrouter_module_compiler_redhat7_image_archive: "vrouter-module-compiler-redhat7-{{ contrail_version }}.tar.gz"
+contrail_kube_manager_image_archive: "contrail-kube-manager-{{ contrail_version }}.tar.gz"
 
 contrailctl_config_directory: /etc/contrailctl

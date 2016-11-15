@@ -18,6 +18,10 @@
   tags: [container.analytics, analytics]
   when: container_enable_analytics is defined
 
+- include: kube_manager.yml
+  tags: [container.kube_manager, kube_manager]
+  when: container_enable_kube_manager is defined
+
 - include: agent.yml
   tags: [container.agent, agent]
   when: container_enable_agent is defined
