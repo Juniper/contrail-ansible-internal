@@ -25,3 +25,7 @@
 - include: agent.yml
   tags: [container.agent, agent]
   when: "'computes' in group_names"
+
+- include: kube_cni.yml
+  tags: [container.kube_cni, kube_cni]
+  when: "'computes' in group_names and cloud_orchestrator == 'kubernetes'"
