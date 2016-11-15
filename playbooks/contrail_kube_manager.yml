@@ -1,6 +1,6 @@
 ---
 - name: "Setup Contrail Kubernetes Network manager"
-  hosts: contrail-compute
+  hosts: contrail-kubernetes
 
   roles:
     - role: common

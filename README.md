@@ -11,6 +11,11 @@ If things go unmanageable in future, we could go towards splitting roles.
 
 NOTE: Current code only tested with single node setup, there are little bit more work needed to support to have multi-node setup.
 
+# Quickstart
+Here are the step by step instructions to quickly setup contrail containers.
+
+https://github.com/Juniper/contrail-ansible/wiki/Quickstart
+
 ## Running contrail containers using contrail-ansible
 Part of the code in contrail-ansible is supposed to create a native ansible interface to setup base system and orchestrate
 /provision contrail containers on top of them, if people don't want to use more featured orchestration/provisioning
