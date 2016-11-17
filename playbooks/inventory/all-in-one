@@ -12,3 +12,6 @@ localhost   ansible_connection=local
 
 [contrail-compute]
 localhost   ansible_connection=local
+
+[contrail-kubernetes]
+localhost   ansible_connection=local
