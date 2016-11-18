@@ -3,6 +3,18 @@
 # Playbook control
 # ################
 
+# rabbitmq_nodes - is a list of rabbitmq nodes ip addresses
+# rabbitmq_nodes: [192.168.0.11, 192.168.0.12, 192.168.0.13]
+rabbitmq_nodes: ["{{ ansible_default_ipv4.address }}"]
+
+rabbitmq_cluster_partition_handling: autoheal
+
+rabbitmq_log_levels:
+  connection: info
+  mirroring: info
+
+rabbitmq_erlang_cookie: 47EFF3BB-4786-46E0-A5BB-58455B3C2CB4
+
 # Take the package given by the OS/distrib
 rabbitmq_os_package: false
 
