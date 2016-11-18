@@ -12,7 +12,7 @@
   with_dict:
     vnc_endpoint_ip: "{{ api_server_ip }}"
     vnc_endpoint_port: "{{ api_server_port }}"
-    rabbit_server: "{{ rabbit_server_list }}"
+    rabbit_server: "{{ rabbitmq_servers_with_port }}"
     cassandra_server_list: "{{ configdb_servers_with_port }}"
     admin_user: "{{ admin_user }}"
     admin_password: "{{ admin_password }}"
