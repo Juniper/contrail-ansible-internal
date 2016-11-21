@@ -1,4 +1,10 @@
 ---
+- name: Collect right ip for analyticsdb
+  set_fact: my_analyticsdb_ip="{{ item }}"
+  when: "item in ansible_all_ipv4_addresses"
+  with_items: "{{ analyticsdb_list }}"
+  tags: [contrail.database.provision, provision]
+
 - include: install/debian.yml
   when: ansible_os_family == 'Debian'
   tags: [install, contrail.database.install]

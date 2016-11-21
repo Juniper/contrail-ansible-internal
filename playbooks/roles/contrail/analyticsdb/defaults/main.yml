@@ -10,3 +10,17 @@ nodemanager_conf: "/etc/contrail/contrail-database-nodemgr.conf"
 # Cassandra defaults
 analyticsdb_cassandra_deps: openjdk-7-jre-headless
 analyticsdb_cassandra_cluster_name: analyticsdb
+
+# Kafka defaults
+kafka_conf: "/usr/share/kafka/config/server.properties"
+kafka_log_conf: "/usr/share/kafka/config/log4j.properties"
+kafka_port: 9092
+kafka_listeners: "PLAINTEXT://:9092"
+kafka_log_retention_bytes: 268435456
+kafka_log_segment_bytes: 268435456
+kafka_log_retention_hours: 24
+kafka_log_cleanup_policy: delete
+kafka_log_cleaner_threads: 2
+kafka_log_cleaner_dedupe_buffer_size: 250000000
+kafka_log_cleaner_enable: true
+kafka_delete_topic_enable: true
