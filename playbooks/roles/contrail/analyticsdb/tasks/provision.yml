@@ -9,6 +9,9 @@
   set_fact: supervisor_database_ready={{ (supervisor_database_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
 
+- include: kafka.yml
+  tags: [contrail.database.kafka, contrail.database.kafka.provision]
+
 - include: nodemanager.yml
   tags: [contrail.database.nodemanager, contrail.database.nodemanager.provision]
 

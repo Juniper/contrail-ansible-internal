@@ -1,5 +1,5 @@
 - name: restart alarm-gen
-  supervisorctl: name="contrail-alarm-gen" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
   when: supervisor_analytics_ready
 
 - name: restart analytics-api

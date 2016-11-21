@@ -1,0 +1,22 @@
+---
+- name: Update kafka broker id
+  lineinfile: dest="{{ kafka_conf }}" line="{{ item.key }}={{ item.value }}" state=present
+  with_dict:
+    broker.id: "{{ 100000 |random }}"
+    port: "{{ kafka_port|int }}"
+    listeners: "{{ kafka_listeners }}"
+    zookeeper.connect: "{{ zk_servers_with_port }}"
+    advertised.host.name: "{{ my_analyticsdb_ip }}"
+    log.retention.bytes: "{{ kafka_log_retention_bytes|int }}"
+    log.retention.hours: "{{ kafka_log_retention_hours|int }}"
+    log.segment.bytes: "{{ kafka_log_segment_bytes|int }}"
+    log.cleanup.policy: "{{ kafka_log_cleanup_policy }}"
+    log.cleaner.threads: "{{ kafka_log_cleaner_threads|int }}"
+    log.cleaner.dedupe.buffer.size: "{{ kafka_log_cleaner_dedupe_buffer_size|int }}"
+    reserved.broker.max.id: 100001
+  notify: restart kafka
+
+- name: Configure kafka replication factor
+  lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}" state=present
+  when: "{{ analyticsdb_list|length}} > 1"
+  notify: restart kafka
