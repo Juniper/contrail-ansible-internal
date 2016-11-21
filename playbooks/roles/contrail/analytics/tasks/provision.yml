@@ -1,4 +1,12 @@
 ---
+- name: wait for analyticsdb cassandra
+  wait_for: port="{{ analyticsdb_port }}" host="{{ item }}"
+  with_items: " {{ analyticsdb_list }}"
+
+- name: wait for analyticsdb kafka
+  wait_for: port="{{ kafka_port }}" host="{{ item }}"
+  with_items: " {{ analyticsdb_list }}"
+
 - name: Check if supervisor is running and register it to supervisor_analytics_ready
   shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_analytics.conf" || true
   register: supervisor_analytics_ready_cmd
