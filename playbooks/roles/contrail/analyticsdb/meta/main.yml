@@ -4,4 +4,4 @@ dependencies:
   - role: cassandra
     cassandra_deps: "{{ analyticsdb_cassandra_deps }}"
     cassandra_cluster_name: "{{ analyticsdb_cassandra_cluster_name }}"
-    cassandra_seeds: "{{ analyticsdb_server_list }}"
+    cassandra_seeds: "{{ analyticsdb_list }}"
