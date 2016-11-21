@@ -31,6 +31,7 @@
     image: "{{ vrouter_compiler_image_redhat7 }}"
     privileged: true
     state: started
+    tty: true
     capabilities:
       - AUDIT_WRITE
     env:
@@ -68,6 +69,7 @@
     privileged: true
     network_mode: host
     state: started
+    tty: true
     capabilities:
       - AUDIT_WRITE
     env: "{{ agent_env }}"

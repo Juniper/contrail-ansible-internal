@@ -29,6 +29,7 @@
     privileged: true
     network_mode: host
     state: started
+    tty: true
     capabilities:
       - AUDIT_WRITE
     volumes:
