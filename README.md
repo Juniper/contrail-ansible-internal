@@ -62,11 +62,11 @@ process to run contrail containers using contrail-ansible.
     playbooks/files/contrailctl/, playbooks/contrailctl/, /etc/contrailctl/. Please refer example configuration files
     kept under [contrail-docker](https://github.com/Juniper/contrail-docker/tree/master/tools/python-contrailctl/examples/configs)
     for more details.
-* Run ansible-playbook with contrail_containers.yml pointing to your own inventory file
+* Run ansible-playbook with site.yml pointing to your own inventory file
 
     ```
     $ cd playbooks
-    $ ansible-playbook -i inventory/examples/single-controller-multi-compute-svl contrail_containers.yml
+    $ ansible-playbook -i inventory/examples/single-controller-multi-compute-svl site.yml
     ```
 
 Now contrail-controller node should have all contrail-controller specific containers running and all computes have agent
