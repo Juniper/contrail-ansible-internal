@@ -1,8 +1,8 @@
 ---
 - name: Update kafka broker id
-  lineinfile: dest="{{ kafka_conf }}" line="{{ item.key }}={{ item.value }}" state=present
+  lineinfile: dest="{{ kafka_conf }}" line="{{ item.key }}={{ item.value }}" regexp="^{{ item.key }}=" state=present
   with_dict:
-    broker.id: "{{ 100000 |random }}"
+    broker.id: "{{ my_analyticsdb_ip|regex_replace('^\\d+\\.\\d+\\.\\d+\\.(\\d+)$', '\\1')|int }}"
     port: "{{ kafka_port|int }}"
     listeners: "{{ kafka_listeners }}"
     zookeeper.connect: "{{ zk_servers_with_port }}"
@@ -17,6 +17,7 @@
   notify: restart kafka
 
 - name: Configure kafka replication factor
-  lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}" state=present
+  lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}"
+    regexp="^default.replication.factor=" state=present
   when: "{{ analyticsdb_list|length}} > 1"
   notify: restart kafka
