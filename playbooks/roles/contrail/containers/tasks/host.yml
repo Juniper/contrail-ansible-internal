@@ -22,5 +22,5 @@
   file: path="{{ contrailctl_config_directory }}" state=directory
 
 - name: Set correct hostname on centos - this should always be only hostname and not hostname.domainname format
-  shell: hostnamectl set-hostname "{{ ansible_hostname }}" --transient
+  shell: hostnamectl set-hostname "{{ ansible_hostname }}"
   when: ansible_os_family == "RedHat" and ansible_hostname != ansible_nodename
