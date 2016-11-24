@@ -1,0 +1,12 @@
+---
+- name: "Setup Contrail agent"
+  hosts: contrail-compute
+
+  pre_tasks:
+    - include_vars: contrail_agent.yml
+      tags: always
+
+  roles:
+    - role: common
+    - role: contrail/agent
+      tags: [contrail.agent]

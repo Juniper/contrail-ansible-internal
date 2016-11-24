@@ -1,0 +1,12 @@
+---
+agent_packages:
+  - contrail-vrouter-utils
+  - contrail-lib
+  - contrail-utils
+  - contrail-vrouter-utils
+  - python-contrail-vrouter-api
+  - python-opencontrail-vrouter-netns
+  - contrail-vrouter-agent
+  - contrail-vrouter-init
+  - contrail-nodemgr
+  - python-yaml
