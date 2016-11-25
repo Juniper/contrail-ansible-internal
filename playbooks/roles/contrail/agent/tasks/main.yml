@@ -1,0 +1,3 @@
+---
+- include: install/{{ ansible_os_family }}.yml
+  tags: [contrail.agent.install, install]
