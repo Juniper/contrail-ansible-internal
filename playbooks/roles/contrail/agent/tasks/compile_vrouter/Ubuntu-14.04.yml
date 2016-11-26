@@ -1,0 +1,30 @@
+---
+- name: Check if kernel headers for running kernel is available in container (Debian)
+  shell: "test -d /usr/src/linux-headers-{{ ansible_kernel }}"
+
+- name: get vrouter module version string (no build number added to module version string in vrouter --info at this moment)
+  shell: dpkg -l contrail-vrouter-dkms   | awk '/contrail-vrouter-dkms/ {print $3}'
+  register: vrouter_module_version_string
+
+# copy module doesnt support directory copy when use remote_src at this moment, so this is a workaround to copy vrouter
+# source directory
+- name: Copy vrouter source directory to /usr/src
+  shell: "cp -r /usr/src.orig/vrouter-{{ vrouter_module_version_string.stdout|regex_replace('-.*', '') }} /usr/src/vrouter-{{ vrouter_module_version_string.stdout }}"
+  args:
+    creates: "/usr/src/vrouter-{{ vrouter_module_version_string.stdout }}"
+
+- name: Link vrouter source directory without build number to correct build
+  file: src="/usr/src/vrouter-{{ vrouter_module_version_string.stdout }}"
+        dest="/usr/src/vrouter-{{ vrouter_module_version_string.stdout|regex_replace('-.*', '') }}"
+        state=link
+
+# Currently there is no way we can get running vrouter module version that include build number, and thus not adding logic
+#  to recompile the kernel module when there is a new version of vrouter module source available there in agent container
+#  Once we have a way to detect the vrouter module version (including build number), will add that logic
+- name: Compile vrouter module
+  shell: "dpkg-reconfigure contrail-vrouter-dkms && touch /usr/src/vrouter-{{ vrouter_module_version_string.stdout }}/module_compiled"
+  args:
+    creates: "{{ item }}"
+  with_items:
+    - "/usr/src/vrouter-{{ vrouter_module_version_string.stdout }}/module_compiled"
+    - "/lib/modules/{{ ansible_kernel }}/updates/dkms/vrouter.ko"

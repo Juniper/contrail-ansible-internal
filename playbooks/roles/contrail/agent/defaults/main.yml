@@ -10,3 +10,7 @@ agent_packages:
   - contrail-vrouter-init
   - contrail-nodemgr
   - python-yaml
+  - rsync
+  - curl
+
+compile_vrouter_module: true

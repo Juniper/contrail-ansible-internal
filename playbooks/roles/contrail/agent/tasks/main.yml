@@ -1,3 +1,6 @@
 ---
 - include: install/{{ ansible_os_family }}.yml
   tags: [contrail.agent.install, install]
+
+- include: provision.yml
+  tags: [contrail.agent.provision, provision]
