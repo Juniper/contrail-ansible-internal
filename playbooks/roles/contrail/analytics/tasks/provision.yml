@@ -37,3 +37,5 @@
 
 - include: topology.yml
   tags: [contrail.topology, contrail.topology.provision]
+
+- meta: flush_handlers

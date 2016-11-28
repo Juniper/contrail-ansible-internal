@@ -30,3 +30,29 @@
   notify: restart vrouter-agent
   with_dict:
     control_network_ip: "{{ vhost_address }}"
+
+
+- name: Configure /etc/contrail/agent_param
+  template: src=agent_param.j2 dest=/etc/contrail/agent_param
+  notify: restart vrouter-agent
+
+# TODO: This function need to be split and added as separate tasks
+- name: insert vrouter and setup vrouter vifs
+  shell: source /opt/contrail/bin/vrouter-functions.sh && insert_vrouter
+  args:
+     executable: /bin/bash
+
+- name: Move ip address from vrouter physical device to vhost
+  shell: "ip address delete {{ vhost_address_with_prefix }} dev {{ vrouter_physical_interface }} && \
+          ip address add {{ vhost_address_with_prefix }} dev {{ vhost_interface }} && \
+          ip link set dev {{ vhost_interface }} up"
+  register: vhost_ip_move
+  when: vhost_interface not in ansible_interfaces
+
+- name: Add default gateway to new device as link local in case of /32 IP Address
+  shell: "ip route add unicast {{ vhost_gateway }} dev {{ vhost_interface }} scope link"
+  when: " {{ vhost_ip_move.changed }} and {{ vhost_address_with_prefix | ipaddr('prefix') }} == 32 "
+
+- name: Add default gateway to vhost
+  shell: "ip route add default via {{ vhost_gateway }} dev {{ vhost_interface }}"
+  when: vhost_ip_move.changed
