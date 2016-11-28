@@ -1,3 +1,0 @@
----
-- include: vrouter.yml
-  tags: [contrail.agent.vrouter.provision]

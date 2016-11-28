@@ -1,3 +1,0 @@
----
-- include: "compile_vrouter/{{ansible_distribution}}-{{ansible_distribution_version}}.yml"
-  when: compile_vrouter_module

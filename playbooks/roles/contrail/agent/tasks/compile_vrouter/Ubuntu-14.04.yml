@@ -22,9 +22,18 @@
 #  to recompile the kernel module when there is a new version of vrouter module source available there in agent container
 #  Once we have a way to detect the vrouter module version (including build number), will add that logic
 - name: Compile vrouter module
-  shell: "dpkg-reconfigure contrail-vrouter-dkms && touch /usr/src/vrouter-{{ vrouter_module_version_string.stdout }}/module_compiled"
+  shell: "dpkg-reconfigure contrail-vrouter-dkms && depmod -a && touch /usr/src/vrouter-{{ vrouter_module_version_string.stdout }}/module_compiled"
   args:
     creates: "{{ item }}"
+  register: vrouter_compiled
   with_items:
     - "/usr/src/vrouter-{{ vrouter_module_version_string.stdout }}/module_compiled"
     - "/lib/modules/{{ ansible_kernel }}/updates/dkms/vrouter.ko"
+
+- name: reload module if vrouter module changed and if reload_vrouter_module set to true
+  shell: lsmod | grep -q vrouter && rmmod vrouter; modprobe vrouter && lsmod | grep -q vrouter
+  when: vrouter_compiled.changed and reload_vrouter_module
+
+- name: Load vrouter module if vrouter module is changed
+  shell: modprobe vrouter && lsmod | grep -q vrouter
+  when: vrouter_compiled.changed and not reload_vrouter_module

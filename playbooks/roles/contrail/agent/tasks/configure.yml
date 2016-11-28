@@ -1,0 +1,21 @@
+---
+- name: Check if supervisor is running and register it to supervisor_vrouter_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_vrouter.conf" || true
+  register: supervisor_vrouter_ready_cmd
+  always_run: yes
+  tags: [always]
+
+- name: "Setting a fact for supervisor_vrouter_ready"
+  set_fact: supervisor_vrouter_ready={{ (supervisor_vrouter_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+
+- name: Compile vrouter module
+  include: "compile_vrouter/{{ansible_distribution}}-{{ansible_distribution_version}}.yml"
+  when: compile_vrouter_module
+
+- name: Add discovery in /etc/contrail/vrouter_nodemgr_param
+  lineinfile: dest=/etc/contrail/vrouter_nodemgr_param line="DISCOVERY={{ disc_server_ip }}"
+              state=present create=yes regexp="^DISCOVERY="
+
+- include: nodemanager.yml
+  tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
