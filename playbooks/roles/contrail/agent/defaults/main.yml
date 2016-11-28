@@ -14,3 +14,5 @@ agent_packages:
   - curl
 
 compile_vrouter_module: true
+reload_vrouter_module: true
+nodemanager_conf: "/etc/contrail/contrail-vrouter-nodemgr.conf"
