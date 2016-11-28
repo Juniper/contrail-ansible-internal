@@ -48,11 +48,11 @@ listen stats :{{ stats_port }}
     stats auth {{ haproxy_auth_user }}:{{ haproxy_auth_password }}
     {%- endif %}
 
-frontend  contrail-api *:{{ contrail_api_frontend_port }}
+frontend contrail-api *:{{ contrail_api_frontend_port }}
     default_backend    contrail-api-backend
     timeout client 3m
 
-frontend  contrail-discovery *:{{ contrail_discovery_frontend_port }}
+frontend contrail-discovery *:{{ contrail_discovery_frontend_port }}
     default_backend    contrail-discovery-backend
 
 backend contrail-api-backend
@@ -68,4 +68,14 @@ backend contrail-discovery-backend
     balance roundrobin
     {% for discovery_ip in contrail_discovery_server_list %}
     server {{ discovery_ip }} {{ discovery_ip }}:{{ contrail_discovery_backend_port }} check inter {{ check_interval }} rise 2 fall 3
+    {% endfor %}
+
+frontend contrail-analytics-api *:{{ contrail_analytics_api_frontend_port }}
+    default_backend    contrail-analytics-api-backend
+
+backend contrail-analytics-api-backend
+    option nolinger
+    balance roundrobin
+    {% for analytics_api_ip in contrail_analytics_api_list %}
+    server {{ analytics_api_ip }} {{ analytics_api_ip }}:{{ contrail_analytics_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
     {% endfor %}

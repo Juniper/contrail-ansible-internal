@@ -1,0 +1,5 @@
+---
+- name: Setting fact to override analytics-api listen port(analytics_server_port) based on the topology(HA/single node cluster).
+  set_fact: analytics_server_port=9081
+  # Override only in a HA setup with internal LB, provided the port is not already changed by user input.
+  when: analytics_list|length > 1 and external_lb is not defined and analytics_server_port == 8081

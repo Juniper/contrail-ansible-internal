@@ -3,5 +3,8 @@
   when: ansible_os_family == 'Debian'
   tags: [contrail.controller.install, contrail.config.install, install]
 
+- include: facts.yml
+  tags: always
+
 - include: provision.yml
   tags: [contrail.controller.provision, contrail.config.provision, provision]
