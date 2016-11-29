@@ -17,5 +17,12 @@
   lineinfile: dest=/etc/contrail/vrouter_nodemgr_param line="DISCOVERY={{ disc_server_ip }}"
               state=present create=yes regexp="^DISCOVERY="
 
-- include: nodemanager.yml
+- name: Configure vorouter agent
+  include: vrouter_agent.yml
+  tags: [contrail.agent.vrouter_agent.configure, contrail.agent.vrouter_agent]
+
+- name: Configure vrouter nodemanager
+  include: nodemanager.yml
   tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
+
+- meta: flush_handlers
