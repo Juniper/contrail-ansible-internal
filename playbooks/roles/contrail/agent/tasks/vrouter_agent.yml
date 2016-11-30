@@ -56,3 +56,9 @@
 - name: Add default gateway to vhost
   shell: "ip route add default via {{ vhost_gateway }} dev {{ vhost_interface }}"
   when: vhost_ip_move.changed
+
+# Service management
+- name: Make sure vrouter agent service is up
+  supervisorctl: name="contrail-vrouter-agent" state=started config=/etc/contrail/supervisord_vrouter.conf
+  tags: [service, contrail.agent.vrouter-agent.service, contrail.agent.service]
+  when: supervisor_vrouter_ready

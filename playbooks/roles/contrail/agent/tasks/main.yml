@@ -4,3 +4,6 @@
 
 - include: configure.yml
   tags: [contrail.agent.configure, configure]
+
+- include: provision.yml
+  tags: [contrail.agent.provision, provision]

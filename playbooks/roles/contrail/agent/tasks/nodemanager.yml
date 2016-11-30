@@ -9,6 +9,6 @@
 
 # Service management
 - name: Make sure agent nodemanager service is up
-  supervisorctl: name="contrail-agent-nodemgr" state=started agent=/etc/contrail/supervisord_agent.conf
-  tags: [service, contrail.agent.nodemgr.service, contrail.controller.service, contrail.agent.service]
+  supervisorctl: name="contrail-vrouter-nodemgr" state=started config=/etc/contrail/supervisord_vrouter.conf
+  tags: [service, contrail.agent.nodemgr.service, contrail.agent.service]
   when: supervisor_vrouter_ready
