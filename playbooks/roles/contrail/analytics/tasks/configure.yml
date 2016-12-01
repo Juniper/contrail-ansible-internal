@@ -18,24 +18,24 @@
   tags: [always]
 
 - include: alarm-gen.yml
-  tags: [contrail.alarmgen, contrail.alarmgen.provision]
+  tags: [contrail.alarmgen, contrail.alarmgen.configure]
 
 - include: api.yml
-  tags: [contrail.analytics.api, contrail.analytics.api.provision]
+  tags: [contrail.analytics.api, contrail.analytics.api.configure]
 
 - include: nodemanager.yml
-  tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.provision]
+  tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.configure]
 
 - include: collector.yml
-  tags: [contrail.collector, contrail.collector.provision]
+  tags: [contrail.collector, contrail.collector.configure]
 
 - include: query-engine.yml
-  tags: [contrail.query-engine, contrail.query-engine.provision]
+  tags: [contrail.query-engine, contrail.query-engine.configure]
 
 - include: snmp-collector.yml
-  tags: [contrail.snmp-collector, contrail.snmp-collector.provision]
+  tags: [contrail.snmp-collector, contrail.snmp-collector.configure]
 
 - include: topology.yml
-  tags: [contrail.topology, contrail.topology.provision]
+  tags: [contrail.topology, contrail.topology.configure]
 
 - meta: flush_handlers

@@ -10,10 +10,10 @@
   tags: [always]
 
 - include: control.yml
-  tags: [contrail.control, contrail.control.provision]
+  tags: [contrail.control, contrail.control.configure]
 
 - include: dns.yml
-  tags: [contrail.dns, contrail.dns.provision]
+  tags: [contrail.dns, contrail.dns.configure]
 
 - include: nodemanager.yml
-  tags: [contrail.control.nodemgr, contrail.control.nodemgr.provision]
+  tags: [contrail.control.nodemgr, contrail.control.nodemgr.configure]

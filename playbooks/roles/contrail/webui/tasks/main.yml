@@ -3,5 +3,5 @@
   when: ansible_os_family == 'Debian'
   tags: [contrail.controller.install, contrail.webui.install, install]
 
-- include: provision.yml
-  tags: [contrail.controller.provision, contrail.webui.provision, provision]
+- include: configure.yml
+  tags: [contrail.controller.configure, contrail.webui.configure, configure]

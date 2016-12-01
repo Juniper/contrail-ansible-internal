@@ -10,9 +10,9 @@
   tags: [always]
 
 - include: kafka.yml
-  tags: [contrail.database.kafka, contrail.database.kafka.provision]
+  tags: [contrail.database.kafka, contrail.database.kafka.configure]
 
 - include: nodemanager.yml
-  tags: [contrail.database.nodemanager, contrail.database.nodemanager.provision]
+  tags: [contrail.database.nodemanager, contrail.database.nodemanager.configure]
 
 - meta: flush_handlers
