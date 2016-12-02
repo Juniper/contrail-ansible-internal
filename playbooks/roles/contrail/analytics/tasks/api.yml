@@ -3,7 +3,7 @@
   ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart analytics-api
   with_dict:
-    host_ip: "{{ analytics_host_ip }}"
+    host_ip: "{{ my_analytics_ip }}"
     log_file: "{{ analytics_api_log }}"
     log_level: "{{ analytics_api_log_level }}"
     log_local: "{{ log_local }}"

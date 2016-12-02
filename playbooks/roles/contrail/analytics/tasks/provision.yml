@@ -9,11 +9,11 @@
 
 - name: register analytics to config api server (openstack)
   shell: "/usr/share/contrail-utils/provision_analytics_node.py  --api_server_ip {{ api_server_ip }}  \
-    --host_name {{ ansible_hostname }} --host_ip {{ analytics_host_ip }} --oper add \
+    --host_name {{ ansible_hostname }} --host_ip {{ my_analytics_ip }} --oper add \
     {{ provision_cmd_keystone_args }}"
   when: cloud_orchestrator == "openstack"
 
 - name: register vrouter to config api server (non-openstack)
   shell: "/usr/share/contrail-utils/provision_analytics_node.py  --api_server_ip {{ api_server_ip }}  \
-    --host_name {{ ansible_hostname }} --host_ip {{ analytics_host_ip }} --oper add"
+    --host_name {{ ansible_hostname }} --host_ip {{ my_analytics_ip }} --oper add"
   when: cloud_orchestrator != "openstack"

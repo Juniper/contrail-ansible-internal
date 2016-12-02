@@ -3,7 +3,7 @@
   ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart alarm-gen
   with_dict:
-    host_ip: "{{ analytics_host_ip }}"
+    host_ip: "{{ my_analytics_ip }}"
     log_file: "{{ alarmgen_log }}"
     log_level: "{{ alarmgen_log_level }}"
     log_local: "{{ log_local }}"

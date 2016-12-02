@@ -4,7 +4,7 @@
   notify: restart analytics query-engine
   with_dict:
     cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
-    hostip: "{{ analytics_host_ip }}"
+    hostip: "{{ my_analytics_ip }}"
     log_file: "{{ analytics_query_engine_log }}"
     log_level: "{{ analytics_query_engine_log_level }}"
     log_local: "{{ log_local }}"
