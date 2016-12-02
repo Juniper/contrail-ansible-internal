@@ -8,3 +8,6 @@
 
 - include: configure.yml
   tags: [contrail.analytics.configure, configure]
+
+- include: provision.yml
+  tags: [contrail.analytics.provision, provision]
