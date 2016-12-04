@@ -22,24 +22,24 @@
   tags: [always]
 
 - include: ifmap.yml
-  tags: [contrail.ifmap, contrail.ifmap.provision]
+  tags: [contrail.ifmap, contrail.ifmap.configure]
 
 - include: nodemanager.yml
-  tags: [contrail.config.nodemanager, contrail.config.nodemanager.provision]
+  tags: [contrail.config.nodemanager, contrail.config.nodemanager.configure]
 
 - include: schema.yml
-  tags: [contrail.schema, contrail.schema.provision]
+  tags: [contrail.schema, contrail.schema.configure]
 
 - include: api.yml
-  tags: [contrail.api, contrail.api.provision]
+  tags: [contrail.api, contrail.api.configure]
 
 - include: discovery.yml
-  tags: [contrail.discovery, contrail.discovery.provision]
+  tags: [contrail.discovery, contrail.discovery.configure]
 
 - include: svc-monitor.yml
-  tags: [contrail.svc-monitor, contrail.svc-monitor.provision]
+  tags: [contrail.svc-monitor, contrail.svc-monitor.configure]
 
 - include: device-manager.yml
-  tags: [contrail.device-manager, contrail.device-manager.provision]
+  tags: [contrail.device-manager, contrail.device-manager.configure]
 
 - meta: flush_handlers

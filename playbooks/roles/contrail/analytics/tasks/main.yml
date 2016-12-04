@@ -1,10 +1,19 @@
 ---
+- name: Collect local analytics server ip from the list
+  set_fact: my_analytics_ip="{{ item }}"
+  when: "item in ansible_all_ipv4_addresses"
+  with_items: "{{ analytics_list }}"
+  tags: [always]
+
 - include: install/debian.yml
   when: ansible_os_family == 'Debian'
   tags: [contrail.analytics.install, install]
 
 - include: facts.yml
   tags: always
+
+- include: configure.yml
+  tags: [contrail.analytics.configure, configure]
 
 - include: provision.yml
   tags: [contrail.analytics.provision, provision]

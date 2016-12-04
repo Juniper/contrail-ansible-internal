@@ -2,5 +2,5 @@
 - include: install.yml
   tags: [contrail.lb.install, contrail.haproxy.install, install]
 
-- include: provision.yml
-  tags: [contrail.lb.provision, contrail.haproxy.provision, provision]
+- include: configure.yml
+  tags: [contrail.lb.configure, contrail.haproxy.configure, configure]

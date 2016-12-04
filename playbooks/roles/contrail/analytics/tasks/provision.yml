@@ -1,41 +1,19 @@
----
-- name: wait for analyticsdb cassandra
-  wait_for: port="{{ analyticsdb_port }}" host="{{ item }}"
-  with_items: " {{ analyticsdb_list }}"
+- name: Wait till config api server answers
+  uri:
+    url: "{{ api_server_url }}"
+    status_code: 200
+  register: api_server_connect_status
+  until: api_server_connect_status.status == 200
+  retries: 180
+  delay: 1
 
-- name: wait for analyticsdb kafka
-  wait_for: port="{{ kafka_port }}" host="{{ item }}"
-  with_items: " {{ analyticsdb_list }}"
+- name: register analytics to config api server (openstack)
+  shell: "/usr/share/contrail-utils/provision_analytics_node.py  --api_server_ip {{ api_server_ip }}  \
+    --host_name {{ ansible_hostname }} --host_ip {{ my_analytics_ip }} --oper add \
+    {{ provision_cmd_keystone_args }}"
+  when: cloud_orchestrator == "openstack"
 
-- name: Check if supervisor is running and register it to supervisor_analytics_ready
-  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_analytics.conf" || true
-  register: supervisor_analytics_ready_cmd
-  always_run: yes
-  tags: [always]
-
-- name: "Setting a fact for supervisor_analytics_ready"
-  set_fact: supervisor_analytics_ready={{ (supervisor_analytics_ready_cmd.stdout) | ternary(true, false) }}
-  tags: [always]
-
-- include: alarm-gen.yml
-  tags: [contrail.alarmgen, contrail.alarmgen.provision]
-
-- include: api.yml
-  tags: [contrail.analytics.api, contrail.analytics.api.provision]
-
-- include: nodemanager.yml
-  tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.provision]
-
-- include: collector.yml
-  tags: [contrail.collector, contrail.collector.provision]
-
-- include: query-engine.yml
-  tags: [contrail.query-engine, contrail.query-engine.provision]
-
-- include: snmp-collector.yml
-  tags: [contrail.snmp-collector, contrail.snmp-collector.provision]
-
-- include: topology.yml
-  tags: [contrail.topology, contrail.topology.provision]
-
-- meta: flush_handlers
+- name: register vrouter to config api server (non-openstack)
+  shell: "/usr/share/contrail-utils/provision_analytics_node.py  --api_server_ip {{ api_server_ip }}  \
+    --host_name {{ ansible_hostname }} --host_ip {{ my_analytics_ip }} --oper add"
+  when: cloud_orchestrator != "openstack"

@@ -1,0 +1,41 @@
+---
+- name: wait for analyticsdb cassandra
+  wait_for: port="{{ analyticsdb_port }}" host="{{ item }}"
+  with_items: " {{ analyticsdb_list }}"
+
+- name: wait for analyticsdb kafka
+  wait_for: port="{{ kafka_port }}" host="{{ item }}"
+  with_items: " {{ analyticsdb_list }}"
+
+- name: Check if supervisor is running and register it to supervisor_analytics_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_analytics.conf" || true
+  register: supervisor_analytics_ready_cmd
+  always_run: yes
+  tags: [always]
+
+- name: "Setting a fact for supervisor_analytics_ready"
+  set_fact: supervisor_analytics_ready={{ (supervisor_analytics_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+
+- include: alarm-gen.yml
+  tags: [contrail.alarmgen, contrail.alarmgen.configure]
+
+- include: api.yml
+  tags: [contrail.analytics.api, contrail.analytics.api.configure]
+
+- include: nodemanager.yml
+  tags: [contrail.analytics.nodemgr, contrail.analytics.nodemgr.configure]
+
+- include: collector.yml
+  tags: [contrail.collector, contrail.collector.configure]
+
+- include: query-engine.yml
+  tags: [contrail.query-engine, contrail.query-engine.configure]
+
+- include: snmp-collector.yml
+  tags: [contrail.snmp-collector, contrail.snmp-collector.configure]
+
+- include: topology.yml
+  tags: [contrail.topology, contrail.topology.configure]
+
+- meta: flush_handlers

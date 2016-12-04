@@ -5,7 +5,6 @@ analytics_packages:
 
 analytics_redis_port: 6381
 analytics_redis_ip: 127.0.0.1
-analytics_host_ip: "{{ analytics_server_ip }}"
 
 # analaytics-api
 analytics_api_conf: "/etc/contrail/contrail-analytics-api.conf"

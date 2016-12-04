@@ -6,5 +6,5 @@
 - include: facts.yml
   tags: always
 
-- include: provision.yml
-  tags: [contrail.controller.provision, contrail.config.provision, provision]
+- include: configure.yml
+  tags: [contrail.controller.configure, contrail.config.configure, configure]

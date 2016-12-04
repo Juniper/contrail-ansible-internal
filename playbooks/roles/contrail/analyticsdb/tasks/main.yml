@@ -3,11 +3,11 @@
   set_fact: my_analyticsdb_ip="{{ item }}"
   when: "item in ansible_all_ipv4_addresses"
   with_items: "{{ analyticsdb_list }}"
-  tags: [contrail.database.provision, provision]
+  tags: [contrail.database.configure, configure]
 
 - include: install/debian.yml
   when: ansible_os_family == 'Debian'
   tags: [install, contrail.database.install]
 
-- include: provision.yml
-  tags: [contrail.database.provision, provision]
+- include: configure.yml
+  tags: [contrail.database.configure, configure]
