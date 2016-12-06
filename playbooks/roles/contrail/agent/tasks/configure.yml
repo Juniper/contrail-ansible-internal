@@ -13,6 +13,14 @@
   include: "compile_vrouter/{{ansible_distribution}}-{{ansible_distribution_version}}.yml"
   when: compile_vrouter_module
 
+- name: reload module if vrouter module changed and if reload_vrouter_module set to true
+  shell: lsmod | grep -q vrouter && rmmod vrouter; depmod -a && modprobe vrouter && lsmod | grep -q vrouter
+  when: reload_vrouter_module
+
+- name: Load vrouter module if vrouter module is changed
+  shell: depmod -a && modprobe vrouter && lsmod | grep -q vrouter
+  when: not reload_vrouter_module
+
 - name: Add discovery in /etc/contrail/vrouter_nodemgr_param
   lineinfile: dest=/etc/contrail/vrouter_nodemgr_param line="DISCOVERY={{ disc_server_ip }}"
               state=present create=yes regexp="^DISCOVERY="
