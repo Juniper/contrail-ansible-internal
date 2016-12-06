@@ -12,3 +12,5 @@ pod_subnets: 10.32.0.0/12
 admin_user: admin
 admin_password: admin
 admin_tenant: admin
+kube_manager_log_level: SYS_DEBUG
+kube_manager_log_file: "/var/log/contrail/contrail-kube-manager.log"
