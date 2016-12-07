@@ -1,0 +1,9 @@
+---
+- name: Copy supervisord config file
+  copy: src=supervisor/supervisord_kubernetes.conf dest=/etc/contrail/supervisord_kubernetes.conf
+
+- name: Copy supervisord service config files
+  copy: src=supervisor/supervisord_kubernetes_files dest=/etc/contrail/supervisord_kubernetes_files
+
+- name: Link supervisord_kubernetes.conf to /etc/supervisor/supervisord.conf
+  file: src=/etc/contrail/supervisord_kubernetes.conf dest=/etc/supervisor/supervisord.conf state=link force=yes

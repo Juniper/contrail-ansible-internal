@@ -1,7 +1,12 @@
 ---
-- include: install/debian.yml
-  when: ansible_os_family == 'Debian'
+- include: install/{{ ansible_os_family }}.yml
+  tags: [install, contrail.kube_manager.install]
+
+- name: Include contrail service manager specific code
+  include: install/{{ contrail_service_mgr }}.yml
   tags: [install, contrail.kube_manager.install]
 
 - include: configure.yml
   tags: [contrail.kube_manager.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml

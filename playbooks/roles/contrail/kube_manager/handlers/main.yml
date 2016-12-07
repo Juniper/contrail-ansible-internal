@@ -1,0 +1,8 @@
+---
+- name: restart kube-manager
+  systemd: name="kube-manager" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart kube-manager
+  supervisorctl: name="contrail-kube-manager" state=restarted config=/etc/contrail/supervisord_kube_manager.conf
+  when: supervisor_kube_manager_ready and contrail_service_mgr == 'supervisord'
