@@ -1,4 +1,16 @@
 ---
+- name: Check if supervisord for kube manager is running and register it to supervisor_kube_manager_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_kube_manager.conf" || true
+  register: supervisor_kube_manager_ready_cmd
+  always_run: yes
+  tags: [always]
+  when: contrail_service_mgr == 'supervisord'
+
+- name: "Setting a fact for supervisor_kube_manager_ready"
+  set_fact: supervisor_kube_manager_ready={{ (supervisor_kube_manager_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+  when: contrail_service_mgr == 'supervisord'
+
 - name: Configure KUBERNETES section of contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=KUBERNETES option={{ item.key }} value={{ item.value }}  create=yes
   with_dict:
@@ -7,6 +19,7 @@
     kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
     service_subnets: "{{ service_subnets }}"
     pod_subnets: "{{ pod_subnets }}"
+  notify: restart kube-manager
 
 - name: Configure VNC Section of contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=VNC option={{ item.key }} value={{ item.value }}  create=yes
@@ -18,6 +31,7 @@
     admin_user: "{{ admin_user }}"
     admin_password: "{{ admin_password }}"
     admin_tenant: "{{ admin_tenant }}"
+  notify: restart kube-manager
 
 - name: Configure DEFAULTS Section of contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
@@ -27,3 +41,4 @@
     log_local: "{{ log_local }}"
     log_level: "{{ kube_manager_log_level }}"
     log_file: "{{ kube_manager_log_file }}"
+  notify: restart kube-manager

@@ -1,0 +1,6 @@
+---
+# Service management
+- name: Make sure kube-manager service is up
+  supervisorctl: name="contrail-kube-manager" state=started config=/etc/contrail/supervisord_kube_manager.conf
+  tags: [service, contrail.kube-manager.service, contrail.controller.service]
+  when: supervisor_kube_manager_ready
