@@ -1,7 +1,16 @@
 ---
+- name: Collect local controller server ip from the list
+  set_fact: my_controller_ip="{{ item }}"
+  when: "item in ansible_all_ipv4_addresses"
+  with_items: "{{ controller_list }}"
+  tags: [always]
+
 - include: install/debian.yml
   when: ansible_os_family == 'Debian'
   tags: [contrail.controller.install, contrail.controlnode.install, install]
 
 - include: configure.yml
   tags: [contrail.controller.configure, contrail.controlnode.configure, configure]
+
+- include: provision/main.yml
+  tags: [contrail.controller.provision, contrail.control.provision, provision]

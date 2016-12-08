@@ -1,0 +1,15 @@
+---
+- name: register control node to config api server (noauth)
+  shell: "/usr/share/contrail-utils/provision_control.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --router_asn {{ bgp_asn }}"
+
+- name: register control node as a BGP speaker (noauth) with md5
+  shell: "/usr/share/contrail-utils/provision_control.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add --router_asn {{ bgp_asn }} --md5 {{ bgp_md5 }}"
+  when: bgp_md5 is defined
+
+- name: register control node as a BGP speaker (noauth) without md5
+  shell: "/usr/share/contrail-utils/provision_control.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add --router_asn {{ bgp_asn }}"
+  when: bgp_md5 is not defined
+
+- name: Register external routers in bgp speaker list (noauth)
+  shell: "/usr/share/contrail-utils/provision_mx.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --router_name {{ item.key }} --router_ip  {{ item.value }} --router_asn {{ bgp_asn }}"
+  with_dict: "{{ external_routers_list }}"
