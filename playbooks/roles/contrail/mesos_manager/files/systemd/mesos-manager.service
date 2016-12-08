@@ -1,0 +1,15 @@
+[Unit]
+Description=Contrail mesos-manager
+Documentation=Contrail mesos manager
+After=network.target
+
+[Service]
+Type=simple
+NotifyAccess=all
+ExecStart=/usr/bin/contrail-mesos-manager -c /etc/contrail/contrail-mesos.conf
+TimeoutStartSec=0
+MountFlags=slave
+Restart=on-abnormal
+
+[Install]
+WantedBy=multi-user.target

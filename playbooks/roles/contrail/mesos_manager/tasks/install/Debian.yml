@@ -1,0 +1,9 @@
+---
+- name: install contrail-mesos-manager related packages
+  apt: name={{ item }} state=latest force=yes
+  with_items: "{{ contrail_mesos_manager_packages }}"
+
+- name: install supervisor
+  apt: name=supervisor state=latest force=yes
+  when: contrail_service_mgr == 'supervisord'
+

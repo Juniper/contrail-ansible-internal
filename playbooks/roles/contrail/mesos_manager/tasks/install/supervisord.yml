@@ -1,0 +1,9 @@
+---
+- name: Copy supervisord config file
+  copy: src=supervisor/supervisord_mesos.conf dest=/etc/contrail/supervisord_mesos.conf
+
+- name: Copy supervisord service config files
+  copy: src=supervisor/supervisord_mesos_files dest=/etc/contrail/
+
+- name: Link supervisord_mesos.conf to /etc/supervisor/supervisord.conf
+  file: src=/etc/contrail/supervisord_mesos.conf dest=/etc/supervisor/supervisord.conf state=link force=yes
