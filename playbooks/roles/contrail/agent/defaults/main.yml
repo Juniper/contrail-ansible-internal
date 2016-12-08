@@ -1,6 +1,6 @@
 ---
 agent_packages:
-  - contrail-setup
+  - contrail-vrouter-common
   - contrail-vrouter-utils
   - contrail-lib
   - contrail-utils
