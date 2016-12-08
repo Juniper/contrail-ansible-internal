@@ -1,0 +1,12 @@
+---
+- include: install/{{ ansible_os_family }}.yml
+  tags: [install, contrail.mesos_manager.install]
+
+- name: Include contrail service manager specific code
+  include: install/{{ contrail_service_mgr }}.yml
+  tags: [install, contrail.mesos_manager.install]
+
+- include: configure.yml
+  tags: [contrail.mesos_manager.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml

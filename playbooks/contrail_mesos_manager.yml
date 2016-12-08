@@ -1,0 +1,8 @@
+---
+- name: "Setup Contrail mesos Network manager"
+  hosts: contrail-compute
+
+  roles:
+    - role: common
+    - role: contrail/mesos_manager
+      tags: [contrail.mesos_manager]

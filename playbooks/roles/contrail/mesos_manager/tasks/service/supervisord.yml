@@ -1,0 +1,6 @@
+---
+# Service management
+- name: Make sure mesos-manager service is up
+  supervisorctl: name="contrail-mesos-manager" state=started config=/etc/contrail/supervisord_mesos_manager.conf
+  tags: [service, contrail.mesos-manager.service, contrail.controller.service]
+  when: supervisor_mesos_manager_ready

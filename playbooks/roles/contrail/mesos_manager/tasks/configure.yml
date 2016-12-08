@@ -1,0 +1,44 @@
+---
+- name: Check if supervisord for mesos manager is running and register it to supervisor_mesos_manager_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_mesos_manager.conf" || true
+  register: supervisor_mesos_manager_ready_cmd
+  always_run: yes
+  tags: [always]
+  when: contrail_service_mgr == 'supervisord'
+
+- name: "Setting a fact for supervisor_mesos_manager_ready"
+  set_fact: supervisor_mesos_manager_ready={{ (supervisor_mesos_manager_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+  when: contrail_service_mgr == 'supervisord'
+
+- name: Configure Mesos section of contrail-mesos.conf
+  ini_file: dest={{ mesos_manager_conf }} section=MESOS option={{ item.key }} value={{ item.value }}  create=yes
+  with_dict:
+    mesos_api_server: "{{ mesos_api_server }}"
+    mesos_api_port: "{{ mesos_api_port }}"
+    mesos_api_secure_port: "{{ mesos_api_secure_port }}"
+    service_subnets: "{{ service_subnets }}"
+    pod_subnets: "{{ pod_subnets }}"
+  notify: restart mesos-manager
+
+- name: Configure VNC Section of contrail-mesos.conf
+  ini_file: dest={{ mesos_manager_conf }} section=VNC option={{ item.key }} value={{ item.value }}  create=yes
+  with_dict:
+    vnc_endpoint_ip: "{{ api_server_ip }}"
+    vnc_endpoint_port: "{{ api_server_port }}"
+    rabbit_server: "{{ rabbitmq_servers_with_port }}"
+    cassandra_server_list: "{{ configdb_servers_with_port }}"
+    admin_user: "{{ admin_user }}"
+    admin_password: "{{ admin_password }}"
+    admin_tenant: "{{ admin_tenant }}"
+  notify: restart mesos-manager
+
+- name: Configure DEFAULTS Section of contrail-mesos.conf
+  ini_file: dest={{ mesos_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
+  with_dict:
+    disc_server_ip: "{{ disc_server_ip }}"
+    disc_server_port: "{{ disc_server_port }}"
+    log_local: "{{ log_local }}"
+    log_level: "{{ mesos_manager_log_level }}"
+    log_file: "{{ mesos_manager_log_file }}"
+  notify: restart mesos-manager

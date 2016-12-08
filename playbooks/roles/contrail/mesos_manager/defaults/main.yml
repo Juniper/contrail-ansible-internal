@@ -1,0 +1,16 @@
+---
+contrail_mesos_manager_packages:
+  - contrail-mesos-manager
+  - python-contrail
+  - python-eventlet
+mesos_manager_conf: "/etc/contrail/contrail-mesos.conf"
+mesos_api_server: 127.0.0.1
+mesos_api_port: 8080
+mesos_api_secure_port: 6443
+service_subnets: 10.96.0.0/12
+pod_subnets: 10.32.0.0/12
+admin_user: admin
+admin_password: admin
+admin_tenant: admin
+mesos_manager_log_level: SYS_DEBUG
+mesos_manager_log_file: "/var/log/contrail/contrail-mesos-manager.log"
