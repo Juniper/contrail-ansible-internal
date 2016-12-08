@@ -1,0 +1,16 @@
+SERVICE_TOKEN={{ keystone_admin_token|default('') }}
+AUTH_PROTOCOL={{ keystone_auth_protocol|default('') }}
+QUANTUM_PROTOCOL={{ neutron_protocol|default('') }}
+ADMIN_TOKEN={{ keystone_admin_password|default('') }}
+CONTROLLER={{ keystone_server|default('') }}
+AMQP_SERVER= {{ rabbitmq_servers_with_port|default('') }}
+HYPERVISOR=libvirt
+NOVA_PASSWORD={{ neutron_password|default('') }}
+NEUTRON_PASSWORD={{ neutron_password|default('') }}
+SERVICE_TENANT_NAME={{ service_tenant|default('') }}
+SERVICE_TENANT={{ service_tenant|default('') }}
+QUANTUM={{ neutron_ip|default('') }}
+QUANTUM_PORT={{ neutron_port|default('') }}
+COMPUTE={{ keystone_server|default('') }}
+CONTROLLER_MGMT={{ api_server_ip|default('') }}
+
