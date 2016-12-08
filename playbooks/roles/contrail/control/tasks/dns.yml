@@ -14,6 +14,12 @@
   notify: restart contrail-dns
   with_dict: "{{ dns_specific_configs.IFMAP }}"
 
+- name: Configure rndc key for named
+  lineinfile: dest="{{ item }}" line="secret {{ rndc_key }}" regexp="^secret " state=present
+  with_items:
+    - /etc/contrail/dns/contrail-rndc.conf
+    - /etc/contrail/dns/contrail-named.conf
+
 # Service management
 - name: Make sure contrail-dns service is up
   supervisorctl: name="contrail-dns" state=started config=/etc/contrail/supervisord_control.conf

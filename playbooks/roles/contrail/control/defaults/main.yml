@@ -19,6 +19,7 @@ named_config_file: contrail-named.conf
 named_config_directory: /etc/contrail/dns
 named_log_file: /var/log/contrail/contrail-named.log
 rndc_config_file: contrail-rndc.conf
+rndc_key: "xvysmOR8lnUQRBcunkC6vg=="
 dns_introspect_port: 8092
 dns_server_port: 53
 dns_ifmap_username: "{{ control_ip }}.dns"
@@ -28,3 +29,7 @@ nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
 
 control_packages:
   - contrail-openstack-control
+bgp_asn: 64512
+
+# external_routers_list: dictionary of external, physical routers in form of {name1: ip1, name2: ip2}
+external_routers_list: {}
