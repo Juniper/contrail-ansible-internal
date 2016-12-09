@@ -8,8 +8,9 @@ control_introspect_port: 8083
 xmpp_server_port: 5269
 bgp_port: 179
 
-control_ifmap_username: "{{ control_ip }}"
-control_ifmap_password: "{{ control_ip }}"
+my_controller_ip: "{{ control_ip }}"
+control_ifmap_username: "{{ my_controller_ip }}"
+control_ifmap_password: "{{ my_controller_ip }}"
 
 dns_conf: /etc/contrail/contrail-dns.conf
 dns_log: /var/log/contrail/contrail-dns.log
@@ -22,8 +23,8 @@ rndc_config_file: contrail-rndc.conf
 rndc_key: "xvysmOR8lnUQRBcunkC6vg=="
 dns_introspect_port: 8092
 dns_server_port: 53
-dns_ifmap_username: "{{ control_ip }}.dns"
-dns_ifmap_password: "{{ control_ip }}.dns"
+dns_ifmap_username: "{{ my_controller_ip }}.dns"
+dns_ifmap_password: "{{ my_controller_ip }}.dns"
 
 nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
 

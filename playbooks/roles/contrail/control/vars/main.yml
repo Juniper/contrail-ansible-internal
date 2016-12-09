@@ -5,7 +5,7 @@
 # Infra configuration entries like cassandra, rabbitmq etc
 control_infra_configs:
   log_local: "{{ log_local }}"
-  hostip: "{{ control_ip }}"
+  hostip: "{{ my_controller_ip }}"
   hostname: "{{ ansible_hostname }}"
 
 # Now add contrail-control specific config entries
