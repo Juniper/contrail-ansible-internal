@@ -1,6 +1,6 @@
 ---
 - name: restart kube-manager
-  systemd: name="kube-manager" state=restarted
+  systemd: name="contrail-kube-manager" state=restarted
   when: contrail_service_mgr == 'systemd'
 
 - name: restart kube-manager

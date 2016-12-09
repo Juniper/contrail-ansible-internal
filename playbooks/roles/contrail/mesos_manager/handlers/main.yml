@@ -1,6 +1,6 @@
 ---
 - name: restart mesos-manager
-  systemd: name="mesos-manager" state=restarted
+  systemd: name="contrail-mesos-manager" state=restarted
   when: contrail_service_mgr == 'systemd'
 
 - name: restart mesos-manager

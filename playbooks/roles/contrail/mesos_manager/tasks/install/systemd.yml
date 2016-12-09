@@ -6,7 +6,7 @@
   file: src=/etc/systemd/system/contrail-ansible.service dest=/etc/systemd/system/multi-user.target.wants/contrail-ansible.service state=link
 
 - name: Copy systemd file for mesos-manager to systemd unit file location
-  copy: src=systemd/mesos-manager.service dest=/etc/systemd/system/mesos-manager.service
+  copy: src=systemd/contrail-mesos-manager.service dest=/etc/systemd/system/contrail-mesos-manager.service
 
 - name: Enable mesos-manager.service
-  file: src=/etc/systemd/system/mesos-manager.service dest=/etc/systemd/system/multi-user.target.wants/mesos-manager.service state=link
+  file: src=/etc/systemd/system/contrail-mesos-manager.service dest=/etc/systemd/system/multi-user.target.wants/contrail-mesos-manager.service state=link
