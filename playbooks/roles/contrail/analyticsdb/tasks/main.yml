@@ -13,4 +13,4 @@
   tags: [contrail.database.configure, configure]
 
 - include: provision.yml
-  tags: [contrail.analytics.provision, provision]
+  tags: [contrail.database.provision, provision]

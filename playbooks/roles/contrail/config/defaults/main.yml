@@ -9,6 +9,7 @@ api_listen_address: 0.0.0.0
 api_listen_port: "{{ api_server_port }}"
 list_optimization_enabled: True
 auth: keystone
+multi_tenancy: True
 
 # Node manager
 nodemanager_conf: "/etc/contrail/contrail-config-nodemgr.conf"
