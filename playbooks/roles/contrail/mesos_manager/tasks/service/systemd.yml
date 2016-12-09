@@ -1,4 +1,4 @@
 ---
-- name: Make sure mesos-manager service is up
-  systemd: name="mesos-manager" state=started enabled=yes
+- name: Make sure contrail-mesos-manager service is up
+  systemd: name="contrail-mesos-manager" state=started enabled=yes
   tags: [service, contrail.mesos-manager.service, contrail.controller.service]
