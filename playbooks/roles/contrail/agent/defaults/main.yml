@@ -15,7 +15,7 @@ agent_packages:
   - curl
 
 compile_vrouter_module: true
-reload_vrouter_module: true
+reload_vrouter_module: false
 nodemanager_conf: "/etc/contrail/contrail-vrouter-nodemgr.conf"
 #vrouter_physical_interface: "{{ ansible_default_ipv4.interface }}"
 vrouter_physical_interface: eth0

@@ -1,7 +1,16 @@
+---
 - name: restart vrouter nodemanager
   supervisorctl: name="contrail-vrouter-nodemgr" state=restarted config=/etc/contrail/supervisord_vrouter.conf
-  when: supervisor_vrouter_ready
+  when: supervisor_vrouter_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart vrouter nodemanager
+  systemd: name="contrail-vrouter-nodemgr" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
 - name: restart vrouter-agent
   supervisorctl: name="contrail-vrouter-agent" state=restarted config=/etc/contrail/supervisord_vrouter.conf
-  when: supervisor_vrouter_ready
+  when: supervisor_vrouter_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart vrouter-agent
+  systemd: name="contrail-vrouter-agent" state=restarted
+  when: contrail_service_mgr == 'systemd'

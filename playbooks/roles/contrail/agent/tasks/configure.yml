@@ -10,14 +10,14 @@
   tags: [always]
 
 - name: Compile vrouter module
-  include: "compile_vrouter/{{ansible_distribution}}-{{ansible_distribution_version}}.yml"
+  include: "compile_vrouter/{{ansible_distribution}}.yml"
   when: compile_vrouter_module
 
 - name: reload module if vrouter module changed and if reload_vrouter_module set to true
   shell: lsmod | grep -q vrouter && rmmod vrouter; depmod -a && modprobe vrouter && lsmod | grep -q vrouter
   when: reload_vrouter_module
 
-- name: Load vrouter module if vrouter module is changed
+- name: Load vrouter module
   shell: depmod -a && modprobe vrouter && lsmod | grep -q vrouter
   when: not reload_vrouter_module
 

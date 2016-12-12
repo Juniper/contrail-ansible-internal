@@ -1,9 +1,17 @@
 ---
 - include: install/{{ ansible_os_family }}.yml
-  tags: [contrail.agent.install, install]
+  tags: [contrail.agent.package, package]
+
+- name: Include systemd specific code
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd'
+  tags: [install, contrail.agent.install]
 
 - include: configure.yml
   tags: [contrail.agent.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.agent.service, service]
 
 - include: provision.yml
   tags: [contrail.agent.provision, provision]

@@ -6,9 +6,3 @@
 - name: configure agent nodemanager discovery server port
   ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=port value={{ disc_server_port }} create=yes
   notify: restart vrouter nodemanager
-
-# Service management
-- name: Make sure agent nodemanager service is up
-  supervisorctl: name="contrail-vrouter-nodemgr" state=started config=/etc/contrail/supervisord_vrouter.conf
-  tags: [service, contrail.agent.nodemgr.service, contrail.agent.service]
-  when: supervisor_vrouter_ready
