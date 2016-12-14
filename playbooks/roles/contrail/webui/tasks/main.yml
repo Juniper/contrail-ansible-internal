@@ -1,6 +1,5 @@
 ---
-- include: install/debian.yml
-  when: ansible_os_family == 'Debian'
+- include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.controller.install, contrail.webui.install, install]
 
 - include: configure.yml
