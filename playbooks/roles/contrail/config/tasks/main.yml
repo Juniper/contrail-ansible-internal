@@ -5,8 +5,7 @@
   with_items: "{{ controller_list }}"
   tags: [always]
 
-- include: install/debian.yml
-  when: ansible_os_family == 'Debian'
+- include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.controller.install, contrail.config.install, install]
 
 - include: facts.yml
