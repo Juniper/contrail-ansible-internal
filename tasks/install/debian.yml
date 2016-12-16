@@ -14,5 +14,4 @@
   when: not rabbitmq_os_package
 
 - name: install rabbitmq-server
-  apt: name=rabbitmq-server update_cache=yes
-
+  apt: name=rabbitmq-server update_cache={{ update_cache }}
