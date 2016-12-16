@@ -25,3 +25,5 @@
 
 - include: service.yml
   tags: [service, cassandra.service]
+
+- meta: flush_handlers
