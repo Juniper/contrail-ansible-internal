@@ -14,7 +14,9 @@ NOTE: Current code only tested with single node setup, there are little bit more
 # Quickstart
 Here are the step by step instructions to quickly setup contrail containers.
 
-https://github.com/Juniper/contrail-ansible/wiki/Quickstart
+https://github.com/Juniper/contrail-ansible/wiki/Quickstart-Guide-with-ini-file-based-inventory
+
+https://github.com/Juniper/contrail-ansible/wiki/Quickstart-guide-with-directory-based-inventory
 
 ## Running contrail containers using contrail-ansible
 Part of the code in contrail-ansible is supposed to create a native ansible interface to setup base system and orchestrate
