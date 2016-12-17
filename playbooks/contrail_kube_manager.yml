@@ -2,6 +2,10 @@
 - name: "Setup Contrail Kubernetes Network manager"
   hosts: contrail-kubernetes
 
+  pre_tasks:
+    - include_vars: contrail_kube_manager.yml
+      tags: always
+
   roles:
     - role: common
     - role: contrail/kube_manager
