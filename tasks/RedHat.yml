@@ -3,8 +3,10 @@
   yum: name={{ item }} state=present
   with_items:
     - libselinux-python
+  tags: [bootstrap, package, install]
 
 - include: tarball.yml
+  tags: [bootstrap, package, install]
 
 - include: upstart.yml
   tags: deploy
