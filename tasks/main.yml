@@ -2,7 +2,7 @@
 # tasks file for ansible-role-cassandra
 - include: install/repo/debian.yml
   when: ansible_os_family == 'Debian' and cassandra_manage_repo
-  tags: [cassandra.install, install, cassandra.repo, repo]
+  tags: [cassandra.install, install, cassandra.repo, repo, package, cassandra.package]
 
 - name: stop cassandra from running with default config
   lineinfile: dest=/etc/sensitive_services line=cassandra state=present create=yes
