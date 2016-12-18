@@ -9,11 +9,8 @@
   when: redis_package is not defined
 
 # Setup/install tasks.
-- include: setup-RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- include: setup-Debian.yml
-  when: ansible_os_family == 'Debian'
+- include: "setup-{{ ansible_os_family }}.yml"
+  tags: [install, redis.install, package, redis.package]
 
 - name: Ensure Redis is configured.
   template:
@@ -21,6 +18,8 @@
     dest: "{{ redis_conf_path }}"
     mode: 0644
   notify: restart redis
+  tags: [configure, redis.configure]
 
 - name: Ensure Redis is running and enabled on boot.
   service: "name={{ redis_daemon }} state=started enabled=yes"
+  tags: [service, redis.service]
