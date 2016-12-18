@@ -13,7 +13,7 @@
 
 - name: Update java alternatives
   action: command update-java-alternatives -s java-1.7.0-openjdk-amd64
-  when: jdk_installed.changed
+  when: jdk_installed.changed and update_java_alternatives
 
 - name: Install Cassandra
   apt: pkg={{ item }} update-cache=yes force=yes state=present
