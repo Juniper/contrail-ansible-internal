@@ -1,6 +1,6 @@
 ---
 - include: install/main.yml
-  tags: [install, rabbitmq.install]
+  tags: [install, rabbitmq.install, package, rabbitmq.package]
 - include: configuration.yml
   tags: [configure, rabbitmq.configure]
 - include: service.yml
