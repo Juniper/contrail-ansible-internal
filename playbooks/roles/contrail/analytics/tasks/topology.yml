@@ -15,9 +15,3 @@
   with_dict:
     server: "{{ disc_server_ip }}"
     port: "{{ disc_server_port }}"
-
-# Service management
-- name: Make sure contrail-topology service is up
-  supervisorctl: name="contrail-topology" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.topology.service, contrail.analytics.service]
-  when: supervisor_analytics_ready
