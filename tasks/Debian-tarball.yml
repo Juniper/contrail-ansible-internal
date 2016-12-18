@@ -1,5 +1,6 @@
 ---
 - include: tarball.yml
+  tags: [bootstrap, package, install]
 
 - include: upstart.yml
   when: not zookeeper_debian_systemd_enabled
