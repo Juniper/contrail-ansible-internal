@@ -6,14 +6,21 @@
   tags: [always]
 
 - include: "install/{{ ansible_os_family }}.yml"
-  when: ansible_os_family == 'Debian'
-  tags: [contrail.analytics.install, install]
+  tags: [contrail.analytics.package, package]
+
+- name: Include contrail service manager specific code
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd'
+  tags: [install, contrail.analytics.install]
 
 - include: facts.yml
   tags: always
 
 - include: configure.yml
   tags: [contrail.analytics.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.analytics.service, service]
 
 - include: provision.yml
   tags: [contrail.analytics.provision, provision]

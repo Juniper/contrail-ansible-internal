@@ -17,9 +17,3 @@
   with_dict:
     disc_server_ip: "{{ disc_server_ip }}"
     disc_server_port: "{{ disc_server_port }}"
-
-# Service management
-- name: Make sure contrail-snmp-collector service is up
-  supervisorctl: name="contrail-snmp-collector" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.snmp-collector.service, contrail.analytics.service]
-  when: supervisor_analytics_ready

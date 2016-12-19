@@ -1,0 +1,25 @@
+[Unit]
+Description="Contrail Analytics API"
+After=network.target
+
+[Service]
+Type=simple
+{% if cloud_orchestrator == "openstack" %}ExecStart=/usr/bin/contrail-analytics-api -c /etc/contrail/contrail-analytics-api.conf -c /etc/contrail/contrail-keystone-auth.conf{% else %}
+ExecStart=/usr/bin/contrail-analytics-api -c /etc/contrail/contrail-analytics-api.conf{% endif %}
+
+PIDFile=/var/run/contrail/contrail-analytics-api.pid
+TimeoutStopSec=0
+Restart=always
+User=contrail
+Group=contrail
+ExecStop=/bin/kill -s TERM $MAINPID
+RestartPreventExitStatus=0
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ReadOnlyDirectories=/
+ReadWriteDirectories=-/var/log/contrail
+ReadWriteDirectories=-/etc/contrail
+
+[Install]
+WantedBy=multi-user.target

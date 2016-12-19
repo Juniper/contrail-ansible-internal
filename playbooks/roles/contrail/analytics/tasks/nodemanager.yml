@@ -6,9 +6,3 @@
 - name: configure analytics nodemanager discovery server port
   ini_file: dest={{ nodemanager_conf }} section=DISCOVERY option=port value={{ disc_server_port }}
   notify: restart analytics nodemanager
-
-# Service management
-- name: Make sure analytics nodemanager service is up
-  supervisorctl: name="contrail-analytics-nodemgr" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.analytics.nodemgr.service, contrail.analytics.service]
-  when: supervisor_analytics_ready

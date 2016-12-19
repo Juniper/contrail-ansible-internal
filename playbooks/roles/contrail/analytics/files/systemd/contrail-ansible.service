@@ -1,0 +1,12 @@
+[Unit]
+Description=Contrail Analytics configuration
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/contrailctl config sync -c analytics -F -t configure,service
+TimeoutStartSec=0
+MountFlags=slave
+
+[Install]
+WantedBy=multi-user.target

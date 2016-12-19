@@ -1,0 +1,12 @@
+---
+- name: Copy systemd file for contrail-ansible to systemd unit file location
+  copy: src="{{ item }}" dest=/etc/systemd/system/
+  with_fileglob:
+    - systemd/*
+
+- name: Copy systemd unit file for analytics-api
+  template: src="contrail-analytics-api.service.j2" dest=/etc/systemd/system/contrail-analytics-api.service owner=root group=root mode=0644
+
+# Rest of the services will be enabled by contrail-ansible
+- name: Enable contrail-ansible.service
+  file: src=/etc/systemd/system/contrail-ansible.service dest=/etc/systemd/system/multi-user.target.wants/contrail-ansible.service state=link

@@ -23,9 +23,3 @@
   with_dict:
     port: "{{ analytics_redis_port }}"
     server: "{{ analytics_redis_ip }}"
-
-# Service management
-- name: Make sure analytics query-engine service is up
-  supervisorctl: name="contrail-query-engine" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.query-engine.service, contrail.analytics.service]
-  when: supervisor_analytics_ready

@@ -35,9 +35,3 @@
   with_dict:
     port: "{{ analytics_collector_listen_port }}"
     server: "{{ analytics_collector_listen_address }}"
-
-# Service management
-- name: Make sure analytics-collector service is up
-  supervisorctl: name="contrail-collector" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.collector.service, contrail.analytics.service]
-  when: supervisor_analytics_ready

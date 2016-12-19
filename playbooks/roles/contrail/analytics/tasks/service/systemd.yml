@@ -1,0 +1,59 @@
+---
+# Service management
+# Removing init file is required as without this enabling systemd service fail with message
+#  "update-rc.d: error: contrail-alarm-gen Default-Start contains no runlevels, aborting."
+- name: Remove init file for contrail-alarm-gen
+  file: path=/etc/init.d/contrail-alarm-gen state=absent
+  tags: [contrail.alarmgen.service]
+
+- name: Make sure alarmgen service is up
+  systemd: name="contrail-alarm-gen" state=started enabled=yes
+  tags: [contrail.alarmgen.service]
+
+- name: Remove init file for contrail-analytics-api
+  file: path=/etc/init.d/contrail-analytics-api state=absent
+  tags: [contrail.analytics.api.service]
+
+- name: Make sure analytics_api service is up
+  systemd: name="contrail-analytics-api" state=started enabled=yes
+  tags: [contrail.analytics.api.service]
+
+- name: Remove init file for contrail-collector
+  file: path=/etc/init.d/contrail-collector state=absent
+  tags: [contrail.collector.service]
+
+- name: Make sure analytics-collector service is up
+  systemd: name="contrail-collector" state=started enabled=yes
+  tags: [contrail.collector.service]
+
+- name: Remove init file for contrail-analytics-nodemgr
+  file: path=/etc/init.d/contrail-analytics-nodemgr state=absent
+  tags: [contrail.analytics.nodemgr.service]
+
+- name: Make sure analytics nodemanager service is up
+  systemd: name="contrail-analytics-nodemgr" state=started enabled=yes
+  tags: [contrail.analytics.nodemgr.service]
+
+- name: Remove init file for contrail-query-engine
+  file: path=/etc/init.d/contrail-query-engine state=absent
+  tags: [contrail.query-engine.service]
+
+- name: Make sure analytics query-engine service is up
+  systemd: name="contrail-query-engine" state=started enabled=yes
+  tags: [contrail.query-engine.service]
+
+- name: Remove init file for contrail-snmp-collector
+  file: path=/etc/init.d/contrail-snmp-collector state=absent
+  tags: [contrail.snmp-collector.service]
+
+- name: Make sure contrail-snmp-collector service is up
+  systemd: name="contrail-snmp-collector" state=started enabled=yes
+  tags: [contrail.snmp-collector.service]
+
+- name: Remove init file for contrail-topology
+  file: path=/etc/init.d/contrail-topology state=absent
+  tags: [contrail.topology.service]
+
+- name: Make sure contrail-topology service is up
+  systemd: name="contrail-topology" state=started enabled=yes
+  tags: [contrail.topology.service]

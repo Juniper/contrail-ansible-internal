@@ -26,9 +26,3 @@
   notify: restart alarm-gen
   with_dict:
     redis_server_port: "{{ analytics_redis_port }}"
-
-# Service management
-- name: Make sure alarmgen service is up
-  supervisorctl: name="contrail-alarm-gen:0" state=started config=/etc/contrail/supervisord_analytics.conf
-  tags: [service, contrail.alarmgen.service, contrail.analytics.service]
-  when: supervisor_analytics_ready
