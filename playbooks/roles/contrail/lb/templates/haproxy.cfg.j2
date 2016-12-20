@@ -40,7 +40,8 @@ defaults
   errorfile 504 /etc/haproxy/errors/504.http
 {% endif %}
 
-listen stats :{{ stats_port }}
+frontend stats
+    bind *:{{ stats_port }}
     mode http
     stats enable
     stats uri /
@@ -48,12 +49,18 @@ listen stats :{{ stats_port }}
     stats auth {{ haproxy_auth_user }}:{{ haproxy_auth_password }}
     {%- endif %}
 
-frontend contrail-api *:{{ contrail_api_frontend_port }}
+frontend contrail-api
+    bind *:{{ contrail_api_frontend_port }}
     default_backend    contrail-api-backend
     timeout client 3m
 
-frontend contrail-discovery *:{{ contrail_discovery_frontend_port }}
+frontend contrail-discovery
+    bind *:{{ contrail_discovery_frontend_port }}
     default_backend    contrail-discovery-backend
+
+frontend contrail-analytics-api
+    bind *:{{ contrail_analytics_api_frontend_port }}
+    default_backend    contrail-analytics-api-backend
 
 backend contrail-api-backend
     option nolinger
@@ -69,9 +76,6 @@ backend contrail-discovery-backend
     {% for discovery_ip in contrail_discovery_server_list %}
     server {{ discovery_ip }} {{ discovery_ip }}:{{ contrail_discovery_backend_port }} check inter {{ check_interval }} rise 2 fall 3
     {% endfor %}
-
-frontend contrail-analytics-api *:{{ contrail_analytics_api_frontend_port }}
-    default_backend    contrail-analytics-api-backend
 
 backend contrail-analytics-api-backend
     option nolinger
