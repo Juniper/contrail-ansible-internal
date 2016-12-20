@@ -1,7 +1,15 @@
 - name: restart database nodemanager
   supervisorctl: name="contrail-database-nodemgr" state=restarted config=/etc/contrail/supervisord_database.conf
-  when: supervisor_database_ready
+  when: supervisor_database_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart database nodemanager
+  systemd: name="contrail-database-nodemgr" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
 - name: restart kafka
   supervisorctl: name="kafka" state=restarted config=/etc/contrail/supervisord_database.conf
-  when: supervisor_database_ready
+  when: supervisor_database_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart kafka
+  systemd: name="kafka" state=restarted
+  when: contrail_service_mgr == 'systemd'

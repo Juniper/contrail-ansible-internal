@@ -1,0 +1,8 @@
+---
+- name: Make sure analyticsdb nodemgr is up
+  supervisorctl: name="contrail-database-nodemgr" state=started config=/etc/contrail/supervisord_database.conf
+  when: supervisor_database_ready
+
+- name: Make sure kafka is up
+  supervisorctl: name="kafka" state=started config=/etc/contrail/supervisord_database.conf
+  when: supervisor_database_ready

@@ -1,0 +1,7 @@
+---
+contrail_database_packages:
+  - sudo
+  - apt-utils
+  - contrail-openstack-database
+  - default-jre-headless
+  - opscenter

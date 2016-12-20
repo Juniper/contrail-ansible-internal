@@ -1,4 +1,14 @@
 ---
+- name: resolve platform specific vars
+  include_vars: "{{item}}"
+  with_first_found:
+    - files:
+      - "{{ansible_distribution}}-{{ansible_distribution_version}}.yml"
+      - "{{ansible_distribution}}.yml"
+      - "{{ansible_os_family}}.yml"
+      skip: true
+  tags: always
+
 - name: Collect local analyticsdb server ip from the list
   set_fact: my_analyticsdb_ip="{{ item }}"
   when: "item in ansible_all_ipv4_addresses"
@@ -6,10 +16,24 @@
   tags: [always]
 
 - include: "install/{{ ansible_os_family }}.yml"
-  tags: [install, contrail.database.install]
+  tags: [install, contrail.analyticsdb.install, package]
+
+# Due to a bug or something include_role is failing when add a contidional, as a workaround,
+# added conditional inside systemd-cleanup.yml for now
+# This is what I tried -   when: contrail_service_mgr == "systemd"
+- include_role: name=contrail/common tasks_from=systemd-cleanup
+  tags: [install, contrail.analyticsdb.install]
+
+- name: Include contrail service manager specific code
+  include: install/systemd.yml
+  when: "contrail_service_mgr == 'systemd'"
+  tags: [install, contrail.analyticsdb.install]
 
 - include: configure.yml
-  tags: [contrail.database.configure, configure]
+  tags: [contrail.analyticsdb.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.analyticsdb.service, service]
 
 - include: provision.yml
-  tags: [contrail.database.provision, provision]
+  tags: [contrail.analyticsdb.provision, provision]
