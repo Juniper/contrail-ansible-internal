@@ -6,7 +6,6 @@
 - name: install contrail-analytics related packages
   apt: name={{ item }} state=latest force=yes
   with_items: "{{ analytics_packages }}"
-  notify: clean systemd services
 
 # This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/62
 - name: Remove supervisor-analytics from /etc/sensitive_servies (WA for issue contrail-docker/62)
