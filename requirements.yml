@@ -2,7 +2,7 @@
   name: docker
 - src: https://github.com/hkumarmk/ansible-playbook-rabbitmq
   name: rabbitmq
-- src: geerlingguy.redis
+- src: https://github.com/hkumarmk/ansible-role-redis
   name: redis
 - src: https://github.com/hkumarmk/ansible-role-cassandra
   version: master

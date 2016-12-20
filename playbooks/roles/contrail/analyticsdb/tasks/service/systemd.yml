@@ -1,0 +1,8 @@
+---
+- name: Make sure analyticsdb nodemgr is up
+  systemd: name="contrail-database-nodemgr" state=started enabled=yes
+  tags: [contrail.analyticsdb.nodemgr.service]
+
+- name: Make sure kafka is up
+  systemd: name="kafka" state=started enabled=yes
+  tags: [contrail.analyticsdb.kafka.service]
