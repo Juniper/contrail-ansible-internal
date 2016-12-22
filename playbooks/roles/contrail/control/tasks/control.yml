@@ -13,9 +13,3 @@
   ini_file: dest={{ control_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
   notify: restart control
   with_dict: "{{ control_specific_configs.IFMAP }}"
-
-# Service management
-- name: Make sure control service is up
-  supervisorctl: name="contrail-control" state=started config=/etc/contrail/supervisord_control.conf
-  tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
-  when: supervisor_control_ready

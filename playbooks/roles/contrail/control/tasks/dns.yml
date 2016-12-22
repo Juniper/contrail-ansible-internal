@@ -19,9 +19,3 @@
   with_items:
     - /etc/contrail/dns/contrail-rndc.conf
     - /etc/contrail/dns/contrail-named.conf
-
-# Service management
-- name: Make sure contrail-dns service is up
-  supervisorctl: name="contrail-dns" state=started config=/etc/contrail/supervisord_control.conf
-  tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
-  when: supervisor_control_ready
