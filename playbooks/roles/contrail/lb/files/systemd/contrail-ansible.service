@@ -1,6 +1,5 @@
 [Unit]
 Description=Contrail lb configuration
-Documentation=Contrail lb configuration
 After=network.target
 
 [Service]
