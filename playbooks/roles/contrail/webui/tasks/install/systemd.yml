@@ -1,0 +1,17 @@
+---
+- name: Copy systemd file for contrail-ansible to systemd unit file location
+  copy: src="{{ item }}" dest=/etc/systemd/system/
+  with_fileglob:
+    - systemd/*
+
+# Rest of the services will be enabled by contrail-ansible
+- name: Enable contrail-ansible.service
+  file: src=/etc/systemd/system/contrail-ansible.service dest=/etc/systemd/system/multi-user.target.wants/contrail-ansible.service state=link
+
+# This task is to avoid below error while enabling the service
+# update-rc.d: error: kafka Default-Start contains no runlevels, aborting.
+- name: Delete init.d file for kafka to avoid error while enabling the service
+  file: path="/etc/init.d/{{ item }}" state=absent
+  with_items:
+    - contrail-webui
+    - contrail-webui-middleware

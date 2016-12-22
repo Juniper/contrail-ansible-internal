@@ -1,0 +1,13 @@
+---
+# Service management
+- name: Make sure control service is up
+  systemd: name="contrail-control" state=started enabled=yes
+  tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
+
+- name: Make sure contrail-dns service is up
+  systemd: name="contrail-dns" state=started enabled=yes
+  tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
+
+- name: Make sure control nodemanager service is up
+  systemd: name="contrail-control-nodemgr" state=started enabled=yes
+  tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]
