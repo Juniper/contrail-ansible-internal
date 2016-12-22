@@ -42,9 +42,3 @@
 - name: configure device-manager disc_server_port
   ini_file: dest={{ device_manager_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
   notify: restart device-manager
-
-# Service management
-- name: Make sure device-manager service is up
-  supervisorctl: name="contrail-device-manager" state=started config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready

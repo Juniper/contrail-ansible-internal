@@ -1,0 +1,29 @@
+---
+# Service management
+- name: Make sure config api service is up
+  systemd: name="contrail-api" state=started enabled=yes
+  tags: [service, contrail.api.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure device-manager service is up
+  systemd: name="contrail-device-manager" state=started enabled=yes
+  tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure contrail discovery service is up
+  systemd: name="contrail-discovery" state=started enabled=yes
+  tags: [service, contrail.discovery.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure ifmap is up
+  systemd: name="ifmap" state=started enabled=yes
+  tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure config nodemanager service is up
+  systemd: name="contrail-config-nodemgr" state=started enabled=yes
+  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure schema service is up
+  systemd: name="contrail-schema" state=started enabled=yes
+  tags: [service, contrail.schema.service, contrail.controller.service, contrail.config.service]
+
+- name: Make sure contrail svc-monitor service is up
+  systemd: name=contrail-svc-monitor state=started enabled=yes
+  tags: [service, contrail.svc-monitor.service, contrail.controller.service, contrail.config.service]

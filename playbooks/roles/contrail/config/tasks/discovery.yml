@@ -54,9 +54,3 @@
 - name: configure discovery dns server policy
   ini_file: dest={{ discovery_conf }} section=DNS-SERVER option=policy value={{ discovery_dns_server_policy }}
   notify: restart discovery
-
-# Service management
-- name: Make sure contrail discovery service is up
-  supervisorctl: name="contrail-discovery" state=started config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.discovery.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready
