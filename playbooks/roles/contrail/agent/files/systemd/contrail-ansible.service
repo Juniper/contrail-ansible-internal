@@ -1,6 +1,5 @@
 [Unit]
 Description=Contrail vrouter agent configuration
-Documentation=Contrail vrouter agent configuration
 After=network.target
 
 [Service]

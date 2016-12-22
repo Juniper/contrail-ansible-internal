@@ -6,7 +6,6 @@
 - name: install contrail-vrouter-agent related packages
   apt: name={{ item }} state=latest force=yes
   with_items: "{{ agent_packages }}"
-  notify: clean systemd services
 
 # This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/82
 - name: Remove supervisor-vrouter from /etc/sensitive_servies (WA for issue contrail-docker/82)
