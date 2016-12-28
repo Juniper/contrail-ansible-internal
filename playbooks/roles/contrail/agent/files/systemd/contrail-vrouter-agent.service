@@ -8,16 +8,13 @@ ExecStart=/usr/bin/contrail-vrouter-agent
 PIDFile=/var/run/contrail/contrail-vrouter-agent.pid
 TimeoutStopSec=0
 Restart=always
-User=contrail
-Group=contrail
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=yes
-PrivateDevices=yes
 ProtectHome=yes
 ReadOnlyDirectories=/
 ReadWriteDirectories=-/var/log/contrail
-ReadWriteDirectories=-/etc/contrail
+ReadWriteDirectories=-/var/lib/contrail
+ReadWriteDirectories=-/dev
 
 [Install]
 WantedBy=multi-user.target
-Alias=contrail-vrouter-agent.service
