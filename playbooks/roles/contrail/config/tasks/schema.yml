@@ -58,9 +58,3 @@
 - name: configure schema rabbit_server
   ini_file: dest={{ schema_conf }} section=DEFAULTS option=rabbit_server value={{ rabbitmq_servers_with_port }}
   notify: restart schema
-
-# Service management
-- name: Make sure schema service is up
-  supervisorctl: name="contrail-schema" state=started config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.schema.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready

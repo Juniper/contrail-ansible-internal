@@ -70,9 +70,3 @@
 - name: configure svc-monitor analytics_server_port
   ini_file: dest={{ svc_monitor_conf }} section=SCHEDULER option=analytics_server_port value={{ analytics_server_port }}
   notify: restart svc-monitor
-
-# Service management
-- name: Make sure contrail svc-monitor service is up
-  supervisorctl: name=contrail-svc-monitor state=started config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.svc-monitor.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready

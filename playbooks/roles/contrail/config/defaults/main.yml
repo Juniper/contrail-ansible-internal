@@ -78,4 +78,7 @@ ifmap_users:
   - "{{ svc_monitor_ifmap_username }}:{{ svc_monitor_ifmap_password }}"
   - control-node:control-node
 
-configdb_cassandra_deps: openjdk-7-jre-headless
+# Cassandra defaults
+configdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
+configdb_cassandra_cluster_name: configdb
+configdb_cassandra_packages: [cassandra]
