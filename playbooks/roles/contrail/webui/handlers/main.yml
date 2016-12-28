@@ -1,7 +1,17 @@
+---
 - name: restart webui
   supervisorctl: name="contrail-webui" state=restarted config=/etc/contrail/supervisord_webui.conf
-  when: supervisor_webui_ready
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
 
 - name: restart webui-middleware
   supervisorctl: name="contrail-webui-middleware" state=restarted config=/etc/contrail/supervisord_webui.conf
-  when: supervisor_webui_ready
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
+
+# Systemd
+- name: restart webui
+  systemd: name="contrail-webui" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart webui-middleware
+  systemd: name="contrail-webui-middleware" state=restarted
+  when: contrail_service_mgr == 'systemd'
