@@ -1,0 +1,9 @@
+---
+# Service management
+- name: Make sure contrail-webui service is up
+  systemd: name="contrail-webui" state=started enabled=yes
+  tags: [service, contrail.contrail-webui.service, contrail.controller.service, contrail.webui.service]
+
+- name: Make sure contrail-webui-middleware service is up
+  systemd: name="contrail-webui-middleware" state=started enabled=yes
+  tags: [service, contrail.webui-middleware.service, contrail.controller.service, contrail.webui.service]

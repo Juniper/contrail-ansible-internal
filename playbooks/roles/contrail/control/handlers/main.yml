@@ -1,11 +1,23 @@
 - name: restart control
   supervisorctl: name="contrail-control" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: supervisor_control_ready
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
 - name: restart contrail-dns
   supervisorctl: name="contrail-dns" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: supervisor_control_ready
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
 - name: restart control-nodemgr
   supervisorctl: name="contrail-control-nodemgr" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: supervisor_control_ready
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart control
+  systemd: name="contrail-control" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart contrail-dns
+  systemd: name="contrail-dns" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart control-nodemgr
+  systemd: name="contrail-control-nodemgr" state=restarted
+  when: contrail_service_mgr == 'systemd'
