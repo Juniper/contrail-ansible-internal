@@ -18,12 +18,11 @@
     log_local: "{{ log_local }}"
     physical_interface_mac: "{{ vrouter_physical_interface_mac_address }}"
 
-- name: Configure DISCOVERY section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure CONTROL-NODE section of contrail-vrouter-agent.conf
+  ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart vrouter-agent
   with_dict:
-    server: "{{ disc_server_ip }}"
-    max_control_nodes: "{{ vrouter_max_control_nodes }}"
+    server: "{{ controller_list|join(' ') }}"
 
 - name: Configure NETWORKS section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=NETWORKS option={{ item.key }} value={{ item.value }}  create=yes
