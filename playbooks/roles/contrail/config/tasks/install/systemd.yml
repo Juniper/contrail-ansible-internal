@@ -18,4 +18,4 @@
     - contrail-discovery
     - contrail-schema
     - contrail-svc-monitor
-
+    - ifmap

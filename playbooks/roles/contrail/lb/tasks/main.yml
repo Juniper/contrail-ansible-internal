@@ -2,5 +2,8 @@
 - include: install.yml
   tags: [contrail.lb.install, contrail.haproxy.install, install]
 
+- include_role: name=contrail/common tasks_from=cleanup
+  tags: [contrail.lb.install, contrail.haproxy.install, install]
+
 - include: configure.yml
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]

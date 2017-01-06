@@ -1,10 +1,11 @@
 [Unit]
-Description="Contrail Web UI"
+Description="Contrail Web UI middleware"
 After=redis.service
 Requires=redis.service
 
 [Service]
-ExecStart=/usr/src/contrail/contrail-webui/contrailWebMiddleware.sh
+WorkingDirectory=/usr/src/contrail/contrail-web-core
+ExecStart=/usr/bin/node jobServerStart.js
 Restart=always
 LimitCORE=infinity
 

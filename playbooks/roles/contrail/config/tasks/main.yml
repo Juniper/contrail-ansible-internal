@@ -11,7 +11,7 @@
 # Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
 # added conditional inside systemd-cleanup.yml for now
 # This is what I tried -   when: contrail_service_mgr == "systemd"
-- include_role: name=contrail/common tasks_from=systemd-cleanup
+- include_role: name=contrail/common tasks_from=cleanup
   tags: [install, contrail.controller.install, contrail.config.install]
 
 - name: Include contrail service manager specific code

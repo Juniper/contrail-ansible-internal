@@ -4,7 +4,8 @@ After=redis.service
 Requires=redis.service
 
 [Service]
-ExecStart=/usr/src/contrail/contrail-webui/contrailWebServer.sh
+WorkingDirectory=/usr/src/contrail/contrail-web-core
+ExecStart=/usr/bin/node webServerStart.js
 Restart=always
 LimitCORE=infinity
 
