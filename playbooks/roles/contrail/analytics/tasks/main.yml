@@ -8,7 +8,7 @@
 - include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.analytics.package, package]
 
-- include_role: name=contrail/common tasks_from=systemd-cleanup
+- include_role: name=contrail/common tasks_from=cleanup
   tags: [install, contrail.analytics.install]
 
 - name: Include contrail service manager specific code

@@ -6,6 +6,9 @@
   include: install/{{ contrail_service_mgr }}.yml
   tags: [install, contrail.mesos_manager.install]
 
+- include_role: name=contrail/common tasks_from=cleanup
+  tags: [contrail.mesos_manager.install, install]
+
 - include: configure.yml
   tags: [contrail.mesos_manager.configure, configure]
 
