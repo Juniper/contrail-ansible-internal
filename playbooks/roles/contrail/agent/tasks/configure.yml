@@ -24,6 +24,9 @@
   lineinfile: dest=/etc/contrail/vrouter_nodemgr_param line="DISCOVERY={{ disc_server_ip }}"
               state=present create=yes regexp="^DISCOVERY="
 
+- include_role: name=contrail/common tasks_from=vncapi
+  tags: [contrail.vncapi, contrail.vncapi.configure]
+
 - name: Configure vorouter agent
   include: vrouter_agent.yml
   tags: [contrail.agent.vrouter_agent.configure, contrail.agent.vrouter_agent]

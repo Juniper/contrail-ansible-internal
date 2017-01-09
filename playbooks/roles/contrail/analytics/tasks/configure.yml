@@ -17,6 +17,12 @@
   set_fact: supervisor_analytics_ready={{ (supervisor_analytics_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
 
+- include_role: name=contrail/common tasks_from=keystoneauth
+  tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
+
+- include_role: name=contrail/common tasks_from=vncapi
+  tags: [contrail.vncapi, contrail.vncapi.configure]
+
 - include: alarm-gen.yml
   tags: [contrail.alarmgen, contrail.alarmgen.configure]
 

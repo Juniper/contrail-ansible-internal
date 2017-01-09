@@ -24,6 +24,12 @@
 - name: Configure /etc/contrail/ctrl-details
   template: src=ctrl-details.j2 dest=/etc/contrail/ctrl-details
 
+- include_role: name=contrail/common tasks_from=keystoneauth
+  tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
+
+- include_role: name=contrail/common tasks_from=vncapi
+  tags: [contrail.vncapi, contrail.vncapi.configure]
+
 - include: ifmap.yml
   tags: [contrail.ifmap, contrail.ifmap.configure]
 

@@ -9,6 +9,9 @@
   set_fact: supervisor_database_ready={{ (supervisor_database_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
 
+- include_role: name=contrail/common tasks_from=vncapi
+  tags: [contrail.vncapi, contrail.vncapi.configure]
+
 - include: kafka.yml
   tags: [contrail.analyticsdb.kafka, contrail.analyticsdb.kafka.configure]
 
