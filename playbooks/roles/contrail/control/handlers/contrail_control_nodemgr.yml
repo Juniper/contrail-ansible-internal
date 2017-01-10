@@ -1,0 +1,8 @@
+- name: restart control-nodemgr supervisord
+  supervisorctl: name="contrail-control-nodemgr" state=restarted config=/etc/contrail/supervisord_control.conf
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
+
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+#- name: restart control-nodemgr systemd
+#  systemd: name="contrail-control-nodemgr" state=restarted
+#  when: contrail_service_mgr == 'systemd'

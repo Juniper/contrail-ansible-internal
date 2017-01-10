@@ -16,9 +16,10 @@
   systemd: name="ifmap" state=started enabled=yes
   tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]
 
-- name: Make sure config nodemanager service is up
-  systemd: name="contrail-config-nodemgr" state=started enabled=yes
-  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+#- name: Make sure config nodemanager service is up
+#  systemd: name="contrail-config-nodemgr" state=started enabled=yes
+#  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]
 
 - name: Make sure schema service is up
   systemd: name="contrail-schema" state=started enabled=yes

@@ -1,0 +1,8 @@
+---
+- name: restart schema supervisord
+  supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart schema systemd
+  systemd: name="contrail-schema" state=restarted
+  when: contrail_service_mgr == 'systemd'

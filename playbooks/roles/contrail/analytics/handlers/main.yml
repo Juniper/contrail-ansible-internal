@@ -1,55 +1,21 @@
+---
 - name: restart alarm-gen
-  supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart alarm-gen
-  systemd: name="contrail-alarm-gen:0" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_alarm_gen.yml
 
 - name: restart analytics-api
-  supervisorctl: name="contrail-analytics-api" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics-api
-  systemd: name="contrail-analytics-api" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_analytics_api.yml
 
 - name: restart analytics nodemanager
-  supervisorctl: name="contrail-analytics-nodemgr" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics nodemanager
-  systemd: name="contrail-analytics-nodemgr" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_analytics_nodemgr.yml
 
 - name: restart analytics collector
-  supervisorctl: name="contrail-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics collector
-  systemd: name="contrail-collector" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_collector.yml
 
 - name: restart analytics query-engine
-  supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics query-engine
-  systemd: name="contrail-query-engine" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_query_engine.yml
 
 - name: restart analytics snmp-collector
-  supervisorctl: name="contrail-snmp-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics snmp-collector
-  systemd: name="contrail-snmp-collector" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_snmp_collector.yml
 
 - name: restart analytics topology
-  supervisorctl: name="contrail-topology" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics topology
-  systemd: name="contrail-topology" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_topology.yml

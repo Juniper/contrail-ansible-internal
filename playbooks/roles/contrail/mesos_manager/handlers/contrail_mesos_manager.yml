@@ -1,0 +1,8 @@
+---
+- name: restart mesos-manager systemd
+  systemd: name="contrail-mesos-manager" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart mesos-manager supervisord
+  supervisorctl: name="contrail-mesos-manager" state=restarted config=/etc/contrail/supervisord_mesos_manager.conf
+  when: supervisor_mesos_manager_ready and contrail_service_mgr == 'supervisord'

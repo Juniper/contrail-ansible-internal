@@ -30,9 +30,10 @@
   file: path=/etc/init.d/contrail-analytics-nodemgr state=absent
   tags: [contrail.analytics.nodemgr.service]
 
-- name: Make sure analytics nodemanager service is up
-  systemd: name="contrail-analytics-nodemgr" state=started enabled=yes
-  tags: [contrail.analytics.nodemgr.service]
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+#- name: Make sure analytics nodemanager service is up
+#  systemd: name="contrail-analytics-nodemgr" state=started enabled=yes
+#  tags: [contrail.analytics.nodemgr.service]
 
 - name: Remove init file for contrail-query-engine
   file: path=/etc/init.d/contrail-query-engine state=absent

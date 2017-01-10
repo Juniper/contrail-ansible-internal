@@ -1,56 +1,20 @@
 - name: restart config api
-  supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/contrail_api.yml
 
 - name: restart config nodemanager
-  supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/contrail_config_nodemgr.yml
 
 - name: restart schema
-  supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/contrail_schema.yml
 
 - name: restart ifmap
-  supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/ifmap.yml
 
 - name: restart discovery
-  supervisorctl: name="contrail-discovery" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/contrail_discovery.yml
 
 - name: restart svc-monitor
-  supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  include: ../handlers/contrail_svc_monitor.yml
 
 - name: restart device-manager
-  supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
-
-# Systemd based services
-- name: restart config api
-  systemd: name="contrail-api" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart config nodemanager
-  systemd: name="contrail-config-nodemgr" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart schema
-  systemd: name="contrail-schema" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart ifmap
-  systemd: name="ifmap" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart discovery
-  systemd: name="contrail-discovery" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart svc-monitor
-  systemd: name="contrail-svc-monitor" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
-- name: restart device-manager
-  systemd: name="contrail-device-manager" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  include: ../handlers/contrail_device_manager.yml
