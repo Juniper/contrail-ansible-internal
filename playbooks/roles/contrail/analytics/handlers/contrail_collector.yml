@@ -1,0 +1,8 @@
+---
+- name: restart analytics collector supervisord
+  supervisorctl: name="contrail-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart analytics collector systemd
+  systemd: name="contrail-collector" state=restarted
+  when: contrail_service_mgr == 'systemd'

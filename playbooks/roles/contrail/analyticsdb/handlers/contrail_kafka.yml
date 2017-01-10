@@ -1,0 +1,8 @@
+---
+- name: restart kafka supervisord
+  supervisorctl: name="kafka" state=restarted config=/etc/contrail/supervisord_database.conf
+  when: supervisor_database_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart kafka systemd
+  systemd: name="kafka" state=restarted
+  when: contrail_service_mgr == 'systemd'
