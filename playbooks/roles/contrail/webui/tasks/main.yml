@@ -9,8 +9,7 @@
   tags: [contrail.controller.install, contrail.webui.install, install]
 
 - name: Include contrail service manager specific code
-  include: install/systemd.yml
-  when: "contrail_service_mgr == 'systemd'"
+  include: install/{{ contrail_service_mgr }}.yml
   tags: [install, contrail.controller.install, contrail.webui.install]
 
 - include: configure.yml
