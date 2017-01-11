@@ -16,13 +16,17 @@
     log_file: "{{ vrouter_agent_log }}"
     log_level: "{{ vrouter_agent_log_level }}"
     log_local: "{{ log_local }}"
+    collectors: "{{ analytics_collectors_with_port }}"
     physical_interface_mac: "{{ vrouter_physical_interface_mac_address }}"
 
 - name: Configure CONTROL-NODE section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option={{ item.key }} value={{ item.value }}  create=yes
+  ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option=servers value="{{ control_servers_with_xmpp_port }}"  create=yes
   notify: restart vrouter-agent
-  with_dict:
-    server: "{{ controller_list|join(' ') }}"
+
+- name: Configure DNS section of contrail-vrouter-agent.conf
+  ini_file: dest={{ vrouter_agent_conf }} section=DNS option=servers value="{{ control_servers_with_dns_port }}"  create=yes
+  notify: restart vrouter-agent
+
 
 - name: Configure NETWORKS section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=NETWORKS option={{ item.key }} value={{ item.value }}  create=yes
