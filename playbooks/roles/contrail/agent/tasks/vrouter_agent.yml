@@ -8,8 +8,8 @@
     gateway: "{{ vhost_gateway }}"
     physical_interface: "{{ vrouter_physical_interface }}"
 
-- name: Configure DEFAULTS section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure DEFAULT section of contrail-vrouter-agent.conf
+  ini_file: dest={{ vrouter_agent_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
   notify: restart vrouter-agent
   with_dict:
     platform: "{{ vrouter_platform }}"
