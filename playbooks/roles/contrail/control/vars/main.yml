@@ -16,12 +16,12 @@ control_specific_configs:
     http_server_port: "{{ control_introspect_port }}"
     xmpp_server_port: "{{ xmpp_server_port }}"
     bgp_port: "{{ bgp_port }}"
-  DISCOVERY:
-    server: "{{ disc_server_ip }}"
+    collectors: "{{ analytics_collectors_with_port}}"
   IFMAP:
     user: "{{ control_ifmap_username }}"
     password: "{{ control_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
+    server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
 
 # contrail-dns specific config entries
 dns_specific_configs:
@@ -34,9 +34,9 @@ dns_specific_configs:
     rndc_config_file: "{{ rndc_config_file }}"
     http_server_port: "{{ dns_introspect_port }}"
     dns_server_port: "{{ dns_server_port }}"
-  DISCOVERY:
-    server: "{{ disc_server_ip }}"
+    collectors: "{{ analytics_collectors_with_port}}"
   IFMAP:
     user: "{{ dns_ifmap_username }}"
     password: "{{ dns_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
+    server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
