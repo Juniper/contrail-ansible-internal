@@ -1,16 +1,4 @@
 ---
-- name: wait for cassandra
-  wait_for: port="{{ configdb_port }}" host="{{ item }}"
-  with_items: " {{ configdb_server_list }}"
-
-- name: wait for zookeeper
-  wait_for: port="{{ zk_port }}" host="{{ item }}"
-  with_items: " {{ zk_server_list }}"
-
-- name: wait for rabbitmq
-  wait_for: port="{{ rabbit_port }}" host="{{ item }}"
-  with_items: " {{ rabbit_server_list }}"
-
 - name: Check if supervisor is running and register it to supervisor_config_ready
   shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_config.conf" || true
   register: supervisor_config_ready_cmd

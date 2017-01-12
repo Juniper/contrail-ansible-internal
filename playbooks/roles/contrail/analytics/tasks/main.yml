@@ -22,7 +22,7 @@
 - include: configure.yml
   tags: [contrail.analytics.configure, configure]
 
-- include: service/{{ contrail_service_mgr }}.yml
+- include: service/main.yml
   tags: [contrail.analytics.service, service]
 
 - include: provision.yml
