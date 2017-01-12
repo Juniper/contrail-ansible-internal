@@ -29,7 +29,7 @@ vhost_netmask: >-
   {%- if vhost_interface in ansible_interfaces -%}{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['netmask'] }}
   {%- else -%}{{ hostvars[inventory_hostname][vrouter_physical_ansible_interface]['ipv4']['netmask'] }}{%- endif -%}
 
-vrouter_physical_interface_mac_address: hostvars[inventory_hostname][vrouter_physical_ansible_interface]['macaddress']
+vrouter_physical_interface_mac_address: "{{ hostvars[inventory_hostname][vrouter_physical_ansible_interface]['macaddress'] }}"
 vhost_address_with_netmask: "{{ vhost_address }}/{{ vhost_netmask }}"
 vhost_address_with_prefix: "{{ vhost_address_with_netmask | ipaddr('host/prefix') }}"
 vhost_gateway: "{{ ansible_default_ipv4.gateway }}"
