@@ -43,12 +43,8 @@
   ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=log_level value={{ svc_monitor_log_level }}
   notify: restart svc-monitor
 
-- name: configure svc-monitor disc_server_ip
-  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
-  notify: restart svc-monitor
-
-- name: configure svc-monitor disc_server_port
-  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
+- name: configure svc-monitor collectors
+  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option=collectors value={{ analytics_collectors_with_port }}
   notify: restart svc-monitor
 
 - name: configure svc-monitor zk_server_ip
