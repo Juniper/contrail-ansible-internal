@@ -7,4 +7,4 @@
   wait_for: port="{{ kafka_port }}" host="{{ item }}"
   with_items: " {{ analyticsdb_list }}"
 
-- include: {{ contrail_service_mgr }}.yml
+- include: "{{ contrail_service_mgr }}.yml"
