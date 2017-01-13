@@ -1,0 +1,32 @@
+---
+- name: Copy contrail-install-packages deb file
+  copy: src="{{ playbook_dir}}/contrail-install-packages_{{ contrail_version }}~mitaka_all.deb" dest=/tmp/contrail-install-packages.deb
+  when: contrail_install_packages_url is not defined
+
+- name: Download contrail-install-packages deb file from contrail_install_package_url
+  get_url: url="{{ contrail_install_packages_url }}" dest=/tmp/contrail-install-packages.deb
+  when: contrail_install_packages_url is defined
+
+- name: install contrail-install-packages
+  apt: deb=/tmp/contrail-install-packages.deb
+
+- name: Setup local apt repo
+  command: /opt/contrail/contrail_packages/setup.sh
+  args:
+    creates: /opt/contrail/utils
+
+- name: setup /opt/contrail/utils/fabfile/testbeds/testbed.py
+  template: src=testbed.py.j2 dest=/opt/contrail/utils/fabfile/testbeds/testbed.py
+
+- name: Run fab install_orchestrator; fab setup_orchestrator to setup openstack
+  shell: fab install_orchestrator && fab setup_orchestrator && touch /opt/contrail/utils/setup_orchestrator_successful
+  args:
+    chdir: /opt/contrail/utils
+    creates: /opt/contrail/utils/setup_orchestrator_successful
+
+- name: Install neutron specific packages
+  apt: name={{ item }} state=installed force=yes
+  with_items:
+    - neutron-server
+    - neutron-plugin-contrail
+    - python-neutron-lbaas

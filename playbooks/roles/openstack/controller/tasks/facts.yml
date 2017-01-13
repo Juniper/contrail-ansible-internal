@@ -1,0 +1,7 @@
+---
+- name: Read service token
+  shell: cat /etc/contrail/service.token || true
+  register: admin_token_cmd
+
+- name: Set fact for service token
+  set_fact: keystone_admin_token="{{ admin_token_cmd.stdout }}"

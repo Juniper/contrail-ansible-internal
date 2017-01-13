@@ -1,0 +1,19 @@
+---
+- name: "Setup Openstack controller node on ubuntu 14.04"
+  hosts: openstack-controllers
+
+  pre_tasks:
+    - name: fail in case of unsupported operating system (currently only ubuntu 14.04 supported for openstack)
+      fail: msg="os_release should ubuntu 14.04
+      when: ansible_distribution != 'Ubuntu' or ansible_distribution_version != '14.04'
+
+  roles:
+    - role: common
+    - role: openstack/controller
+
+- name: Setup Openstack compute
+  hosts: contrail-compute
+
+  roles:
+    - role: common
+    - role: openstack/compute
