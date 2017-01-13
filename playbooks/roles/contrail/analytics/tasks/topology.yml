@@ -8,10 +8,4 @@
     log_level: "{{ analytics_topology_log_level }}"
     log_local: "{{ log_local }}"
     http_server_port: "{{ analytics_topology_introspect_port }}"
-
-- name: configure /etc/contrail/contrail-topology.conf DISCOVERY section
-  ini_file: dest={{ analytics_topology_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart analytics topology
-  with_dict:
-    server: "{{ disc_server_ip }}"
-    port: "{{ disc_server_port }}"
+    collectors: "{{ analytics_collectors_with_port }}"

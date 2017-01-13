@@ -19,13 +19,7 @@
     analytics_flow_ttl: "{{ analytics_flow_ttl }}"
     aaa_mode: "{{ analytics_aaa_mode_orig }}"
     sandesh_send_rate_limit: "{{ sandesh_send_rate_limit }}"
-
-- name: configure /etc/contrail/contrail-analytics-api.conf DISCOVERY section
-  ini_file: dest={{ analytics_api_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart analytics-api
-  with_dict:
-    disc_server_ip: "{{ disc_server_ip }}"
-    disc_server_port: "{{ disc_server_port }}"
+    collectors: "{{ analytics_collectors_with_port }}"
 
 - name: configure /etc/contrail/contrail-analytics-api.conf REDIS section
   ini_file: dest={{ analytics_api_conf }} section=REDIS option={{ item.key }} value={{ item.value }}

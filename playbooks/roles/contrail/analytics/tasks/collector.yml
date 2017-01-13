@@ -15,6 +15,7 @@
     syslog_port: "{{ analytics_collector_syslog_port }}"
     sflow_port: "{{ analytics_collector_sflow_port }}"
     ipfix_port: "{{ analytics_collector_ipfix_port }}"
+
 - name: configure /etc/contrail/contrail-collector.conf DISCOVERY section
   ini_file: dest={{ analytics_collector_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
   notify: restart analytics collector
