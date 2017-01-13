@@ -5,7 +5,6 @@
   notify: restart config api
   with_dict: "{{ config_ifmap_configs|
                 combine(config_infra_configs)|\
-                combine(config_discovery_configs)|\
                 combine(api_specific_configs.DEFAULTS)
              }}"
 

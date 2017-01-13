@@ -11,4 +11,4 @@
   wait_for: port="{{ rabbit_port }}" host="{{ item }}"
   with_items: " {{ rabbit_server_list }}"
 
-- include: {{ contrail_service_mgr }}.yml
+- include: "{{ contrail_service_mgr }}.yml"

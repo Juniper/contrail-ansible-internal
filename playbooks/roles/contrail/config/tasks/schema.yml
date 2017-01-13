@@ -11,12 +11,8 @@
   ini_file: dest={{ schema_conf }} section=DEFAULTS option=log_level value={{ schema_log_level }}
   notify: restart schema
 
-- name: configure schema disc_server_ip
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=disc_server_ip value={{ disc_server_ip }}
-  notify: restart schema
-
-- name: configure schema disc_server_port
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option=disc_server_port value={{ disc_server_port }}
+- name: configure schema collectors
+  ini_file: dest={{ schema_conf }} section=DEFAULTS option=collectors value={{ analytics_collectors_with_port }}
   notify: restart schema
 
 - name: configure schema ifmap_server_ip
