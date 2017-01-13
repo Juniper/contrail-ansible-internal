@@ -4,11 +4,6 @@
   notify: restart contrail-dns
   with_dict: "{{ control_infra_configs|combine(dns_specific_configs.DEFAULT) }}"
 
-- name: configure contrail-dns set entries in DISCOVERY section
-  ini_file: dest={{ dns_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart contrail-dns
-  with_dict: "{{ dns_specific_configs.DISCOVERY }}"
-
 - name: configure contrail-dns set entries in IFMAP section
   ini_file: dest={{ dns_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
   notify: restart contrail-dns

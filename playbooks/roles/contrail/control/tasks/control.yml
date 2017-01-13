@@ -4,11 +4,6 @@
   notify: restart control
   with_dict: "{{ control_infra_configs|combine(control_specific_configs.DEFAULT) }}"
 
-- name: configure contrail-control set entries in DISCOVERY section
-  ini_file: dest={{ control_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart control
-  with_dict: "{{ control_specific_configs.DISCOVERY }}"
-
 - name: configure contrail-control set entries in IFMAP section
   ini_file: dest={{ control_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
   notify: restart control
