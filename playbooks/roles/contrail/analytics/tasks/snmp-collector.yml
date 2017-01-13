@@ -10,10 +10,4 @@
     http_server_port: "{{ analytics_snmp_collector_introspect_port }}"
     fast_scan_frequency: "{{ analytics_snmp_collector_fast_scan_frequency }}"
     scan_frequency: "{{ analytics_snmp_collector_scan_frequency }}"
-
-- name: configure /etc/contrail/contrail-snmp-collector.conf DISCOVERY section
-  ini_file: dest={{ analytics_snmp_collector_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart analytics snmp-collector
-  with_dict:
-    disc_server_ip: "{{ disc_server_ip }}"
-    disc_server_port: "{{ disc_server_port }}"
+    collectors: "{{ analytics_collectors_with_port }}"

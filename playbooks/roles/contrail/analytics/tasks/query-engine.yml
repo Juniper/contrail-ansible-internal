@@ -9,13 +9,7 @@
     log_level: "{{ analytics_query_engine_log_level }}"
     log_local: "{{ log_local }}"
     http_server_port: "{{ analytics_query_engine_introspect_port }}"
-
-- name: configure /etc/contrail/contrail-query-engine.conf DISCOVERY section
-  ini_file: dest={{ analytics_query_engine_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart analytics query-engine
-  with_dict:
-    server: "{{ disc_server_ip }}"
-    port: "{{ disc_server_port }}"
+    collectors: "{{ analytics_collectors_with_port }}"
 
 - name: configure /etc/contrail/contrail-query-engine.conf REDIS section
   ini_file: dest={{ analytics_query_engine_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
