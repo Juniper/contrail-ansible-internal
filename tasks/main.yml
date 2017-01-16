@@ -25,16 +25,24 @@
   when: docker_install_method == 'package'
 
 - name: Added OPTIONS to docker start in case of using installer
-  ini_file: dest=/usr/lib/systemd/system/docker.service
+  ini_file: dest="{{ item }}"
             section=Service option=ExecStart
-            value="/usr/bin/dockerd $OPTIONS"
+            value="/usr/bin/dockerd ${{ docker_options_var }}"
+  with_first_found:
+    - /usr/lib/systemd/system/docker.service
+    - /lib/systemd/system/docker.service
+  register: docker_opt
   when: ansible_service_mgr == "systemd" and docker_install_method == 'installer'
 
 - name: Adding EnvironmentFile to docker systemd file
   #EnvironmentFile=-/etc/sysconfig/docker
-  ini_file: dest=/usr/lib/systemd/system/docker.service
+  ini_file: dest="{{ item }}"
             section=Service option=EnvironmentFile
             value="{{ docker_env_file }}"
+  with_first_found:
+    - /usr/lib/systemd/system/docker.service
+    - /lib/systemd/system/docker.service
+  register: docker_envfile
   when: ansible_service_mgr == "systemd"
   notify: restart docker
 
@@ -45,6 +53,10 @@
               state=present
               create=yes
   notify: restart docker
+
+- name: reload systemd config
+  command: /bin/systemctl daemon-reload
+  when: docker_envfile.changed or docker_opt.changed
 
 - name: create root user docker config directory
   become: yes
