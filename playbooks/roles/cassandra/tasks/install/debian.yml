@@ -1,0 +1,21 @@
+---
+- name: install policy-rc.d to selectively disable automated service start by apt
+  copy: src=policy-rc.d dest=/usr/sbin/policy-rc.d mode=0755
+
+- name: Install curl
+  apt: name=curl state=installed
+
+- name: Install JRE and other dependencies mentioned as cassandra dependencies
+  apt: pkg={{ item }} state=installed force=yes
+  register: jdk_installed
+  with_items: "{{ cassandra_deps }}"
+  tags: [deps, cassandra.deps]
+
+- name: Update java alternatives
+  action: command update-java-alternatives -s java-1.7.0-openjdk-amd64
+  when: jdk_installed.changed and update_java_alternatives
+
+- name: Install Cassandra
+  apt: pkg={{ item }} update-cache=yes force=yes state=present
+  register: cassandra_install
+  with_items: "{{ cassandra_packages }}"

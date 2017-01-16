@@ -1,0 +1,33 @@
+---
+- name: Install python-software-properties
+  apt: pkg=python-software-properties state=installed
+  tags: [apt, package]
+
+- name: Adds the key for Cassandra's repository
+  apt_key: keyserver="hkp://pgp.mit.edu:80" id=F758CE318D77295D
+  tags: [apt, package]
+
+- name: Add Cassandra 1.2 repository
+  apt_repository: repo='{{ cassandra_1_2.repo[cassandra_distro].debian }}' state=present
+  when: cassandra_version_branch == '1.2'
+  notify: update apt cache
+  tags: [apt, package]
+
+- name: Add Cassandra 2.0 repository
+  apt_repository: repo='{{ cassandra_2_0.repo[cassandra_distro].debian }}' state=present
+  when: cassandra_version_branch == '2.0'
+  notify: update apt cache
+  tags: [apt, package]
+
+- name: Add Cassandra 2.1 repository
+  apt_repository: repo='{{ cassandra_2_1.repo[cassandra_distro].debian }}' state=present
+  when: cassandra_version_branch == '2.1'
+  notify: update apt cache
+  tags: [apt, package]
+
+- name: Add Cassandra 2.2 repository
+  apt_repository: repo='{{ cassandra_2_2.repo[cassandra_distro].debian }}' state=present
+  when: cassandra_version_branch == '2.2'
+  notify: update apt cache
+  tags: [apt, package]
+
