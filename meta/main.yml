@@ -21,7 +21,3 @@ galaxy_info:
 
   galaxy_tags:
     - development
-
-dependencies:
-  - role: andrewrothstein.curl
-    version: v1.0.0
