@@ -5,3 +5,4 @@
 # NOTE: Both configdb and analyticsdb may be registered seperately
 - name: register configdb node to config api server
   shell: "/usr/share/contrail-utils/provision_database_node.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add {{ provision_cmd_keystone_args }}"
+  ignore_errors: yes
