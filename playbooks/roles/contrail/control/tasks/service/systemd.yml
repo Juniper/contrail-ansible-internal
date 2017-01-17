@@ -1,14 +1,18 @@
 ---
 # Service management
-- name: Make sure control service is up
-  systemd: name="contrail-control" state=started enabled=yes
+- name: Make sure control service is in desired state
+  systemd: name="contrail-control" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
   tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
 
-- name: Make sure contrail-dns service is up
-  systemd: name="contrail-dns" state=started enabled=yes
+- name: Make sure contrail-dns service is in desired state
+  systemd: name="contrail-dns" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
+  tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
+
+- name: Make sure contrail-named service is in desired state
+  systemd: name="contrail-named" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
   tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
 
 # Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
-#- name: Make sure control nodemanager service is up
-#  systemd: name="contrail-control-nodemgr" state=started enabled=yes
+#- name: Make sure control nodemanager service is in desired state
+#  systemd: name="contrail-control-nodemgr" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
 #  tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]

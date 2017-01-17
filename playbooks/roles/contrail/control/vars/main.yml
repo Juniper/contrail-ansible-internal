@@ -40,3 +40,6 @@ dns_specific_configs:
     password: "{{ dns_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
     server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
+
+control_service_state: "{{ 'started' if enable_control else 'stopped' }}"
+control_service_enabled: "{{ 'yes' if enable_control else 'no' }}"

@@ -1,16 +1,21 @@
 ---
 # Service management
-- name: Make sure control service is up
-  supervisorctl: name="contrail-control" state=started config=/etc/contrail/supervisord_control.conf
+- name: Make sure control service is in desired state
+  supervisorctl: name="contrail-control" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
   when: supervisor_control_ready
 
-- name: Make sure contrail-dns service is up
-  supervisorctl: name="contrail-dns" state=started config=/etc/contrail/supervisord_control.conf
+- name: Make sure contrail-dns service is in desired state
+  supervisorctl: name="contrail-dns" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
   when: supervisor_control_ready
 
-- name: Make sure control nodemanager service is up
-  supervisorctl: name="contrail-control-nodemgr" state=started config=/etc/contrail/supervisord_control.conf
+- name: Make sure contrail-named service is in desired state
+  supervisorctl: name="contrail-named" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
+  tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
+  when: supervisor_control_ready
+
+- name: Make sure control nodemanager service is in desired state
+  supervisorctl: name="contrail-control-nodemgr" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]
   when: supervisor_control_ready

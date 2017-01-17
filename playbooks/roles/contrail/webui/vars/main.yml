@@ -1,0 +1,3 @@
+---
+webui_service_state: "{{ 'started' if enable_webui else 'stopped' }}"
+webui_service_enabled: "{{ 'yes' if enable_webui else 'no' }}"
