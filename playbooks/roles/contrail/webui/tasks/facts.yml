@@ -1,0 +1,10 @@
+---
+- name: Check if supervisor is running and register it to supervisor_webui_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_webui.conf" || true
+  register: supervisor_webui_ready_cmd
+  always_run: yes
+  tags: [always]
+
+- name: "Setting a fact for supervisor_webui_ready"
+  set_fact: supervisor_webui_ready={{ (supervisor_webui_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
