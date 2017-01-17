@@ -1,0 +1,67 @@
+---
+# defaults file for ansible-role-cassandra
+cassandra_distro: dsc
+cassandra_version: '2.2'
+cassandra_version_branch: '2.2'
+cassandra_deps:
+  - 'openjdk-7-jre'
+  - 'openjdk-7-jdk'
+update_java_alternatives: false
+cassandra_packages: [cassandra, opscenter]
+
+cassandra_1_2:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 1.2 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 12x main'
+
+cassandra_2_0:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.0 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 20x main'
+
+cassandra_2_1:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.1 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
+
+cassandra_2_2:
+  repo:
+    dsc:
+      debian: 'deb http://debian.datastax.com/community 2.2 main'
+    apache:
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 22x main'
+
+cassandra_manage_repo: false
+
+cassandra_cluster_name: MyCluster
+cassandra_commitlog_dir: /var/lib/cassandra/commitlog
+cassandra_saved_caches_dir: /var/lib/cassandra/saved_caches
+cassandra_data_dirs:
+  - /var/lib/cassandra/data
+cassandra_seeds:
+  - "{{ ansible_default_ipv4.address }}"
+cassandra_listen_address: "{{ ansible_default_ipv4.address }}"
+cassandra_cql_port: 9042
+cassandra_start_cql: true
+cassandra_rpc_port: 9160
+cassandra_start_rpc: true
+
+
+cassandra_java_max_heap_size: 512M
+cassandra_java_max_heap_newsize: 100M
+cassandra_rmi_port: 7199
+cassandra_storage_port: 7000
+cassandra_ssl_storage_port: 7001
+
+cassandra_log_level: info
+
+cassandra_service_manage: true
+cassandra_service_ensure: "started"
+cassandra_service_enable: yes
+cassandra_service_name: cassandra
