@@ -20,11 +20,10 @@
     aaa_mode: "{{ analytics_aaa_mode_orig }}"
     sandesh_send_rate_limit: "{{ sandesh_send_rate_limit }}"
     collectors: "{{ analytics_collectors_with_port }}"
+    zk_list: "{{ zk_servers_with_port_space_delim }}"
 
 - name: configure /etc/contrail/contrail-analytics-api.conf REDIS section
   ini_file: dest={{ analytics_api_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
   notify: restart analytics-api
   with_dict:
-    redis_query_port: "{{ analytics_redis_port }}"
-    redis_server_port: "{{ analytics_redis_port }}"
-    server: "{{ analytics_redis_ip }}"
+    redis_uve_list: "{{ analytics_redis_servers_with_port }}"
