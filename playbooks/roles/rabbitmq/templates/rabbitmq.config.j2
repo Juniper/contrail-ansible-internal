@@ -1,0 +1,71 @@
+{%- set num_rabbitmq_log_levels = rabbitmq_log_levels.keys()|length -%}
+{%- set rabbitmq_cluster_size = rabbitmq_nodes_names|length -%}
+[
+  {rabbit, [
+{#
+   If there is a listenning address defined for the insecure TCP listenner,
+   declare it.
+#}
+{% if rabbitmq_conf_tcp_listeners_address != '' %}
+    {tcp_listeners, [{"{{ rabbitmq_conf_tcp_listeners_address }}", {{ rabbitmq_conf_tcp_listeners_port }}}]}
+{% else %}
+{# Otherwise, shut down the listenner. #}
+    {tcp_listeners, []}
+{% endif %}
+
+{% if not rabbitmq_remove_default_user and rabbitmq_allow_remote_guest %}
+    ,{loopback_users, []}
+{% endif %}
+    ,{log_levels,[
+    {%- set number = 1 -%}
+    {% for key, value in rabbitmq_log_levels.iteritems() %}
+        {%- if number < num_rabbitmq_log_levels -%}
+        { {{ key }}, {{ value }} },
+        {%- else -%}
+        { {{key }}, {{ value }} }
+        {%- endif -%}
+        {%- set number = number + 1 -%}
+    {%- endfor -%}]}
+{% if rabbitmq_cluster_size > 1 -%}
+,{cluster_partition_handling, {{ rabbitmq_cluster_partition_handling }} }
+,{cluster_nodes, {[
+{%- for number in range(0, rabbitmq_cluster_size) -%}
+    {%- if number < rabbitmq_cluster_size - 1 -%}
+        'rabbit@{{rabbitmq_nodes_names[number]}}',
+    {%- else -%}
+        'rabbit@{{rabbitmq_nodes_names[number]}}'
+    {%- endif -%}
+{%- endfor -%}
+], disc}}
+{%- endif -%}
+,{vm_memory_high_watermark, 0.4},
+{disk_free_limit,50000000},
+{heartbeat,10},
+{delegate_count,20},
+{channel_max,5000},
+{tcp_listen_options, [
+    binary,
+    {packet, raw},
+    {reuseaddr, true},
+    {backlog, 128},
+    {nodelay, true},
+    {exit_on_close, false},
+    {keepalive, true}
+]},
+{collect_statistics_interval, 60000}
+{% if rabbitmq_ssl %}
+    ,{ssl_listeners, [{"{{ rabbitmq_conf_ssl_listeners_address }}", {{ rabbitmq_conf_ssl_listeners_port }}}]},
+    {ssl_options, [
+      {cacertfile, "{{rabbitmq_conf_ssl_options_cacertfile}}"},
+      {certfile, "{{rabbitmq_conf_ssl_options_certfile}}"},
+      {keyfile, "{{rabbitmq_conf_ssl_options_keyfile}}"},
+      {verify, verify_peer},
+      {fail_if_no_peer_cert,{{rabbitmq_conf_ssl_options_fail_if_no_peer_cert}}}
+      ]}
+{% endif %}
+  ]}
+{% if rabbitmq_cluster_size > 1 -%}
+   ,{rabbitmq_management_agent, [ {force_fine_statistics, true} ] },
+   {kernel, [{net_ticktime,  30}]}
+{% endif -%}
+].

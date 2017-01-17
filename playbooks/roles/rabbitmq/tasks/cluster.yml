@@ -1,0 +1,12 @@
+---
+- name: Wait for master node to be up
+  wait_for: host={{ rabbitmq_cluster_nodes_leader }} port={{ rabbitmq_conf_tcp_listeners_port }} delay=10
+  when: rabbitmq_cluster_node_role == 'follower'
+
+- name: Check rabbitmq cluster
+  shell: rabbitmqctl cluster_status | awk '{if ($1 ~ /^'\''/) printf $0 ;else printf "\n"$0}' | grep running_nodes | grep -c "'rabbit@{{ rabbitmq_cluster_nodes_leader }}" || true
+  register: rabbitmq_cluster_status
+
+- name: join cluster
+  shell: "rabbitmqctl stop_app && rabbitmqctl join_cluster rabbit@{{ rabbitmq_cluster_nodes_leader }} && rabbitmqctl start_app"
+  when: rabbitmq_cluster_status.stdout == 0

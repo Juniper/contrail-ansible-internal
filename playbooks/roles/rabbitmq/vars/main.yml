@@ -1,0 +1,3 @@
+---
+rabbitmq_cluster_nodes_leader: "{{ rabbitmq_nodes_names|sort|first }}"
+rabbitmq_cluster_node_role: "{%- if rabbitmq_cluster_nodes_leader == ansible_hostname -%}leader{% else %}follower{% endif %}"

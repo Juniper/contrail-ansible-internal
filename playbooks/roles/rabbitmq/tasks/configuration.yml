@@ -1,0 +1,64 @@
+---
+- name: create the ssl folder for rabbitmq
+  file:
+    path=/etc/rabbitmq/ssl/
+    owner=rabbitmq
+    group=rabbitmq
+    mode=0750
+    state=directory
+  when: rabbitmq_ssl
+
+- name: copy the ssl certificates
+  copy:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=rabbitmq
+    group=rabbitmq
+    mode=0640
+    backup=yes
+  with_items:
+    - src: "{{ rabbitmq_cacert }}"
+      dest: "{{ rabbitmq_conf_ssl_options_cacertfile }}"
+    - src: "{{ rabbitmq_server_key }}"
+      dest: "{{ rabbitmq_conf_ssl_options_keyfile }}"
+    - src: "{{ rabbitmq_server_cert }}"
+      dest: "{{ rabbitmq_conf_ssl_options_certfile }}"
+  when: rabbitmq_ssl
+
+- name: Collect hostnames resolved for rabbitmq_nodes
+  shell: getent  hosts {{ rabbitmq_nodes|join(" ") }} | awk '{print $2}'
+  register: rabbitmq_nodes_names_var
+
+- name: Set fact for rabbitmq_nodes_names
+  set_fact: rabbitmq_nodes_names="{{ rabbitmq_nodes_names_var.stdout.split('\n') }}"
+  when: rabbitmq_nodes_names is not defined
+
+- name: generate the configuration of rabbitmq
+  template:
+    src=rabbitmq.config.j2
+    dest=/etc/rabbitmq/rabbitmq.config
+    owner=rabbitmq
+    group=rabbitmq
+    mode=0644
+    backup=yes
+  notify: restart rabbitmq-server
+
+- name: generate environment-specific configuration
+  template:
+    src=rabbitmq-env.conf.j2
+    dest=/etc/rabbitmq/rabbitmq-env.conf
+    owner=rabbitmq
+    group=rabbitmq
+    mode=0644
+    backup=yes
+  notify: restart rabbitmq-server
+  when: rabbitmq_conf_env is defined
+
+- name: Copy erlang cookie
+  copy:
+    content="{{ rabbitmq_erlang_cookie }}"
+    dest=/var/lib/rabbitmq/.erlang.cookie
+    owner=rabbitmq
+    group=rabbitmq
+    mode=0400
+  notify: restart rabbitmq-server

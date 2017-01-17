@@ -1,0 +1,59 @@
+---
+# ################
+# Playbook control
+# ################
+
+# rabbitmq_nodes - is a list of rabbitmq nodes ip addresses
+# rabbitmq_nodes: [192.168.0.11, 192.168.0.12, 192.168.0.13]
+rabbitmq_nodes: ["{{ ansible_default_ipv4.address }}"]
+
+rabbitmq_cluster_partition_handling: autoheal
+
+rabbitmq_log_levels:
+  connection: info
+  mirroring: info
+
+rabbitmq_erlang_cookie: 47EFF3BB-4786-46E0-A5BB-58455B3C2CB4
+
+# Take the package given by the OS/distrib
+rabbitmq_os_package: false
+
+# Plugins
+rabbitmq_plugins: []
+rabbitmq_new_only: 'no'
+
+# VHOST
+rabbitmq_vhost_definitions: []
+rabbitmq_users_definitions: []
+
+# Avoid setting up federation
+rabbitmq_federation: false
+
+# defaults file for rabbitmq
+rabbitmq_cacert     : "files/rabbitmq_cacert.pem"
+rabbitmq_server_key : "files/rabbitmq_server_key.pem"
+rabbitmq_server_cert: "files/rabbitmq_server_cert.pem"
+rabbitmq_ssl        : true
+
+# ######################
+# RabbitMQ Configuration
+# ######################
+
+# rabbitmq TCP configuration
+rabbitmq_conf_tcp_listeners_address: ''
+rabbitmq_conf_tcp_listeners_port: 5672
+
+# rabbitmq SSL configuration
+rabbitmq_conf_ssl_listeners_address           : '0.0.0.0'
+rabbitmq_conf_ssl_listeners_port              : 5671
+rabbitmq_conf_ssl_options_cacertfile          : "/etc/rabbitmq/ssl/{{ rabbitmq_cacert | basename }}"
+rabbitmq_conf_ssl_options_certfile            : "/etc/rabbitmq/ssl/{{ rabbitmq_server_cert | basename }}"
+rabbitmq_conf_ssl_options_keyfile             : "/etc/rabbitmq/ssl/{{ rabbitmq_server_key | basename }}"
+rabbitmq_conf_ssl_options_fail_if_no_peer_cert: "true"
+
+rabbitmq_env: false
+
+rabbitmq_remove_default_user: true
+rabbitmq_allow_remote_guest: false
+
+update_cache: false
