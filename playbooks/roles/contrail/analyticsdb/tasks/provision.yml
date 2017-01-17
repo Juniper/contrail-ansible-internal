@@ -16,4 +16,5 @@
 - name: register analyticsdb to config api server (non-openstack)
   shell: "/usr/share/contrail-utils/provision_database_node.py  --api_server_ip {{ api_server_ip }}  \
     --host_name {{ ansible_hostname }} --host_ip {{ my_analyticsdb_ip }} --oper add"
+  ignore_errors: yes
   when: cloud_orchestrator != "openstack"
