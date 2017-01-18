@@ -10,7 +10,7 @@
 
 # This task is to avoid below error while enabling the service
 # update-rc.d: error: kafka Default-Start contains no runlevels, aborting.
-- name: Delete init.d file for kafka to avoid error while enabling the service
+- name: Delete init.d file for services to avoid error while enabling the service
   file: path="/etc/init.d/{{ item }}" state=absent
   with_items:
     - contrail-api
