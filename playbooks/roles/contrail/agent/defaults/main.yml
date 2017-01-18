@@ -13,6 +13,7 @@ agent_packages:
   - python-yaml
   - rsync
   - curl
+  - haproxy
 
 compile_vrouter_module: true
 reload_vrouter_module: false
