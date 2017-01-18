@@ -9,3 +9,5 @@
 
 - include: nodemanager.yml
   tags: [contrail.control.nodemgr, contrail.control.nodemgr.configure]
+
+- meta: flush_handlers

@@ -13,3 +13,5 @@
 
 - name: Configure kubernetes specific configuration
   include: kubernetes.yml
+
+- meta: flush_handlers

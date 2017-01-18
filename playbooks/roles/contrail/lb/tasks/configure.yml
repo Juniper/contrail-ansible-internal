@@ -2,3 +2,4 @@
 - include: haproxy.yml
   tags: [contrail.haproxy, contrail.haproxy.configure]
 
+- meta: flush_handlers
