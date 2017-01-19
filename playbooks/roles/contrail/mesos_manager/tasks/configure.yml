@@ -42,3 +42,5 @@
     log_level: "{{ mesos_manager_log_level }}"
     log_file: "{{ mesos_manager_log_file }}"
   notify: restart mesos-manager
+
+- meta: flush_handlers
