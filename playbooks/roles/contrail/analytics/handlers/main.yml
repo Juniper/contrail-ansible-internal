@@ -1,21 +1,58 @@
 ---
-- name: restart alarm-gen
-  include: ../handlers/contrail_alarm_gen.yml
+- name: restart alarm-gen supervisord
+  supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart analytics-api
-  include: ../handlers/contrail_analytics_api.yml
+- name: restart alarm-gen systemd
+  systemd: name="contrail-alarm-gen" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart analytics nodemanager
-  include: ../handlers/contrail_analytics_nodemgr.yml
+- name: restart analytics-api supervisord
+  supervisorctl: name="contrail-analytics-api" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart analytics collector
-  include: ../handlers/contrail_collector.yml
+- name: restart analytics-api systemd
+  systemd: name="contrail-analytics-api" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart analytics query-engine
-  include: ../handlers/contrail_query_engine.yml
+- name: restart analytics-nodemgr supervisord
+  supervisorctl: name="contrail-analytics-nodemgr" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart analytics snmp-collector
-  include: ../handlers/contrail_snmp_collector.yml
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+- name: restart analytics-nodemgr systemd
+  debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
+#  systemd: name="contrail-analytics-nodemgr" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart analytics topology
-  include: ../handlers/contrail_topology.yml
+- name: restart analytics collector supervisord
+  supervisorctl: name="contrail-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart analytics collector systemd
+  systemd: name="contrail-collector" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart query-engine supervisord
+  supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart query-engine systemd
+  systemd: name="contrail-query-engine" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart snmp-collector supervisord
+  supervisorctl: name="contrail-snmp-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart snmp-collector systemd
+  systemd: name="contrail-snmp-collector" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart topology supervisord
+  supervisorctl: name="contrail-topology" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart topology systemd
+  systemd: name="contrail-topology" state=restarted
+  when: contrail_service_mgr == 'systemd'

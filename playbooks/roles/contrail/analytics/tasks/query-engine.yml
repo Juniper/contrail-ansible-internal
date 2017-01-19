@@ -1,7 +1,9 @@
 ---
 - name: configure /etc/contrail/contrail-query-engine.conf DEFAULT section
   ini_file: dest={{ analytics_query_engine_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart analytics query-engine
+  notify:
+    - restart query-engine supervisord
+    - restart query-engine systemd
   with_dict:
     cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
     hostip: "{{ my_analytics_ip }}"
@@ -13,7 +15,9 @@
 
 - name: configure /etc/contrail/contrail-query-engine.conf REDIS section
   ini_file: dest={{ analytics_query_engine_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify: restart analytics query-engine
+  notify:
+    - restart query-engine supervisord
+    - restart query-engine systemd
   with_dict:
     port: "{{ analytics_redis_port }}"
     server: "{{ analytics_redis_ip }}"

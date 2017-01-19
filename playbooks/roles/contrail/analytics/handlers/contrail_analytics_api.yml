@@ -1,8 +1,0 @@
----
-- name: restart analytics-api supervisord
-  supervisorctl: name="contrail-analytics-api" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics-api systemd
-  systemd: name="contrail-analytics-api" state=restarted
-  when: contrail_service_mgr == 'systemd'
