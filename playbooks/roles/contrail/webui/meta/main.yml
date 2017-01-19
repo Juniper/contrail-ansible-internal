@@ -2,4 +2,4 @@
 dependencies:
   - contrail/common
   - role: redis
-    tags: [redis, install, configure, redis.install, redis.configure]
+    tags: [redis]
