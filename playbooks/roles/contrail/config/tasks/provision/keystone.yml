@@ -6,3 +6,6 @@
 - name: register configdb node to config api server
   shell: "/usr/share/contrail-utils/provision_database_node.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add {{ provision_cmd_keystone_args }}"
   ignore_errors: yes
+
+- name: Create linklocal entry for metadata
+  shell: "/usr/share/contrail-utils/provision_linklocal.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --linklocal_service_name metadata --linklocal_service_ip 169.254.169.254 --linklocal_service_port 80 --ipfabric_service_ip {{ neutron_metadata_ip }} --ipfabric_service_port {{ neutron_metadata_port }} --oper add {{ provision_cmd_keystone_args }}"
