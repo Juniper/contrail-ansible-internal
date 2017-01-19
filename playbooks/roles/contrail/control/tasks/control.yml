@@ -1,10 +1,14 @@
 ---
 - name: configure contrail-control set all entries in DEFAULT section
   ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart control
+  notify:
+    - restart control supervisord
+    - restart control systemd
   with_dict: "{{ control_infra_configs|combine(control_specific_configs.DEFAULT) }}"
 
 - name: configure contrail-control set entries in IFMAP section
   ini_file: dest={{ control_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
-  notify: restart control
+  notify:
+    - restart control supervisord
+    - restart control systemd
   with_dict: "{{ control_specific_configs.IFMAP }}"
