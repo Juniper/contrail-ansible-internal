@@ -1,7 +1,9 @@
 ---
 - name: Configure VIRTUAL-HOST-INTERFACE section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=VIRTUAL-HOST-INTERFACE option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
   with_dict:
     name: "{{ vhost_interface }}"
     ip: "{{ vhost_address_with_prefix }}"
@@ -10,7 +12,9 @@
 
 - name: Configure DEFAULT section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
   with_dict:
     platform: "{{ vrouter_platform }}"
     log_file: "{{ vrouter_agent_log }}"
@@ -21,23 +25,31 @@
 
 - name: Configure CONTROL-NODE section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option=servers value="{{ control_servers_with_xmpp_port }}"  create=yes
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
 
 - name: Configure DNS section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=DNS option=servers value="{{ control_servers_with_dns_port }}"  create=yes
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
 
 
 - name: Configure NETWORKS section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=NETWORKS option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
   with_dict:
     control_network_ip: "{{ vhost_address }}"
 
 
 - name: Configure /etc/contrail/agent_param
   template: src=agent_param.j2 dest=/etc/contrail/agent_param
-  notify: restart vrouter-agent
+  notify:
+    - restart vrouter-agent supervisord
+    - restart vrouter-agent systemd
 
 # TODO: This function need to be split and added as separate tasks
 - name: insert vrouter and setup vrouter vifs
