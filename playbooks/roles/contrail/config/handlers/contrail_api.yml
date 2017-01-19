@@ -1,8 +1,0 @@
----
-- name: restart config api supervisord
-  supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart config api systemd
-  systemd: name="contrail-api" state=restarted
-  when: contrail_service_mgr == 'systemd'

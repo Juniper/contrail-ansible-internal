@@ -1,56 +1,21 @@
 ---
-- name: configure discovery zk_server_ip (comma separated list of zk server ips)
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_ip value={{ zk_server_list | join(',') }}  create=yes
-  notify: restart discovery
-
-- name: configure discovery zk_server_port
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=zk_server_port value={{ zk_port }}
-  notify: restart discovery
-
-- name: configure discovery listen_ip_addr
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=listen_ip_addr value={{ discovery_listen_address }}
-  notify: restart discovery
-
-- name: configure discovery listen_port
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=listen_port value={{ discovery_listen_port }}
-  notify: restart discovery
-
-- name: configure discovery log_local
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_local value=1
-  notify: restart discovery
-
-- name: configure discovery log_file
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_file value={{ discovery_log }}
-  notify: restart discovery
-
-- name: configure discovery log_level
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=log_level value={{ discovery_log_level }}
-  notify: restart discovery
-
-- name: configure discovery cassandra_server_list
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=cassandra_server_list value={{ configdb_servers_with_port }}
-  notify: restart discovery
-
-- name: configure discovery ttl_min
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_min value={{ discovery_ttl_min }}
-  notify: restart discovery
-
-- name: configure discovery ttl_max
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_max value={{ discovery_ttl_max }}
-  notify: restart discovery
-
-- name: configure discovery hc_interval
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=hc_interval value={{ discovery_hc_interval }}
-  notify: restart discovery
-
-- name: configure discovery hc_max_miss
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=hc_max_miss value={{ discovery_hc_max_miss }}
-  notify: restart discovery
-
-- name: configure discovery ttl_short
-  ini_file: dest={{ discovery_conf }} section=DEFAULTS option=ttl_short value={{ discovery_ttl_short }}
-  notify: restart discovery
-
-- name: configure discovery dns server policy
-  ini_file: dest={{ discovery_conf }} section=DNS-SERVER option=policy value={{ discovery_dns_server_policy }}
-  notify: restart discovery
+- name: configure discovery DEFAULTS section
+  ini_file: dest={{ discovery_conf }} section=DEFAULTS option="{{ item.key }}" value="{{ item.value }}"  create=yes
+  notify:
+    - restart discovery supervisord
+    - restart discovery systemd
+  with_dict:
+    zk_server_ip: "{{ zk_server_list | join(',') }}"
+    zk_server_port: "{{ zk_port }}"
+    listen_ip_addr: "{{ discovery_listen_address }}"
+    listen_port: "{{ discovery_listen_port }}"
+    log_local: 1
+    log_file: "{{ discovery_log }}"
+    log_level: "{{ discovery_log_level }}"
+    cassandra_server_list: "{{ configdb_servers_with_port }}"
+    ttl_min: "{{ discovery_ttl_min }}"
+    ttl_max: "{{ discovery_ttl_max }}"
+    hc_interval: "{{ discovery_hc_interval }}"
+    hc_max_miss: "{{ discovery_hc_max_miss }}"
+    ttl_short: "{{ discovery_ttl_short }}"
+    policy: "{{ discovery_dns_server_policy }}"
