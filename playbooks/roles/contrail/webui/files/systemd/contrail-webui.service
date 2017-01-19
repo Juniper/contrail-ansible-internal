@@ -1,7 +1,7 @@
 [Unit]
 Description="Contrail Web UI"
-After=redis.service
-Requires=redis.service
+After=redis-server.service
+Requires=redis-server.service
 
 [Service]
 WorkingDirectory=/usr/src/contrail/contrail-web-core
