@@ -8,7 +8,9 @@
     kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
     service_subnets: "{{ service_subnets }}"
     pod_subnets: "{{ pod_subnets }}"
-  notify: restart kube-manager
+  notify:
+    - restart kube-manager supervisord
+    - restart kube-manager systemd
 
 - name: Configure VNC Section of contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=VNC option={{ item.key }} value={{ item.value }}  create=yes
@@ -20,7 +22,9 @@
     admin_user: "{{ admin_user }}"
     admin_password: "{{ admin_password }}"
     admin_tenant: "{{ admin_tenant }}"
-  notify: restart kube-manager
+  notify:
+    - restart kube-manager supervisord
+    - restart kube-manager systemd
 
 - name: Configure DEFAULTS Section of contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
@@ -31,8 +35,13 @@
     log_level: "{{ kube_manager_log_level }}"
     log_file: "{{ kube_manager_log_file }}"
     orchestrator: "{{ cloud_orchestrator }}"
-  notify: restart kube-manager
+  notify:
+    - restart kube-manager supervisord
+    - restart kube-manager systemd
 
 - name: Configure DEFAULTS.token in contrail-kubernetes.conf for openshift
   ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value=openshift_token  create=yes
   when: cloud_orchestrator == 'openshift'
+  notify:
+    - restart kube-manager supervisord
+    - restart kube-manager systemd
