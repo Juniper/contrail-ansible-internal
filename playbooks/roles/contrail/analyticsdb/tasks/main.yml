@@ -13,9 +13,9 @@
   set_fact: my_analyticsdb_ip="{{ item }}"
   when: "item in ansible_all_ipv4_addresses"
   with_items: "{{ analyticsdb_list }}"
-  tags: [always]
+  tags: [configure]
 
-- include: "install/{{ ansible_os_family }}.yml"
+- include: "install/install.yml"
   tags: [package, contrail.analyticsdb.package]
 
 - name: Add custom bash prompt
@@ -32,7 +32,7 @@
 
 - name: Include contrail service manager specific code
   include: install/systemd.yml
-  when: "contrail_service_mgr == 'systemd'"
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.analyticsdb.install]
 
 - include: configure.yml

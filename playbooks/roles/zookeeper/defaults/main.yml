@@ -3,6 +3,7 @@ ansible_playbook_version: 0.1
 zookeeper_playbook_version: "0.9.2"
 zookeeper_version: 3.4.6
 zookeeper_url: http://www.us.apache.org/dist/zookeeper/zookeeper-{{zookeeper_version}}/zookeeper-{{zookeeper_version}}.tar.gz
+zookeeper_packages: "{{ ['zookeeper', 'zookeeperd'] if ansible_os_family == 'Debian' else ['zookeeper', 'libzookeeper'] }}"
 
 # Flag that selects if systemd or upstart will be used for the init service:
 # Note: by default Ubuntu 15.04 and later use systemd (but support switch to upstart)
@@ -22,6 +23,7 @@ data_dir: /var/lib/zookeeper
 log_dir: /var/log/zookeeper
 zookeeper_dir: /opt/zookeeper-{{zookeeper_version}}
 zookeeper_tarball_dir: /opt/src
+zookeeper_cfg_dir: "{{ '/etc/zookeeper/conf/' if ansible_os_family == 'Debian' else '/etc/zookeeper/' }}"
 
 # List of dict (i.e. {zookeeper_hosts:[{host:,id:},{host:,id:},...]})
 zookeeper_hosts:

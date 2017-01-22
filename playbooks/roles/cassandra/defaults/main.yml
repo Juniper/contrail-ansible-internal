@@ -7,7 +7,7 @@ cassandra_deps:
   - 'openjdk-7-jre'
   - 'openjdk-7-jdk'
 update_java_alternatives: false
-cassandra_packages: [cassandra, opscenter]
+cassandra_packages: "{{ ['cassandra', 'opscenter'] if ansible_distribution == 'Ubuntu' else ['cassandra22', 'opscenter'] }}"
 
 cassandra_1_2:
   repo:

@@ -1,5 +1,5 @@
 ---
-- include: "install/{{ ansible_os_family }}.yml"
+- include: "install.yml"
   tags: [contrail.controller.package, contrail.webui.package, package]
 
 - name: Add custom bash prompt
@@ -14,8 +14,14 @@
 - include_role: name=contrail/common tasks_from=cleanup
   tags: [contrail.controller.install, contrail.webui.install, install]
 
-- name: Include contrail service manager specific code
-  include: install/{{ contrail_service_mgr }}.yml
+- name: Include contrail supervisord specific code for supervisord
+  include: install/supervisord.yml
+  when: contrail_service_mgr == 'supervisord'
+  tags: [install, contrail.controller.install, contrail.webui.install]
+
+- name: Include contrail systemd specific code for systemd/redhat
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.controller.install, contrail.webui.install]
 
 - include: configure.yml

@@ -1,0 +1,5 @@
+---
+- name: Install Cassandra Rpm package
+  package: name={{ item }} state=present
+  register: cassandra_install
+  with_items: "{{ cassandra_packages }}"

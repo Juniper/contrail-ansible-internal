@@ -1,12 +1,8 @@
 ---
-- name: Install OS Packages
-  yum: name={{ item }} state=present
-  with_items:
-    - libselinux-python
+- name: Install Zookeeper packages
+  package: pkg={{item}} state=installed
   tags: [bootstrap, package, install]
-
-- include: tarball.yml
-  tags: [bootstrap, package, install]
+  with_items: "{{ zookeeper_packages }}"
 
 - include: upstart.yml
   tags: deploy

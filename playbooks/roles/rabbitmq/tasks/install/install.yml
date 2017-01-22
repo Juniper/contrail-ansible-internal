@@ -1,0 +1,4 @@
+---
+
+- name: install rabbitmq-server
+  package: name=rabbitmq-server state=present
