@@ -1,20 +1,14 @@
 ---
+- name: Run OS specific install tasks
+  include: "install/{{ansible_os_family}}.yml"
+  tags: [install, zookeeper.install, package, zookeeper.package]
 
-- include: Debian.yml
-  when: ansible_os_family == 'Debian' and zookeeper_debian_apt_install
+- name: Configure zookeeper
+  include: configure.yml
+  tags: [configure, zookeeper.configure]
 
-- include: Debian-tarball.yml
-  when: ansible_os_family == 'Debian' and not zookeeper_debian_apt_install
-
-- include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
-
-- name: remove upstart file for zookeeper to avoid conflicts in case of docker or something which dont support upstart
-  shell: rm -f /etc/init/zookeeper.conf || true
-  args:
-    removes: /etc/init/zookeeper.conf
-  when: no_upstart is defined
-
-- include: common-config.yml
+- name: Start zookeeper service
+  service: name=zookeeper state=started enabled=yes
+  tags: [service, zookeeper.service]
 
 - meta: flush_handlers
