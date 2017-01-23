@@ -12,6 +12,7 @@
 
 # Setup/install tasks.
 - include: "setup-{{ ansible_os_family }}.yml"
+  when: external_package_install is not defined
   tags: [install, redis.install, package, redis.package]
 
 - name: Ensure Redis is configured.
