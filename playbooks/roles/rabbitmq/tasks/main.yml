@@ -1,5 +1,6 @@
 ---
 - include: install/main.yml
+  when: external_package_install is not defined
   tags: [install, rabbitmq.install, package, rabbitmq.package]
 - include: configuration.yml
   tags: [configure, rabbitmq.configure]
