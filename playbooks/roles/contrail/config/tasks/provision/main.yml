@@ -8,5 +8,5 @@
   retries: 180
   delay: 1
 
-- name: Include cloud_orchestrator specific code to provision controller related services
+- name: Include cloud_orchestrator specific code to provision config related services
   include: "{{ provision_auth }}.yml"

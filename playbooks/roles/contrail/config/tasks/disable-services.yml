@@ -1,0 +1,5 @@
+---
+- include: facts.yml
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.controller.service, contrail.config.service, service]

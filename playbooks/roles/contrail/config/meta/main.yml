@@ -10,6 +10,7 @@ dependencies:
     rabbitmq_allow_remote_guest: "{{ contrail_rabbitmq_allow_remote_guest }}"
     rabbitmq_nodes: "{{ rabbit_server_list }}"
     tags: [rabbitmq]
+    when: enable_config_service
 
   - role: cassandra
     cassandra_cql_port: "{{ configdb_cql_port }}"
@@ -22,8 +23,10 @@ dependencies:
     cassandra_packages: "{{ configdb_cassandra_packages }}"
     cassandra_cluster_name: "{{ configdb_cassandra_cluster_name }}"
     tags: [configdb]
+    when: enable_config_service
 
   - role: zookeeper
     zookeeper_debian_apt_install: true
     zookeeper_hosts: "{{ zk_server_list }}"
     tags: [zookeeper]
+    when: enable_config_service
