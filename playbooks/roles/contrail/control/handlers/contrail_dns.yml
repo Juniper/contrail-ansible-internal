@@ -1,5 +1,0 @@
----
-- name: restart contrail-dns
-  supervisorctl: name="contrail-dns" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
-

@@ -1,8 +1,0 @@
----
-- name: restart analytics query-engine supervisord
-  supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart analytics query-engine systemd
-  systemd: name="contrail-query-engine" state=restarted
-  when: contrail_service_mgr == 'systemd'

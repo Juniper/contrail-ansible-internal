@@ -19,7 +19,9 @@
     mesos_api_secure_port: "{{ mesos_api_secure_port }}"
     service_subnets: "{{ service_subnets }}"
     pod_subnets: "{{ pod_subnets }}"
-  notify: restart mesos-manager
+  notify:
+    - restart mesos-manager systemd
+    - restart mesos-manager supervisord
 
 - name: Configure VNC Section of contrail-mesos.conf
   ini_file: dest={{ mesos_manager_conf }} section=VNC option={{ item.key }} value={{ item.value }}  create=yes
@@ -31,7 +33,9 @@
     admin_user: "{{ admin_user }}"
     admin_password: "{{ admin_password }}"
     admin_tenant: "{{ admin_tenant }}"
-  notify: restart mesos-manager
+  notify:
+    - restart mesos-manager systemd
+    - restart mesos-manager supervisord
 
 - name: Configure DEFAULTS Section of contrail-mesos.conf
   ini_file: dest={{ mesos_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
@@ -41,6 +45,8 @@
     log_local: "{{ log_local }}"
     log_level: "{{ mesos_manager_log_level }}"
     log_file: "{{ mesos_manager_log_file }}"
-  notify: restart mesos-manager
+  notify:
+    - restart mesos-manager systemd
+    - restart mesos-manager supervisord
 
 - meta: flush_handlers

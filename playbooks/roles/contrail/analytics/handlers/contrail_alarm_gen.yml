@@ -1,8 +1,0 @@
----
-- name: restart alarm-gen supervisord
-  supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart alarm-gen systemd
-  systemd: name="contrail-alarm-gen" state=restarted
-  when: contrail_service_mgr == 'systemd'

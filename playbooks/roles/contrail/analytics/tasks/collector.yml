@@ -1,7 +1,9 @@
 ---
 - name: configure /etc/contrail/contrail-collector.conf DEFAULT section
   ini_file: dest={{ analytics_collector_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart analytics collector
+  notify:
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
   with_dict:
     cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
     zookeeper_server_list: "{{ zk_servers_with_port }}"
@@ -18,21 +20,27 @@
 
 - name: configure /etc/contrail/contrail-collector.conf DISCOVERY section
   ini_file: dest={{ analytics_collector_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify: restart analytics collector
+  notify:
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
   with_dict:
     server: "{{ disc_server_ip }}"
     port: "{{ disc_server_port }}"
 
 - name: configure /etc/contrail/contrail-collector.conf REDIS section
   ini_file: dest={{ analytics_collector_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify: restart analytics collector
+  notify:
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
   with_dict:
     port: "{{ analytics_redis_port }}"
     server: "{{ analytics_redis_ip }}"
 
 - name: configure /etc/contrail/contrail-collector.conf COLLECTOR section
   ini_file: dest={{ analytics_collector_conf }} section=COLLECTOR option={{ item.key }} value={{ item.value }}
-  notify: restart analytics collector
+  notify:
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
   with_dict:
     port: "{{ analytics_collector_listen_port }}"
     server: "{{ analytics_collector_listen_address }}"

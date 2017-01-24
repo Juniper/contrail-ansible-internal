@@ -1,8 +1,0 @@
----
-- name: restart device-manager supervisord
-  supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart device-manager systemd
-  systemd: name="contrail-device-manager" state=restarted
-  when: contrail_service_mgr == 'systemd'
