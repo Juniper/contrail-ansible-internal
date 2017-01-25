@@ -11,18 +11,22 @@
 
     - role: contrail/config
       tags: [contrail.controller, contrail.config]
+      when: enable_config_service
 
     - role: contrail/control
       tags: [contrail.controller, contrail.controlnode]
-      when: enable_control
+      when: enable_control_service
 
     - role: contrail/webui
       tags: [contrail.controller, contrail.webui]
-      when: enable_webui
+      when: enable_webui_service
 
   tasks:
-    - name: Disable control services in case the it is not enabled
+    - name: Disable config services in case it is not enabled
+      include_role: name=contrail/config tasks_from=disable-services
+
+    - name: Disable control services in case it is not enabled
       include_role: name=contrail/control tasks_from=disable-services
 
-    - name: Disable webui services in case the it is not enabled
+    - name: Disable webui services in case it is not enabled
       include_role: name=contrail/webui tasks_from=disable-services
