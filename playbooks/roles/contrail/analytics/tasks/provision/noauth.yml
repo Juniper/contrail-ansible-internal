@@ -1,0 +1,5 @@
+---
+- name: register analytics to config api server (non-openstack)
+  shell: "/usr/share/contrail-utils/provision_analytics_node.py  --api_server_ip {{ api_server_ip }}  \
+    --host_name {{ ansible_hostname }} --host_ip {{ my_analytics_ip }} --oper add"
+  when: cloud_orchestrator != "openstack"
