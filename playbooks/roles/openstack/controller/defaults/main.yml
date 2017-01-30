@@ -1,2 +1,21 @@
 ---
 contrail_extensions: "ipam:neutron_plugin_contrail.plugins.opencontrail.contrail_plugin_ipam.NeutronPluginContrailIpam,policy:neutron_plugin_contrail.plugins.opencontrail.contrail_plugin_policy.NeutronPluginContrailPolicy,route-table:neutron_plugin_contrail.plugins.opencontrail.contrail_plugin_vpc.NeutronPluginContrailVpc,contrail:None"
+openstack_packages:
+  - contrail-openstack
+  - contrail-openstack-ha
+  - neutron-server
+  - neutron-plugin-contrail
+  - python-neutron-lbaas
+
+# sensitive_services: there are certain services which fail to come up properly when they start along with package installation.
+# There can be different reasons for that
+# 1. may be services are not configured correctly
+# 2. any errors to be fixed in postinst scripts
+# 3. Docker containers doesnt support upstart, and thus if a package try to start services,
+#    which only have upstart script will cause package installation fail
+# Adding those service names here avoid them to start during package installation
+# NOTE: This will only work on Debian/Ubuntu systems
+sensitive_services:
+  - statd
+  - idmapd
+  - gssd
