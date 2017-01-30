@@ -1,6 +1,4 @@
 ---
-- include: install.yml
-
-- include: configure.yml
-
-- include: service.yml
+- name: install the packages
+  include: install.yml
+  tags: [contrail.analytics.package, package]

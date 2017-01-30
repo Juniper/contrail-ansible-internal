@@ -1,2 +1,0 @@
-- name: Make sure neutron-server is up
-  service: name=neutron-server state=started enabled=true
