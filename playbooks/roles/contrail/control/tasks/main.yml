@@ -8,6 +8,12 @@
 - include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.controller.package, contrail.controlnode.package, package]
 
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, contrail.controller.install, contrail.control.install]
+
 # Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
 # added conditional inside systemd-cleanup.yml for now
 # This is what I tried -   when: contrail_service_mgr == "systemd"
