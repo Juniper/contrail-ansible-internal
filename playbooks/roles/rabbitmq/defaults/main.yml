@@ -57,3 +57,5 @@ rabbitmq_remove_default_user: true
 rabbitmq_allow_remote_guest: false
 
 update_cache: false
+
+setup_rabbitmq: true

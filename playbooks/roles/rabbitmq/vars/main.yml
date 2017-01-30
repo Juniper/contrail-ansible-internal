@@ -1,3 +1,6 @@
 ---
 rabbitmq_cluster_nodes_leader: "{{ rabbitmq_nodes_names|sort|first }}"
 rabbitmq_cluster_node_role: "{%- if rabbitmq_cluster_nodes_leader == ansible_hostname -%}leader{% else %}follower{% endif %}"
+rabbitmq_setup_target: "{{ 'setup' if setup_rabbitmq else 'disable' }}"
+rabbitmq_service_state: "{{ 'started' if setup_rabbitmq else 'stopped' }}"
+rabbitmq_service_enabled: "{{ 'yes' if setup_rabbitmq else 'no' }}"

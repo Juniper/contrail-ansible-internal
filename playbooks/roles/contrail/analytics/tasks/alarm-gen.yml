@@ -12,8 +12,8 @@
     kafka_broker_list: "{{ kafka_brokers_with_port }}"
     zk_list: "{{ zk_servers_with_port_space_delim }}"
     partitions: "{{ anlaytics_uve_partition_count }}"
-    rabbitmq_server_list: "{{ rabbit_server_list | join(',') }}"
-    rabbitmq_port: "{{ rabbit_port }}"
+    rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
+    rabbitmq_port: "{{ rabbitmq_port }}"
     http_server_port: "{{ alarmgen_introspect_port }}"
     collectors: "{{ analytics_collectors_with_port }}"
 
