@@ -2,4 +2,5 @@
 dependencies:
   - contrail/common
   - role: redis
+    enable_redis: "{{ contrail_enable_redis }}"
     tags: [redis]
