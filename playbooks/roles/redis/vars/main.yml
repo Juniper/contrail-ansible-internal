@@ -1,0 +1,2 @@
+---
+redis_setup_target: "{{ 'setup' if enable_redis else 'disable' }}"
