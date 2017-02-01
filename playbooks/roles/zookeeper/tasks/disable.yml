@@ -1,0 +1,3 @@
+- name: Stop and disable zookeeper service
+  service: name=zookeeper state=stopped enabled=no
+  tags: [service, zookeeper.service]

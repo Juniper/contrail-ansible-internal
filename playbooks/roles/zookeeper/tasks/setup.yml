@@ -1,0 +1,15 @@
+---
+- name: Run OS specific install tasks
+  include: "install/{{ansible_os_family}}.yml"
+  when: external_package_install is not defined
+  tags: [install, zookeeper.install, package, zookeeper.package]
+
+- name: Configure zookeeper
+  include: configure.yml
+  tags: [configure, zookeeper.configure]
+
+- name: Start zookeeper service
+  service: name=zookeeper state=started enabled=yes
+  tags: [service, zookeeper.service]
+
+- meta: flush_handlers
