@@ -1,2 +1,5 @@
 ---
 # vars file for ansible-role-cassandra
+cassandra_setup_target: "{{ 'setup' if enable_cassandra else 'disable' }}"
+cassandra_service_state: "{{ 'started' if enable_cassandra else 'stopped' }}"
+cassandra_service_enabled: "{{ 'yes' if enable_cassandra else 'no' }}"
