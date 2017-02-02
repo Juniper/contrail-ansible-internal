@@ -1,21 +1,3 @@
 ---
-# tasks file for ansible-role-cassandra
-- name: Install cassandra
-  include: install/main.yml
-  when: external_package_install is not defined
-  tags: [package, cassandra.package, cassandra.install, install]
-
-- include: common.yml
-  tags: [cassandra.install, install, configure]
-
-- include: configure.yml
-  tags: [configure, cassandra.configure]
-
-- name: Remove cassandra from /etc/sensitive_servies to enable automated starts
-  lineinfile: dest=/etc/sensitive_services line=cassandra state=absent
-  when: ansible_os_family == 'Debian'
-
-- include: service.yml
-  tags: [service, cassandra.service]
-
-- meta: flush_handlers
+- name: "Run cassandra setup as per cassandra_setup_target variable"
+  include: "{{ cassandra_setup_target }}.yml"
