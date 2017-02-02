@@ -27,10 +27,6 @@ contrail_analytics_api_backend_port: 9081
 # Backend settings.
 check_interval:  2000
 
-# List of backend servers.
-contrail_api_server_list: "{{ controller_list }}"
-contrail_discovery_server_list: "{{ controller_list }}"
-contrail_analytics_api_list: "{{ analytics_list }}"
 
 # Extra global vars (see README for example usage).
 haproxy_global_vars: []
