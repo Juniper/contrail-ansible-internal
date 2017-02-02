@@ -55,5 +55,6 @@ dns_specific_configs:
     # Config db configs
     config_db_server_list: "{{ configdb_servers_with_cql_port }}"
 
+control_setup_target: "{{ 'setup' if enable_control_service else 'disable' }}"
 control_service_state: "{{ 'started' if enable_control_service else 'stopped' }}"
 control_service_enabled: "{{ 'yes' if enable_control_service else 'no' }}"

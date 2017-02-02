@@ -1,0 +1,35 @@
+---
+- name: Collect local controller server ip from the list
+  set_fact: my_controller_ip="{{ item }}"
+  when: "item in ansible_all_ipv4_addresses"
+  with_items: "{{ controller_list }}"
+  tags: [always]
+
+- include: "install/{{ ansible_os_family }}.yml"
+  tags: [contrail.controller.package, contrail.controlnode.package, package]
+
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, contrail.controller.install, contrail.control.install]
+
+# Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
+# added conditional inside systemd-cleanup.yml for now
+# This is what I tried -   when: contrail_service_mgr == "systemd"
+- include_role: name=contrail/common tasks_from=cleanup
+  tags: [contrail.controller.install, contrail.controlnode.install, install]
+
+- name: Include contrail service manager specific code
+  include: install/systemd.yml
+  when: "contrail_service_mgr == 'systemd'"
+  tags: [install, contrail.controller.install, contrail.controlnode.install]
+
+- include: configure.yml
+  tags: [contrail.controller.configure, contrail.controlnode.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.controller.service, contrail.controlnode.service, service]
+
+- include: provision/main.yml
+  tags: [contrail.controller.provision, contrail.control.provision, provision]
