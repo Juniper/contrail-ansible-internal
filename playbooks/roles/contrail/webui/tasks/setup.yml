@@ -1,0 +1,25 @@
+---
+- include: "install/{{ ansible_os_family }}.yml"
+  tags: [contrail.controller.package, contrail.webui.package, package]
+
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, contrail.controller.install, contrail.webui.install]
+
+# Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
+# added conditional inside systemd-cleanup.yml for now
+# This is what I tried -   when: contrail_service_mgr == "systemd"
+- include_role: name=contrail/common tasks_from=cleanup
+  tags: [contrail.controller.install, contrail.webui.install, install]
+
+- name: Include contrail service manager specific code
+  include: install/{{ contrail_service_mgr }}.yml
+  tags: [install, contrail.controller.install, contrail.webui.install]
+
+- include: configure.yml
+  tags: [contrail.controller.configure, contrail.webui.configure, configure]
+
+- include: service/{{ contrail_service_mgr }}.yml
+  tags: [contrail.controller.service, contrail.webui.service, service]
