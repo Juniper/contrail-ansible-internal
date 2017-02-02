@@ -41,5 +41,5 @@
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.analyticsdb.service, service]
 
-- include: provision.yml
+- include: provision/main.yml
   tags: [contrail.analyticsdb.provision, provision]
