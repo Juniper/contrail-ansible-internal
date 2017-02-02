@@ -1,0 +1,2 @@
+---
+zookeeper_setup_target: "{{ 'setup' if enable_zookeeper else 'disable' }}"
