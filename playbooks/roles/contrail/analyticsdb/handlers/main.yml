@@ -15,3 +15,9 @@
 - name: restart kafka systemd
   systemd: name="kafka" state=restarted
   when: contrail_service_mgr == 'systemd'
+
+# WORK AROUND: https://issues.apache.org/jira/browse/KAFKA-3091
+- name: remove kafka logs
+  file:
+    state: absent
+    path: /tmp/kafka-logs/
