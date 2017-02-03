@@ -1,0 +1,12 @@
+---
+- name: Define redis_package.
+  set_fact:
+    redis_package: "{{ __redis_package }}"
+  tags: [install, redis.install, package, redis.package]
+  when: redis_package is not defined
+
+# Setup/install tasks.
+- name: Ensure Redis is installed.
+  package: name="{{ redis_package }}" state=latest
+  tags: [install, redis.install, package, redis.package]
+

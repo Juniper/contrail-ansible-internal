@@ -1,0 +1,12 @@
+---
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/62
+- name: Do not auto start supervisor-analytics (WA for issue contrail-docker/62)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-analytics state=present create=yes
+
+- name: install contrail-analytics related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ analytics_packages }}"
+
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/62
+- name: Remove supervisor-analytics from /etc/sensitive_servies (WA for issue contrail-docker/62)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-analytics state=absent

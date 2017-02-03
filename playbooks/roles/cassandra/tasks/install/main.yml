@@ -12,3 +12,6 @@
   include: debian.yml
   when: ansible_os_family == 'Debian'
 
+- name: Install Cassandra on Redhat platforms
+  include: RedHat.yml
+  when: ansible_os_family == 'RedHat'

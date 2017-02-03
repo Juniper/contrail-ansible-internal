@@ -1,11 +1,21 @@
 ---
 - name: Copy systemd file for contrail-ansible to systemd unit file location
   copy: src="{{ item }}" dest=/etc/systemd/system/
+  when: contrail_service_mgr == 'systemd'
   with_fileglob:
     - systemd/*
 
+- name: Copy systemd file for contrail-ansible to systemd unit file location
+  copy: src=systemd/contrail-ansible.service dest=/etc/systemd/system/contrail-ansible.service
+  when: ansible_os_family == 'RedHat'
+
+- name: Replace /usr/local/bin/contrailctl with /usr/bin/contrailctl in contrail-ansible.service for RedHat
+  replace: name=/etc/systemd/system/contrail-ansible.service regexp=/usr/local/bin/contrailctl replace=/usr/bin/contrailctl
+  when: ansible_os_family == 'RedHat'
+
 - name: Copy systemd unit file for analytics-api
   template: src="contrail-analytics-api.service.j2" dest=/etc/systemd/system/contrail-analytics-api.service owner=root group=root mode=0644
+  when: contrail_service_mgr == 'systemd'
 
 # Rest of the services will be enabled by contrail-ansible
 - name: Enable contrail-ansible.service

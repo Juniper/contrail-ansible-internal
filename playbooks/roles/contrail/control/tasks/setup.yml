@@ -3,9 +3,9 @@
   set_fact: my_controller_ip="{{ item }}"
   when: "item in ansible_all_ipv4_addresses"
   with_items: "{{ controller_list }}"
-  tags: [always]
+  tags: [configure]
 
-- include: "install/{{ ansible_os_family }}.yml"
+- include: "install.yml"
   tags: [contrail.controller.package, contrail.controlnode.package, package]
 
 - name: Add custom bash prompt
@@ -22,7 +22,7 @@
 
 - name: Include contrail service manager specific code
   include: install/systemd.yml
-  when: "contrail_service_mgr == 'systemd'"
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.controller.install, contrail.controlnode.install]
 
 - include: configure.yml

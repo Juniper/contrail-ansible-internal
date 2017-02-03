@@ -1,0 +1,12 @@
+---
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/2
+- name: Do not auto start supervisor-database (WA for issue contrail-docker/2)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-database state=present create=yes
+
+- name: install contrail-database related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ contrail_database_packages }}"
+
+# This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/2
+- name: Remove supervisor-database from /etc/sensitive_servies (WA for issue contrail-docker/2)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-database state=absent
