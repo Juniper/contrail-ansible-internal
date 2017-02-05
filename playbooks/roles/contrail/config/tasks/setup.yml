@@ -5,7 +5,7 @@
   with_items: "{{ controller_list }}"
   tags: [configure]
 
-- include: "install.yml"
+- include: "install/{{ ansible_os_family }}.yml"
   tags: [package, contrail.config.package, contrail.controller.package]
 
 - name: Add custom bash prompt

@@ -5,7 +5,7 @@
   with_items: "{{ analytics_list }}"
   tags: [configure]
 
-- include: install/install.yml
+- include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.analytics.package, package]
 
 - name: Add custom bash prompt
