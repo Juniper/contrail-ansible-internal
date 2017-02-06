@@ -11,7 +11,7 @@
 
 - name: Compile vrouter module
   include: "compile_vrouter/{{ansible_distribution}}.yml"
-  when: compile_vrouter_module and running_in_docker
+  when: compile_vrouter_module
 
 - name: Build module dependencies
   shell: depmod -a
