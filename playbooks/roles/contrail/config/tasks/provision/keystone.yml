@@ -1,4 +1,13 @@
 ---
+- name: Wait till keystone answers
+  uri:
+    url: "{{ keystone_admin_auth_url }}"
+    status_code: 200
+  register: keystone_connect_status
+  until: keystone_connect_status.status == 200
+  retries: 1200
+  delay: 1
+
 - name: register config node to config api server
   shell: "/usr/share/contrail-utils/provision_config_node.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add {{ provision_cmd_keystone_args }}"
 

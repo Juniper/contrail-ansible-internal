@@ -1,16 +1,23 @@
 ---
 - name: configure contrail-dns set all entries in DEFAULT section
   ini_file: dest={{ dns_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart contrail-dns
+  notify:
+    - restart contrail-dns supervisord
+    - restart contrail-dns systemd
   with_dict: "{{ control_infra_configs|combine(dns_specific_configs.DEFAULT) }}"
 
 - name: configure contrail-dns set entries in IFMAP section
   ini_file: dest={{ dns_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
-  notify: restart contrail-dns
+  notify:
+    - restart contrail-dns supervisord
+    - restart contrail-dns systemd
   with_dict: "{{ dns_specific_configs.IFMAP }}"
 
 - name: Configure rndc key for named
   lineinfile: dest="{{ item }}" line="secret {{ rndc_key }}" regexp="^secret " state=present
+  notify:
+    - restart contrail-named supervisord
+    - restart contrail-named systemd
   with_items:
     - /etc/contrail/dns/contrail-rndc.conf
     - /etc/contrail/dns/contrail-named.conf

@@ -1,7 +1,9 @@
 ---
 - name: configure /etc/contrail/contrail-alarm-gen.conf DEFAULTS section
   ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart alarm-gen
+  notify:
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
   with_dict:
     host_ip: "{{ my_analytics_ip }}"
     log_file: "{{ alarmgen_log }}"
@@ -10,13 +12,15 @@
     kafka_broker_list: "{{ kafka_brokers_with_port }}"
     zk_list: "{{ zk_servers_with_port_space_delim }}"
     partitions: "{{ anlaytics_uve_partition_count }}"
-    rabbitmq_server_list: "{{ rabbit_server_list | join(',') }}"
-    rabbitmq_port: "{{ rabbit_port }}"
+    rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
+    rabbitmq_port: "{{ rabbitmq_port }}"
     http_server_port: "{{ alarmgen_introspect_port }}"
     collectors: "{{ analytics_collectors_with_port }}"
 
 - name: configure /etc/contrail/contrail-alarm-gen.conf REDIS section
   ini_file: dest={{ alarmgen_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify: restart alarm-gen
+  notify:
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
   with_dict:
     redis_uve_list: "{{ analytics_redis_servers_with_port }}"

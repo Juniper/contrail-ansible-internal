@@ -48,7 +48,7 @@ device_manager_log_level: SYS_NOTICE
 
 
 # Installation
-config_packages:
+config_packages_Debian:
   - contrail-utils
   - contrail-lib
   - contrail-config
@@ -61,6 +61,12 @@ config_packages:
   - ifmap-python-client
   - contrail-config-openstack
   - python-memcache
+
+config_packages_RedHat:
+  - contrail-openstack-config
+  - contrail-database-common
+
+config_packages: "{{ config_packages_RedHat if ansible_os_family == 'RedHat' else config_packages_Debian }}"
 
 # Rabbitmq details
 contrail_rabbitmq_os_package: true
@@ -82,4 +88,14 @@ ifmap_users:
 # Cassandra defaults
 configdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
 configdb_cassandra_cluster_name: configdb
-configdb_cassandra_packages: [cassandra]
+configdb_cassandra_packages: "{{ 'cassandra' if ansible_os_family == 'Debian' else 'cassandra22' }}"
+enable_config_service: true
+
+# In case of external_rabbitmq_servers, or config is not enabled no need to setup rabbitmq here
+contrail_enable_rabbitmq: "{{ false if external_rabbitmq_servers or not enable_config_service else true }}"
+
+# In case of external_configdb_servers, or config is not enabled, no need to setup rabbitmq here
+contrail_enable_configdb: "{{ false if external_configdb_servers or not enable_config_service else true }}"
+
+# In case of external_zookeeper_servers, or config is not enabled, no need to setup rabbitmq here
+contrail_enable_zookeeper: "{{ false if external_zookeeper_servers or not enable_config_service else true }}"

@@ -1,6 +1,16 @@
 ---
-- name: restart webui
-  include: ../handlers/webui.yml
+- name: restart webui supervisord
+  supervisorctl: name="contrail-webui" state=restarted config=/etc/contrail/supervisord_webui.conf
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart webui-middleware
-  include: ../handlers/webui_middleware.yml
+- name: restart webui systemd
+  systemd: name="contrail-webui" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart webui-middleware supervisord
+  supervisorctl: name="contrail-webui-middleware" state=restarted config=/etc/contrail/supervisord_webui.conf
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart webui-middleware systemd
+  systemd: name="contrail-webui-middleware" state=restarted
+  when: contrail_service_mgr == 'systemd'

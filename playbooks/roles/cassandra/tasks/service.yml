@@ -1,6 +1,5 @@
 ---
 # Service management
 - name: Make sure cassandra service is the state as requested
-  service: name={{ cassandra_service_name }} state={{ cassandra_service_ensure }} enabled={{ cassandra_service_enable }}
+  service: name={{ cassandra_service_name }} state={{ cassandra_service_state }} enabled={{ cassandra_service_enabled }}
   when: "{{ cassandra_service_manage }}"
-

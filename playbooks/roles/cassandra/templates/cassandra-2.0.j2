@@ -29,7 +29,7 @@ commitlog_segment_size_in_mb: 32
 seed_provider:
     - class_name: org.apache.cassandra.locator.SimpleSeedProvider
       parameters:
-        - seeds: "127.0.0.1, {% for seed in cassandra_seeds -%}
+        - seeds: "{% for seed in cassandra_seeds -%}
 {{ seed }}
 {%- if not loop.last %}, {% endif -%}
 {%- endfor %}"

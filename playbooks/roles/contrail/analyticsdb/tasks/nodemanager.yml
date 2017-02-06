@@ -1,4 +1,6 @@
 ---
 - name: configure database nodemanager collectors
   ini_file: dest={{ nodemanager_conf }} section=COLLECTOR option=server_list value={{ analytics_collectors_with_port }} create=yes
-  notify: restart database nodemanager
+  notify:
+    - restart database-nodemgr supervisord
+    - restart database-nodemgr systemd

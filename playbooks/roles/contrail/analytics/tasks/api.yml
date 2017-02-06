@@ -1,7 +1,18 @@
 ---
+- name: Add keystone auth config file in /etc/contrail/supervisord_analytics_files/contrail-analytics-api.ini
+  ini_file:
+    dest: /etc/contrail/supervisord_analytics_files/contrail-analytics-api.ini
+    section: program:contrail-analytics-api
+    option: command
+    value: '/usr/bin/contrail-analytics-api -c /etc/contrail/contrail-analytics-api.conf -c /etc/contrail/contrail-keystone-auth.conf'
+    backup: yes
+  when: cloud_orchestrator == "openstack" and contrail_service_mgr == "supervisord"
+
 - name: configure /etc/contrail/contrail-analytics-api.conf DEFAULTS section
   ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart analytics-api
+  notify:
+    - restart analytics-api supervisord
+    - restart analytics-api systemd
   with_dict:
     host_ip: "{{ my_analytics_ip }}"
     log_file: "{{ analytics_api_log }}"
@@ -24,6 +35,8 @@
 
 - name: configure /etc/contrail/contrail-analytics-api.conf REDIS section
   ini_file: dest={{ analytics_api_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify: restart analytics-api
+  notify:
+    - restart analytics-api supervisord
+    - restart analytics-api systemd
   with_dict:
     redis_uve_list: "{{ analytics_redis_servers_with_port }}"

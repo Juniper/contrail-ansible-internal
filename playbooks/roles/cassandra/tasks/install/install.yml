@@ -1,0 +1,8 @@
+---
+- name: install policy-rc.d to selectively disable automated service start by apt
+  copy: src=policy-rc.d dest=/usr/sbin/policy-rc.d mode=0755
+
+- name: Install Cassandra
+  package: name={{ item }} state=present
+  register: cassandra_install
+  with_items: "{{ cassandra_packages }}"

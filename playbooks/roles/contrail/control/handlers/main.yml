@@ -1,8 +1,34 @@
-- name: restart control
-  include: ../handlers/contrail_control.yml
+---
+- name: restart control supervisord
+  supervisorctl: name="contrail-control" state=restarted config=/etc/contrail/supervisord_control.conf
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart contrail-dns
-  include: ../handlers/contrail_dns.yml
+- name: restart control systemd
+  systemd: name="contrail-control" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart control-nodemgr
-  include: ../handlers/contrail_control_nodemgr.yml
+- name: restart contrail-dns supervisord
+  supervisorctl: name="contrail-dns" state=restarted config=/etc/contrail/supervisord_control.conf
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart contrail-dns systemd
+  systemd: name="contrail-dns" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart control-nodemgr supervisord
+  supervisorctl: name="contrail-control-nodemgr" state=restarted config=/etc/contrail/supervisord_control.conf
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
+
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+- name: restart control-nodemgr systemd
+#  systemd: name="contrail-control-nodemgr" state=restarted
+  debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart contrail-named supervisord
+  supervisorctl: name="contrail-named" state=restarted config=/etc/contrail/supervisord_control.conf
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart contrail-named systemd
+  systemd: name="contrail-named" state=restarted
+  when: contrail_service_mgr == 'systemd'

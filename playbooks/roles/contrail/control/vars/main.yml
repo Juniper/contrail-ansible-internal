@@ -22,6 +22,13 @@ control_specific_configs:
     password: "{{ control_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
     server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
+    # AMQP related configs
+    rabbitmq_server_list: "{{ rabbitmq_servers_with_port }}"
+    rabbitmq_user: "{{ rabbitmq_user }}"
+    rabbitmq_password: "{{ rabbitmq_password }}"
+    rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+    # Config db configs
+    config_db_server_list: "{{ configdb_servers_with_cql_port }}"
 
 # contrail-dns specific config entries
 dns_specific_configs:
@@ -40,6 +47,14 @@ dns_specific_configs:
     password: "{{ dns_ifmap_username }}"
     certs_store: "{{ ifmap_certs_store|default('') }}"
     server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
+    # AMQP related configs
+    rabbitmq_server_list: "{{ rabbitmq_servers_with_port }}"
+    rabbitmq_user: "{{ rabbitmq_user }}"
+    rabbitmq_password: "{{ rabbitmq_password }}"
+    rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+    # Config db configs
+    config_db_server_list: "{{ configdb_servers_with_cql_port }}"
 
-control_service_state: "{{ 'started' if enable_control else 'stopped' }}"
-control_service_enabled: "{{ 'yes' if enable_control else 'no' }}"
+control_setup_target: "{{ 'setup' if enable_control_service else 'disable' }}"
+control_service_state: "{{ 'started' if enable_control_service else 'stopped' }}"
+control_service_enabled: "{{ 'yes' if enable_control_service else 'no' }}"

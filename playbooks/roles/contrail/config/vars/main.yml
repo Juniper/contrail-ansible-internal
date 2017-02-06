@@ -30,3 +30,7 @@ api_specific_configs:
     listen_ip_addr: "{{ api_listen_address }}"
     listen_port: "{{ api_listen_port }}"
     list_optimization_enabled: "{{ list_optimization_enabled }}"
+
+config_setup_target: "{{ 'setup' if enable_config_service else 'disable' }}"
+config_service_state: "{{ 'started' if enable_config_service else 'stopped' }}"
+config_service_enabled: "{{ 'yes' if enable_config_service else 'no' }}"

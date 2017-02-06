@@ -1,0 +1,26 @@
+---
+- include: install/main.yml
+  when: external_package_install is not defined
+  tags: [install, rabbitmq.install, package, rabbitmq.package]
+
+- include: configuration.yml
+  tags: [configure, rabbitmq.configure]
+
+- include: service.yml
+  tags: [service, rabbitmq.service]
+
+- include: cluster.yml
+  tags: [configure, rabbitmq.configure]
+  when: "{{ rabbitmq_nodes |length}} > 1"
+
+- include: plugins.yml
+  tags: [configure, rabbitmq.configure]
+
+- include: vhost.yml
+  tags: [configure, rabbitmq.configure]
+
+- include: federation.yml
+  tags: [configure, rabbitmq.configure]
+  when: rabbitmq_federation
+
+- meta: flush_handlers

@@ -15,3 +15,6 @@ localhost   ansible_connection=local
 
 [contrail-kubernetes]
 localhost   ansible_connection=local
+
+[openstack-controllers]
+localhost   ansible_connection=local

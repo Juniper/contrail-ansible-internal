@@ -1,8 +1,9 @@
 ---
-
 - name: configure config api - set all common entries in DEFAULTS section
   ini_file: dest={{ api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart config api
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
   with_dict: "{{ config_ifmap_configs|
                 combine(config_infra_configs)|\
                 combine(api_specific_configs.DEFAULTS)
@@ -10,15 +11,21 @@
 
 - name: configure config api multi tenancy in case of openstack
   ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value={{ multi_tenancy }}
-  notify: restart config api
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
   when: cloud_orchestrator == "openstack" and multi_tenancy
 
 - name: Disable multi_tenancy in case of non-openstack system
   ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value=False
-  notify: restart config api
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
   when: cloud_orchestrator != "openstack"
 
 - name: configure config api auth
   ini_file: dest={{ api_conf }} section=DEFAULTS option=auth value={{ auth }}
-  notify: restart config api
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
   when: cloud_orchestrator == "openstack"

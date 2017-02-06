@@ -8,7 +8,8 @@ dependencies:
     rabbitmq_remove_default_user: "{{ contrail_rabbitmq_remove_default_user }}"
     rabbitmq_conf_tcp_listeners_address: "{{ contrail_rabbitmq_listen_address }}"
     rabbitmq_allow_remote_guest: "{{ contrail_rabbitmq_allow_remote_guest }}"
-    rabbitmq_nodes: "{{ rabbit_server_list }}"
+    rabbitmq_nodes: "{{ rabbitmq_server_list }}"
+    enable_rabbitmq: "{{ contrail_enable_rabbitmq }}"
     tags: [rabbitmq]
 
   - role: cassandra
@@ -21,9 +22,11 @@ dependencies:
     cassandra_seeds: "{{ configdb_server_list }}"
     cassandra_packages: "{{ configdb_cassandra_packages }}"
     cassandra_cluster_name: "{{ configdb_cassandra_cluster_name }}"
+    enable_cassandra: "{{ contrail_enable_configdb }}"
     tags: [configdb]
 
   - role: zookeeper
     zookeeper_debian_apt_install: true
     zookeeper_hosts: "{{ zk_server_list }}"
-    tags: [zookeeper, zookeeper.install, zookeeper.configure, install, configure]
+    enable_zookeeper: "{{ contrail_enable_zookeeper }}"
+    tags: [zookeeper]

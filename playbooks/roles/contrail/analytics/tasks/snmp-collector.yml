@@ -1,7 +1,18 @@
 ---
+- name: Add keystone auth config file in /etc/contrail/supervisord_analytics_files/contrail-snmp-collector.ini
+  ini_file:
+    dest: /etc/contrail/supervisord_analytics_files/contrail-snmp-collector.ini
+    section: program:contrail-snmp-collector
+    option: command
+    value: '/usr/bin/contrail-snmp-collector --device-config-file /etc/contrail/device.ini -c /etc/contrail/contrail-keystone-auth.conf'
+    backup: yes
+  when: cloud_orchestrator == "openstack" and contrail_service_mgr == "supervisord"
+
 - name: configure /etc/contrail/contrail-snmp-collector.conf DEFAULTS section
   ini_file: dest={{ analytics_snmp_collector_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
-  notify: restart analytics snmp-collector
+  notify:
+    - restart snmp-collector supervisord
+    - restart snmp-collector systemd
   with_dict:
     zookeeper: "{{ zk_servers_with_port }}"
     log_file: "{{ analytics_snmp_collector_log }}"

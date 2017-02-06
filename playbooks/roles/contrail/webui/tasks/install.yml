@@ -1,0 +1,13 @@
+---
+- name: Do not auto start supervisor-webui (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-webui state=present create=yes
+
+#- name: install nodejs version 0.10.35-1contrail1 - this is required for contrail-webui
+#  apt: name=nodejs=0.10.35-1contrail1 state=present force=yes
+
+- name: install contrail-webui related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ webui_packages }}"
+
+- name: Remove supervisor-webui from /etc/sensitive_servies (WA for issue contrail-docker/16)
+  lineinfile: dest=/etc/sensitive_services line=supervisor-webui state=absent

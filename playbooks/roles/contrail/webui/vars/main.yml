@@ -1,3 +1,4 @@
 ---
-webui_service_state: "{{ 'started' if enable_webui else 'stopped' }}"
-webui_service_enabled: "{{ 'yes' if enable_webui else 'no' }}"
+webui_setup_target: "{{ 'setup' if enable_webui_service else 'disable' }}"
+webui_service_state: "{{ 'started' if enable_webui_service else 'stopped' }}"
+webui_service_enabled: "{{ 'yes' if enable_webui_service else 'no' }}"

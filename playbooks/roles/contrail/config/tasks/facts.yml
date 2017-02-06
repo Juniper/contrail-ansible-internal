@@ -1,10 +1,20 @@
 ---
+- name: Check if supervisor is running and register it to supervisor_config_ready
+  shell: pgrep -f -x "/usr/bin/python /usr/bin/supervisord -n -c /etc/contrail/supervisord_config.conf" || true
+  register: supervisor_config_ready_cmd
+  always_run: yes
+  tags: [always]
+
+- name: "Setting a fact for supervisor_config_ready"
+  set_fact: supervisor_config_ready={{ (supervisor_config_ready_cmd.stdout) | ternary(true, false) }}
+  tags: [always]
+
 - name: Setting fact to override contrail-api listen port(api_listen_port) based on the topology(HA/single node cluster).
   set_fact: api_listen_port=9100
   # Override only in a HA setup with internal LB, provided the port is not already changed by user input.
-  when: controller_list|length > 1 and external_lb is not defined and api_server_port == 8082
+  when: config_server_list|length > 1 and external_lb is not defined and api_server_port == 8082
 
 - name: Setting fact to override contrail-discovery listen port(discovery_listen_port) based on the topology(HA/single node cluster).
   set_fact: discovery_listen_port=9110
   # Override only in a HA setup with internal LB, provided the port is not already changed by user input.
-  when: controller_list|length > 1 and external_lb is not defined and disc_server_port == 5998
+  when: config_server_list|length > 1 and external_lb is not defined and disc_server_port == 5998

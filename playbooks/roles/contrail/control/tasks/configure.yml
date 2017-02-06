@@ -1,6 +1,9 @@
 ---
 - include: facts.yml
 
+- include_role: name=contrail/common tasks_from=vncapi
+  tags: [contrail.vncapi, contrail.vncapi.configure]
+
 - include: control.yml
   tags: [contrail.control, contrail.control.configure]
 

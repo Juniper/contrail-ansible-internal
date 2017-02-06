@@ -2,11 +2,16 @@
 - name: Configure webui configs in config.global.js
   template: src="config.gobal.js.j2" dest=/etc/contrail/config.global.js owner=root group=root mode=0644
   notify:
-    - restart webui
-    - restart webui-middleware
+    - restart webui supervisord
+    - restart webui systemd
+    - restart webui-middleware supervisord
+    - restart webui-middleware systemd
+
 
 - name: Configure webui static user auth
   template: src="contrail-webui-userauth.js.j2" dest=/etc/contrail/contrail-webui-userauth.js owner=root group=root mode=0644
   notify:
-    - restart webui
-    - restart webui-middleware
+    - restart webui supervisord
+    - restart webui systemd
+    - restart webui-middleware supervisord
+    - restart webui-middleware systemd

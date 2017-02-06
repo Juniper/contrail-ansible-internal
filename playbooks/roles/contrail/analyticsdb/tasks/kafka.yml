@@ -14,10 +14,15 @@
     log.cleaner.threads: "{{ kafka_log_cleaner_threads|int }}"
     log.cleaner.dedupe.buffer.size: "{{ kafka_log_cleaner_dedupe_buffer_size|int }}"
     reserved.broker.max.id: 100001
-  notify: restart kafka
+  notify:
+    - remove kafka logs
+    - restart kafka supervisord
+    - restart kafka systemd
 
 - name: Configure kafka replication factor
   lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}"
     regexp="^default.replication.factor=" state=present
   when: "{{ analyticsdb_list|length}} > 1"
-  notify: restart kafka
+  notify:
+    - restart kafka supervisord
+    - restart kafka systemd

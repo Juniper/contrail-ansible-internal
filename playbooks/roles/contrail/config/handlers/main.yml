@@ -1,20 +1,57 @@
-- name: restart config api
-  include: ../handlers/contrail_api.yml
+- name: restart config api supervisord
+  supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart config nodemanager
-  include: ../handlers/contrail_config_nodemgr.yml
+- name: restart config api systemd
+  systemd: name="contrail-api" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart schema
-  include: ../handlers/contrail_schema.yml
+- name: restart config-nodemgr supervisord
+  supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart ifmap
-  include: ../handlers/ifmap.yml
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+- name: restart config-nodemgr systemd
+  debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
+#  systemd: name="contrail-config-nodemgr" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart discovery
-  include: ../handlers/contrail_discovery.yml
+- name: restart schema supervisord
+  supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart svc-monitor
-  include: ../handlers/contrail_svc_monitor.yml
+- name: restart schema systemd
+  systemd: name="contrail-schema" state=restarted
+  when: contrail_service_mgr == 'systemd'
 
-- name: restart device-manager
-  include: ../handlers/contrail_device_manager.yml
+- name: restart ifmap supervisord
+  supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart ifmap systemd
+  systemd: name="ifmap" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart discovery supervisord
+  supervisorctl: name="contrail-discovery" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart discovery systemd
+  systemd: name="contrail-discovery" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart svc-monitor supervisord
+  supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart svc-monitor systemd
+  systemd: name="contrail-svc-monitor" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart device-manager supervisord
+  supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart device-manager systemd
+  systemd: name="contrail-device-manager" state=restarted
+  when: contrail_service_mgr == 'systemd'

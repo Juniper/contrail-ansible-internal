@@ -1,18 +1,3 @@
 ---
-- include: install/main.yml
-  tags: [install, rabbitmq.install, package, rabbitmq.package]
-- include: configuration.yml
-  tags: [configure, rabbitmq.configure]
-- include: service.yml
-  tags: [service, rabbitmq.service, configure, rabbitmq.configure]
-- include: cluster.yml
-  tags: [configure, rabbitmq.configure]
-  when: "{{ rabbitmq_nodes |length}} > 1"
-- include: plugins.yml
-  tags: [configure, rabbitmq.configure]
-- include: vhost.yml
-  tags: [configure, rabbitmq.configure]
-- include: federation.yml
-  tags: [configure, rabbitmq.configure]
-  when: rabbitmq_federation
-- meta: flush_handlers
+- name: "Run rabbitmq setup as per rabbitmq_setup_target variable"
+  include: "{{ rabbitmq_setup_target }}.yml"

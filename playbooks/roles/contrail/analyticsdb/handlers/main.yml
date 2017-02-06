@@ -1,5 +1,23 @@
-- name: restart database nodemanager
-  include: ../handlers/contrail_database_nodemgr.yml
+- name: restart database-nodemgr supervisord
+  supervisorctl: name="contrail-database-nodemgr" state=restarted config=/etc/contrail/supervisord_database.conf
+  when: supervisor_database_ready and contrail_service_mgr == 'supervisord'
 
-- name: restart kafka
-  include: ../handlers/contrail_kafka.yml
+# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
+- name: restart database-nodemgr systemd
+#  systemd: name="contrail-database-nodemgr" state=restarted
+  debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
+  when: contrail_service_mgr == 'systemd'
+
+- name: restart kafka supervisord
+  supervisorctl: name="kafka" state=restarted config=/etc/contrail/supervisord_database.conf
+  when: supervisor_database_ready and contrail_service_mgr == 'supervisord'
+
+- name: restart kafka systemd
+  systemd: name="kafka" state=restarted
+  when: contrail_service_mgr == 'systemd'
+
+# WORK AROUND: https://issues.apache.org/jira/browse/KAFKA-3091
+- name: remove kafka logs
+  file:
+    state: absent
+    path: /tmp/kafka-logs/
