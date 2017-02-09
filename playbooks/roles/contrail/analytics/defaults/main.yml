@@ -14,12 +14,6 @@ analytics_api_log_level: "{{ log_level }}"
 analytics_api_introspect_port: 8090
 analytics_api_listen_port: "{{ analytics_server_port }}"
 analytics_api_listen_address: 0.0.0.0
-sandesh_send_rate_limit: 100
-
-analytics_data_ttl: -1
-analytics_statistics_ttl: -1
-analytics_config_audit_ttl: -1
-analytics_flow_ttl: -1
 
 # Alarmgen
 alarmgen_conf: "/etc/contrail/contrail-alarm-gen.conf"
@@ -39,10 +33,6 @@ analytics_collector_introspect_port: 8089
 analytics_collector_syslog_port: -1
 analytics_collector_listen_port: "{{ analytics_collector_port }}"
 analytics_collector_listen_address: 0.0.0.0
-# UDP port to listen on for receiving sFlow messages. -1 to disable.
-analytics_collector_sflow_port: -1
-# UDP port to listen on for receiving ipfix messages. -1 to disable.
-analytics_collector_ipfix_port: -1
 
 #query engine defaults
 analytics_query_engine_conf: /etc/contrail/contrail-query-engine.conf
