@@ -24,3 +24,4 @@
     - restart alarm-gen systemd
   with_dict:
     redis_uve_list: "{{ analytics_redis_servers_with_port }}"
+    redis_server_port: "{{ analytics_redis_port }}"
