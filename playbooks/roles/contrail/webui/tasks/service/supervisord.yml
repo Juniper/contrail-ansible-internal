@@ -1,11 +1,15 @@
 ---
 # Service management
+- name: Start supervisor-webui in RedHat
+  service: name=supervisor-webui state=restarted enabled=yes
+  when: ansible_os_family == 'RedHat'
+
 - name: Make sure contrail-webui service is in desired state
   supervisorctl: name="contrail-webui" state="{{ webui_service_state }}" config=/etc/contrail/supervisord_webui.conf
   tags: [service, contrail.contrail-webui.service, contrail.controller.service, contrail.webui.service]
-  when: supervisor_webui_ready
+  when: supervisor_webui_ready or ansible_os_family == 'RedHat'
 
 - name: Make sure contrail-webui-middleware service is in desired state
   supervisorctl: name="contrail-webui-middleware" state="{{ webui_service_state }}" config=/etc/contrail/supervisord_webui.conf
   tags: [service, contrail.webui-middleware.service, contrail.controller.service, contrail.webui.service]
-  when: supervisor_webui_ready
+  when: supervisor_webui_ready or ansible_os_family == 'RedHat'

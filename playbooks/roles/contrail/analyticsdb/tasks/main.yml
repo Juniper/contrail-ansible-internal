@@ -20,7 +20,7 @@
 
 - name: Add custom bash prompt
   lineinfile:
-    line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    line: "export PS1='\\[\\e]0;\\u@\\h(analyticsdb): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(analyticsdb):\\w\\$ '"
     dest: /root/.bashrc
   tags: [install, contrail.analyticsdb.install]
 

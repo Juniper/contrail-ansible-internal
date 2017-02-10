@@ -1,14 +1,18 @@
 ---
 # Service management
+- name: Start supervisor-control in RedHat
+  service: name=supervisor-control state=restarted enabled=yes
+  when: ansible_os_family == 'RedHat'
+
 - name: Make sure control service is in desired state
   supervisorctl: name="contrail-control" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.control.service, contrail.controller.service, contrail.controlnode.service]
-  when: supervisor_control_ready
+  when: supervisor_control_ready or ansible_os_family == 'RedHat'
 
 - name: Make sure contrail-dns service is in desired state
   supervisorctl: name="contrail-dns" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
-  when: supervisor_control_ready
+  when: supervisor_control_ready or ansible_os_family == 'RedHat'
 
 - name: Make sure contrail-named service is in desired state
   supervisorctl: name="contrail-named" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
@@ -18,4 +22,4 @@
 - name: Make sure control nodemanager service is in desired state
   supervisorctl: name="contrail-control-nodemgr" state="{{ control_service_state }}" config=/etc/contrail/supervisord_control.conf
   tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]
-  when: supervisor_control_ready
+  when: supervisor_control_ready or ansible_os_family == 'RedHat'

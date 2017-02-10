@@ -1,3 +1,13 @@
 ---
+- name: Retry starting rabbitmq-server in RedHat platforms
+  action: shell rabbitmqctl status ; \
+          systemctl restart rabbitmq-server; \
+          systemctl status rabbitmq-server
+  register: result
+  until: result.stdout.find("active (running)") != -1
+  retries: 5
+  delay: 2
+  when: ansible_os_family == 'RedHat'
+
 - name: Make sure rabbitmq-server service is in desired state
   service: name=rabbitmq-server state="{{ rabbitmq_service_state }}" enabled="{{ rabbitmq_service_enabled }}"

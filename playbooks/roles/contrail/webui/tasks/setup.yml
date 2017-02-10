@@ -1,5 +1,5 @@
 ---
-- include: "install.yml"
+- include: "install/{{ansible_os_family}}.yml"
   tags: [contrail.controller.package, contrail.webui.package, package]
 
 - name: Add custom bash prompt
