@@ -3,10 +3,10 @@
 - name: Make sure agent nodemanager service is up
   supervisorctl: name="contrail-vrouter-nodemgr" state=started config=/etc/contrail/supervisord_vrouter.conf
   tags: [contrail.agent.nodemgr.service]
-  when: supervisor_vrouter_ready
+  when: supervisor_vrouter_ready or ansible_os_family == 'RedHat'
 
 # Service management
 - name: Make sure vrouter agent service is up
   supervisorctl: name="contrail-vrouter-agent" state=started config=/etc/contrail/supervisord_vrouter.conf
   tags: [contrail.agent.vrouter-agent.service]
-  when: supervisor_vrouter_ready
+  when: supervisor_vrouter_ready or ansible_os_family == 'RedHat'

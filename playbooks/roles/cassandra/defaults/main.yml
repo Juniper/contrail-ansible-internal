@@ -7,7 +7,7 @@ cassandra_deps:
   - 'openjdk-7-jre'
   - 'openjdk-7-jdk'
 update_java_alternatives: false
-cassandra_packages: "{{ ['cassandra', 'opscenter'] if ansible_distribution == 'Ubuntu' else ['cassandra22', 'opscenter'] }}"
+cassandra_packages: "{{ ['cassandra', 'opscenter'] if ansible_os_family == 'Debian' else ['cassandra22', 'opscenter'] }}"
 
 cassandra_1_2:
   repo:
@@ -42,6 +42,7 @@ cassandra_manage_repo: false
 cassandra_cluster_name: MyCluster
 cassandra_commitlog_dir: /var/lib/cassandra/commitlog
 cassandra_saved_caches_dir: /var/lib/cassandra/saved_caches
+cassandra_conf_dir: "{{ '/etc/cassandra/conf' if ansible_os_family == 'RedHat' else '/etc/cassandra' }}"
 cassandra_data_dirs:
   - /var/lib/cassandra/data
 cassandra_seeds:
