@@ -35,4 +35,8 @@
   include: nodemanager.yml
   tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
 
+- name: Provision nova-compute on BareMetal
+  include_role:
+      name: openstack/compute
+
 - meta: flush_handlers
