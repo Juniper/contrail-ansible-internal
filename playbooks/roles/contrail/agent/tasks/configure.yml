@@ -35,4 +35,11 @@
   include: nodemanager.yml
   tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
 
+# Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
+# added conditional to control separate file nova_compute.yml
+- name: Provision nova compute if Openstack is orchestrator
+  include: nova_compute.yml
+  when: cloud_orchestrator == "openstack"
+  tags: [contrail.agent.nova_compute]
+
 - meta: flush_handlers
