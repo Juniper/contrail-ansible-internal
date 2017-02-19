@@ -4,7 +4,7 @@
     dest: /etc/contrail/supervisord_analytics_files/contrail-collector.ini
     section: program:contrail-collector
     option: command
-    value: '/usr/bin/contrail-collector --conf_file /etc/contrail/contrail-keystone-auth.conf'
+    value: '/usr/bin/contrail-collector --conf_file /etc/contrail/contrail-collector.conf --conf_file /etc/contrail/contrail-keystone-auth.conf'
     backup: yes
   when: cloud_orchestrator == "openstack" and contrail_service_mgr == "supervisord"
 
