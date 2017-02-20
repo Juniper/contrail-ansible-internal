@@ -21,19 +21,6 @@ schema_log_level: SYS_NOTICE
 schema_ifmap_username: schema-transformer
 schema_ifmap_password: schema-transformer
 
-# Discovery
-discovery_conf: /etc/contrail/contrail-discovery.conf
-discovery_log: /var/log/contrail/contrail-discovery.log
-discovery_log_level: SYS_NOTICE
-discovery_listen_address: 0.0.0.0
-discovery_listen_port: "{{ disc_server_port }}"
-discovery_ttl_min: 300
-discovery_ttl_max: 1800
-discovery_ttl_short: 1
-discovery_hc_interval: 5
-discovery_hc_max_miss: 3
-discovery_dns_server_policy: fixed
-
 # svc-monitor
 svc_monitor_conf: /etc/contrail/contrail-svc-monitor.conf
 svc_monitor_log: /var/log/contrail/contrail-svc-monitor.log

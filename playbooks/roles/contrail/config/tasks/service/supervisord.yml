@@ -14,11 +14,6 @@
   tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
   when: supervisor_config_ready or ansible_os_family == 'RedHat'
 
-- name: Make sure contrail discovery service is in desired state
-  supervisorctl: name="contrail-discovery" state="{{ config_service_state }}" config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.discovery.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready or ansible_os_family == 'RedHat'
-
 - name: Make sure ifmap is in desired state
   supervisorctl: name="ifmap" state="{{ config_service_state }}" config=/etc/contrail/supervisord_config.conf
   tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]

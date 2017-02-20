@@ -26,15 +26,6 @@
     syslog_port: "{{ analytics_collector_syslog_port }}"
 
 
-- name: configure /etc/contrail/contrail-collector.conf DISCOVERY section
-  ini_file: dest={{ analytics_collector_conf }} section=DISCOVERY option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart analytics collector supervisord
-    - restart analytics collector systemd
-  with_dict:
-    server: "{{ disc_server_ip }}"
-    port: "{{ disc_server_port }}"
-
 - name: configure /etc/contrail/contrail-collector.conf REDIS section
   ini_file: dest={{ analytics_collector_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
   notify:
