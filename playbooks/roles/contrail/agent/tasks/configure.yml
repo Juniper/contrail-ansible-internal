@@ -20,10 +20,6 @@
   shell: lsmod | grep -q vrouter && rmmod vrouter; modprobe vrouter && lsmod | grep -q vrouter
   when: reload_vrouter_module
 
-- name: Add discovery in /etc/contrail/vrouter_nodemgr_param
-  lineinfile: dest=/etc/contrail/vrouter_nodemgr_param line="DISCOVERY={{ disc_server_ip }}"
-              state=present create=yes regexp="^DISCOVERY="
-
 - include_role: name=contrail/common tasks_from=vncapi
   tags: [contrail.vncapi, contrail.vncapi.configure]
 

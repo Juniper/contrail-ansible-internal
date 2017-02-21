@@ -54,10 +54,6 @@ frontend contrail-api
     default_backend    contrail-api-backend
     timeout client 3m
 
-frontend contrail-discovery
-    bind *:{{ contrail_discovery_frontend_port }}
-    default_backend    contrail-discovery-backend
-
 frontend contrail-analytics-api
     bind *:{{ contrail_analytics_api_frontend_port }}
     default_backend    contrail-analytics-api-backend
@@ -68,13 +64,6 @@ backend contrail-api-backend
     balance roundrobin
     {% for contrail_api_ip in contrail_api_server_list %}
     server {{ contrail_api_ip }} {{ contrail_api_ip }}:{{ contrail_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
-    {% endfor %}
-
-backend contrail-discovery-backend
-    option nolinger
-    balance roundrobin
-    {% for discovery_ip in contrail_discovery_server_list %}
-    server {{ discovery_ip }} {{ discovery_ip }}:{{ contrail_discovery_backend_port }} check inter {{ check_interval }} rise 2 fall 3
     {% endfor %}
 
 backend contrail-analytics-api-backend

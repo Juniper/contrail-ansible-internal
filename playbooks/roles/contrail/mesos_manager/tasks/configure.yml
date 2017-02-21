@@ -40,8 +40,6 @@
 - name: Configure DEFAULTS Section of contrail-mesos.conf
   ini_file: dest={{ mesos_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   with_dict:
-    disc_server_ip: "{{ disc_server_ip }}"
-    disc_server_port: "{{ disc_server_port }}"
     log_local: "{{ log_local }}"
     log_level: "{{ mesos_manager_log_level }}"
     log_file: "{{ mesos_manager_log_file }}"

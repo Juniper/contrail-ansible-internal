@@ -25,7 +25,6 @@
   with_items:
     - contrail-api
     - contrail-device-manager
-    - contrail-discovery
     - contrail-schema
     - contrail-svc-monitor
     - ifmap

@@ -8,10 +8,6 @@
   systemd: name="contrail-device-manager" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
   tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
 
-- name: Make sure contrail discovery service is in desired state
-  systemd: name="contrail-discovery" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
-  tags: [service, contrail.discovery.service, contrail.controller.service, contrail.config.service]
-
 - name: Make sure ifmap is in desired state
   systemd: name="ifmap" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
   tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]
