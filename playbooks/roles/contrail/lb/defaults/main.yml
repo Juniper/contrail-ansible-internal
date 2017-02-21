@@ -16,6 +16,7 @@ stats_port: 5937
 # Frontend settings.
 #Default frontend ports
 contrail_api_frontend_port: 8082
+contrail_analytics_api_frontend_port: 8081
 
 #Default backend ports
 contrail_api_backend_port: 9100
