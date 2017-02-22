@@ -1,3 +1,0 @@
-- name: Run the manual nova-compute steps
-  include_role:
-      name: openstack/compute
