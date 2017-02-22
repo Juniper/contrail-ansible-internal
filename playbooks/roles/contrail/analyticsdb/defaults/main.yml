@@ -26,3 +26,4 @@ kafka_log_cleaner_threads: 2
 kafka_log_cleaner_dedupe_buffer_size: 250000000
 kafka_log_cleaner_enable: true
 kafka_delete_topic_enable: true
+kafka_replication_factor: 1
