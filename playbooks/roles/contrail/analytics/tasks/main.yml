@@ -1,10 +1,4 @@
 ---
-- name: Collect local analytics server ip from the list
-  set_fact: my_analytics_ip="{{ item }}"
-  when: "item in ansible_all_ipv4_addresses"
-  with_items: "{{ analytics_list }}"
-  tags: [configure, provision]
-
 - include: "install/{{ ansible_os_family }}.yml"
   tags: [contrail.analytics.package, package]
 
