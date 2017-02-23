@@ -69,7 +69,7 @@
   when: " {{ vhost_ip_move.changed }} and {{ vhost_address_with_prefix | ipaddr('prefix') }} == 32 "
 
 - name: "Setting a fact for vhost_gateway"
-  set_fact: set_vhost_default_gateway="{{ vhost_subnet == ansible_default_ipv4.network | ternary(true, false) }}"
+  set_fact: set_vhost_default_gateway="{{ (vhost_subnet == ansible_default_ipv4.network) | ternary(true, false) }}"
 
 - name: Add default gateway to vhost
   shell: "ip route add default via {{ vhost_gateway }} dev {{ vhost_interface }}"
