@@ -22,9 +22,6 @@
 - include: api.yml
   tags: [contrail.api, contrail.api.configure]
 
-- include: discovery.yml
-  tags: [contrail.discovery, contrail.discovery.configure]
-
 - include: svc-monitor.yml
   tags: [contrail.svc-monitor, contrail.svc-monitor.configure]
 

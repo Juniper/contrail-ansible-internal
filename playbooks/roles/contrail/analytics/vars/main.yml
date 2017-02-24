@@ -1,12 +1,3 @@
 ---
-analytics_aaa_mode_orig: >-
-  {% if cloud_orchestrator != "openstack" %}
-  no-auth
-  {% elif analytics_aaa_mode is defined %}
-  {{ analytics_aaa_mode }}
-  {% else %}
-  cloud-admin
-  {% endif %}
-
 # This will construct a string with space delimited list of all rabbitmq server and port in form of "ip1:port ip2:port"
 analytics_redis_servers_with_port: "{{ analytics_redis_list | map('regex_replace', '^(.*)$', '\\1:' + analytics_redis_port|string) | join(' ') }}"

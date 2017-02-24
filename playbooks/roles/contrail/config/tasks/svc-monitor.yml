@@ -29,3 +29,4 @@
   with_dict:
     analytics_server_ip: "{{ analytics_server_ip }}"
     analytics_server_port: "{{ analytics_server_port }}"
+    aaa_mode: "{{ analytics_aaa_mode_orig }}"
