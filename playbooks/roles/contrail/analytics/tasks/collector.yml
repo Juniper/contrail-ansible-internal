@@ -43,3 +43,11 @@
   with_dict:
     port: "{{ analytics_collector_listen_port }}"
     server: "{{ analytics_collector_listen_address }}"
+
+- name: configure /etc/contrail/contrail-collector.conf API_SERVER section
+  ini_file: dest={{ analytics_collector_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
+  notify:
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
+  with_dict:
+    api_server_list: "{{ api_servers_with_port }}"

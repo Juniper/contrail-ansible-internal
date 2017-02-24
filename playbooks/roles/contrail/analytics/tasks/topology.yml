@@ -20,3 +20,11 @@
     log_local: "{{ log_local }}"
     http_server_port: "{{ analytics_topology_introspect_port }}"
     collectors: "{{ analytics_collectors_with_port }}"
+
+- name: configure /etc/contrail/contrail-topology.conf API_SERVER section
+  ini_file: dest={{ analytics_topology_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
+  notify:
+    - restart topology supervisord
+    - restart topology systemd
+  with_dict:
+    api_server_list: "{{ api_servers_with_port }}"

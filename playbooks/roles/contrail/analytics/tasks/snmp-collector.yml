@@ -22,3 +22,11 @@
     fast_scan_frequency: "{{ analytics_snmp_collector_fast_scan_frequency }}"
     scan_frequency: "{{ analytics_snmp_collector_scan_frequency }}"
     collectors: "{{ analytics_collectors_with_port }}"
+
+- name: configure /etc/contrail/contrail-snmp-collector.conf API_SERVER section
+  ini_file: dest={{ analytics_snmp_collector_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
+  notify:
+    - restart snmp-collector supervisord
+    - restart snmp-collector systemd
+  with_dict:
+    api_server_list: "{{ api_servers_with_port }}"
