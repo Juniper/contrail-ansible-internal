@@ -25,3 +25,11 @@
   with_dict:
     redis_uve_list: "{{ analytics_redis_servers_with_port }}"
     redis_server_port: "{{ analytics_redis_port }}"
+
+- name: configure /etc/contrail/contrail-alarm-gen.conf API_SERVER section
+  ini_file: dest={{ alarmgen_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
+  notify:
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
+  with_dict:
+    api_server_list: "{{ api_servers_with_port }}"
