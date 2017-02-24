@@ -1,10 +1,4 @@
 ---
-- name: Collect local controller server ip from the list
-  set_fact: my_controller_ip="{{ item }}"
-  when: "item in ansible_all_ipv4_addresses"
-  with_items: "{{ controller_list }}"
-  tags: [configure, provision]
-
 - include: "install/{{ ansible_os_family }}.yml"
   tags: [package, contrail.config.package, contrail.controller.package]
 

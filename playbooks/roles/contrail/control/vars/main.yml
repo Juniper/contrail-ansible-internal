@@ -23,7 +23,7 @@ control_specific_configs:
     certs_store: "{{ ifmap_certs_store|default('') }}"
     server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
     # AMQP related configs
-    rabbitmq_server_list: "{{ rabbitmq_servers_with_port }}"
+    rabbitmq_server_list: "{{ rabbitmq_servers_with_port_space_delim }}"
     rabbitmq_user: "{{ rabbitmq_user }}"
     rabbitmq_password: "{{ rabbitmq_password }}"
     rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
@@ -48,7 +48,7 @@ dns_specific_configs:
     certs_store: "{{ ifmap_certs_store|default('') }}"
     server_url: "https://127.0.0.1:{{ ifmap_server_port }}"
     # AMQP related configs
-    rabbitmq_server_list: "{{ rabbitmq_servers_with_port }}"
+    rabbitmq_server_list: "{{ rabbitmq_servers_with_port_space_delim }}"
     rabbitmq_user: "{{ rabbitmq_user }}"
     rabbitmq_password: "{{ rabbitmq_password }}"
     rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
