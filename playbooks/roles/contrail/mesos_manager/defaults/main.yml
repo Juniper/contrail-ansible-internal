@@ -4,8 +4,8 @@ contrail_mesos_manager_packages:
   - python-contrail
   - python-eventlet
 mesos_manager_conf: "/etc/contrail/contrail-mesos.conf"
-mesos_api_server: 127.0.0.1
-mesos_api_port: 8080
+mesos_api_server: 0.0.0.0
+mesos_api_port: 6999
 mesos_api_secure_port: 6443
 service_subnets: 10.96.0.0/12
 pod_subnets: 10.32.0.0/12
