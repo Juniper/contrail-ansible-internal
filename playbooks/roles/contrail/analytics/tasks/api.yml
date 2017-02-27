@@ -1,13 +1,4 @@
 ---
-- name: Add keystone auth config file in /etc/contrail/supervisord_analytics_files/contrail-analytics-api.ini
-  ini_file:
-    dest: /etc/contrail/supervisord_analytics_files/contrail-analytics-api.ini
-    section: program:contrail-analytics-api
-    option: command
-    value: '/usr/bin/contrail-analytics-api -c /etc/contrail/contrail-analytics-api.conf -c /etc/contrail/contrail-keystone-auth.conf'
-    backup: yes
-  when: cloud_orchestrator == "openstack" and contrail_service_mgr == "supervisord"
-
 - name: configure /etc/contrail/contrail-analytics-api.conf DEFAULTS section
   ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
   notify:

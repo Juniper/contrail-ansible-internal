@@ -1,13 +1,4 @@
 ---
-- name: Add keystone auth config file in /etc/contrail/supervisord_analytics_files/contrail-collector.ini
-  ini_file:
-    dest: /etc/contrail/supervisord_analytics_files/contrail-collector.ini
-    section: program:contrail-collector
-    option: command
-    value: '/usr/bin/contrail-collector --conf_file /etc/contrail/contrail-collector.conf --conf_file /etc/contrail/contrail-keystone-auth.conf'
-    backup: yes
-  when: cloud_orchestrator == "openstack" and contrail_service_mgr == "supervisord"
-
 - name: configure /etc/contrail/contrail-collector.conf DEFAULT section
   ini_file: dest={{ analytics_collector_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
   notify:
