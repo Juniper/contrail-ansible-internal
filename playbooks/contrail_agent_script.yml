@@ -1,0 +1,12 @@
+---
+- name: "Setup Contrail agent using script"
+  hosts: contrail-compute
+
+  pre_tasks:
+    - include_vars: contrail_agent_script.yml
+      tags: always
+
+  roles:
+    - role: common
+    - role: contrail/agent_script
+      tags: [contrail.agent_script]

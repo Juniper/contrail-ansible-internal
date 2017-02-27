@@ -1,0 +1,3 @@
+---
+- name: Make sure haproxy service is stopped and disabled - haproxy is started with vrouter agent for lbaas
+  service: name=haproxy state=stopped enabled=no
