@@ -59,3 +59,5 @@ rabbitmq_allow_remote_guest: false
 update_cache: false
 
 enable_rabbitmq: true
+rabbitmq_seed_list: "{{ rabbitmq_nodes }}"
+rabbitmq_cluster_nodes_leader: "{{ rabbitmq_seed_nodes_names|sort|first }}"

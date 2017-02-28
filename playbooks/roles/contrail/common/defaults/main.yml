@@ -6,6 +6,9 @@ controller_list: ["{{ controller_ip }}"]
 config_server_list: "{{ controller_list }}"
 contrail_api_server_list: "{{ config_server_list }}"
 
+# Support bootstrap clusters while add/remove nodes
+config_seed_list: "{{ config_server_list }}"
+
 # Analytics dB defaults
 analyticsdb_list: "{{ controller_list }}"
 analyticsdb_port: 9160
@@ -92,3 +95,4 @@ vncapi_conf: "/etc/contrail/vnc_api_lib.ini"
 
 systemd_wants_files: []
 apt_update: true
+
