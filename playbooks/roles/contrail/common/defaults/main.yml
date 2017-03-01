@@ -17,6 +17,9 @@ analyticsdb_cql_port: 9042
 external_configdb_servers: []
 # external_configdb_servers to be used as configdb_server_list if it is set
 configdb_server_list: "{{ external_configdb_servers if external_configdb_servers else config_server_list }}"
+
+# Support bootstrap clusters while add/remove nodes
+configdb_seed_nodes: "{{ config_seed_list }}"
 configdb_port: 9161
 configdb_cql_port: 9041
 configdb_rmi_port: 7198
@@ -95,4 +98,3 @@ vncapi_conf: "/etc/contrail/vnc_api_lib.ini"
 
 systemd_wants_files: []
 apt_update: true
-
