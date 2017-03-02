@@ -1,5 +1,5 @@
 ---
-- name: "Setup Contrail agent"
+- name: "Setup Contrail agent using script"
   hosts: contrail-compute
 
   pre_tasks:
