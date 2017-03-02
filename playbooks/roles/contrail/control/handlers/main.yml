@@ -1,8 +1,7 @@
 ---
 - name: restart control supervisord
   supervisorctl: name="contrail-control" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: (supervisor_control_ready and contrail_service_mgr == 'supervisord') or
-        ansible_os_family == 'RedHat'
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
 - name: restart control systemd
   systemd: name="contrail-control" state=restarted
@@ -10,8 +9,7 @@
 
 - name: restart contrail-dns supervisord
   supervisorctl: name="contrail-dns" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: (supervisor_control_ready and contrail_service_mgr == 'supervisord') or
-        ansible_os_family == 'RedHat'
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
 - name: restart contrail-dns systemd
   systemd: name="contrail-dns" state=restarted
@@ -19,8 +17,7 @@
 
 - name: restart control-nodemgr supervisord
   supervisorctl: name="contrail-control-nodemgr" state=restarted config=/etc/contrail/supervisord_control.conf
-  when: (supervisor_control_ready and contrail_service_mgr == 'supervisord') or
-        ansible_os_family == 'RedHat'
+  when: supervisor_control_ready and contrail_service_mgr == 'supervisord'
 
 # Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
 - name: restart control-nodemgr systemd

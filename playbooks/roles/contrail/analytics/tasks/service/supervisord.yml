@@ -1,5 +1,6 @@
 ---
 # Service management
+# start analyticsdb service in RH to simulate supervisord start via entrypoint.sh
 - name: Start supervisor-analytics in RedHat
   service: name=supervisor-analytics state=restarted enabled=yes
   when: ansible_os_family == 'RedHat'
@@ -7,34 +8,34 @@
 - name: Make sure alarmgen service is up
   supervisorctl: name="contrail-alarm-gen:0" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.alarmgen.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure analytics_api service is up
   supervisorctl: name="contrail-analytics-api" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.analytics.api.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure analytics-collector service is up
   supervisorctl: name="contrail-collector" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.collector.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure analytics nodemanager service is up
   supervisorctl: name="contrail-analytics-nodemgr" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.analytics.nodemgr.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure analytics query-engine service is up
   supervisorctl: name="contrail-query-engine" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.query-engine.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure contrail-snmp-collector service is up
   supervisorctl: name="contrail-snmp-collector" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.snmp-collector.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready
 
 - name: Make sure contrail-topology service is up
   supervisorctl: name="contrail-topology" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.topology.service, contrail.analytics.service]
-  when: supervisor_analytics_ready or ansible_os_family == 'RedHat'
+  when: supervisor_analytics_ready

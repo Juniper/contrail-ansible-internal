@@ -26,3 +26,4 @@
     - restart analytics-api systemd
   with_dict:
     redis_uve_list: "{{ analytics_redis_servers_with_port }}"
+    redis_query_port: "{{ analytics_redis_port }}"
