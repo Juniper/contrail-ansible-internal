@@ -1,5 +1,5 @@
 - name: Reboot node
-  shell: sleep 2 && shutdown -r now "Reboot for vhost interface to become active"
+  shell: sleep 5 && /etc/contrail/contrail_reboot
   async: 1
   poll: 0
   sudo: true

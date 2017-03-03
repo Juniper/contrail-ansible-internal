@@ -1,6 +1,8 @@
 ---
 agent_packages:
-  - contrail-openstack-vrouter
+  - contrail-vrouter-common
+  - contrail-setup
+  - haproxy
 
 compile_vrouter_module: "{{ true if ansible_os_family == 'Debian' and contrail_compute_mode != 'bare_metal' else false }}"
 reload_vrouter_module: false
@@ -8,20 +10,24 @@ nodemanager_conf: "/etc/contrail/contrail-vrouter-nodemgr.conf"
 vrouter_physical_interface: "{{ ansible_default_ipv4.interface }}"
 vrouter_physical_ansible_interface: "ansible_{{ vrouter_physical_interface | regex_replace('-', '_') }}"
 vhost_interface: vhost0
-vhost_ansible_interface: "ansible_{{vhost_interface}}"
-vhost_address: >-
-  {%- if vhost_interface in ansible_interfaces -%}{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['address'] }}
-  {%- else -%}{{ hostvars[inventory_hostname][vrouter_physical_ansible_interface]['ipv4']['address'] }}{%- endif -%}
 
-vhost_netmask: >-
-  {%- if vhost_interface in ansible_interfaces -%}{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['netmask'] }}
-  {%- else -%}{{ hostvars[inventory_hostname][vrouter_physical_ansible_interface]['ipv4']['netmask'] }}{%- endif -%}
+# vhost_ansible_interface is ansible_{{vhost_interface}} in case of vhost0 is
+# added, otherwise it is vrouter_physical_ansible_interface
+vhost_ansible_interface: "{{ 'ansible_' + vhost_interface if vhost_interface in ansible_interfaces else vrouter_physical_ansible_interface }}"
+
+vhost_address: "{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['address'] }}"
+vhost_netmask: "{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['netmask'] }}"
+vhost_network: "{{ hostvars[inventory_hostname][vhost_ansible_interface]['ipv4']['network'] }}"
 
 vrouter_physical_interface_mac_address: "{{ hostvars[inventory_hostname][vrouter_physical_ansible_interface]['macaddress'] }}"
 vhost_address_with_netmask: "{{ vhost_address }}/{{ vhost_netmask }}"
 vhost_address_with_prefix: "{{ vhost_address_with_netmask | ipaddr('host/prefix') }}"
 vhost_gateway: "{{ ansible_default_ipv4.gateway }}"
-vhost_subnet: "{{ vhost_address_with_prefix | ipaddr('subnet') }}"
+
+vrouter_agent_conf: "/etc/contrail/contrail-vrouter-agent.conf"
+vrouter_platform: default
+vrouter_agent_log: /var/log/contrail/contrail-vrouter-agent.log
+vrouter_agent_log_level: "{{ log_level }}"
 
 no_of_controllers: "{{ controller_list | length }}"
 vrouter_max_control_nodes: 3
