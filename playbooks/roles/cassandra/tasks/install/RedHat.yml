@@ -3,3 +3,7 @@
   package: name={{ item }} state=present
   register: cassandra_install
   with_items: "{{ cassandra_packages }}"
+
+# Workaround for LP #1669295
+- name: Disable contrail-database to auto start on reboot
+  command: chkconfig contrail-database off

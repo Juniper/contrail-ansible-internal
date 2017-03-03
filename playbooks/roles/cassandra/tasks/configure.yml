@@ -1,4 +1,18 @@
 ---
+- name: Check if cassandra listen address is modified
+  command: 'grep -Fxq "listen_address: {{ cassandra_listen_address }}" {{ cassandra_conf_dir }}/cassandra.yaml'
+  register: listen_address_changed
+  ignore_errors: True
+  always_run: True
+
+- name: Stop Cassandra if listen_address is modified so system data can be cleaned
+  service: name={{ cassandra_service_name }} state=stopped
+  when: listen_address_changed.rc != 0
+
+- name: Cleanup System Data of Cassandra if listen_address is modified
+  file: path=/var/lib/cassandra/data/system/ state=absent
+  when: listen_address_changed.rc != 0
+
 - name: Install Cassandra config file
   template: src=cassandra-{{cassandra_version_branch}}.j2 dest={{ cassandra_conf_dir }}/cassandra.yaml
   notify: restart cassandra

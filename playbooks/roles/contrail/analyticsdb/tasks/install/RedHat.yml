@@ -7,6 +7,10 @@
   package: name={{ item }} state=latest
   with_items: "{{ contrail_database_packages }}"
 
+# Workaround for LP #1669295
+- name: Disable contrail-database to auto start on reboot
+  command: chkconfig contrail-database off
+
 # This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/2
 - name: Remove supervisor-database from /etc/sensitive_servies (WA for issue contrail-docker/2)
   lineinfile: dest=/etc/sensitive_services line=supervisor-database state=absent
