@@ -29,6 +29,9 @@ vrouter_platform: default
 vrouter_agent_log: /var/log/contrail/contrail-vrouter-agent.log
 vrouter_agent_log_level: "{{ log_level }}"
 
+non_mgmt_ip_config: "--non_mgmt_ip {{ vhost_address }}"
+single_intf_config: ""
+multi_intf_config: "{{ non_mgmt_ip_config if vhost_address != ansible_default_ipv4.address else single_intf_config }}"
 no_of_controllers: "{{ controller_list | length }}"
 vrouter_max_control_nodes: 3
 contrail_compute_mode: "container"
