@@ -1,7 +1,10 @@
 ---
+# python-paramiko and ecdsa installed as workaround for bug https://bugs.launchpad.net/juniperopenstack/+bug/1669918
 agent_packages:
   - contrail-vrouter-common
   - contrail-setup
+  - python-paramiko
+  - python-ecdsa
   - haproxy
 
 compile_vrouter_module: "{{ true if ansible_os_family == 'Debian' and contrail_compute_mode != 'bare_metal' else false }}"
