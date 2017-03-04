@@ -6,4 +6,4 @@
 
 - name: Make sure contrail-database service is in the state as requested
   service: name=contrail-database state={{ cassandra_service_state }} enabled={{ cassandra_service_enabled }}
-  when: "{{ cassandra_service_manage }}" and ansible_os_family == 'RedHat'
+  when: "{{ cassandra_service_manage }} and ansible_os_family == 'RedHat'"
