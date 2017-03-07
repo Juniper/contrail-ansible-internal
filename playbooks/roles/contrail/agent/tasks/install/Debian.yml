@@ -3,7 +3,7 @@
 - name: Do not auto start supervisor-vrouter (WA for issue contrail-docker/82)
   lineinfile: dest=/etc/sensitive_services line=supervisor-vrouter state=present create=yes
 
-- name: install contrail-vrouter-common and related packages
+- name: install contrail-vrouter-agent related packages
   apt: name={{ item }} state=latest force=yes
   with_items: "{{ agent_packages }}"
 

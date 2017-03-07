@@ -9,3 +9,18 @@
 - name: Enable contrail-ansible.service
   file: src=/etc/systemd/system/contrail-ansible.service dest=/etc/systemd/system/multi-user.target.wants/contrail-ansible.service state=link
 
+- name: Copy systemd file for contrail-vrouter-agent to systemd unit file location
+  copy: src=systemd/contrail-vrouter-agent.service dest=/etc/systemd/system/contrail-vrouter-agent.service
+  when: contrail_service_mgr == 'systemd'
+
+- name: Enable contrail-vrotuer-agent.service
+  file: src=/etc/systemd/system/contrail-vrouter-agent.service dest=/etc/systemd/system/multi-user.target.wants/contrail-vrouter-agent.service state=link
+  when: contrail_service_mgr == 'systemd'
+
+- name: Copy systemd file for contrail-vrouter-nodemgr to systemd unit file location
+  copy: src=systemd/contrail-vrouter-nodemgr.service dest=/etc/systemd/system/contrail-vrouter-nodemgr.service
+  when: contrail_service_mgr == 'systemd'
+
+- name: Enable contrail-vrotuer-nodemgr.service
+  file: src=/etc/systemd/system/contrail-vrouter-nodemgr.service dest=/etc/systemd/system/multi-user.target.wants/contrail-vrouter-nodemgr.service state=link
+  when: contrail_service_mgr == 'systemd'
