@@ -34,5 +34,5 @@ single_intf_config: ""
 multi_intf_config: "{{ non_mgmt_ip_config if vhost_address != ansible_default_ipv4.address else single_intf_config }}"
 no_of_controllers: "{{ controller_list | length }}"
 vrouter_max_control_nodes: 3
-contrail_compute_mode: "bare_metal"
+contrail_compute_mode: "container"
 hypervisor: "libvirt"
