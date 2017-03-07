@@ -9,10 +9,6 @@
     log_local: 1
     log_level: "{{ schema_log_level }}"
     collectors: "{{ analytics_collectors_with_port }}"
-    ifmap_server_ip: "{{ ifmap_server_ip }}"
-    ifmap_server_port: "{{ ifmap_server_port }}"
-    ifmap_username: "{{ schema_ifmap_username }}"
-    ifmap_password: "{{ schema_ifmap_password }}"
     cassandra_server_list: "{{ configdb_servers_with_port }}"
     api_server_ip: "{{ api_server_ip }}"
     api_server_port: "{{ api_server_port }}"

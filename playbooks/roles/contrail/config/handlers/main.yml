@@ -24,14 +24,6 @@
   systemd: name="contrail-schema" state=restarted
   when: contrail_service_mgr == 'systemd'
 
-- name: restart ifmap supervisord
-  supervisorctl: name="ifmap" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
-
-- name: restart ifmap systemd
-  systemd: name="ifmap" state=restarted
-  when: contrail_service_mgr == 'systemd'
-
 - name: restart svc-monitor supervisord
   supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
   when: supervisor_config_ready and contrail_service_mgr == 'supervisord'

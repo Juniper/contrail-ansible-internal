@@ -5,10 +5,6 @@
     - restart svc-monitor supervisord
     - restart svc-monitor systemd
   with_dict:
-    ifmap_server_ip: "{{ ifmap_server_ip }}"
-    ifmap_server_port: "{{ ifmap_server_port }}"
-    ifmap_username: "{{ svc_monitor_ifmap_username }}"
-    ifmap_password: "{{ svc_monitor_ifmap_password }}"
     cassandra_server_list: "{{ configdb_servers_with_port }}"
     api_server_ip: "{{ api_server_ip }}"
     api_server_port: "{{ api_server_port }}"

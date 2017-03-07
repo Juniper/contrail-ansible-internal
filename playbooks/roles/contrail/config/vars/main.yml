@@ -2,13 +2,6 @@
 ##
 # Making common reusable variable templates to reduce duplication
 ##
-# ifmap server configuration for various config files
-config_ifmap_configs:
-  ifmap_username: "{{ api_ifmap_username }}"
-  ifmap_password: "{{ api_ifmap_password }}"
-  ifmap_server_ip: "{{ ifmap_server_ip }}"
-  ifmap_server_port: "{{ ifmap_server_port }}"
-
 # Infra configuration entries like cassandra, rabbitmq etc
 config_infra_configs:
   log_local: 1
