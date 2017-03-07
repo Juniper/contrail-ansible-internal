@@ -15,11 +15,6 @@
   tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
   when: supervisor_config_ready
 
-- name: Make sure ifmap is in desired state
-  supervisorctl: name="ifmap" state="{{ config_service_state }}" config=/etc/contrail/supervisord_config.conf
-  tags: [service, contrail.ifmap.service, contrail.controller.service, contrail.config.service]
-  when: supervisor_config_ready
-
 - name: Make sure config nodemanager service is in desired state
   supervisorctl: name="contrail-config-nodemgr" state="{{ config_service_state }}" config=/etc/contrail/supervisord_config.conf
   tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]

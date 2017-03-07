@@ -4,8 +4,7 @@
   notify:
     - restart config api supervisord
     - restart config api systemd
-  with_dict: "{{ config_ifmap_configs|
-                combine(config_infra_configs)|\
+  with_dict: "{{ config_infra_configs|\
                 combine(api_specific_configs.DEFAULTS)
              }}"
 
