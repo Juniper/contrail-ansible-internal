@@ -7,7 +7,6 @@
     line: "export PS1='\\[\\e]0;\\u@\\h(agent): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(agent):\\w\\$ '"
     dest: /root/.bashrc
   tags: [install, contrail.agent.install]
-  when: contrail_compute_mode != 'bare_metal'
 
 # Due to a bug in ansible include_role is failing when add a contidional, as a workaround,
 # added conditional inside systemd-cleanup.yml for now
@@ -20,6 +19,11 @@
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.agent.install]
 
+- include: configure.yml
+  tags: [contrail.agent.configure, configure]
+
+- include: service/main.yml
+  tags: [contrail.agent.service, service]
+
 - include: provision/main.yml
   tags: [contrail.agent.provision, provision]
-
