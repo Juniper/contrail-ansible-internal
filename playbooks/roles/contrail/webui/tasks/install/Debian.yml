@@ -5,6 +5,9 @@
 - name: install nodejs version 0.10.35-1contrail1 - this is required for contrail-webui
   apt: name=nodejs=0.10.35-1contrail1 state=present force=yes
 
+- name: install opscenter version 5.2.4 - this is required for contrail-webui
+  apt: name=opscenter=5.2.4 state=present force=yes
+
 - name: install contrail-webui related packages
   apt: name={{ item }} state=latest force=yes
   with_items: "{{ webui_packages }}"
