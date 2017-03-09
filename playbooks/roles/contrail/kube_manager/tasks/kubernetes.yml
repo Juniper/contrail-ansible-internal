@@ -38,7 +38,7 @@
     - restart kube-manager systemd
 
 - name: Configure DEFAULTS.token in contrail-kubernetes.conf for openshift
-  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value=openshift_token  create=yes
+  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ openshift_token }}"  create=yes
   when: cloud_orchestrator == 'openshift'
   notify:
     - restart kube-manager supervisord

@@ -15,3 +15,4 @@ admin_password: admin
 admin_tenant: admin
 kube_manager_log_level: SYS_DEBUG
 kube_manager_log_file: "/var/log/contrail/contrail-kube-manager.log"
+openshift_token: 'token'
