@@ -8,7 +8,7 @@
 
 - name: Add custom bash prompt
   lineinfile:
-    line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    line: "export PS1='\\[\\e]0;\\u@\\h(mesosmanager): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
     dest: /root/.bashrc
   tags: [install, contrail.mesos_manager.install]
 
