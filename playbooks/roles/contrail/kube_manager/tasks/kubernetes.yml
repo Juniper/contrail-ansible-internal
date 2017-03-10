@@ -8,6 +8,8 @@
     kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
     service_subnets: "{{ service_subnets }}"
     pod_subnets: "{{ pod_subnets }}"
+    cluster_project: "{{ cluster_project }}"
+    cluster_name: "{{ cluster_name }}"
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
