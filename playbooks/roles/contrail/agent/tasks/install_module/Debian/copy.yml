@@ -1,0 +1,8 @@
+---
+- name: make sure contrail vrouter module directory exist
+  file: path="/lib/modules/{{ ansible_kernel }}/kernel/net/contrail/" state=directory
+
+- name: copy vrouter module if precompiled kernel module is available from within the agent
+  copy: src="/vrouter-modules/vrouter.ko.{{ ansible_kernel }}" dest="/lib/modules/{{ ansible_kernel }}/kernel/net/contrail/"
+  register: vrouter_module_copy
+  ignore_errors: yes
