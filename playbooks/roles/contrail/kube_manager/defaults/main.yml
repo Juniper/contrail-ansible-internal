@@ -18,3 +18,4 @@ kube_manager_log_file: "/var/log/contrail/contrail-kube-manager.log"
 openshift_token: 'token'
 cluster_project: "default"
 cluster_name: "default-cluster"
+supervisor_kube_manager_ready: false

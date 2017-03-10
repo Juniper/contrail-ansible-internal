@@ -4,10 +4,12 @@
   register: supervisor_database_ready_cmd
   always_run: yes
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: "Setting a fact for supervisor_database_ready"
   set_fact: supervisor_database_ready={{ (supervisor_database_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - include_role: name=contrail/common tasks_from=vncapi
   tags: [contrail.vncapi, contrail.vncapi.configure]

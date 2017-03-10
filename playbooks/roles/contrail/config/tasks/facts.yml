@@ -4,10 +4,12 @@
   register: supervisor_config_ready_cmd
   always_run: yes
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: "Setting a fact for supervisor_config_ready"
   set_fact: supervisor_config_ready={{ (supervisor_config_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: Setting fact to override contrail-api listen port(api_listen_port) based on the topology(HA/single node cluster).
   set_fact: api_listen_port=9100

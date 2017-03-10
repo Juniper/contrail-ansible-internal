@@ -4,10 +4,12 @@
   register: supervisor_vrouter_ready_cmd
   always_run: yes
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: "Setting a fact for supervisor_vrouter_ready"
   set_fact: supervisor_vrouter_ready={{ (supervisor_vrouter_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: Compile vrouter module
   include: "compile_vrouter/{{ansible_distribution}}.yml"

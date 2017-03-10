@@ -41,3 +41,4 @@ vrouter_agent_log_level: "{{ log_level }}"
 
 vrouter_max_control_nodes: 3
 contrail_compute_mode: "container"
+supervisor_vrouter_ready: false
