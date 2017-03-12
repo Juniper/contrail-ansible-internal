@@ -31,4 +31,8 @@
   include: nodemanager.yml
   tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
 
+- name: setup cni
+  include: cni.yml
+  when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
+
 - meta: flush_handlers
