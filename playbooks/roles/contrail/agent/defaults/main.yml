@@ -14,7 +14,17 @@ agent_packages:
   - curl
   - haproxy
 
-compile_vrouter_module: "{{ true if ansible_os_family == 'Debian' else false }}"
+# contrail-cni for mesos and contrail-kub-cni for others
+contrail_cni_package_name: "{{ 'contrail-cni' if cloud_orchestrator == 'mesos' else 'contrail-kube-cni' }}"
+
+contrail_cni_packages:
+  - python-pyroute2
+  - "{{ contrail_cni_package_name }}"
+
+# cni_binary_path
+cni_binary_path: "/usr/bin/{{ contrail_cni_package_name }}"
+
+compile_vrouter_module: true
 reload_vrouter_module: false
 nodemanager_conf: "/etc/contrail/contrail-vrouter-nodemgr.conf"
 vrouter_physical_interface: "{{ ansible_default_ipv4.interface }}"

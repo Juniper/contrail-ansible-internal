@@ -1,0 +1,7 @@
+---
+- name: Try copying pre-compiled vrouter module if matched
+  include: copy.yml
+
+- name: compile the module if copy did not work
+  include: compile.yml
+  when: vrouter_module_copy.get('failed',None) and compile_vrouter_module

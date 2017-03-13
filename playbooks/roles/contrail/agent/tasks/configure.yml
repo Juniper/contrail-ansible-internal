@@ -9,9 +9,8 @@
   set_fact: supervisor_vrouter_ready={{ (supervisor_vrouter_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
 
-- name: Compile vrouter module
-  include: "compile_vrouter/{{ansible_distribution}}.yml"
-  when: compile_vrouter_module
+- name: Install vrouter module
+  include: "install_module/{{ ansible_os_family }}/main.yml"
 
 - name: Build module dependencies
   shell: depmod -a
@@ -30,5 +29,9 @@
 - name: Configure vrouter nodemanager
   include: nodemanager.yml
   tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
+
+- name: setup cni
+  include: cni.yml
+  when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
 
 - meta: flush_handlers

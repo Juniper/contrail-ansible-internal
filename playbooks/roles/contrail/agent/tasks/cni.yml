@@ -1,0 +1,13 @@
+---
+# Mounts expected from host
+# /opt/cni/bin of host to /host/opt_cni_bin
+# /etc/cni/    of host to /host/etc_cni
+#
+- name: Install contrail cni files to host by copying them
+  copy: src=/usr/bin/contrail-kube-cni dest=/host/opt_cni_bin/ mode=0755
+
+- name: Make sure cni directories exist
+  file: path="/host/etc_cni/net.d" state=directory recurse=true
+
+- name: Create cni config
+  copy: src=kube_cni.conf dest=/host/etc_cni/net.d/10-contrail.conf
