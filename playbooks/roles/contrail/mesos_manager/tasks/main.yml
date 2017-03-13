@@ -2,10 +2,6 @@
 - include: install/{{ ansible_os_family }}.yml
   tags: [install, contrail.mesos_manager.install]
 
-- name: Include contrail service manager specific code
-  include: install/{{ contrail_service_mgr }}.yml
-  tags: [install, contrail.mesos_manager.install]
-
 - name: Add custom bash prompt
   lineinfile:
     line: "export PS1='\\[\\e]0;\\u@\\h(controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
@@ -14,6 +10,10 @@
 
 - include_role: name=contrail/common tasks_from=cleanup
   tags: [contrail.mesos_manager.install, install]
+
+- name: Include contrail service manager specific code
+  include: install/{{ contrail_service_mgr }}.yml
+  tags: [install, contrail.mesos_manager.install]
 
 - include: configure.yml
   tags: [contrail.mesos_manager.configure, configure]
