@@ -54,3 +54,5 @@ analytics_topology_conf: /etc/contrail/contrail-topology.conf
 analytics_topology_log: /var/log/contrail/contrail-topology.log
 analytics_topology_log_level: "{{ log_level }}"
 analytics_topology_introspect_port: 5921
+
+supervisor_analytics_ready: false

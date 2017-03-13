@@ -4,7 +4,9 @@
   register: supervisor_control_ready_cmd
   always_run: yes
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: "Setting a fact for supervisor_control_ready"
   set_fact: supervisor_control_ready={{ (supervisor_control_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'

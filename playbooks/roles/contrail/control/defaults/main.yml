@@ -29,3 +29,4 @@ bgp_asn: 64512
 # external_routers_list: dictionary of external, physical routers in form of {name1: ip1, name2: ip2}
 external_routers_list: {}
 enable_control_service: true
+supervisor_control_ready: false

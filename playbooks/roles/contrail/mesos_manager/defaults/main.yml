@@ -14,3 +14,4 @@ admin_password: admin
 admin_tenant: admin
 mesos_manager_log_level: SYS_DEBUG
 mesos_manager_log_file: "/var/log/contrail/contrail-mesos-manager.log"
+supervisor_mesos_manager_ready: false

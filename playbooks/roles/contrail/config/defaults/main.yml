@@ -67,3 +67,5 @@ contrail_enable_configdb: "{{ false if external_configdb_servers or not enable_c
 
 # In case of external_zookeeper_servers, or config is not enabled, no need to setup rabbitmq here
 contrail_enable_zookeeper: "{{ false if external_zookeeper_servers or not enable_config_service else true }}"
+
+supervisor_config_ready: false

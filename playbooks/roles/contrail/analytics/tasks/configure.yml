@@ -4,10 +4,12 @@
   register: supervisor_analytics_ready_cmd
   always_run: yes
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - name: "Setting a fact for supervisor_analytics_ready"
   set_fact: supervisor_analytics_ready={{ (supervisor_analytics_ready_cmd.stdout) | ternary(true, false) }}
   tags: [always]
+  when: contrail_service_mgr == 'supervisord'
 
 - include_role: name=contrail/common tasks_from=keystoneauth
   tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
