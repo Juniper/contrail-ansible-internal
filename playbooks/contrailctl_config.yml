@@ -1,0 +1,6 @@
+---
+# This is used by contrailctl to write contrailctl configuration
+- name: "Setup contrailctl configuration"
+  hosts: all
+  tasks:
+    - include_role: name=common tasks_from=contrailctl_config
