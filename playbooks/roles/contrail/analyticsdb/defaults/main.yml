@@ -13,6 +13,9 @@ analyticsdb_cassandra_cluster_name: analyticsdb
 analyticsdb_cassandra_packages: [cassandra]
 analyticsdb_cassandra_packages: "{{ 'cassandra' if ansible_os_family == 'Debian' else 'cassandra22' }}"
 
+# Analytics DB
+analyticsdb_minimum_diskGB: 256
+
 # Kafka defaults
 kafka_conf: "/usr/share/kafka/config/server.properties"
 kafka_log_conf: "/usr/share/kafka/config/log4j.properties"

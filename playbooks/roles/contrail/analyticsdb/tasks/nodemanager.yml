@@ -4,3 +4,12 @@
   notify:
     - restart database-nodemgr supervisord
     - restart database-nodemgr systemd
+
+- name: configure database nodemanager defaults
+  ini_file: dest={{ nodemanager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}
+  notify:
+    - restart database-nodemgr supervisord
+    - restart database-nodemgr systemd
+  with_dict:
+    hostip: "{{ my_analyticsdb_ip }}"
+    minimum_diskGB: "{{ analyticsdb_minimum_diskGB }}"
