@@ -1,13 +1,6 @@
 ---
 - name: Copy systemd file for contrail-ansible to systemd unit file location
-  copy: src="{{ item }}" dest=/etc/systemd/system/
-  when: contrail_service_mgr == 'systemd'
-  with_fileglob:
-    - systemd/*
-
-- name: Copy systemd file for contrail-ansible to systemd unit file location
   copy: src=systemd/contrail-ansible.service dest=/etc/systemd/system/contrail-ansible.service
-  when: ansible_os_family == 'RedHat'
 
 - name: Replace /usr/local/bin/contrailctl with /usr/bin/contrailctl in contrail-ansible.service for RedHat
   replace: name=/etc/systemd/system/contrail-ansible.service regexp=/usr/local/bin/contrailctl replace=/usr/bin/contrailctl
