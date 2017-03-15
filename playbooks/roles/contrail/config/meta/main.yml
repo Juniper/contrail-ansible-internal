@@ -9,6 +9,7 @@ dependencies:
     rabbitmq_conf_tcp_listeners_address: "{{ contrail_rabbitmq_listen_address }}"
     rabbitmq_allow_remote_guest: "{{ contrail_rabbitmq_allow_remote_guest }}"
     rabbitmq_nodes: "{{ rabbitmq_server_list }}"
+    rabbitmq_seed_list: "{{ config_seed_list }}"
     enable_rabbitmq: "{{ contrail_enable_rabbitmq }}"
     tags: [rabbitmq]
 
@@ -19,7 +20,7 @@ dependencies:
     cassandra_storage_port: "{{ configdb_storage_port }}"
     cassandra_ssl_storage_port: "{{ configdb_ssl_storage_port }}"
     cassandra_deps: "{{ configdb_cassandra_deps }}"
-    cassandra_seeds: "{{ configdb_server_list }}"
+    cassandra_seeds: "{{ configdb_seed_nodes }}"
     cassandra_packages: "{{ configdb_cassandra_packages }}"
     cassandra_listen_address: "{{ my_controller_ip }}"
     cassandra_cluster_name: "{{ configdb_cassandra_cluster_name }}"
