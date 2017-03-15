@@ -24,6 +24,7 @@ kafka_brokers_with_port: "{{ kafka_broker_list | map('regex_replace', '^(.*)$', 
 analyticsdb_servers_with_cql_port: "{{ analyticsdb_list | map('regex_replace', '^(.*)$', '\\1:' + analyticsdb_cql_port|string) | join(' ') }}"
 
 analytics_collectors_with_port: "{{ analytics_list | map('regex_replace', '^(.*)$', '\\1:' + analytics_collector_port|string) | join(' ') }}"
+analytics_api_servers_with_port: "{{ analytics_list | map('regex_replace', '^(.*)$', '\\1:' + analytics_server_port|string) | join(' ') }}"
 control_servers_with_xmpp_port: "{{ control_node_list | map('regex_replace', '^(.*)$', '\\1:' + control_xmpp_port|string) | join(' ') }}"
 control_servers_with_dns_port: "{{ control_node_list | map('regex_replace', '^(.*)$', '\\1:' + control_dns_port|string) | join(' ') }}"
 api_servers_with_port: "{{ controller_list | map('regex_replace', '^(.*)$', '\\1:' + api_server_port|string) | join(' ') }}" 
