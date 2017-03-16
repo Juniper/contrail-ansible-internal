@@ -23,6 +23,5 @@
     - restart svc-monitor supervisord
     - restart svc-monitor systemd
   with_dict:
-    analytics_server_ip: "{{ analytics_server_ip }}"
-    analytics_server_port: "{{ analytics_server_port }}"
+    analytics_server_list: "{{ analytics_api_servers_with_port }}"
     aaa_mode: "{{ analytics_aaa_mode_orig }}"
