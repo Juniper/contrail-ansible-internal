@@ -1,0 +1,4 @@
+- name: ISSU contrail prepare for config sync
+  command: "{{ item }}"
+  with_items:
+   - /opt/contrail/utils/issu_process.sh issu_contrail_prepare_new_control_node

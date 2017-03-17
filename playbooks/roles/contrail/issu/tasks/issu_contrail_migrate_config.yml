@@ -1,0 +1,5 @@
+- name: ISSU contrail config sync
+  command: "{{ item }}"
+  with_items:
+   - /opt/contrail/utils/issu_process.sh issu_pre_sync
+   - /opt/contrail/utils/issu_process.sh issu_run_sync
