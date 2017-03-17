@@ -7,3 +7,7 @@
 - name: register configdb node to config api server (noauth)
   shell: "/usr/share/contrail-utils/provision_database_node.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add"
   ignore_errors: yes
+
+- name: Generate a default encapsulation priority
+  shell: "/usr/share/contrail-utils/provision_encap.py  --api_server_ip {{ api_server_ip }}  \
+    --encap_priority {{ encap_priority }} --oper add
