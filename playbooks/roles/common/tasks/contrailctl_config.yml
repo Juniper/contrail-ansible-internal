@@ -1,0 +1,9 @@
+---
+- name: configure contrailctl configuration
+  ini_file:
+    dest: "{{ contrailctl_config_file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    backup: yes
+  with_inidata: "{{ contrailctl_config_data }}"
