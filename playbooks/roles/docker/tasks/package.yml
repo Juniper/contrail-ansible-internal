@@ -1,4 +1,0 @@
----
-- name: install docker using package
-  package: name="{{ docker_package_name }}" state=installed
-
