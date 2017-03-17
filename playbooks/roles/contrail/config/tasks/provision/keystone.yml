@@ -18,3 +18,8 @@
 
 - name: Create linklocal entry for metadata
   shell: "/usr/share/contrail-utils/provision_linklocal.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --linklocal_service_name metadata --linklocal_service_ip 169.254.169.254 --linklocal_service_port 80 --ipfabric_service_ip {{ neutron_metadata_ip }} --ipfabric_service_port {{ neutron_metadata_port }} --oper add {{ provision_cmd_keystone_args }}"
+
+- name: Generate a default encapsulation priority
+  shell: "/usr/share/contrail-utils/provision_encap.py  --api_server_ip {{ api_server_ip }}  \
+    --encap_priority {{ encap_priority }} --oper add \
+    {{ provision_cmd_keystone_args }}"
