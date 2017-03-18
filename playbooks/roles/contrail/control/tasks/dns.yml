@@ -13,6 +13,16 @@
     - restart contrail-dns systemd
   with_dict: "{{ dns_specific_configs.IFMAP }}"
 
+# If XMPP DNS Auth is enabled, configure target
+- name: Configure dns conf file if xmpp dns auth is enabled
+  ini_file: dest={{ dns_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  with_dict:
+      xmpp_dns_auth_enable: "{{ xmpp_dns_auth_enable }}"
+  notify:
+    - restart contrail-dns supervisord
+    - restart contrail-dns systemd
+  when: xmpp_dns_auth_enable == true
+
 - name: Configure rndc key for named
   lineinfile: dest="{{ item }}" line="    secret {{ rndc_key }};" regexp="^[\s\t]+secret " state=present backrefs=yes
   notify:
