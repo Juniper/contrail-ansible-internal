@@ -7,9 +7,6 @@
   apt: name={{ item }} state=latest force=yes
   with_items: "{{ agent_packages }}"
 
-- name: Install contrail cni packages that are required for kubernetes/mesos
-  apt: name="{{ contrail_cni_packages }}" state=present
-
 # This is a workaround on issue https://github.com/Juniper/contrail-docker/issues/82
 - name: Remove supervisor-vrouter from /etc/sensitive_servies (WA for issue contrail-docker/82)
   lineinfile: dest=/etc/sensitive_services line=supervisor-vrouter state=absent
