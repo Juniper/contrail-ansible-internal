@@ -4,7 +4,7 @@
 # /etc/cni/    of host to /host/etc_cni
 #
 - name: Install contrail cni files to host by copying them
-  copy: src=/usr/bin/contrail-kube-cni dest=/host/opt_cni_bin/ mode=0755
+  copy: src=contrail-kube-cni dest=/host/opt_cni_bin/ mode=0755
 
 - name: Make sure cni directories exist
   file: path="/host/etc_cni/net.d" state=directory recurse=true
