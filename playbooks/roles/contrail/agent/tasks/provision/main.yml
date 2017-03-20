@@ -10,9 +10,3 @@
 
 - name: Include cloud_orchestrator specific code to provision analyticsdb
   include: "{{ provision_auth }}.yml"
-
-# Configure XMPP Auth enable status
-- name: Configure vrouter agent conf file if xmpp is enabled
-  ini_file: dest={{ vrouter_agent_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  with_dict:
-      xmpp_auth_enable: "{{ xmpp_auth_enable }}"
