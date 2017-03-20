@@ -22,6 +22,7 @@
     log_local: "{{ log_local }}"
     collectors: "{{ analytics_collectors_with_port }}"
     physical_interface_mac: "{{ vrouter_physical_interface_mac_address }}"
+    xmpp_auth_enable: "{{ xmpp_auth_enable }}"
 
 - name: Configure CONTROL-NODE section of contrail-vrouter-agent.conf
   ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option=servers value="{{ control_servers_with_xmpp_port }}"  create=yes

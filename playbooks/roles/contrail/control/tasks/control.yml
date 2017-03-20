@@ -12,3 +12,12 @@
     - restart control supervisord
     - restart control systemd
   with_dict: "{{ control_specific_configs.IFMAP }}"
+
+# If XMPP Auth is enabled, configure target
+- name: Configure control conf file if xmpp is enabled
+  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
+  with_dict:
+      xmpp_auth_enable: "{{ xmpp_auth_enable }}"
+  notify:
+    - restart control supervisord
+    - restart control systemd
