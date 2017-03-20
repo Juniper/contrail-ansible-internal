@@ -21,4 +21,3 @@
   notify:
     - restart control supervisord
     - restart control systemd
-  when: xmpp_auth_enable == true

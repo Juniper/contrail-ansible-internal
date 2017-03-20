@@ -21,7 +21,6 @@
   notify:
     - restart contrail-dns supervisord
     - restart contrail-dns systemd
-  when: xmpp_dns_auth_enable == true
 
 - name: Configure rndc key for named
   lineinfile: dest="{{ item }}" line="    secret {{ rndc_key }};" regexp="^[\s\t]+secret " state=present backrefs=yes

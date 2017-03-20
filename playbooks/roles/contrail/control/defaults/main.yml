@@ -30,6 +30,3 @@ bgp_asn: 64512
 external_routers_list: {}
 enable_control_service: true
 supervisor_control_ready: false
-
-xmpp_auth_enable: false
-xmpp_dns_auth_enable: false
