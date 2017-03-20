@@ -1,44 +1,31 @@
 ---
-- name: configure /etc/contrail/contrail-collector.conf DEFAULT section
-  ini_file: dest={{ analytics_collector_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure contrail-collector.conf
+  ini_file:
+    dest: "{{ analytics_collector_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
+      zookeeper_server_list: "{{ zk_servers_with_port }}"
+      kafka_broker_list: "{{ kafka_brokers_with_port }}"
+      hostip: "{{ my_analytics_ip }}"
+      log_file: "{{ analytics_collector_log }}"
+      log_level: "{{ analytics_collector_log_level }}"
+      log_local: "{{ log_local }}"
+      partitions: "{{ anlaytics_uve_partition_count }}"
+      http_server_port: "{{ analytics_collector_introspect_port }}"
+      syslog_port: "{{ analytics_collector_syslog_port }}"
+    REDIS:
+      port: "{{ analytics_redis_port }}"
+      server: "{{ analytics_redis_ip }}"
+    COLLECTOR:
+      port: "{{ analytics_collector_listen_port }}"
+      server: "{{ analytics_collector_listen_address }}"
+    API_SERVER:
+      api_server_list: "{{ api_servers_with_port }}"
   notify:
     - restart analytics collector supervisord
     - restart analytics collector systemd
-  with_dict:
-    cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
-    zookeeper_server_list: "{{ zk_servers_with_port }}"
-    kafka_broker_list: "{{ kafka_brokers_with_port }}"
-    hostip: "{{ my_analytics_ip }}"
-    log_file: "{{ analytics_collector_log }}"
-    log_level: "{{ analytics_collector_log_level }}"
-    log_local: "{{ log_local }}"
-    partitions: "{{ anlaytics_uve_partition_count }}"
-    http_server_port: "{{ analytics_collector_introspect_port }}"
-    syslog_port: "{{ analytics_collector_syslog_port }}"
-
-
-- name: configure /etc/contrail/contrail-collector.conf REDIS section
-  ini_file: dest={{ analytics_collector_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart analytics collector supervisord
-    - restart analytics collector systemd
-  with_dict:
-    port: "{{ analytics_redis_port }}"
-    server: "{{ analytics_redis_ip }}"
-
-- name: configure /etc/contrail/contrail-collector.conf COLLECTOR section
-  ini_file: dest={{ analytics_collector_conf }} section=COLLECTOR option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart analytics collector supervisord
-    - restart analytics collector systemd
-  with_dict:
-    port: "{{ analytics_collector_listen_port }}"
-    server: "{{ analytics_collector_listen_address }}"
-
-- name: configure /etc/contrail/contrail-collector.conf API_SERVER section
-  ini_file: dest={{ analytics_collector_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart analytics collector supervisord
-    - restart analytics collector systemd
-  with_dict:
-    api_server_list: "{{ api_servers_with_port }}"
