@@ -1,40 +1,34 @@
 ---
-- name: Configure KUBERNETES section of contrail-kubernetes.conf
-  ini_file: dest={{ kube_manager_conf }} section=KUBERNETES option={{ item.key }} value={{ item.value }}  create=yes
-  with_dict:
-    kubernetes_api_server: "{{ kubernetes_api_server }}"
-    kubernetes_api_port: "{{ kubernetes_api_port }}"
-    kubernetes_api_secure_ip: "{{ config_ip }}"
-    kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
-    service_subnets: "{{ service_subnets }}"
-    pod_subnets: "{{ pod_subnets }}"
-    cluster_project: "{{ cluster_project }}"
-    cluster_name: "{{ cluster_name }}"
-  notify:
-    - restart kube-manager supervisord
-    - restart kube-manager systemd
-
-- name: Configure VNC Section of contrail-kubernetes.conf
-  ini_file: dest={{ kube_manager_conf }} section=VNC option={{ item.key }} value={{ item.value }}  create=yes
-  with_dict:
-    vnc_endpoint_ip: "{{ api_server_ip }}"
-    vnc_endpoint_port: "{{ api_server_port }}"
-    rabbit_server: "{{ rabbitmq_servers_with_port }}"
-    cassandra_server_list: "{{ configdb_servers_with_port }}"
-    admin_user: "{{ admin_user }}"
-    admin_password: "{{ admin_password }}"
-    admin_tenant: "{{ admin_tenant }}"
-  notify:
-    - restart kube-manager supervisord
-    - restart kube-manager systemd
-
-- name: Configure DEFAULTS Section of contrail-kubernetes.conf
-  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
-  with_dict:
-    log_local: "{{ log_local }}"
-    log_level: "{{ kube_manager_log_level }}"
-    log_file: "{{ kube_manager_log_file }}"
-    orchestrator: "{{ cloud_orchestrator }}"
+- name: Configure contrail-kubernetes.conf
+  ini_file:
+    dest: "{{ kube_manager_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      log_local: "{{ log_local }}"
+      log_level: "{{ kube_manager_log_level }}"
+      log_file: "{{ kube_manager_log_file }}"
+      orchestrator: "{{ cloud_orchestrator }}"
+    KUBERNETES:
+      kubernetes_api_server: "{{ kubernetes_api_server }}"
+      kubernetes_api_port: "{{ kubernetes_api_port }}"
+      kubernetes_api_secure_ip: "{{ config_ip }}"
+      kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
+      service_subnets: "{{ service_subnets }}"
+      pod_subnets: "{{ pod_subnets }}"
+      cluster_project: "{{ cluster_project }}"
+      cluster_name: "{{ cluster_name }}"
+    VNC:
+      vnc_endpoint_ip: "{{ api_server_ip }}"
+      vnc_endpoint_port: "{{ api_server_port }}"
+      rabbit_server: "{{ rabbitmq_servers_with_port }}"
+      cassandra_server_list: "{{ configdb_servers_with_port }}"
+      admin_user: "{{ admin_user }}"
+      admin_password: "{{ admin_password }}"
+      admin_tenant: "{{ admin_tenant }}"
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
