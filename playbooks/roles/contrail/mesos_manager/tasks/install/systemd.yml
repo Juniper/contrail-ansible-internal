@@ -8,5 +8,3 @@
 - name: Copy systemd file for mesos-manager to systemd unit file location
   copy: src=systemd/contrail-mesos-manager.service dest=/etc/systemd/system/contrail-mesos-manager.service
 
-- name: Enable mesos-manager.service
-  file: src=/etc/systemd/system/contrail-mesos-manager.service dest=/etc/systemd/system/multi-user.target.wants/contrail-mesos-manager.service state=link
