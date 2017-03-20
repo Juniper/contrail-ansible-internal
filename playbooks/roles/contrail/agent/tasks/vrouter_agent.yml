@@ -1,50 +1,34 @@
 ---
-- name: Configure VIRTUAL-HOST-INTERFACE section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=VIRTUAL-HOST-INTERFACE option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure contrail-vrouter-agent.conf
+  ini_file:
+    dest: "{{ vrouter_agent_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      platform: "{{ vrouter_platform }}"
+      log_file: "{{ vrouter_agent_log }}"
+      log_level: "{{ vrouter_agent_log_level }}"
+      log_local: "{{ log_local }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+      physical_interface_mac: "{{ vrouter_physical_interface_mac_address }}"
+      xmpp_auth_enable: "{{ xmpp_auth_enable }}"
+    CONTROL-NODE:
+      servers: "{{ control_servers_with_xmpp_port }}"
+    DNS:
+      servers: "{{ control_servers_with_dns_port }}"
+    VIRTUAL-HOST-INTERFACE:
+      name: "{{ vhost_interface }}"
+      ip: "{{ vhost_address_with_prefix }}"
+      gateway: "{{ vhost_gateway }}"
+      physical_interface: "{{ vrouter_physical_interface }}"
+    NETWORKS:
+      control_network_ip: "{{ vhost_address }}"
   notify:
     - restart vrouter-agent supervisord
     - restart vrouter-agent systemd
-  with_dict:
-    name: "{{ vhost_interface }}"
-    ip: "{{ vhost_address_with_prefix }}"
-    gateway: "{{ vhost_gateway }}"
-    physical_interface: "{{ vrouter_physical_interface }}"
-
-- name: Configure DEFAULT section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify:
-    - restart vrouter-agent supervisord
-    - restart vrouter-agent systemd
-  with_dict:
-    platform: "{{ vrouter_platform }}"
-    log_file: "{{ vrouter_agent_log }}"
-    log_level: "{{ vrouter_agent_log_level }}"
-    log_local: "{{ log_local }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-    physical_interface_mac: "{{ vrouter_physical_interface_mac_address }}"
-    xmpp_auth_enable: "{{ xmpp_auth_enable }}"
-
-- name: Configure CONTROL-NODE section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=CONTROL-NODE option=servers value="{{ control_servers_with_xmpp_port }}"  create=yes
-  notify:
-    - restart vrouter-agent supervisord
-    - restart vrouter-agent systemd
-
-- name: Configure DNS section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=DNS option=servers value="{{ control_servers_with_dns_port }}"  create=yes
-  notify:
-    - restart vrouter-agent supervisord
-    - restart vrouter-agent systemd
-
-
-- name: Configure NETWORKS section of contrail-vrouter-agent.conf
-  ini_file: dest={{ vrouter_agent_conf }} section=NETWORKS option={{ item.key }} value={{ item.value }}  create=yes
-  notify:
-    - restart vrouter-agent supervisord
-    - restart vrouter-agent systemd
-  with_dict:
-    control_network_ip: "{{ vhost_address }}"
-
 
 - name: Configure /etc/contrail/agent_param
   template: src=agent_param.j2 dest=/etc/contrail/agent_param
