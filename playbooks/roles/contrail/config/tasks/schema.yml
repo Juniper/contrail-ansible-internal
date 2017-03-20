@@ -1,17 +1,23 @@
 ---
-- name: configure schema DEFAULTS section
-  ini_file: dest={{ schema_conf }} section=DEFAULTS option="{{ item.key }}" value="{{ item.value }}" create=yes
+- name: configure contrail-schema.conf
+  ini_file:
+    dest: "{{ schema_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      log_file: "{{ schema_log }}"
+      log_local: 1
+      log_level: "{{ schema_log_level }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+      cassandra_server_list: "{{ configdb_servers_with_port }}"
+      api_server_ip: "{{ api_server_ip }}"
+      api_server_port: "{{ api_server_port }}"
+      api_server_use_ssl: "{{ api_server_use_ssl }}"
+      zk_server_ip: "{{ zk_servers_with_port }}"
+      rabbit_server: "{{ rabbitmq_servers_with_port }}"
   notify:
     - restart schema supervisord
     - restart schema systemd
-  with_dict:
-    log_file: "{{ schema_log }}"
-    log_local: 1
-    log_level: "{{ schema_log_level }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-    cassandra_server_list: "{{ configdb_servers_with_port }}"
-    api_server_ip: "{{ api_server_ip }}"
-    api_server_port: "{{ api_server_port }}"
-    api_server_use_ssl: "{{ api_server_use_ssl }}"
-    zk_server_ip: "{{ zk_servers_with_port }}"
-    rabbit_server: "{{ rabbitmq_servers_with_port }}"
