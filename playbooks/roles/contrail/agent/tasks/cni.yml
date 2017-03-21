@@ -5,6 +5,7 @@
 #
 - name: Install contrail cni files to host by copying them
   copy: src=contrail-kube-cni dest=/host/opt_cni_bin/ mode=0755
+  when: cloud_orchestrator in ['kubernetes']
 
 - name: Make sure cni directories exist
   file: path="/host/etc_cni/net.d" state=directory recurse=true
