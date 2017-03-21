@@ -1,0 +1,6 @@
+- name: ISSU contrail post sync
+  command: "{{ item }}"
+  with_items:
+
+   #This should happen on all cfgm nodes.
+   - /opt/contrail/utils/issu_process.sh issu_contrail_post_new_control_node

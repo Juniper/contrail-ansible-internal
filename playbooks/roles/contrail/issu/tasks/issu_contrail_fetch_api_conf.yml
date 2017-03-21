@@ -1,0 +1,5 @@
+- name: ISSU contrail fetch api config 
+  command: "{{ item }}"
+  with_items:
+
+   - cp /etc/contrail/contrail-api.conf /etc/contrailctl/ 

@@ -1,0 +1,12 @@
+---
+- name: "Contrail ISSU"
+  hosts: localhost
+
+  pre_tasks:
+    - include_vars: contrail_controller.yml
+      tags: always
+
+  roles:
+
+    - role: contrail/issu
+      tags: [contrail.issu]

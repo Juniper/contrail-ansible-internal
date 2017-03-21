@@ -1,0 +1,24 @@
+---
+- name: Collect local controller server ip from the list
+  shell: echo issu
+
+- include: issu_contrail_migrate_config.yml
+  tags: migrate_config
+
+- include: issu_contrail_finalize.yml
+  tags: finalize
+
+- include: issu_contrail_post.yml
+  tags: post
+
+- include: issu_contrail_pre.yml
+  tags: prepare
+
+- include: issu_contrail_set_conf.yml
+  tags: set_conf
+
+- include: issu_contrail_fetch_api_conf.yml
+  tags: fetch_api_conf
+
+- include: issu_contrail_peer_control_nodes.yml
+  tags: peer_control_nodes

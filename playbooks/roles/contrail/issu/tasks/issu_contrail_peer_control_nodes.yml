@@ -1,0 +1,4 @@
+- name: ISSU contrail peer control nodes 
+  command: "{{ item }}"
+  with_items:
+   - /opt/contrail/utils/issu_process.sh issu_contrail_peer_control_nodes

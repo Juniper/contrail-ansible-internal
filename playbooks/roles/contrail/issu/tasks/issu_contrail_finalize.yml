@@ -1,0 +1,7 @@
+- name: ISSU contrail finalize config sync
+  command: "{{ item }}"
+  with_items:
+   #Post sync to happen only on the first cfgm node.
+   - /opt/contrail/utils/issu_process.sh issu_post_sync
+   - /opt/contrail/utils/issu_process.sh issu_contrail_finalize_config
+

@@ -1,0 +1,5 @@
+- name: ISSU contrail set issu config 
+  command: "{{ item }}"
+  with_items:
+
+   - cp /etc/contrailctl/contrail-issu.conf /etc/contrail/contrail-issu.conf 
