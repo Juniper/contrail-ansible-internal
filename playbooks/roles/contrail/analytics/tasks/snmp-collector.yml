@@ -18,6 +18,7 @@
       collectors: "{{ analytics_collectors_with_port }}"
     API_SERVER:
       api_server_list: "{{ api_servers_with_port }}"
+      api_server_use_ssl: "{{ api_server_use_ssl }}"
   notify:
     - restart snmp-collector supervisord
     - restart snmp-collector systemd

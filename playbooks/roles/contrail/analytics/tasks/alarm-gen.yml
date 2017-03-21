@@ -24,6 +24,7 @@
       redis_server_port: "{{ analytics_redis_port }}"
     API_SERVER:
       api_server_list: "{{ api_servers_with_port }}"
+      api_server_use_ssl: "{{ api_server_use_ssl }}"
   notify:
     - restart alarm-gen supervisord
     - restart alarm-gen systemd
