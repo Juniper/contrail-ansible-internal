@@ -1,27 +1,27 @@
 ---
-- name: configure svc-monitor DEFAULTS section
-  ini_file: dest={{ svc_monitor_conf }} section=DEFAULTS option="{{ item.key }}" value="{{ item.value }}"  create=yes
+- name: configure contrail-svc-monitor.conf
+  ini_file:
+    dest: "{{ svc_monitor_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      cassandra_server_list: "{{ configdb_servers_with_port }}"
+      api_server_ip: "{{ api_server_ip }}"
+      api_server_port: "{{ api_server_port }}"
+      api_server_use_ssl: "{{ api_server_use_ssl }}"
+      log_file: "{{ svc_monitor_log }}"
+      log_local: 1
+      log_level: "{{ svc_monitor_log_level }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+      zk_server_ip: "{{ zk_servers_with_port }}"
+      rabbit_server: "{{ rabbitmq_servers_with_port }}"
+      region_name: "{{ region }}"
+    SCHEDULER:
+      analytics_server_list: "{{ analytics_api_servers_with_port }}"
+      aaa_mode: "{{ analytics_aaa_mode_orig }}"
   notify:
     - restart svc-monitor supervisord
     - restart svc-monitor systemd
-  with_dict:
-    cassandra_server_list: "{{ configdb_servers_with_port }}"
-    api_server_ip: "{{ api_server_ip }}"
-    api_server_port: "{{ api_server_port }}"
-    api_server_use_ssl: "{{ api_server_use_ssl }}"
-    log_file: "{{ svc_monitor_log }}"
-    log_local: 1
-    log_level: "{{ svc_monitor_log_level }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-    zk_server_ip: "{{ zk_servers_with_port }}"
-    rabbit_server: "{{ rabbitmq_servers_with_port }}"
-    region_name: "{{ region }}"
-
-- name: configure svc-monitor SCHEDULER section
-  ini_file: dest={{ svc_monitor_conf }} section=SCHEDULER option="{{ item.key }}" value="{{ item.value }}"  create=yes
-  notify:
-    - restart svc-monitor supervisord
-    - restart svc-monitor systemd
-  with_dict:
-    analytics_server_list: "{{ analytics_api_servers_with_port }}"
-    aaa_mode: "{{ analytics_aaa_mode_orig }}"

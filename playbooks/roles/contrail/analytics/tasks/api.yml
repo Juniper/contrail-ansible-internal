@@ -1,29 +1,29 @@
 ---
-- name: configure /etc/contrail/contrail-analytics-api.conf DEFAULTS section
-  ini_file: dest={{ analytics_api_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure contrail-analytics-api.conf
+  ini_file:
+    dest: "{{ analytics_api_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      host_ip: "{{ my_analytics_ip }}"
+      log_file: "{{ analytics_api_log }}"
+      log_level: "{{ analytics_api_log_level }}"
+      log_local: "{{ log_local }}"
+      cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
+      partitions: "{{ anlaytics_uve_partition_count }}"
+      api_server: "{{ api_server_ip }}:{{ api_server_port }}"
+      http_server_port: "{{ analytics_api_introspect_port }}"
+      rest_api_port: "{{ analytics_api_listen_port }}"
+      rest_api_ip: "{{ analytics_api_listen_address }}"
+      aaa_mode: "{{ analytics_aaa_mode_orig }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+      zk_list: "{{ zk_servers_with_port_space_delim }}"
+    REDIS:
+      redis_uve_list: "{{ analytics_redis_servers_with_port }}"
+      redis_query_port: "{{ analytics_redis_port }}"
   notify:
     - restart analytics-api supervisord
     - restart analytics-api systemd
-  with_dict:
-    host_ip: "{{ my_analytics_ip }}"
-    log_file: "{{ analytics_api_log }}"
-    log_level: "{{ analytics_api_log_level }}"
-    log_local: "{{ log_local }}"
-    cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
-    partitions: "{{ anlaytics_uve_partition_count }}"
-    api_server: "{{ api_server_ip }}:{{ api_server_port }}"
-    http_server_port: "{{ analytics_api_introspect_port }}"
-    rest_api_port: "{{ analytics_api_listen_port }}"
-    rest_api_ip: "{{ analytics_api_listen_address }}"
-    aaa_mode: "{{ analytics_aaa_mode_orig }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-    zk_list: "{{ zk_servers_with_port_space_delim }}"
-
-- name: configure /etc/contrail/contrail-analytics-api.conf REDIS section
-  ini_file: dest={{ analytics_api_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart analytics-api supervisord
-    - restart analytics-api systemd
-  with_dict:
-    redis_uve_list: "{{ analytics_redis_servers_with_port }}"
-    redis_query_port: "{{ analytics_redis_port }}"

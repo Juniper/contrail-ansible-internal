@@ -1,35 +1,29 @@
 ---
-- name: configure /etc/contrail/contrail-alarm-gen.conf DEFAULTS section
-  ini_file: dest={{ alarmgen_conf }} section=DEFAULTS option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure contrail-alarm-gen.conf
+  ini_file:
+    dest: "{{ alarmgen_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      host_ip: "{{ my_analytics_ip }}"
+      log_file: "{{ alarmgen_log }}"
+      log_level: "{{ alarmgen_log_level }}"
+      log_local: "{{ log_local }}"
+      kafka_broker_list: "{{ kafka_brokers_with_port }}"
+      zk_list: "{{ zk_servers_with_port_space_delim }}"
+      partitions: "{{ anlaytics_uve_partition_count }}"
+      rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
+      rabbitmq_port: "{{ rabbitmq_port }}"
+      http_server_port: "{{ alarmgen_introspect_port }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+    REDIS:
+      redis_uve_list: "{{ analytics_redis_servers_with_port }}"
+      redis_server_port: "{{ analytics_redis_port }}"
+    API_SERVER:
+      api_server_list: "{{ api_servers_with_port }}"
   notify:
     - restart alarm-gen supervisord
     - restart alarm-gen systemd
-  with_dict:
-    host_ip: "{{ my_analytics_ip }}"
-    log_file: "{{ alarmgen_log }}"
-    log_level: "{{ alarmgen_log_level }}"
-    log_local: "{{ log_local }}"
-    kafka_broker_list: "{{ kafka_brokers_with_port }}"
-    zk_list: "{{ zk_servers_with_port_space_delim }}"
-    partitions: "{{ anlaytics_uve_partition_count }}"
-    rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
-    rabbitmq_port: "{{ rabbitmq_port }}"
-    http_server_port: "{{ alarmgen_introspect_port }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-
-- name: configure /etc/contrail/contrail-alarm-gen.conf REDIS section
-  ini_file: dest={{ alarmgen_conf }} section=REDIS option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart alarm-gen supervisord
-    - restart alarm-gen systemd
-  with_dict:
-    redis_uve_list: "{{ analytics_redis_servers_with_port }}"
-    redis_server_port: "{{ analytics_redis_port }}"
-
-- name: configure /etc/contrail/contrail-alarm-gen.conf API_SERVER section
-  ini_file: dest={{ alarmgen_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart alarm-gen supervisord
-    - restart alarm-gen systemd
-  with_dict:
-    api_server_list: "{{ api_servers_with_port }}"

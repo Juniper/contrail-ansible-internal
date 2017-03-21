@@ -1,21 +1,21 @@
 ---
-- name: configure /etc/contrail/contrail-topology.conf DEFAULT section
-  ini_file: dest={{ analytics_topology_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
+- name: Configure contrail-topology.conf
+  ini_file:
+    dest: "{{ analytics_topology_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      zookeeper: "{{ zk_servers_with_port }}"
+      log_file: "{{ analytics_topology_log }}"
+      log_level: "{{ analytics_topology_log_level }}"
+      log_local: "{{ log_local }}"
+      http_server_port: "{{ analytics_topology_introspect_port }}"
+      collectors: "{{ analytics_collectors_with_port }}"
+    API_SERVER:
+      api_server_list: "{{ api_servers_with_port }}"
   notify:
     - restart topology supervisord
     - restart topology systemd
-  with_dict:
-    zookeeper: "{{ zk_servers_with_port }}"
-    log_file: "{{ analytics_topology_log }}"
-    log_level: "{{ analytics_topology_log_level }}"
-    log_local: "{{ log_local }}"
-    http_server_port: "{{ analytics_topology_introspect_port }}"
-    collectors: "{{ analytics_collectors_with_port }}"
-
-- name: configure /etc/contrail/contrail-topology.conf API_SERVER section
-  ini_file: dest={{ analytics_topology_conf }} section=API_SERVER option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart topology supervisord
-    - restart topology systemd
-  with_dict:
-    api_server_list: "{{ api_servers_with_port }}"

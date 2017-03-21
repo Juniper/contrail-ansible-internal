@@ -1,23 +1,33 @@
 ---
-- name: configure contrail-control set all entries in DEFAULT section
-  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}  create=yes
-  notify:
-    - restart control supervisord
-    - restart control systemd
-  with_dict: "{{ control_infra_configs|combine(control_specific_configs.DEFAULT) }}"
-
-- name: configure contrail-control set entries in IFMAP section
-  ini_file: dest={{ control_conf }} section=IFMAP option={{ item.key }} value={{ item.value }}
-  notify:
-    - restart control supervisord
-    - restart control systemd
-  with_dict: "{{ control_specific_configs.IFMAP }}"
-
-# If XMPP Auth is enabled, configure target
-- name: Configure control conf file if xmpp is enabled
-  ini_file: dest={{ control_conf }} section=DEFAULT option={{ item.key }} value={{ item.value }}
-  with_dict:
+- name: Configure contrail-control.conf
+  ini_file:
+    dest: "{{ control_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      log_local: "{{ log_local }}"
+      hostip: "{{ my_controller_ip }}"
+      hostname: "{{ ansible_hostname }}"
+      log_file: "{{ control_log }}"
+      log_level: "{{ control_log_level }}"
+      http_server_port: "{{ control_introspect_port }}"
+      xmpp_server_port: "{{ xmpp_server_port }}"
+      bgp_port: "{{ bgp_port }}"
+      collectors: "{{ analytics_collectors_with_port}}"
+      #XMPP auth enabled or not
       xmpp_auth_enable: "{{ xmpp_auth_enable }}"
+    IFMAP:
+      # AMQP related configs
+      rabbitmq_server_list: "{{ rabbitmq_servers_with_port_space_delim }}"
+      rabbitmq_user: "{{ rabbitmq_user }}"
+      rabbitmq_password: "{{ rabbitmq_password }}"
+      rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+      # Config db configs
+      config_db_server_list: "{{ configdb_servers_with_cql_port }}"
+
   notify:
     - restart control supervisord
     - restart control systemd
