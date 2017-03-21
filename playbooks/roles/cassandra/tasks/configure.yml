@@ -28,3 +28,17 @@
 - name: Install log4j config file
   template: src=log4j-server.properties.j2 dest={{ cassandra_conf_dir }}/log4j-server.properties
   notify: restart cassandra
+
+- meta: flush_handlers
+
+# previous cassandra restart just fail with some nullpointer exception
+# Another restart after waiting some time fix that (without wait,
+# it was failing again). Even though it fail, systemd take it as normal
+# exit and thus service cassandra start doesnt work and that in service.yml
+# is not fixing it. So it needed a restart itself.
+# Below two tasks are workaround for above mentioned issue
+- pause: seconds=20
+
+- name: restart cassandra
+  service: name={{ cassandra_service_name }} state=restarted
+  when: listen_address_changed.rc != 0

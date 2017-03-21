@@ -10,4 +10,4 @@
 
 - name: Generate a default encapsulation priority
   shell: "/usr/share/contrail-utils/provision_encap.py  --api_server_ip {{ api_server_ip }}  \
-    --encap_priority {{ encap_priority }} --oper add
+    --encap_priority {{ encap_priority }} --oper add"

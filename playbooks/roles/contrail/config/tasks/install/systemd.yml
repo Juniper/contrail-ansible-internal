@@ -6,9 +6,18 @@
   replace: name=/etc/systemd/system/contrail-ansible.service regexp=/usr/local/bin/contrailctl replace=/usr/bin/contrailctl
   when: ansible_os_family == 'RedHat'
 
+# This is workaround till we have contrail-config package install right
+# service file - currently the service file for contrail-api hardcode
+# listen_port which break ansible logic
+- name: Copy systemd file for contrail-api to systemd unit file location
+  copy: src=systemd/contrail-api.service dest=/etc/systemd/system/contrail-api.service
+
 # Rest of the services will be enabled by contrail-ansible
 - name: Enable contrail-ansible.service
   file: src=/etc/systemd/system/contrail-ansible.service dest=/etc/systemd/system/multi-user.target.wants/contrail-ansible.service state=link
+
+- name: Enable contrail-api.service
+  file: src=/etc/systemd/system/contrail-api.service dest=/etc/systemd/system/multi-user.target.wants/contrail-api.service state=link
 
 # This task is to avoid below error while enabling the service
 # update-rc.d: error: kafka Default-Start contains no runlevels, aborting.
