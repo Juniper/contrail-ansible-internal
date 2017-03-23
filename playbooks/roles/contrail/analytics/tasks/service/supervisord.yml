@@ -6,7 +6,7 @@
   when: ansible_os_family == 'RedHat'
 
 - name: Make sure alarmgen service is up
-  supervisorctl: name="contrail-alarm-gen:0" state=started config=/etc/contrail/supervisord_analytics.conf
+  supervisorctl: name="contrail-alarm-gen" state=started config=/etc/contrail/supervisord_analytics.conf
   tags: [service, contrail.alarmgen.service, contrail.analytics.service]
   when: supervisor_analytics_ready
 

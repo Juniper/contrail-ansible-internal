@@ -11,7 +11,3 @@
   tags: [always]
   when: contrail_service_mgr == 'supervisord'
 
-- name: Setting fact to override contrail-api listen port(api_listen_port) based on the topology(HA/single node cluster).
-  set_fact: api_listen_port=9100
-  # Override only in a HA setup with internal LB, provided the port is not already changed by user input.
-  when: config_server_list|length > 1 and external_lb is not defined and api_server_port == 8082
