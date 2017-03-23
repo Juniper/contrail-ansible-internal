@@ -8,3 +8,11 @@
 
 - include: facts.yml
   tags: always
+
+- name: Disable ansible deprecation warnings within containers
+  ini_file:
+    dest: "/etc/ansible/ansible.cfg"
+    section: defaults
+    option: deprecation_warnings
+    value: false
+  tags: [install]
