@@ -5,6 +5,11 @@
   notify:
     - Restart zookeeper
 
+- name: Make a symlink for myid file within zookeeper data directory
+  file: dest="{{ data_dir }}/myid" src="{{ zookeeper_cfg_dir }}/myid" state=link
+  notify:
+    - Restart zookeeper
+
 - name: Overwrite default config file
   template: src=zoo.cfg.j2 dest={{ zookeeper_cfg_dir }}/zoo.cfg
   tags: deploy
