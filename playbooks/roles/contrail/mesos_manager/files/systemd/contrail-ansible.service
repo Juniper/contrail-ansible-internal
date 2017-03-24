@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/local/bin/contrailctl config sync -c mesosmanager -F -t configure,service
+ExecStart=/usr/local/bin/contrailctl config sync -c mesosmanager -F -v -t configure,service
 TimeoutStartSec=0
 MountFlags=slave
 
