@@ -1,0 +1,10 @@
+---
+# hosts_entries should be a dict like {name1: 1.1.1.1, name2: 1.1.1.2}
+# final dictionary will combine both hosts_entry_localhost and hosts_entries
+# In multi-controller systems, all hosts in the cluster should be reachable
+# using its own hostname which is requirement for rabbitmq, so for that /etc/hosts
+# entries are required, unless there is an external dns infrastructure to support it
+# Alternatively one can write /etc/hosts entries on the host before starting
+# the container, in which case container will take those entries.
+hosts_entry_localhost: { "{{ ansible_hostname }}": "127.0.0.1" }
+hosts_entries: {}

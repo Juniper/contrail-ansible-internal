@@ -16,3 +16,11 @@
     option: deprecation_warnings
     value: false
   tags: [install]
+
+# Write /etc/hosts file if passed any hosts_entries
+# hosts_entries should be a dict like {name1: 1.1.1.1, name2: 1.1.1.2}
+- name: update hosts file
+  lineinfile: dest=/etc/hosts regexp="^{{ item.value }}[\s\t]+{{ item.key }}$" state=present
+    line="{{ item.value }}  {{ item.key }}" unsafe_writes=yes
+  with_dict: "{{ hosts_entry_localhost |combine(hosts_entries) }}"
+  tags: [install, configure]
