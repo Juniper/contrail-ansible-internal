@@ -1,5 +1,5 @@
 ---
-- include: install.yml
+- include: install/main.yml
   tags: [contrail.lb.install, contrail.haproxy.install, install]
 
 - name: Add custom bash prompt
@@ -10,6 +10,11 @@
 
 - include_role: name=contrail/common tasks_from=cleanup
   tags: [contrail.lb.install, contrail.haproxy.install, install]
+
+- name: Include contrail service manager specific code
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
+  tags: [install, contrail.lb.install]
 
 - include: configure.yml
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
