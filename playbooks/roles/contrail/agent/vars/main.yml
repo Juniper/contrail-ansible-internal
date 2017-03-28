@@ -1,0 +1,29 @@
+---
+# Try to detect vrouter physical interface
+vrouter_physical_interface_orig: >-
+  {#- If vrouter_physical_interface is passed use it -#}
+  {%- if vrouter_physical_interface is defined -%}{{ vrouter_physical_interface }}
+  {#- If vrouter_physical_interface_detected is passed use it (this will be written back to contrailctl once auto detect)-#}
+  {%- elif vrouter_physical_interface_detected is defined -%}{{ vrouter_physical_interface_detected }}
+  {%- else -%}
+    {#- if vhost0  is up, there is no way you can detect vrouter physical interface-#}
+    {%- if vhost_interface in ansible_interfaces -%}no_physical_interface_vars_n_vhost_exists
+    {%- else -%}
+      {#- set interface of ctrl_data_network if passed -#}
+      {%- if ctrl_data_ip is defined -%}
+        {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface].get('ipv4',{}).get('address', None) == ctrl_data_ip -%}
+          {{ iface }}{%- endfor -%}
+      {%- elif ctrl_data_network is defined -%}
+        {%- set ip_in_ctrl_data_network = ansible_all_ipv4_addresses | ipaddr( ctrl_data_network ) -%}
+        {%- if ip_in_ctrl_data_network | count == 1 -%}
+          {#- Iterate all interfaces on the host and findout the interface that have the IP address-#}
+          {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface].get('ipv4',{}).get('address', None) == ip_in_ctrl_data_network |first -%}
+            {{ iface }}{%- endfor -%}
+        {#- multiple IPs there found on the machine that are in ctrl_data_network -#}
+        {%- elif ip_in_ctrl_data_network | count > 1 -%}multiple_ips_found
+        {#- No ip found on host from the network ctrl_data_network-#}
+        {%- else -%}no_ctrl_data_network_ip{%- endif -%}
+      {#- set interface with default gateway -#}
+      {%- else -%}{{ ansible_default_ipv4.interface }}{%- endif -%}
+    {%- endif -%}
+  {%- endif -%}

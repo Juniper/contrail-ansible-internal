@@ -23,7 +23,7 @@
       name: "{{ vhost_interface }}"
       ip: "{{ vhost_address_with_prefix }}"
       gateway: "{{ vhost_gateway }}"
-      physical_interface: "{{ vrouter_physical_interface }}"
+      physical_interface: "{{ vrouter_physical_interface_orig }}"
     NETWORKS:
       control_network_ip: "{{ vhost_address }}"
   notify:
@@ -43,7 +43,7 @@
      executable: /bin/bash
 
 - name: Move ip address from vrouter physical device to vhost
-  shell: "ip address delete {{ vhost_address_with_prefix }} dev {{ vrouter_physical_interface }} && \
+  shell: "ip address delete {{ vhost_address_with_prefix }} dev {{ vrouter_physical_interface_orig }} && \
           ip address add {{ vhost_address_with_prefix }} dev {{ vhost_interface }} && \
           ip link set dev {{ vhost_interface }} up"
   register: vhost_ip_move
