@@ -2,6 +2,9 @@
 - name: register config node to config api server (noauth)
   shell: "/usr/share/contrail-utils/provision_config_node.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }} --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} --oper add"
 
+- name: register alarms to config api server (noauth)
+  shell: "/usr/share/contrail-utils/provision_alarm.py --api_server_ip {{ api_server_ip }} --api_server_port {{ api_server_port }}"
+
 # NOTE: Both configdb and analyticsdb may be registered seperately
 # There are possibilities that analyticsdb got registrered before configdb register, and there can be errors on registering, so ignore if any
 - name: register configdb node to config api server (noauth)
