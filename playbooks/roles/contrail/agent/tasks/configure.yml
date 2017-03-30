@@ -11,6 +11,15 @@
   tags: [always]
   when: contrail_service_mgr == 'supervisord'
 
+- name: Fail if vrouter_physical_interface params provided and vhost has taken over ip from physical interface
+  fail: msg="No vrouter_physical_interface or vrouter_physical_interface_detected found, and no way to detect \
+             physical interface, as vhost interface has taken over the IP address"
+  when: vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
+
+- name: Fail if ctrl_data_network is defined and no IP found from that network on host
+  fail: msg="No IP found on host from the ctrl_data_network({{ ctrl_data_network }}) network provided"
+  when: vrouter_physical_interface_orig == 'no_ctrl_data_network_ip'
+
 - name: Install vrouter module
   include: "install_module/{{ ansible_os_family }}/main.yml"
 
@@ -35,5 +44,14 @@
 - name: setup cni
   include: cni.yml
   when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
+
+# Write vrouter_physical_interface_detected back to contrailctl/agent.conf
+# This will only be written if vrouter_physical_interface is not passed from contrailctl,
+# And vrouter_physical_interface_detected is not already passed from contrailctl.
+- name: Write vrouter_physical_interface_detected back to contrailctl/agent.conf if required
+  ini_file: dest="/etc/contrailctl/agent.conf" section=AGENT
+            option=vrouter_physical_interface_detected
+            value="{{ vrouter_physical_interface_orig }}"
+  when: vrouter_physical_interface is not defined and vrouter_physical_interface_detected is not defined
 
 - meta: flush_handlers
