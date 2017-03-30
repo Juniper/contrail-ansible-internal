@@ -13,6 +13,8 @@ agent_packages:
   - rsync
   - curl
   - haproxy
+  - iptables
+  - tcpdump
 
 compile_vrouter_module: true
 reload_vrouter_module: false
