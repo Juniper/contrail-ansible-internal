@@ -97,6 +97,10 @@ keystone_auth_protocol: http
 keystone_admin_user: admin
 keystone_admin_password: admin
 keystone_admin_tenant: admin
+keystone_insecure: False
+keystone_certfile: /etc/contrailctl/ssl/server.pem
+keystone_keyfile: /etc/contrailctl/ssl/server-privkey.pem
+keystone_cafile: /etc/contrailctl/ssl/ca-cert.pem
 
 neutron_metadata_ip: "{{ keystone_ip }}"
 neutron_metadata_port: 8775
@@ -104,6 +108,9 @@ provision_cmd_keystone_args: " --admin_user {{ keystone_admin_user }} --admin_pa
 service_tenant_name: services
 # Vnc api client input file
 vncapi_conf: "/etc/contrail/vnc_api_lib.ini"
+
+# Keystone auth conf file
+keystone_auth_conf: "/etc/contrail/contrail-keystone-auth.conf"
 
 systemd_wants_files: []
 apt_update: true
@@ -122,3 +129,11 @@ ssl_certs_src_dir: "/etc/contrailctl/ssl"
 ssl_certs_dir: "/etc/contrail/ssl"
 # nested_mode is to define whether it is nested mode kubernetes setup or not
 nested_mode: false
+
+# ApiServer SSL defaults
+apiserver_auth_protocol: http
+apiserver_insecure: False
+apiserver_certfile: /etc/contrailctl/ssl/server.pem
+apiserver_keyfile: /etc/contrailctl/ssl/server-privkey.pem
+apiserver_cafile: /etc/contrailctl/ssl/ca-cert.pem
+apiserver_certbundle: /etc/contrailctl/ssl/apiservercertbundle.pem

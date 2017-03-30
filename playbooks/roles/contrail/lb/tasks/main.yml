@@ -18,3 +18,8 @@
 
 - include: configure.yml
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
+
+- name: Include apiserver certificate bundling specific code
+  include: ssl/apiserver.yml
+  tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
+  when: api_server_use_ssl == True

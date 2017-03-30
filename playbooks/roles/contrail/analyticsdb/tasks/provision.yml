@@ -8,6 +8,6 @@
   delay: 1
 
 - name: register analyticsdb to config api server (non-openstack)
-  shell: "/usr/share/contrail-utils/provision_database_node.py  --api_server_ip {{ api_server_ip }}  \
+  shell: "/usr/share/contrail-utils/provision_database_node.py  --api_server_ip {{ api_servers_with_space_delim }}  \
     --host_name {{ ansible_hostname }} --host_ip {{ my_analyticsdb_ip }} --oper add"
   ignore_errors: yes

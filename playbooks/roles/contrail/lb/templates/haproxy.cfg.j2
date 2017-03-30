@@ -45,12 +45,16 @@ frontend stats
     mode http
     stats enable
     stats uri /
-    {%  if haproxy_auth_user and haproxy_auth_password -%}
+{%  if haproxy_auth_user and haproxy_auth_password -%}
     stats auth {{ haproxy_auth_user }}:{{ haproxy_auth_password }}
-    {%- endif %}
+{%- endif %}
 
 frontend contrail-api
+{% if api_server_use_ssl == True %}
+    bind *:{{ contrail_api_frontend_port }} ssl crt {{ apiserver_certbundle }}
+{% else %}
     bind *:{{ contrail_api_frontend_port }}
+{% endif %}
     default_backend    contrail-api-backend
     timeout client 3m
 
@@ -58,9 +62,14 @@ backend contrail-api-backend
     option nolinger
     timeout server 3m
     balance roundrobin
-    {% for contrail_api_ip in contrail_api_server_list %}
+{% if api_server_use_ssl == True %}
+    option forwardfor
+    http-request set-header X-Forwarded-Port %[dst_port]
+    http-request add-header X-Forwarded-Proto https if { ssl_fc }
+{% endif %}
+{% for contrail_api_ip in contrail_api_server_list %}
     server {{ contrail_api_ip }} {{ contrail_api_ip }}:{{ contrail_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
-    {% endfor %}
+{% endfor %}
 
 frontend contrail-webui
     bind *:{{ contrail_webui_frontend_port }}
@@ -73,9 +82,9 @@ backend contrail-webui-backend
     cookie SERVERID insert indirect nocache
     timeout server 30000
     timeout connect 4000
-    {% for webui_ip in contrail_api_server_list %}
+{% for webui_ip in contrail_api_server_list %}
     server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} cookie {{ webui_ip }} weight 1 maxconn 1024 check port {{ contrail_api_backend_port }}
-    {% endfor %}
+{% endfor %}
 
 frontend contrail-analytics-api
     bind *:{{ contrail_analytics_api_frontend_port }}
@@ -84,6 +93,6 @@ frontend contrail-analytics-api
 backend contrail-analytics-api-backend
     option nolinger
     balance roundrobin
-    {% for analytics_api_ip in contrail_analytics_api_list %}
+{% for analytics_api_ip in contrail_analytics_api_list %}
     server {{ analytics_api_ip }} {{ analytics_api_ip }}:{{ contrail_analytics_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
-    {% endfor %}
+{% endfor %}

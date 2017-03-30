@@ -2,6 +2,15 @@
 - name: Create contrail keystone auth configuration file.
   template:
     src: contrail-keystone-auth.conf.j2
-    dest: /etc/contrail/contrail-keystone-auth.conf
+    dest: "{{ keystone_auth_conf }}"
     mode: 0644
   when: cloud_orchestrator == "openstack"
+
+- name: configure keystone insecure flag in keystone auth configuration file
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=insecure value={{ keystone_insecure }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https'
+
+- name: configure keystone auth configuration file with keystone SSL cacert
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option={{ item.key }} value={{ item.value }}  create=yes
+  with_dict: "{{ auth_ssl_configs }}"
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https' and keystone_insecure == False
