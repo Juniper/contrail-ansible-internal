@@ -14,9 +14,9 @@ webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
 webui_log_level: debug
 
 # admin credentials for webui
-webui_admin_user: admin
-webui_admin_password: admin
-webui_admin_tenant_name: admin
+webui_admin_user: "{{ keystone_admin_user }}"
+webui_admin_password: "{{ keystone_admin_password }}"
+webui_admin_tenant_name: "{{ keystone_admin_tenant }}"
 
 webui_packages:
  - contrail-openstack-webui
