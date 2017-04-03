@@ -16,6 +16,11 @@ analyticsdb_cassandra_packages: "{{ 'cassandra' if ansible_os_family == 'Debian'
 # Analytics DB
 analyticsdb_minimum_diskGB: 256
 
+# In case of external_zookeeper_servers, no need to setup zookeeper here
+contrail_enable_zookeeper: "{{ false if external_zookeeper_servers else true }}"
+zk_server_list: "{{ external_zookeeper_servers if external_zookeeper_servers else analyticsdb_list}}"
+zk_port: 2182
+
 # Kafka defaults
 kafka_conf: "/usr/share/kafka/config/server.properties"
 kafka_log_conf: "/usr/share/kafka/config/log4j.properties"
