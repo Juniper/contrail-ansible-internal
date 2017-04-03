@@ -7,3 +7,8 @@ dependencies:
     cassandra_seeds: "{{ analyticsdb_list }}"
     cassandra_listen_address: "{{ my_analyticsdb_ip }}"
     cassandra_packages: "{{ analyticsdb_cassandra_packages }}"
+
+  - role: zookeeper
+    zookeeper_debian_apt_install: true
+    zookeeper_hosts: "{{ zk_server_analyticsdb_list }}"
+    enable_zookeeper: "{{ contrail_enable_zookeeper }}"
