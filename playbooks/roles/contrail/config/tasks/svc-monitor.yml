@@ -9,7 +9,7 @@
   with_inidata:
     DEFAULTS:
       cassandra_server_list: "{{ configdb_servers_with_port }}"
-      api_server_ip: "{{ api_server_ip }}"
+      api_server_ip: 127.0.0.1
       api_server_port: "{{ api_server_port }}"
       api_server_use_ssl: "{{ api_server_use_ssl }}"
       log_file: "{{ svc_monitor_log }}"
