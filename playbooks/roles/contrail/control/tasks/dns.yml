@@ -22,7 +22,7 @@
       collectors: "{{ analytics_collectors_with_port}}"
       # DNS XMPP auth enabled or not
       xmpp_dns_auth_enable: "{{ xmpp_dns_auth_enable }}"
-    IFMAP:
+    CONFIGDB:
       # AMQP related configs
       rabbitmq_server_list: "{{ rabbitmq_servers_with_port_space_delim }}"
       rabbitmq_user: "{{ rabbitmq_user }}"
