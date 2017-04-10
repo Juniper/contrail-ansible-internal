@@ -1,41 +1,41 @@
 - name: restart config api supervisord
   supervisorctl: name="contrail-api:0" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart config api systemd
   systemd: name="contrail-api" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart config-nodemgr supervisord
   supervisorctl: name="contrail-config-nodemgr" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 # Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
 - name: restart config-nodemgr systemd
   debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
 #  systemd: name="contrail-config-nodemgr" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart schema supervisord
   supervisorctl: name="contrail-schema" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart schema systemd
   systemd: name="contrail-schema" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart svc-monitor supervisord
   supervisorctl: name="contrail-svc-monitor" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart svc-monitor systemd
   systemd: name="contrail-svc-monitor" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart device-manager supervisord
   supervisorctl: name="contrail-device-manager" state=restarted config=/etc/contrail/supervisord_config.conf
-  when: supervisor_config_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_config_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart device-manager systemd
   systemd: name="contrail-device-manager" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined

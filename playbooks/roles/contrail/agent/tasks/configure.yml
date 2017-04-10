@@ -31,7 +31,7 @@
   when: reload_vrouter_module
 
 - include_role: name=contrail/common tasks_from=vncapi
-  tags: [contrail.vncapi, contrail.vncapi.configure]
+  tags: [contrail.vncapi, contrail.vncapi.configure, test]
 
 - name: Configure vorouter agent
   include: vrouter_agent.yml
@@ -39,7 +39,7 @@
 
 - name: Configure vrouter nodemanager
   include: nodemanager.yml
-  tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager]
+  tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager, test]
 
 - name: setup cni
   include: cni.yml

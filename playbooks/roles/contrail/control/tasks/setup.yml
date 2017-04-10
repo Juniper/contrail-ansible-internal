@@ -20,7 +20,7 @@
   tags: [install, contrail.controller.install, contrail.controlnode.install]
 
 - include: configure.yml
-  tags: [contrail.controller.configure, contrail.controlnode.configure, configure]
+  tags: [contrail.controller.configure, contrail.controlnode.configure, configure, test]
 
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.controller.service, contrail.controlnode.service, service]

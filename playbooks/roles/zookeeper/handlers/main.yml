@@ -1,7 +1,8 @@
 ---
 - name: Restart zookeeper
   service: name=zookeeper state=restarted enabled=yes
+  when: ansible_test_mode is not defined
 
 - name: Reload systemctl daemon
   command: systemctl daemon-reload
-  when: ansible_service_mgr == 'systemd'
+  when: ansible_service_mgr == 'systemd' and ansible_test_mode is not defined

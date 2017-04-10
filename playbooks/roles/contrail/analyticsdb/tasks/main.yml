@@ -30,7 +30,7 @@
   tags: [install, contrail.analyticsdb.install]
 
 - include: configure.yml
-  tags: [contrail.analyticsdb.configure, configure]
+  tags: [contrail.analyticsdb.configure, configure, test]
 
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.analyticsdb.service, service]

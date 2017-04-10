@@ -23,7 +23,7 @@
   tags: always
 
 - include: configure.yml
-  tags: [contrail.controller.configure, contrail.config.configure, configure]
+  tags: [contrail.controller.configure, contrail.config.configure, configure, test]
 
 - include: "service/{{ contrail_service_mgr }}.yml"
   tags: [contrail.controller.service, contrail.config.service, service]

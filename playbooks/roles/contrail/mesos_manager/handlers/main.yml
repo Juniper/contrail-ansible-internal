@@ -1,8 +1,8 @@
 ---
 - name: restart mesos-manager systemd
   systemd: name="contrail-mesos-manager" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd'  and ansible_test_mode is not defined
 
 - name: restart mesos-manager supervisord
   supervisorctl: name="contrail-mesos-manager" state=restarted config=/etc/contrail/supervisord_mesos_manager.conf
-  when: supervisor_mesos_manager_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_mesos_manager_ready and contrail_service_mgr == 'supervisord'  and ansible_test_mode is not defined

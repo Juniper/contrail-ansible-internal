@@ -15,7 +15,7 @@
     section: defaults
     option: deprecation_warnings
     value: false
-  tags: [install]
+  tags: [install, test]
 
 # Write /etc/hosts file if passed any hosts_entries
 # hosts_entries should be a dict like {name1: 1.1.1.1, name2: 1.1.1.2}

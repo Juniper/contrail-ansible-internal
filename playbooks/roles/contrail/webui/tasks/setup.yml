@@ -25,7 +25,7 @@
   tags: [install, contrail.controller.install, contrail.webui.install]
 
 - include: configure.yml
-  tags: [contrail.controller.configure, contrail.webui.configure, configure]
+  tags: [contrail.controller.configure, contrail.webui.configure, configure, test]
 
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.controller.service, contrail.webui.service, service]

@@ -2,17 +2,21 @@
 - name: Install Cassandra config file
   template: src=cassandra-{{cassandra_version_branch}}.j2 dest={{ cassandra_conf_dir }}/cassandra.yaml
   notify: restart cassandra
+  tags: [test]
 
 - name: Install Cassandra DC config file
   template: src=cassandra-topology.yml.j2 dest={{ cassandra_conf_dir }}/cassandra-topology.yml
   notify: restart cassandra
+  tags: [test]
 
 - name: Install Cassandra Java Config File
   template: src=cassandra-{{cassandra_version_branch}}-env.j2 dest={{ cassandra_conf_dir }}/cassandra-env.sh
   notify: restart cassandra
+  tags: [test]
 
 - name: Install log4j config file
   template: src=log4j-server.properties.j2 dest={{ cassandra_conf_dir }}/log4j-server.properties
   notify: restart cassandra
+  tags: [test]
 
 - meta: flush_handlers

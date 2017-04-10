@@ -10,8 +10,7 @@ nodemanager_conf: "/etc/contrail/contrail-database-nodemgr.conf"
 # Cassandra defaults
 analyticsdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
 analyticsdb_cassandra_cluster_name: analyticsdb
-analyticsdb_cassandra_packages: [cassandra]
-analyticsdb_cassandra_packages: "{{ 'cassandra' if ansible_os_family == 'Debian' else 'cassandra22' }}"
+analyticsdb_cassandra_packages: "{{ ['cassandra'] if ansible_os_family == 'Debian' else ['cassandra22'] }}"
 
 # Analytics DB
 analyticsdb_minimum_diskGB: 256

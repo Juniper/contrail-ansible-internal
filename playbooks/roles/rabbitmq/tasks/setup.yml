@@ -4,7 +4,7 @@
   tags: [install, rabbitmq.install, package, rabbitmq.package]
 
 - include: configuration.yml
-  tags: [configure, rabbitmq.configure]
+  tags: [configure, rabbitmq.configure, test]
 
 - include: service.yml
   tags: [service, rabbitmq.service]

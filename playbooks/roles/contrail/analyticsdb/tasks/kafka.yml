@@ -1,6 +1,6 @@
 ---
 - name: Update kafka broker id
-  lineinfile: dest="{{ kafka_conf }}" line="{{ item.key }}={{ item.value }}" regexp="^{{ item.key }}=" state=present
+  lineinfile: dest="{{ kafka_conf }}" line="{{ item.key }}={{ item.value }}" regexp="^{{ item.key }}=" state=present create=yes
   with_dict:
     broker.id: "{{ my_analyticsdb_ip|regex_replace('^\\d+\\.\\d+\\.\\d+\\.(\\d+)$', '\\1')|int }}"
     port: "{{ kafka_port|int }}"
@@ -20,7 +20,7 @@
     - restart kafka systemd
 
 - name: Configure kafka replication factor
-  lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}"
+  lineinfile: dest="{{ kafka_conf }}" line="default.replication.factor={{ kafka_replication_factor|int }}" regexp="^default.replication.factor=" create=yes
     regexp="^default.replication.factor=" state=present
   when: "{{ analyticsdb_list|length}} > 1"
   notify:

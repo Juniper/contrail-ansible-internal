@@ -2,3 +2,4 @@
 # handlers file for rabbitmq
 - name: restart rabbitmq-server
   service: name=rabbitmq-server state=restarted enabled=yes
+  when: ansible_test_mode is not defined

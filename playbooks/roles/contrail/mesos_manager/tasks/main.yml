@@ -16,6 +16,6 @@
   tags: [install, contrail.mesos_manager.install]
 
 - include: configure.yml
-  tags: [contrail.mesos_manager.configure, configure]
+  tags: [contrail.mesos_manager.configure, configure, test]
 
 - include: service/{{ contrail_service_mgr }}.yml

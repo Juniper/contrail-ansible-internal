@@ -16,7 +16,7 @@
   tags: [install, contrail.kube_manager.install]
 
 - include: configure.yml
-  tags: [contrail.kube_manager.configure, configure]
+  tags: [contrail.kube_manager.configure, configure, test]
 
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.kube_manager.service, service]

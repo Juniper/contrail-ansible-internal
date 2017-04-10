@@ -1,16 +1,16 @@
 ---
 - name: restart webui supervisord
   supervisorctl: name="contrail-webui" state=restarted config=/etc/contrail/supervisord_webui.conf
-  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart webui systemd
   systemd: name="contrail-webui" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart webui-middleware supervisord
   supervisorctl: name="contrail-webui-middleware" state=restarted config=/etc/contrail/supervisord_webui.conf
-  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_webui_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart webui-middleware systemd
   systemd: name="contrail-webui-middleware" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined

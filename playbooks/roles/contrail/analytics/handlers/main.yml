@@ -1,58 +1,58 @@
 ---
 - name: restart alarm-gen supervisord
   supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart alarm-gen systemd
   systemd: name="contrail-alarm-gen" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart analytics-api supervisord
   supervisorctl: name="contrail-analytics-api" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart analytics-api systemd
   systemd: name="contrail-analytics-api" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart analytics-nodemgr supervisord
   supervisorctl: name="contrail-analytics-nodemgr" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 # Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
 - name: restart analytics-nodemgr systemd
   debug: msg="Disabled nodemgr services until fixing https://github.com/Juniper/contrail-ansible/issues/221"
 #  systemd: name="contrail-analytics-nodemgr" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart analytics collector supervisord
   supervisorctl: name="contrail-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart analytics collector systemd
   systemd: name="contrail-collector" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart query-engine supervisord
   supervisorctl: name="contrail-query-engine" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart query-engine systemd
   systemd: name="contrail-query-engine" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart snmp-collector supervisord
   supervisorctl: name="contrail-snmp-collector" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart snmp-collector systemd
   systemd: name="contrail-snmp-collector" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
 
 - name: restart topology supervisord
   supervisorctl: name="contrail-topology" state=restarted config=/etc/contrail/supervisord_analytics.conf
-  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord'
+  when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart topology systemd
   systemd: name="contrail-topology" state=restarted
-  when: contrail_service_mgr == 'systemd'
+  when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
