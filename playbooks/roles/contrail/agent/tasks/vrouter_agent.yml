@@ -26,6 +26,12 @@
       physical_interface: "{{ vrouter_physical_interface_orig }}"
     NETWORKS:
       control_network_ip: "{{ vhost_address }}"
+    SANDESH:
+      sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
+      introspect_ssl_enable: "{{ introspect_ssl_enable }}"
+      sandesh_keyfile: "{{ sandesh_keyfile }}"
+      sandesh_certfile: "{{ sandesh_certfile }}"
+      sandesh_ca_cert: "{{ sandesh_ca_cert }}"
   notify:
     - restart vrouter-agent supervisord
     - restart vrouter-agent systemd

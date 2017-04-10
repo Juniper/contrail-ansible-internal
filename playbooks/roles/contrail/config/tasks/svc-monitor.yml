@@ -22,6 +22,12 @@
     SCHEDULER:
       analytics_server_list: "{{ analytics_api_servers_with_port }}"
       aaa_mode: "{{ analytics_aaa_mode_orig }}"
+    SANDESH:
+      sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
+      introspect_ssl_enable: "{{ introspect_ssl_enable }}"
+      sandesh_keyfile: "{{ sandesh_keyfile }}"
+      sandesh_certfile: "{{ sandesh_certfile }}"
+      sandesh_ca_cert: "{{ sandesh_ca_cert }}"
   notify:
     - restart svc-monitor supervisord
     - restart svc-monitor systemd

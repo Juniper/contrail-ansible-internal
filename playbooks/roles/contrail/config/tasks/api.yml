@@ -18,6 +18,12 @@
       listen_ip_addr: "{{ api_listen_address }}"
       listen_port: "{{ api_listen_port }}"
       list_optimization_enabled: "{{ list_optimization_enabled }}"
+    SANDESH:
+      sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
+      introspect_ssl_enable: "{{ introspect_ssl_enable }}"
+      sandesh_keyfile: "{{ sandesh_keyfile }}"
+      sandesh_certfile: "{{ sandesh_certfile }}"
+      sandesh_ca_cert: "{{ sandesh_ca_cert }}"
   notify:
     - restart config api supervisord
     - restart config api systemd
