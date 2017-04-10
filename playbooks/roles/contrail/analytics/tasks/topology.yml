@@ -8,7 +8,7 @@
     create: yes
   with_inidata:
     DEFAULT:
-      zookeeper: "{{ zk_servers_with_port }}"
+      zookeeper: "{{ zk_servers_cfg_with_port }}"
       log_file: "{{ analytics_topology_log }}"
       log_level: "{{ analytics_topology_log_level }}"
       log_local: "{{ log_local }}"

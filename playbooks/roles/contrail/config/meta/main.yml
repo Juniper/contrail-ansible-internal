@@ -29,6 +29,7 @@ dependencies:
 
   - role: zookeeper
     zookeeper_debian_apt_install: true
-    zookeeper_hosts: "{{ zk_server_list }}"
+    zookeeper_hosts: "{{ zk_server_cfg_list }}"
+    client_port: "{{ zk_port_cfg }}"
     enable_zookeeper: "{{ contrail_enable_zookeeper }}"
     tags: [zookeeper]

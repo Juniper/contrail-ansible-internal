@@ -28,8 +28,10 @@ configdb_ssl_storage_port: 7011
 # List of zookeeper servers
 # external_zookeeper_servers - are list of zookeeper servers managed externally
 external_zookeeper_servers: []
-zk_server_list: "{{ external_zookeeper_servers if external_zookeeper_servers else config_server_list }}"
-zk_port: 2181
+zk_server_cfg_list: "{{ external_zookeeper_servers if external_zookeeper_servers else config_server_list }}"
+zk_port_cfg: 2181
+zk_server_db_list: "{{ external_zookeeper_servers if external_zookeeper_servers else analyticsdb_list }}"
+zk_port_db: 2182
 
 # List of rabbitmq servers
 # external_rabbitmq_servers - are list of rabbitmq servers managed externally

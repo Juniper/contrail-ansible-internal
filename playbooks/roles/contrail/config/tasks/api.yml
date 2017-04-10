@@ -10,7 +10,7 @@
     DEFAULTS:
       log_local: 1
       cassandra_server_list: "{{ configdb_servers_with_port }}"
-      zk_server_ip: "{{ zk_servers_with_port }}"
+      zk_server_ip: "{{ zk_servers_cfg_with_port }}"
       rabbit_server: "{{ rabbitmq_servers_with_port }}"
       collectors: "{{ analytics_collectors_with_port}}"
       log_file: "{{ api_log }}"

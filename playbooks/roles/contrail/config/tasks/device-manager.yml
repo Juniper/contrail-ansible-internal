@@ -12,7 +12,7 @@
       api_server_ip: 127.0.0.1
       api_server_port: "{{ api_server_port }}"
       api_server_use_ssl: "{{ api_server_use_ssl }}"
-      zk_server_ip: "{{ zk_servers_with_port }}"
+      zk_server_ip: "{{ zk_servers_cfg_with_port }}"
       log_file: "{{ device_manager_log }}"
       log_level: "{{ device_manager_log_level }}"
       log_local: 1

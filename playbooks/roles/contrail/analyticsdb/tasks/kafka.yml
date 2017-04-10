@@ -5,7 +5,7 @@
     broker.id: "{{ my_analyticsdb_ip|regex_replace('^\\d+\\.\\d+\\.\\d+\\.(\\d+)$', '\\1')|int }}"
     port: "{{ kafka_port|int }}"
     listeners: "{{ kafka_listeners }}"
-    zookeeper.connect: "{{ zk_servers_with_port }}"
+    zookeeper.connect: "{{ zk_servers_db_with_port }}"
     advertised.host.name: "{{ my_analyticsdb_ip }}"
     log.retention.bytes: "{{ kafka_log_retention_bytes|int }}"
     log.retention.hours: "{{ kafka_log_retention_hours|int }}"
