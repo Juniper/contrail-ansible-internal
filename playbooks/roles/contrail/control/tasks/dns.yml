@@ -30,6 +30,12 @@
       rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
       # Config db configs
       config_db_server_list: "{{ configdb_servers_with_cql_port }}"
+    SANDESH:
+      sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
+      introspect_ssl_enable: "{{ introspect_ssl_enable }}"
+      sandesh_keyfile: "{{ sandesh_keyfile }}"
+      sandesh_certfile: "{{ sandesh_certfile }}"
+      sandesh_ca_cert: "{{ sandesh_ca_cert }}"
   notify:
     - restart contrail-dns supervisord
     - restart contrail-dns systemd
