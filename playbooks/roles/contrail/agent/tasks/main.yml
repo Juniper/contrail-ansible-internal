@@ -25,5 +25,6 @@
 - include: service/main.yml
   tags: [contrail.agent.service, service]
 
-- include: provision/main.yml
+- include: provision.yml
   tags: [contrail.agent.provision, provision]
+  when: cloud_orchestrator != "openstack"

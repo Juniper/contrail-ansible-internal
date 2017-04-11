@@ -35,5 +35,6 @@
 - include: service/{{ contrail_service_mgr }}.yml
   tags: [contrail.analyticsdb.service, service]
 
-- include: provision/main.yml
+- include: provision.yml
   tags: [contrail.analyticsdb.provision, provision]
+  when: cloud_orchestrator != "openstack"
