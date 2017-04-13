@@ -27,7 +27,7 @@ analytics_collectors_with_port: "{{ analytics_list | map('regex_replace', '^(.*)
 analytics_api_servers_with_port: "{{ analytics_list | map('regex_replace', '^(.*)$', '\\1:' + analytics_server_port|string) | join(' ') }}"
 control_servers_with_xmpp_port: "{{ control_node_list | map('regex_replace', '^(.*)$', '\\1:' + control_xmpp_port|string) | join(' ') }}"
 control_servers_with_dns_port: "{{ control_node_list | map('regex_replace', '^(.*)$', '\\1:' + control_dns_port|string) | join(' ') }}"
-api_servers_with_port: "{{ controller_list | map('regex_replace', '^(.*)$', '\\1:' + api_server_port|string) | join(' ') }}" 
+api_servers_with_port: "{{ config_server_list | map('regex_replace', '^(.*)$', '\\1:' + api_server_port|string) | join(' ') }}"
 collectors_with_space_delim: "{{ analytics_list | join(' ') }}"
 controllers_with_space_delim: "{{ controller_list | join(' ') }}"
 
