@@ -1,0 +1,20 @@
+---
+- include: install/main.yml
+  tags: [storage.ceph_controller.install, install]
+
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(ceph-controller): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(ceph-controller):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, storage.ceph_controller.install]
+
+- include_role: name=contrail/common tasks_from=cleanup
+  tags: [storage.ceph_controller.install, install]
+
+- name: Include contrail service manager specific code
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
+  tags: [install, storage.ceph_controller.install]
+
+- include: configure.yml
+  tags: [storage.ceph_controller.configure, configure]

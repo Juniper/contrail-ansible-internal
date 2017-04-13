@@ -1,0 +1,63 @@
+---
+- debug:
+    msg:
+      - "fsid {{ ceph_fsid }}"
+      - "mon_key {{ mon_key }}"
+      - "osd_key {{ osd_key }}"
+      - "adm_key {{ adm_key }}"
+      - "ceph_mon_list {{ ceph_mon_list }}"
+      - "my_mon_ip {{ my_mon_ip }}"
+      - "my_mon_ip {{ ansible_hostname }}"
+      - "ceph_hostip_list {{ ceph_hostip_list }}"
+      - "ceph_hostname_list {{ ceph_hostname_list }}"
+      - "ceph_monip_list {{ ceph_monip_list }}"
+      - "ceph_monname_list {{ ceph_monname_list }}"
+
+- fail:
+    msg:
+      - "Not able to find the required configuration"
+      - "fsid {{ ceph_fsid }}"
+      - "mon_key {{ mon_key }}"
+      - "osd_key {{ osd_key }}"
+      - "adm_key {{ adm_key }}"
+      - "ceph_mon_list {{ ceph_mon_list }}"
+      - "my_mon_ip {{ my_mon_ip }}"
+      - "ceph_hostip_list {{ ceph_hostip_list }}"
+      - "ceph_hostname_list {{ ceph_hostname_list }}"
+  when: (ceph_fsid == []) or (mon_key == []) or (osd_key == []) or
+        (adm_key == []) or (ceph_mon_list == []) or
+        (my_mon_ip == []) or (ceph_hostip_list == []) or
+        (ceph_hostname_list == [])
+
+#fsid = 5cbb65df-0345-4a69-a0ad-2e2db4a8a116
+#mon_initial_members = gngsvm030d, gngsvm031d, gngsvm032d
+#mon_host = 10.163.51.4, 10.163.51.8, 10.163.51.12
+#auth_supported = cephx
+#osd_journal_size = 1024
+#filestore_xattr_use_omap = true
+#rbd_cache = true
+#rbd_default_format = 2
+
+- name: Creates ceph directory
+  file: path=/etc/ceph state=directory
+
+- name: create ceph.conf
+  template:
+    src: ceph.conf.j2
+    dest: "{{ ceph_conf_file }}"
+#    owner: root
+#    group: root
+#    mode: 0644
+
+- name: create mon keyring
+  template:
+    src: ceph.mon.keyring.j2
+    dest: "{{ ceph_mon_keyring_file }}"
+    owner: ceph
+    group: ceph
+    mode: 0644
+
+- name: create admin keyring
+  template:
+    src: ceph.client.admin.keyring.j2
+    dest: "{{ ceph_client_admin_keyring_file }}"

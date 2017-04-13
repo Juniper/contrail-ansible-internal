@@ -1,0 +1,12 @@
+---
+- name: "Setup Storage Ceph monitor"
+  hosts: ceph-controller
+
+  pre_tasks:
+    - include_vars: storage_ceph_controller.yml
+      tags: always
+
+  roles:
+    - role: common
+    - role: storage/ceph_controller
+      tags: [storage.ceph_controller]
