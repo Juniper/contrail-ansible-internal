@@ -54,10 +54,6 @@ frontend contrail-api
     default_backend    contrail-api-backend
     timeout client 3m
 
-frontend contrail-analytics-api
-    bind *:{{ contrail_analytics_api_frontend_port }}
-    default_backend    contrail-analytics-api-backend
-
 backend contrail-api-backend
     option nolinger
     timeout server 3m
@@ -66,9 +62,15 @@ backend contrail-api-backend
     server {{ contrail_api_ip }} {{ contrail_api_ip }}:{{ contrail_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
     {% endfor %}
 
-backend contrail-analytics-api-backend
-    option nolinger
-    balance roundrobin
-    {% for analytics_api_ip in contrail_analytics_api_list %}
-    server {{ analytics_api_ip }} {{ analytics_api_ip }}:{{ contrail_analytics_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
-    {% endfor %}
+frontend contrail-webui
+    bind *:{{ contrail_webui_frontend_port }}
+    timeout client 86400000
+    default_backend    contrail-webui-backend
+
+backend contrail-webui-backend
+    mode http
+    balance source
+    hash-type consistent
+    {% for webui_ip in contrail_api_server_list %}
+    server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} check port {{ contrail_api_backend_port }}
+    {% endfor %

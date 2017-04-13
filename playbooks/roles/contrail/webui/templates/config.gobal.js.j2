@@ -175,7 +175,7 @@ config.storageManager.ca = '';
 
 // VNConfig API server and port.
 config.cnfg = {};
-config.cnfg.server_ip = '{{ api_server_ip }}';
+config.cnfg.server_ip = ' 127.0.0.1';
 config.cnfg.server_port = '{{ api_server_port }}';
 config.cnfg.authProtocol = '{{ 'https' if api_server_use_ssl else 'http' }}';
 {# What is for this strictSSL? #}
@@ -184,7 +184,7 @@ config.cnfg.ca = '';
 
 // Analytics API server and port.
 config.analytics = {};
-config.analytics.server_ip = '{{ analytics_server_ip }}';
+config.analytics.server_ips = '{{ contrail_analytics_api_list|to_json }}';
 config.analytics.server_port = '{{ analytics_server_port }}';
 config.analytics.authProtocol = '{{ 'https' if analytics_server_use_ssl else 'http' }}';
 {# What is for this strictSSL? #}

@@ -16,11 +16,13 @@ stats_port: 5937
 # Frontend settings.
 #Default frontend ports
 contrail_api_frontend_port: 8082
-contrail_analytics_api_frontend_port: 8081
+contrail_webui_frontend_port: 8080
 
 #Default backend ports
-contrail_api_backend_port: 8082
-contrail_analytics_api_backend_port: 9081
+api_listen_port: "{{ api_server_port }}"
+contrail_api_backend_port: "{{ api_listen_port }}"
+webui_http_listen_port: 8080
+contrail_webui_backend_port: "{{ webui_http_listen_port }}"
 
 # Backend settings.
 check_interval:  2000
