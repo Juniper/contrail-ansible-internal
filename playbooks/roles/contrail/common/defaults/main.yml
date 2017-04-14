@@ -108,3 +108,5 @@ sandesh_ca_cert: "/etc/contrail/ssl/certs/ca-cert.pem"
 
 ssl_certs_src_dir: "/etc/contrailctl/ssl"
 ssl_certs_dir: "/etc/contrail/ssl"
+# nested_mode is to define whether it is nested mode kubernetes setup or not
+nested_mode: false
