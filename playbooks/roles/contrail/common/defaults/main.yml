@@ -105,3 +105,6 @@ introspect_ssl_enable: false
 sandesh_keyfile: "/etc/contrail/ssl/private/server-privkey.pem"
 sandesh_certfile: "/etc/contrail/ssl/certs/server.pem"
 sandesh_ca_cert: "/etc/contrail/ssl/certs/ca-cert.pem"
+
+ssl_certs_src_dir: "/etc/contrailctl/ssl"
+ssl_certs_dir: "/etc/contrail/ssl"

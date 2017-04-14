@@ -1,0 +1,18 @@
+---
+# Copy SSL CA Cert onto Container
+
+- name: Check if source SSL Cert directory present
+  stat: path={{ ssl_certs_src_dir }}
+  register: check_ssl_certs_src_dir
+
+- name: Create SSL Cert dir on container
+  file: path={{ ssl_certs_dir }} state=directory
+  when: check_ssl_certs_src_dir.stat.exists
+
+- name: Copy SSL files for use by container
+  copy: src={{ item.src }} dest={{ item.dest }}
+  with_items:
+      - { src: "{{ ssl_certs_src_dir }}/ca-cert.pem", dest: "{{ ssl_certs_dir }}/ca-cert.pem" }
+      - { src: "{{ ssl_certs_src_dir }}/server.pem", dest: "{{ ssl_certs_dir }}/server.pem" }
+      - { src: "{{ ssl_certs_src_dir }}/server-privkey.pem",  dest: "{{ ssl_certs_dir }}/server-privkey.pem" }
+  when: check_ssl_certs_src_dir.stat.exists

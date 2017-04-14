@@ -14,3 +14,6 @@
 - include: systemd.yml
   when: contrail_service_mgr == 'systemd'
   tags: [package]
+
+- include: copy_ssl_certs.yml
+  tags: [configure]
