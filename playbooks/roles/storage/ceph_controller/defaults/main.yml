@@ -1,0 +1,7 @@
+---
+# Installation
+ceph_controller_packages:
+  - contrail-storage
+
+# Extra global vars (see README for example usage).
+ceph_controller_global_vars: []

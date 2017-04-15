@@ -1,0 +1,76 @@
+---
+- name: resolve platform specific vars
+  include_vars: "{{ item }}"
+  with_first_found:
+    - files:
+      - "main.yml"
+      skip: true
+  tags: always
+
+- name: Read mon_list from file
+  set_fact:
+    ceph_mon_list: "{{ lookup('ini', 'ceph_controller_list section=GLOBAL file={{ ceph_container_conf_file }}') }}"
+
+- name: find my ip
+  set_fact:
+    my_mon_ip: "{{ ceph_mon_list | intersect(ansible_all_ipv4_addresses)|first }}"
+
+- name: Check if ceph local storage file  exists
+  stat: path="{{ ceph_key_config_store_file }}"
+  register: stat_result
+
+- fail:
+    msg:
+      - "Config file {{ ceph_container_conf_file }} not found"
+  when: stat_result.stat.exists == False
+
+- name: Read fsid from file
+  set_fact:
+    ceph_fsid: "{{ lookup('ini', 'fsid section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+  when: stat_result.stat.exists == True
+
+- name: Read mon_key from file
+  set_fact:
+    mon_key: "{{ lookup('ini', 'mon_key section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+  when: stat_result.stat.exists == True
+
+- name: Read osd_key from file
+  set_fact:
+    osd_key: "{{ lookup('ini', 'osd_key section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+  when: stat_result.stat.exists == True
+
+- name: Read adm_key from file
+  set_fact:
+    adm_key: "{{ lookup('ini', 'adm_key section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+  when: stat_result.stat.exists == True
+
+- name: Read ceph mon ip/name list from file
+  set_fact:
+    ceph_hostip_list: "{{ lookup('ini', 'ceph_hostip_list section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+    ceph_hostname_list: "{{ lookup('ini', 'ceph_hostname_list section=DEFAULT file={{ ceph_key_config_store_file }}') }}"
+  when: stat_result.stat.exists == True
+
+- name: create monip list
+  set_fact:
+    ceph_monip_list: "{{ ceph_monip_list }} {{ item }},"
+  with_items: "{{ ceph_hostip_list }}"
+
+- name: create monhost list
+  set_fact:
+    ceph_monname_list: "{{ ceph_monname_list }} {{ item }},"
+  with_items: "{{ ceph_hostname_list }}"
+
+- debug:
+    msg:
+      - "fsid {{ ceph_fsid }}"
+      - "mon_key {{ mon_key }}"
+      - "osd_key {{ osd_key }}"
+      - "adm_key {{ adm_key }}"
+      - "ceph_mon_list {{ ceph_mon_list }}"
+      - "my_mon_ip {{ my_mon_ip }}"
+      - "my_hostname {{ ansible_hostname }}"
+      - "ceph_hostip_list {{ ceph_hostip_list }}"
+      - "ceph_hostname_list {{ ceph_hostname_list }}"
+      - "ceph_monip_list {{ ceph_monip_list }}"
+      - "ceph_monname_list {{ ceph_monname_list }}"
+

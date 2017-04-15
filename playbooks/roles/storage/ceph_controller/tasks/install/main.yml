@@ -1,0 +1,5 @@
+---
+- name: install contrail-ceph-controller related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ ceph_controller_packages }}"
+

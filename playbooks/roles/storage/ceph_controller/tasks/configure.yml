@@ -1,0 +1,9 @@
+---
+- name: Prepare ceph for config
+  include: ceph_prep_vars.yml
+
+- name: Prepare ceph.conf
+  include: ceph_prep_conf.yml
+
+- name: setup mon
+  include: ceph_mon_config.yml
