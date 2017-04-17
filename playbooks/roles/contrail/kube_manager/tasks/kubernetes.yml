@@ -39,3 +39,20 @@
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
+
+- name: Configuration related to nested kubernetes
+  ini_file:
+    dest: "{{ kube_manager_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULTS:
+      nested_mode: 1
+    AUTH:
+      auth_token_url: "{{ keystone_admin_auth_url }}"
+  when: cloud_orchestrator == 'kubernetes' and nested_mode
+  notify:
+    - restart kube-manager supervisord
+    - restart kube-manager systemd
