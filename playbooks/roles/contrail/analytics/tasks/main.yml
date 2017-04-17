@@ -16,9 +16,6 @@
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.analytics.install]
 
-- include: facts.yml
-  tags: always
-
 - include: configure.yml
   tags: [contrail.analytics.configure, configure]
 
