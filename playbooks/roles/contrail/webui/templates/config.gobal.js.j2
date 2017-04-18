@@ -207,6 +207,32 @@ config.vcenter.ca = '';                         //specify the certificate key fi
 config.vcenter.wsdl = '/usr/src/contrail/contrail-web-core/webroot/js/vim.wsdl';
 {% endif %}
 
+/*****************************************************************************
+ * The below configurations descibe the SSL options for connecting to different
+ * introspect port.
+ *
+ * enabled:
+ *      Boolean flag to enable or disable ssl while connecting to different
+ *      introspect port
+ * key:
+ *      Private key to use for SSL
+ * cert:
+ *      Public x509 certificate to use
+ * ca:
+ *      A string, Buffer or array of strings or Buffers of trusted certificates
+ *      in PEM format. These are used to authorize connections.
+ * strictSSL:
+ *      If true, the server certificate is verified against the list of
+ *      supplied CAs
+ *****************************************************************************/
+config.introspect = {};
+config.introspect.ssl = {};
+config.introspect.ssl.enabled = {{ 'true' if introspect_ssl_enable else 'false' }};
+config.introspect.ssl.key = '{{ sandesh_keyfile }}';
+config.introspect.ssl.cert = '{{ sandesh_certfile }}';
+config.introspect.ssl.ca = '{{ sandesh_ca_cert }}';
+config.introspect.ssl.strictSSL = false;
+
 /* Job Server */
 config.jobServer = {};
 config.jobServer.server_ip = '127.0.0.1';
