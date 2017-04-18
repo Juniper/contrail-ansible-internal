@@ -21,7 +21,7 @@
 
 - fail:
     msg:
-      - "Config file {{ ceph_container_conf_file }} not found"
+      - "Config file {{ ceph_controller_conf_file }} not found"
   when: stat_result.stat.exists == False
 
 - name: Read fsid from file
