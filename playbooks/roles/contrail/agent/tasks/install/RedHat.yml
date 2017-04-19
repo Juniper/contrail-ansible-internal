@@ -3,8 +3,10 @@
 - name: Do not auto start supervisor-vrouter (WA for issue contrail-docker/82)
   lineinfile: dest=/etc/sensitive_services line=supervisor-vrouter state=present create=yes
 
-- name: Install contrail cni
-  package: name='contrail-k8s-cni' state=installed
+# Commenting Temporarily. Needs to Fixed with appropriate validation
+# for either package availability or based on the Orchestrator
+#- name: Install contrail cni
+#  package: name='contrail-k8s-cni' state=installed
 
 - name: install contrail-vrouter-agent related packages
   package: name={{ item }} state=latest
