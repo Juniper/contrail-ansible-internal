@@ -1,0 +1,71 @@
+---
+/etc/contrail/contrail-api.conf:
+  ini_file:
+    DEFAULTS:
+      cassandra_server_list: "192.168.0.63:9161"
+      zk_server_ip: "192.168.0.63:2181"
+      collectors: "192.168.0.63:8086"
+      listen_port: 8082
+      rabbit_server: "192.168.0.63:5672"
+      multi_tenancy: false
+/etc/contrail/contrail-config-nodemgr.conf:
+  ini_file:
+    COLLECTOR:
+      server_list: "192.168.0.63:8086"
+/etc/contrail/contrail-control.conf:
+  ini_file:
+    DEFAULT:
+      collectors: "192.168.0.63:8086"
+      http_server_port: 8083
+      hostip: 192.168.0.63
+    CONFIGDB:
+      rabbitmq_server_list: "192.168.0.63:5672"
+      config_db_server_list: "192.168.0.63:9041"
+/etc/contrail/contrail-control-nodemgr.conf:
+  ini_file:
+    COLLECTOR:
+      server_list: "192.168.0.63:8086"
+/etc/contrail/contrail-device-manager.conf:
+  ini_file:
+    DEFAULTS:
+      cassandra_server_list: "192.168.0.63:9161"
+      zk_server_ip: "192.168.0.63:2181"
+      collectors: "192.168.0.63:8086"
+      api_server_port: 8082
+      api_server_use_ssl: false
+      rabbit_server: "192.168.0.63:5672"
+      api_server_ip: "127.0.0.1"
+/etc/contrail/contrail-dns.conf:
+  ini_file:
+    DEFAULT:
+      collectors: "192.168.0.63:8086"
+      http_server_port: 8092
+      named_config_directory: /etc/contrail/dns
+      named_config_file: contrail-named.conf
+      rndc_config_file: contrail-rndc.conf
+      hostip: 192.168.0.63
+      xmpp_dns_auth_enable: False
+    CONFIGDB:
+      rabbitmq_server_list: 192.168.0.63:5672
+      config_db_server_list: 192.168.0.63:9041
+/etc/contrail/contrail-schema.conf:
+  ini_file:
+    DEFAULTS:
+      cassandra_server_list: "192.168.0.63:9161"
+      zk_server_ip: "192.168.0.63:2181"
+      collectors: "192.168.0.63:8086"
+      api_server_port: 8082
+      api_server_use_ssl: false
+      rabbit_server: "192.168.0.63:5672"
+      api_server_ip: "127.0.0.1"
+/etc/contrail/contrail-svc-monitor.conf:
+  ini_file:
+    DEFAULTS:
+      cassandra_server_list: "192.168.0.63:9161"
+      zk_server_ip: "192.168.0.63:2181"
+      region_name: RegionOne
+      collectors: "192.168.0.63:8086"
+      api_server_port: 8082
+      api_server_use_ssl: false
+      rabbit_server: "192.168.0.63:5672"
+      api_server_ip: 127.0.0.1
