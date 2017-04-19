@@ -43,6 +43,8 @@ apt_cache_timeout: 3600
 zookeeper_register_path_env: false
 
 client_port: 2181
+peer_port1: 2888
+peer_port2: 3888
 init_limit: 5
 sync_limit: 2
 tick_time: 2000

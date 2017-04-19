@@ -31,4 +31,7 @@ kafka_delete_topic_enable: true
 kafka_replication_factor: 1
 kafka_num_partitions: 30
 
+# In case of external_analyticsdb_zookeeper_servers, no need to setup zookeeper here
+contrail_enable_analyticsdb_zookeeper: "{{ false if external_analyticsdb_zookeeper_servers else true }}"
+
 supervisor_database_ready: false
