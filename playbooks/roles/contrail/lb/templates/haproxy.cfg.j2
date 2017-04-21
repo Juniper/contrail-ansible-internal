@@ -75,4 +75,4 @@ backend contrail-webui-backend
     timeout connect 4000
     {% for webui_ip in contrail_api_server_list %}
     server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} cookie {{ webui_ip }} weight 1 maxconn 1024 check port {{ contrail_api_backend_port }}
-    {% endfor %
+    {% endfor %}
