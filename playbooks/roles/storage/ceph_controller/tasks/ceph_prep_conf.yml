@@ -7,7 +7,7 @@
       - "adm_key {{ adm_key }}"
       - "ceph_mon_list {{ ceph_mon_list }}"
       - "my_mon_ip {{ my_mon_ip }}"
-      - "my_mon_ip {{ ansible_hostname }}"
+      - "my_mon_ip {{ansible_hostname}}-storage"
       - "ceph_hostip_list {{ ceph_hostip_list }}"
       - "ceph_hostname_list {{ ceph_hostname_list }}"
       - "ceph_monip_list {{ ceph_monip_list }}"
@@ -37,6 +37,13 @@
 #filestore_xattr_use_omap = true
 #rbd_cache = true
 #rbd_default_format = 2
+
+- lineinfile:
+    dest: /etc/hosts
+    line: "{{item}} {{host_ip_dict[item]}}"
+    state: present
+    unsafe_writes: yes
+  with_items: "{{ceph_hostip_list}}"
 
 - name: Creates ceph directory
   file: path=/etc/ceph state=directory

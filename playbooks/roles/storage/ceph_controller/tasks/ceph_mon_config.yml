@@ -7,30 +7,15 @@
       - "adm_key {{ adm_key }}"
       - "ceph_mon_list {{ ceph_mon_list }}"
       - "my_mon_ip {{ my_mon_ip }}"
-      - "my_hostname {{ ansible_hostname }}"
+      - "my_hostname {{ansible_hostname}}-storage"
       - "ceph_hostip_list {{ ceph_hostip_list }}"
       - "ceph_hostname_list {{ ceph_hostname_list }}"
       - "ceph_monip_list {{ ceph_monip_list }}"
       - "ceph_monname_list {{ ceph_monname_list }}"
 
 - name: Check if ceph local storage file  exists
-  stat: path="/var/lib/ceph/mon/ceph-{{ ansible_hostname }}/upstart"
+  stat: path="/var/lib/ceph/mon/ceph-{{ansible_hostname}}-storage/upstart"
   register: stat_result
-
-- set_fact:
-    val: 0
-
-- name: create host/ip dictionary
-  set_fact:
-    host_ip_dict: "{{ host_ip_dict|default({})|combine({item: ceph_hostname_list[(val | int)]}) }}"
-    val: "{{ val | int + 1 }}"
-  with_items:
-    - "{{ ceph_hostip_list }}"
-
-- debug:
-    msg: "{{ item }}"
-  with_items:
-    - "{{ host_ip_dict }}"
 
 - name: create monmap config
   set_fact:
@@ -46,10 +31,10 @@
   with_items:
     - ceph-authtool {{ ceph_mon_keyring_file }} --import-keyring {{ ceph_client_admin_keyring_file }}
     - monmaptool --create {{ monmap_cfg }} --fsid {{ ceph_fsid }} /tmp/monmap
-    - mkdir /var/lib/ceph/mon/ceph-{{ ansible_hostname }}
-    - ceph-mon --mkfs -i {{ ansible_hostname }} --monmap /tmp/monmap --keyring {{ ceph_mon_keyring_file }}
-    - touch /var/lib/ceph/mon/ceph-{{ ansible_hostname }}/done
-    - touch /var/lib/ceph/mon/ceph-{{ ansible_hostname }}/upstart
+    - mkdir /var/lib/ceph/mon/ceph-{{ansible_hostname}}-storage
+    - ceph-mon --mkfs -i {{ansible_hostname}}-storage --monmap /tmp/monmap --keyring {{ ceph_mon_keyring_file }}
+    - touch /var/lib/ceph/mon/ceph-{{ansible_hostname}}-storage/done
+    - touch /var/lib/ceph/mon/ceph-{{ansible_hostname}}-storage/upstart
   when: stat_result.stat.exists == False
   become: true
   become_user: ceph
