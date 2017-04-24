@@ -1,21 +1,31 @@
 ---
 cloud_orchestrator: openstack
-controller_list: ["{{ ansible_default_ipv4.address }}"]
+# controller_nodes is comma separated ips of controllers
+controller_nodes: ''
+controller_list: "{{ controller_nodes.split(',') if controller_nodes else [ ansible_default_ipv4.address ] }}"
 controller_ip: "{{ controller_list[0] }}"
-config_server_list: "{{ controller_list }}"
+
+# config_nodes is comma separated ips of config servers, if not provided, controller_list is used
+config_nodes: ''
+config_server_list: "{{ config_nodes.split(',') if config_nodes else controller_list }}"
 contrail_api_server_list: "{{ config_server_list }}"
 
 # Support bootstrap clusters while add/remove nodes
-config_seed_list: "{{ config_server_list }}"
+config_seeds: ''
+config_seed_list: "{{ config_seeds.split(',') if config_seeds else config_server_list }}"
 
 # Analytics dB defaults
-analyticsdb_list: "{{ controller_list }}"
+# analyticsdb_nodes is  comma separated ips of analytics servers, if not provided, controller_list is used
+analyticsdb_nodes: ''
+analyticsdb_list: "{{ analyticsdb_nodes.split(',') if analyticsdb_nodes else controller_list }}"
 analyticsdb_port: 9160
 analyticsdb_cql_port: 9042
-# external_configdb_servers - are list of rabbitmq servers managed externally
-external_configdb_servers: []
+# external_configdb_servers - are list of cassandra servers managed externally
+external_configdb_servers: ''
+configdb_servers: ''
 # external_configdb_servers to be used as configdb_server_list if it is set
-configdb_server_list: "{{ external_configdb_servers if external_configdb_servers else config_server_list }}"
+configdb_server_list: "{{ external_configdb_servers.split(',') if external_configdb_servers else \
+                        (configdb_servers.split(',') if configdb_servers else config_server_list) }}"
 
 # Support bootstrap clusters while add/remove nodes
 configdb_seed_nodes: "{{ config_seed_list }}"
@@ -27,15 +37,15 @@ configdb_ssl_storage_port: 7011
 
 # List of zookeeper servers
 # external_zookeeper_servers - are list of zookeeper servers managed externally
-external_zookeeper_servers: []
-zk_server_list: "{{ external_zookeeper_servers if external_zookeeper_servers else config_server_list }}"
+external_zookeeper_servers: ''
+zk_server_list: "{{ external_zookeeper_servers.split(',') if external_zookeeper_servers else config_server_list }}"
 zk_port: 2181
 
 # List of rabbitmq servers
 # external_rabbitmq_servers - are list of rabbitmq servers managed externally
-external_rabbitmq_servers: []
+external_rabbitmq_servers: ''
 # external_rabbitmq_servers to be used as rabbitmq_server_list if it is set
-rabbitmq_server_list: "{{ external_rabbitmq_servers if external_rabbitmq_servers else config_server_list }}"
+rabbitmq_server_list: "{{ external_rabbitmq_servers.split(',') if external_rabbitmq_servers else config_server_list }}"
 rabbitmq_port: 5672
 rabbitmq_user: guest
 rabbitmq_password: guest
@@ -49,7 +59,8 @@ region: RegionOne
 
 # Analytics defaults
 # Analytics node list, defaults to controller node list.
-analytics_list: "{{ controller_list }}"
+analytics_nodes: ''
+analytics_list: "{{ analytics_nodes.split(',') if analytics_nodes else controller_list }}"
 contrail_analytics_api_list: "{{ analytics_list }}"
 analytics_ip: "{{ controller_ip }}"
 analytics_server_ip: "{{ analytics_ip }}"
