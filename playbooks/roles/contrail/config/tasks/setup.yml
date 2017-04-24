@@ -28,5 +28,5 @@
 - include: "service/{{ contrail_service_mgr }}.yml"
   tags: [contrail.controller.service, contrail.config.service, service]
 
-- include: provision.yml
+- include: provision/main.yml
   tags: [contrail.controller.provision, contrail.config.provision, provision]
