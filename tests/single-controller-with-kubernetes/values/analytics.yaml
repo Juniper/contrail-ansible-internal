@@ -1,0 +1,71 @@
+---
+/etc/contrail/contrail-alarm-gen.conf:
+  ini_file:
+    DEFAULTS:
+      collectors: "192.168.0.63:8086"
+      kafka_broker_list: "192.168.0.63:9092"
+      rabbitmq_server_list: 192.168.0.63
+      zk_list: "192.168.0.63:2181"
+      host_ip: 192.168.0.63
+      rabbitmq_port: 5672
+    API_SERVER:
+      api_server_list: "192.168.0.63:8082"
+    REDIS:
+      redis_uve_list: "192.168.0.63:6381"
+    SANDESH:
+      sandesh_ssl_enable: false
+      introspect_ssl_enable: false
+/etc/contrail/contrail-analytics-api.conf:
+  ini_file:
+    DEFAULTS:
+      host_ip: 192.168.0.63
+      cassandra_server_list: "192.168.0.63:9042"
+      collectors: "192.168.0.63:8086"
+      api_server: "192.168.0.63:8082"
+      aaa_mode: no-auth
+      zk_list: "192.168.0.63:2181"
+    REDIS:
+      redis_query_port: 6381
+      redis_uve_list: "192.168.0.63:6381"
+/etc/contrail/contrail-analytics-nodemgr.conf:
+  ini_file:
+    COLLECTOR:
+      server_list: "192.168.0.63:8086"
+/etc/contrail/contrail-collector.conf:
+  ini_file:
+    DEFAULT:
+      cassandra_server_list: "192.168.0.63:9042"
+      kafka_broker_list: "192.168.0.63:9092"
+      hostip: 192.168.0.63
+      zookeeper_server_list: "192.168.0.63:2181"
+    COLLECTOR:
+      port: 8086
+    API_SERVER:
+      api_server_list: "192.168.0.63:8082"
+    REDIS:
+      server: 127.0.0.1
+/etc/contrail/contrail-query-engine.conf:
+  ini_file:
+    DEFAULT:
+      cassandra_server_list: "192.168.0.63:9042"
+      collectors: "192.168.0.63:8086"
+      http_server_port: 8091
+      hostip: 192.168.0.63
+    REDIS:
+      port: 6381
+/etc/contrail/contrail-snmp-collector.conf:
+  ini_file:
+    API_SERVER:
+      api_server_list: 192.168.0.63:8082
+      api_server_use_ssl: false
+    DEFAULTS:
+      zookeeper: 192.168.0.63:2181
+      collectors: 192.168.0.63:8086
+/etc/contrail/contrail-topology.conf:
+  ini_file:
+    DEFAULT:
+      zookeeper: 192.168.0.63:2181
+      collectors: 192.168.0.63:8086
+      http_server_port: 5921
+    API_SERVER:
+      api_server_list: 192.168.0.63:8082

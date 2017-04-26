@@ -11,6 +11,7 @@ import string
 import subprocess
 import ConfigParser
 import argparse
+import glob
 
 has_tabulate = True
 try:
@@ -249,6 +250,8 @@ def read_ini_file(file):
         ini_dict[section] = {}
         for option in cp.options(section):
             ini_dict[section][option] = cp.get(section, option)
+    if cp.defaults():
+        ini_dict['DEFAULT'] = cp.defaults()
     return ini_dict
 
 
@@ -261,12 +264,12 @@ def validate_ini(file, expected_config):
     print("Validating {}: ".format(file), end='')
     for section, config in expected_config.items():
         for option, expected_value in config.items():
-            current_config_value = current_config.get(section, {}).get(option, None)
+            current_config_value = current_config.get(section, {}).get(option.lower(), None)
             if str(current_config_value).strip() == str(expected_value).strip():
                 print('.', end='')
             else:
                 print('f',end='')
-                failed_config.append((current_config_value, expected_value))
+                failed_config.append(("{}.{}".format(section, option), current_config_value, expected_value))
     print('')
     return failed_config
 
@@ -275,15 +278,16 @@ def print_failed_report(failed_config):
     failures_list=[]
     for file, failures in failed_config.items():
         for entry in failures:
-            failures_list.append([file, entry[1], entry[0]])
+            print (entry)
+            failures_list.append([file, entry[0], entry[2], entry[1]])
 
     if not has_tabulate:
         print("tabulate python module is not installed, printing failed report with minimal formatting")
-        print("{:>50}{:>20}{:>20}".format('CONFIG FILE', 'EXPECTED CONFIG', 'CURRENT CONFIG'))
+        print("{:>40}{:>40}{:>20}{:>20}".format('CONFIG FILE', 'CONFIGURATION', 'EXPECTED VALUE', 'CURRENT VALUE'))
         for entry in failures_list:
-            print("{:>50}{:>20}{:>20}".format(entry[0], entry[1], entry[2]))
+            print("{:>40}{:>40}{:>20}{:>20}".format(entry[0], entry[1], entry[2], entry[3]))
     else:
-        print(tabulate(failures_list, headers=['CONFIG FILE', 'EXPECTED CONFIG', 'CURRENT CONFIG']))
+        print(tabulate(failures_list, headers=['CONFIG FILE', 'CONFIGURATION', 'EXPECTED VALUE', 'CURRENT VALUE']))
 
 
 def validate(values):
@@ -317,19 +321,29 @@ def worker():
     if not scenarios:
         log("worker", "ERROR|No scenarios found in {}".format(test_dir))
 
-    components = ['controller', 'analytics', 'analyticsdb', 'agent',
-                  'kubemanager', 'mesosmanager']
+    if os.environ.get('CONTRAIL_COMPONENTS', None):
+        components = os.environ['CONTRAIL_COMPONENTS'].split(',')
+    else:
+        components = ['controller','analytics', 'analyticsdb',
+                      'kubemanager', 'mesosmanager']
+
     for scenario in scenarios:
         env_yaml = os.path.join(scenario, 'env.yaml')
         values_yaml = os.path.join(scenario, 'values.yaml')
+        values_dir = os.path.join(scenario, 'values')
         if not os.path.isfile(env_yaml):
             log("worker", "ERROR| env.yaml does not found for scenario {}".format(scenario))
             return 1
-
-        if not os.path.isfile(values_yaml):
-            log("worker", "ERROR| values.yaml does not found for scenario {}".format(scenario))
+        values_dict = {}
+        if os.path.isfile(values_yaml):
+            values_dict = parse_yaml(values_yaml)
+        elif os.path.isdir(values_dir):
+            for yml_file in glob.iglob("{}/*.yaml".format(values_dir)):
+                values_dict.update(parse_yaml(yml_file))
+        else:
+            log("worker", "ERROR| values.yaml or values directory does not found for scenario {}".format(scenario))
             return 1
-        values_dict = parse_yaml(values_yaml)
+
         log("worker", "Testing the scenario {}".format(scenario))
         env_dict = parse_yaml(env_yaml)
         with Prepper(env_dict.get('prepare', {})) as prep:
