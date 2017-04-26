@@ -1,4 +1,13 @@
 ---
+- name: Wait till config api server answers before creating control objects
+  uri:
+    url: "{{ api_server_url }}"
+    status_code: 200
+  register: api_server_connect_status
+  until: api_server_connect_status.status == 200
+  retries: 300
+  delay: 1
+
 - name: register control node to config api server (keystone auth)
   shell: "/usr/share/contrail-utils/provision_control.py --api_server_ip 127.0.0.1 \
           {{ provision_cmd_keystone_args }} --router_asn {{ bgp_asn }}"

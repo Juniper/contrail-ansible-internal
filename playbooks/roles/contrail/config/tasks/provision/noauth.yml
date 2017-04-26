@@ -1,4 +1,13 @@
 ---
+- name: Wait till config api server answers before creating config objects
+  uri:
+    url: "{{ api_server_url }}"
+    status_code: 200
+  register: api_server_connect_status
+  until: api_server_connect_status.status == 200
+  retries: 300
+  delay: 1
+
 - name: register config node to config api server
   shell: "/usr/share/contrail-utils/provision_config_node.py --api_server_ip 127.0.0.1 \
           --host_name {{ ansible_hostname }} --host_ip {{ my_controller_ip }} \
