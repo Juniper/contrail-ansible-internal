@@ -11,6 +11,10 @@
   file: path=/var/log/contrail state=directory
   tags: [package, install]
 
+- name: Make sure contrail log directory exists with appropriate ownership
+  file: path=/var/log/contrail state=directory owner=contrail group=contrail
+  tags: [configure]
+
 - include: systemd.yml
   when: contrail_service_mgr == 'systemd'
   tags: [package]
