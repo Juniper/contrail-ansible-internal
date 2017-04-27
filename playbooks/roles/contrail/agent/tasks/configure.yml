@@ -33,13 +33,9 @@
 - include_role: name=contrail/common tasks_from=vncapi
   tags: [contrail.vncapi, contrail.vncapi.configure, test]
 
-- name: Configure vorouter agent
-  include: vrouter_agent.yml
-  tags: [contrail.agent.vrouter_agent.configure, contrail.agent.vrouter_agent]
-
-- name: Configure vrouter nodemanager
-  include: nodemanager.yml
-  tags: [contrail.agent.nodemanager.configure, contrail.agent.nodemanager, test]
+- name: Configure vrouter agent and nodemgr using contrail-compute-setup
+  shell: contrail-compute-setup --self_ip {{ vhost_address }} --cfgm_ip {{ api_server_ip }}
+  tags: [contrail.agent.vrouter.configure, contrail.agent.vrouter]
 
 - name: setup cni
   include: cni.yml
