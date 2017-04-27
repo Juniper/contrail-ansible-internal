@@ -184,10 +184,12 @@ def run_contrailctl(component, ns_name, config_file=None):
     log("run_contrailctl", "Running contrailctl for {}".format(component))
     if config_file:
         cctl_cmd = ['ip', 'netns', 'exec', ns_name, 'contrailctl', 'config',
-                    'sync', '-c', component, '-t', 'test', '-Ff', config_file]
+                    'sync', '-c', component, '-t', 'test', '-Ff', config_file,
+                    '-e', 'ansible_test_mode=True']
     else:
         cctl_cmd = ['ip', 'netns', 'exec', ns_name, 'contrailctl', 'config',
-                    'sync', '-c', component, '-t', 'test', '-F']
+                    'sync', '-c', component, '-t', 'test', '-F',
+                    '-e', 'ansible_test_mode=True']
     try:
         return subprocess.call(cctl_cmd)
     except OSError as e:
