@@ -76,3 +76,14 @@ backend contrail-webui-backend
     {% for webui_ip in contrail_api_server_list %}
     server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} cookie {{ webui_ip }} weight 1 maxconn 1024 check port {{ contrail_api_backend_port }}
     {% endfor %}
+
+frontend contrail-analytics-api
+    bind *:{{ contrail_analytics_api_frontend_port }}
+    default_backend    contrail-analytics-api-backend
+
+backend contrail-analytics-api-backend
+    option nolinger
+    balance roundrobin
+    {% for analytics_api_ip in contrail_analytics_api_list %}
+    server {{ analytics_api_ip }} {{ analytics_api_ip }}:{{ contrail_analytics_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
+    {% endfor %}
