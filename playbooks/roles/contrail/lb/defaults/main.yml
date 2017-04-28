@@ -22,7 +22,7 @@ contrail_analytics_api_frontend_port: 8081
 #Default backend ports
 api_listen_port: "{{ api_server_port }}"
 contrail_api_backend_port: "{{ api_listen_port }}"
-webui_http_listen_port: 10080
+webui_http_listen_port: 8080
 contrail_webui_backend_port: "{{ webui_http_listen_port }}"
 contrail_analytics_api_backend_port: "{{ analytics_server_port }}"
 
