@@ -1,0 +1,8 @@
+---
+/etc/contrail/contrail-database-nodemgr.conf:
+  ini_file:
+    COLLECTOR:
+      server_list: "192.168.0.63:8086 192.168.0.64:8086 192.168.0.65:8086"
+    DEFAULTS:
+      hostip: 192.168.0.63
+      minimum_diskGB: 256
