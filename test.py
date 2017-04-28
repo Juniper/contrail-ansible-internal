@@ -278,16 +278,15 @@ def print_failed_report(failed_config):
     failures_list=[]
     for file, failures in failed_config.items():
         for entry in failures:
-            print (entry)
-            failures_list.append([file, entry[0], entry[2], entry[1]])
+            failures_list.append([file, entry[0], entry[1], entry[2]])
 
     if not has_tabulate:
         print("tabulate python module is not installed, printing failed report with minimal formatting")
-        print("{:>40}{:>40}{:>20}{:>20}".format('CONFIG FILE', 'CONFIGURATION', 'EXPECTED VALUE', 'CURRENT VALUE'))
+        print("{:>40}{:>40}{:>20}{:>20}".format('CONFIG FILE', 'CONFIGURATION', 'CURRENT VALUE', 'EXPECTED VALUE'))
         for entry in failures_list:
             print("{:>40}{:>40}{:>20}{:>20}".format(entry[0], entry[1], entry[2], entry[3]))
     else:
-        print(tabulate(failures_list, headers=['CONFIG FILE', 'CONFIGURATION', 'EXPECTED VALUE', 'CURRENT VALUE']))
+        print(tabulate(failures_list, headers=['CONFIG FILE', 'CONFIGURATION', 'CURRENT VALUE', 'EXPECTED VALUE']))
 
 
 def validate(values):
@@ -327,6 +326,7 @@ def worker():
         components = ['controller','analytics', 'analyticsdb',
                       'kubemanager', 'mesosmanager']
 
+    return_value = 0
     for scenario in scenarios:
         env_yaml = os.path.join(scenario, 'env.yaml')
         values_yaml = os.path.join(scenario, 'values.yaml')
@@ -365,9 +365,10 @@ def worker():
             if failures:
                 log("worker", "Finished tests with failures")
                 print_failed_report(failures)
+                return_value = 1
             else:
                 log("worker", "Finished tests successfully")
-    return 0
+    return return_value
 
 
 def main(args=sys.argv[1:]):
