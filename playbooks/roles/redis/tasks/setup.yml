@@ -15,11 +15,7 @@
   when: external_package_install is not defined
   tags: [install, redis.install, package, redis.package]
 
-- name: Ensure Redis is configured.
-  template:
-    src: redis.conf.j2
-    dest: "{{ redis_conf_path }}"
-    mode: 0644
+- include: "patch-redis-conf.yml"
   notify: restart redis
   tags: [configure, redis.configure, test]
 

@@ -1,0 +1,31 @@
+---
+- name: Comment out bind.
+  lineinfile:
+   name: "{{ redis_conf_path }}"
+   regexp: '^bind'
+   line: '#bind 127.0.0.1'
+
+- name: change lua time limit
+  lineinfile:
+   name: "{{ redis_conf_path }}"
+   regexp: '^lua-time-limit'
+   line: 'lua-time-limit 15000'
+
+- name: add password if set
+  lineinfile:
+   name: "{{ redis_conf_path }}"
+   regexp: '^# requirepass'
+   line: 'requirepass {{ redis_password }}'
+  when: redis_password  is defined
+
+- name: comment out dbfilename
+  lineinfile:
+   name: "{{ redis_conf_path }}"
+   regexp: '^dbfilename'
+   line: '#dbfilename'
+
+- name: comment out save
+  replace:
+   name: "{{ redis_conf_path }}"
+   regexp: '^save'
+   replace: '# save'
