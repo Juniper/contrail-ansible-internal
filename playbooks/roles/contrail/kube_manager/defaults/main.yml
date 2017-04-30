@@ -7,7 +7,7 @@ contrail_kube_manager_packages:
 kube_manager_conf: "/etc/contrail/contrail-kubernetes.conf"
 kubernetes_api_server: 127.0.0.1
 kubernetes_api_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 8080 }}"
-kubernetes_api_secure_port: 6443
+kubernetes_api_secure_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 6443 }}"
 service_subnets: 10.96.0.0/12
 pod_subnets: 10.32.0.0/12
 admin_user: admin
@@ -15,7 +15,7 @@ admin_password: admin
 admin_tenant: admin
 kube_manager_log_level: SYS_DEBUG
 kube_manager_log_file: "/var/log/contrail/contrail-kube-manager.log"
-openshift_token: 'token'
+token: 'token'
 cluster_project: "default"
 cluster_name: "default-cluster"
 supervisor_kube_manager_ready: false

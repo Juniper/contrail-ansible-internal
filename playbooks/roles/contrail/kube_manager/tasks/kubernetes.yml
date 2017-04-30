@@ -1,4 +1,8 @@
 ---
+- name: Construct keystone auth url.
+  set_fact:
+    auth_url: "{{ auth_vnc_api_configs['AUTHN_PROTOCOL'] }}://{{ auth_ip if nested_mode == true else auth_vnc_api_configs['AUTHN_SERVER'] }}:{{ auth_vnc_api_configs['AUTHN_PORT'] }}{{ auth_vnc_api_configs['AUTHN_URL'] }}"
+
 - name: Configure contrail-kubernetes.conf
   ini_file:
     dest: "{{ kube_manager_conf }}"
@@ -20,22 +24,26 @@
       service_subnets: "{{ service_subnets }}"
       pod_subnets: "{{ pod_subnets }}"
       cluster_project: "{{ cluster_project }}"
-      cluster_name: "{{ cluster_name }}"
+      cluster_name: "{{ kubernetes_cluster_name }}"
     VNC:
-      vnc_endpoint_ip: "{{ api_server_ip }}"
+      vnc_endpoint_ip: "{{ controller_list }}"
       vnc_endpoint_port: "{{ api_server_port }}"
       rabbit_server: "{{ rabbitmq_servers_with_port }}"
       cassandra_server_list: "{{ configdb_servers_with_port }}"
       admin_user: "{{ admin_user }}"
       admin_password: "{{ admin_password }}"
       admin_tenant: "{{ admin_tenant }}"
+    AUTH:
+      auth_token_url: "{{ auth_url }}"
+      auth_user: "{{ admin_user }}"
+      auth_password: "{{ admin_password }}"
+      auth_tenant: "{{ admin_tenant }}"
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
 
-- name: Configure DEFAULTS.token in contrail-kubernetes.conf for openshift
-  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ openshift_token }}"  create=yes
-  when: cloud_orchestrator == 'openshift'
+- name: Configure DEFAULTS.token in contrail-kubernetes.conf
+  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ kubernetes_token }}"  create=yes
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
@@ -50,9 +58,13 @@
   with_inidata:
     DEFAULTS:
       nested_mode: 1
+    KUBERNETES:
+      cluster_network: "{{ kubernetes_cluster_network }}"
     AUTH:
-      auth_token_url: "{{ keystone_admin_auth_url }}"
-  when: cloud_orchestrator == 'kubernetes' and nested_mode
+      auth_password: "{{ auth_admin_password }}"
+      auth_user: "{{ auth_admin_user }}"
+      auth_tenant: "{{ auth_admin_tenant }}"
+  when: nested_mode == true
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
