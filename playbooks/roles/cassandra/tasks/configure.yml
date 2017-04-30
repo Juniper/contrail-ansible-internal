@@ -1,21 +1,42 @@
 ---
-- name: Install Cassandra config file
-  template: src=cassandra-{{cassandra_version_branch}}.j2 dest={{ cassandra_conf_dir }}/cassandra.yaml
+- name: Configure Cassandra config file
+  replace: dest={{ cassandra_conf_dir }}/cassandra.yaml regexp={{ item.regexp }} replace={{ item.replace }}
+  with_items:
+   - { regexp: 'listen_address: (.*)', replace: 'listen_address: {{ cassandra_listen_address }}' }
+   - { regexp: 'cluster_name: (.*)', replace: 'cluster_name: {{ cassandra_cluster_name }}' }
+   - { regexp: 'rpc_address: (.*)', replace: 'rpc_address: {{ cassandra_listen_address }}' }
+   - { regexp: '# num_tokens: 256 (.*)', replace: 'num_tokens: 256' }
+   - { regexp: 'initial_token:(.*)', replace: '# initial_token:' }
+   - { regexp: 'start_rpc: (.*)', replace: 'start_rpc: true' }
+   - { regexp: 'compaction_throughput_mb_per_sec: 16(.*)', replace: 'compaction_throughput_mb_per_sec: 96' }
+   - { regexp: 'saved_caches_directory: (.*)', replace: 'saved_caches_directory: {{ cassandra_saved_caches_dir }}' }
+   - { regexp: 'commitlog_directory: (.*)', replace: 'commitlog_directory: {{ cassandra_commitlog_dir }}' }
+   - { regexp: '    - /var/lib/cassandra/data(.*)', replace: '{% for data_dir in cassandra_data_dirs %}    - {{ data_dir }}{% if not loop.last %}\n{% endif %}{% endfor %}' }
+   - { regexp: '          - seeds: (.*)', replace: '          - seeds: "{% for seed in cassandra_seeds %}{{ seed }}"{% if not loop.last %}, {% endif %}{% endfor %}' }
+   - { regexp: 'storage_port: (.*)', replace: 'storage_port: {{ cassandra_storage_port }}' }
+   - { regexp: 'ssl_storage_port: (.*)', replace: 'ssl_storage_port: {{ cassandra_ssl_storage_port }}' }
+   - { regexp: 'start_native_transport: (.*)', replace: 'start_native_transport: {{ cassandra_start_cql }}' }
+   - { regexp: 'native_transport_port: (.*)', replace: 'native_transport_port: {{ cassandra_cql_port }}' }
+   - { regexp: 'rpc_port: (.*)', replace: 'rpc_port: {{ cassandra_rpc_port }}' }
   notify: restart cassandra
   tags: [test]
 
-- name: Install Cassandra DC config file
-  template: src=cassandra-topology.yml.j2 dest={{ cassandra_conf_dir }}/cassandra-topology.yml
-  notify: restart cassandra
-  tags: [test]
-
-- name: Install Cassandra Java Config File
-  template: src=cassandra-{{cassandra_version_branch}}-env.j2 dest={{ cassandra_conf_dir }}/cassandra-env.sh
-  notify: restart cassandra
-  tags: [test]
-
-- name: Install log4j config file
-  template: src=log4j-server.properties.j2 dest={{ cassandra_conf_dir }}/log4j-server.properties
+- name: Configure Cassandra Java Config File
+  replace: dest={{ cassandra_conf_dir }}/cassandra-env.sh regexp={{ item.regexp }} replace={{ item.replace }}
+  with_items:
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintGCDetails"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintGCDetails"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintGCDateStamps"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintGCDateStamps"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintHeapAtGC"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintHeapAtGC"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintTenuringDistribution"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintTenuringDistribution' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintGCApplicationStoppedTime"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintGCApplicationStoppedTime"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:+PrintPromotionFailure"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:+PrintPromotionFailure"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -XX:PrintFLSStatistics=1"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:PrintFLSStatistics=1"' }
+   - { regexp: '# JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc-`date +%%s`.log"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc-`date +%%s`.log"' }
+   - { regexp: 'if [ "$JVM_VERSION" < "1.8" ] && [ "$JVM_PATCH_VERSION" < "25" ] ; then(.*)', replace: 'if [ "$JVM_VERSION" < "1.8" ] && [ "$JVM_PATCH_VERSION" -lt "25" ] ; then' }
+   - { regexp: 'JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=15"' }
+   - { regexp: '# MAX_HEAP_SIZE=(.*)', replace: 'MAX_HEAP_SIZE="{{ cassandra_java_max_heap_size }}"' }
+   - { regexp: '# HEAP_NEWSIZE=(.*)', replace: 'HEAP_NEWSIZE="{{ cassandra_java_max_heap_newsize }}"' }
+   - { regexp: 'JMX_PORT=(.*)', replace: 'JMX_PORT="{{ cassandra_rmi_port }}"' }
   notify: restart cassandra
   tags: [test]
 
