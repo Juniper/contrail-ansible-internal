@@ -1,5 +1,5 @@
 ---
-- name: configure vnc_api_lib.ini with  all common entries in global section
+- name: configure vnc_api_lib.ini with all common entries in global section
   ini_file: dest={{ vncapi_conf }} section=global option={{ item.key }} value={{ item.value }}  create=yes
   with_dict: "{{ global_vnc_api_configs }}"
 
@@ -7,3 +7,12 @@
   ini_file: dest={{ vncapi_conf }} section=auth option={{ item.key }} value={{ item.value }}  create=yes
   with_dict: "{{ auth_vnc_api_configs }}"
   when: cloud_orchestrator == 'openstack'
+
+- name: configure keystone insecure flag in vnc_api_lib.ini
+  ini_file: dest={{ vncapi_conf }} section=auth option=insecure value={{ keystone_insecure }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https'
+
+- name: configure vnc_api_lib.ini with keystone SSL certs
+  ini_file: dest={{ vncapi_conf }} section=auth option={{ item.key }} value={{ item.value }}  create=yes
+  with_dict: "{{ auth_ssl_configs }}"
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https' and keystone_insecure == False

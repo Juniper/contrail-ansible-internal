@@ -1,0 +1,3 @@
+---
+- name: Create apiservercertbundle.pem
+  shell: cat {{ apiserver_certfile }} {{ apiserver_keyfile }} > {{ apiserver_certbundle }}

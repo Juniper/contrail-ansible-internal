@@ -9,5 +9,5 @@
   delay: 1
 
 - name: register vrouter to config api server (non-openstack)
-  shell: "/usr/share/contrail-utils/provision_vrouter.py  --api_server_ip {{ api_server_ip }}  \
+  shell: "/usr/share/contrail-utils/provision_vrouter.py  --api_server_ip {{ api_servers_with_space_delim }}  \
     --host_name {{ ansible_hostname }} --host_ip {{ vhost_address }} --oper add"
