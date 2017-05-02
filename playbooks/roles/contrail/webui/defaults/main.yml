@@ -13,6 +13,10 @@ webui_redis_password: ''
 webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
 webui_log_level: debug
 
+# Contrail Web Storage disable by default
+
+webui_storage_enable: False
+
 # admin credentials for webui
 webui_admin_user: "{{ keystone_admin_user }}"
 webui_admin_password: "{{ keystone_admin_password }}"
@@ -20,6 +24,7 @@ webui_admin_tenant_name: "{{ keystone_admin_tenant }}"
 
 webui_packages:
  - contrail-openstack-webui
+ - contrail-web-storage
 
 # This is to configure minimum number of file descriptors that must be available before supervisord will start
 # successfully - default is 1024 but supervisord_webui need more than that.
