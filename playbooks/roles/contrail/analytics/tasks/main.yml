@@ -16,6 +16,9 @@
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.analytics.install]
 
+- include_role: name=contrail/common tasks_from=logsowner
+  tags: [contrail.logsowner, contrail.logsowner.configure, configure]
+
 - include: configure.yml
   tags: [contrail.analytics.configure, configure, test]
 

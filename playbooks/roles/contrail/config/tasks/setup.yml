@@ -22,6 +22,9 @@
 - include: facts.yml
   tags: always
 
+- include_role: name=contrail/common tasks_from=logsowner
+  tags: [contrail.logsowner, contrail.logsowner.configure, configure]
+
 - include: configure.yml
   tags: [contrail.controller.configure, contrail.config.configure, configure, test]
 

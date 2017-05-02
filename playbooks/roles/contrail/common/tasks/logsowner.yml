@@ -1,0 +1,3 @@
+---
+- name: Make sure contrail log directory exists with appropriate ownership
+  file: path=/var/log/contrail state=directory owner=contrail group=contrail
