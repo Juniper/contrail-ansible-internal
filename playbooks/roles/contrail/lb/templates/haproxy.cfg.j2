@@ -50,7 +50,7 @@ frontend stats
 {%- endif %}
 
 frontend contrail-api
-{% if api_server_use_ssl == True %}
+{% if apiserver_auth_protocol == 'https' %}
     bind *:{{ contrail_api_frontend_port }} ssl crt {{ apiserver_certbundle }}
 {% else %}
     bind *:{{ contrail_api_frontend_port }}
@@ -62,7 +62,7 @@ backend contrail-api-backend
     option nolinger
     timeout server 3m
     balance roundrobin
-{% if api_server_use_ssl == True %}
+{% if apiserver_auth_protocol == 'https' %}
     option forwardfor
     http-request set-header X-Forwarded-Port %[dst_port]
     http-request add-header X-Forwarded-Proto https if { ssl_fc }

@@ -16,10 +16,10 @@
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.lb.install]
 
-- include: configure.yml
-  tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
-
 - name: Include apiserver certificate bundling specific code
   include: ssl/apiserver.yml
+  when: apiserver_auth_protocol == 'https'
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
-  when: api_server_use_ssl == True
+
+- include: configure.yml
+  tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
