@@ -1,0 +1,5 @@
+---
+- name: setup ceph_rest_api
+  shell: "sed -i 's/app.run(host=app.ceph_addr, port=app.ceph_port)/app.run(host=app.ceph_addr, port={{ceph_rest_api_port}})/' /usr/bin/ceph-rest-api"
+
+#- name: setup stats daemon
