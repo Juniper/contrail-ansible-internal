@@ -12,7 +12,7 @@
    - { regexp: 'saved_caches_directory: (.*)', replace: 'saved_caches_directory: {{ cassandra_saved_caches_dir }}' }
    - { regexp: 'commitlog_directory: (.*)', replace: 'commitlog_directory: {{ cassandra_commitlog_dir }}' }
    - { regexp: '    - /var/lib/cassandra/data(.*)', replace: '{% for data_dir in cassandra_data_dirs %}    - {{ data_dir }}{% if not loop.last %}\n{% endif %}{% endfor %}' }
-   - { regexp: '          - seeds: (.*)', replace: '          - seeds: "{% for seed in cassandra_seeds %}{{ seed }}"{% if not loop.last %}, {% endif %}{% endfor %}' }
+   - { regexp: '          - seeds: (.*)', replace: '          - seeds: "{% for seed in cassandra_seeds %}{{ seed }}{% if not loop.last %}, {% endif %}{% endfor %}"' }
    - { regexp: 'storage_port: (.*)', replace: 'storage_port: {{ cassandra_storage_port }}' }
    - { regexp: 'ssl_storage_port: (.*)', replace: 'ssl_storage_port: {{ cassandra_ssl_storage_port }}' }
    - { regexp: 'start_native_transport: (.*)', replace: 'start_native_transport: {{ cassandra_start_cql }}' }
