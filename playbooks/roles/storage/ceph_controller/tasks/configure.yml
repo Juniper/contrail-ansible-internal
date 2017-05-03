@@ -7,3 +7,6 @@
 
 - name: setup mon
   include: ceph_mon_config.yml
+
+- name: setup daemons
+  include: ceph_daemon_config.yml
