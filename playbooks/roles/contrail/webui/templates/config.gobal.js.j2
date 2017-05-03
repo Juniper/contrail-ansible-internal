@@ -301,6 +301,10 @@ config.featurePkg.webController = {};
 config.featurePkg.webController.path = '/usr/src/contrail/contrail-web-controller';
 config.featurePkg.webController.enable = true;
 
+config.featurePkg.webStorage = {};
+config.featurePkg.webStorage.path = '/usr/src/contrail/contrail-web-storage';
+config.featurePkg.webStorage.enable = {{webui_storage_enable | to_json}};
+
 /* Enable/disable Stat Query Links in Sidebar*/
 config.qe = {};
 config.qe.enable_stat_queries = false;
