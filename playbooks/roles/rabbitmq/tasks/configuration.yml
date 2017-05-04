@@ -35,7 +35,7 @@
   when: rabbitmq_nodes_names is not defined
 
 - name: Collect hostnames resolved for rabbitmq_seed_list
-  shell: getent  hosts {{ rabbitmq_seed_list|join(" ") }} | awk '{print $2} | cut -d . -f1'
+  shell: getent  hosts {{ rabbitmq_seed_list|join(" ") }} | awk '{print $2}' | cut -d . -f1
   register: rabbitmq_seed_nodes_names_var
 
 - name: Set fact for rabbitmq_seed_nodes
