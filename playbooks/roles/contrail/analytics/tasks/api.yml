@@ -25,6 +25,7 @@
     REDIS:
       redis_uve_list: "{{ analytics_redis_servers_with_port }}"
       redis_query_port: "{{ analytics_redis_port }}"
+      redis_password: "{{ redis_password }}"
     SANDESH:
       sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
       introspect_ssl_enable: "{{ introspect_ssl_enable }}"

@@ -9,7 +9,6 @@ webui_use_ssl: false
 webui_max_active_jobs: 10
 
 webui_redis_db_index: 3
-webui_redis_password: ''
 webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
 webui_log_level: debug
 

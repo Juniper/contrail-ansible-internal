@@ -1,32 +1,53 @@
 ---
 - name: Comment out bind.
   lineinfile:
+   backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^bind'
    line: '#bind 127.0.0.1'
 
 - name: change lua time limit
   lineinfile:
+   backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^lua-time-limit'
    line: 'lua-time-limit 15000'
 
 - name: Change the port to configured port
   lineinfile:
+   backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^port'
    line: 'port {{ redis_port }}'
   when: redis_port is defined
 
+# We have three senarios:
+# 1. user remove password when password has been set
+# 2. user change password when password exist
+# 3. user set password when password has not been set.
+#    other senario we should do nothing.
+# To cover these three, we use two steps.
+# step 1: comment out password if it has been set.
+# step 2: if user config/change password,
+#         replace the line has been commented out
+- name: comment out requirepass firstly
+  lineinfile:
+   backrefs: yes
+   name: "{{ redis_conf_path }}"
+   regexp: '^requirepass'
+   line: '# requirepass'
+
 - name: add password if set
   lineinfile:
+   backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^# requirepass'
    line: 'requirepass {{ redis_password }}'
-  when: redis_password  is defined
+  when: redis_password != ''
 
 - name: comment out dbfilename
   lineinfile:
+   backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^dbfilename'
    line: '#dbfilename'

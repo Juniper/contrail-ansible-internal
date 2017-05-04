@@ -21,6 +21,7 @@
     REDIS:
       port: "{{ analytics_redis_port }}"
       server: "{{ analytics_redis_ip }}"
+      password: "{{ redis_password }}"
     COLLECTOR:
       port: "{{ analytics_collector_listen_port }}"
       server: "{{ analytics_collector_listen_address }}"

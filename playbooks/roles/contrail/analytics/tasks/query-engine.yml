@@ -18,6 +18,7 @@
     REDIS:
       port: "{{ analytics_redis_port }}"
       server: "{{ analytics_redis_ip }}"
+      password: "{{ redis_password }}"
     SANDESH:
       sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
       introspect_ssl_enable: "{{ introspect_ssl_enable }}"

@@ -22,6 +22,7 @@
     REDIS:
       redis_uve_list: "{{ analytics_redis_servers_with_port }}"
       redis_server_port: "{{ analytics_redis_port }}"
+      redis_password: "{{ redis_password }}"
     API_SERVER:
       api_server_list: "{{ api_servers_with_port }}"
       api_server_use_ssl: "{{ api_server_use_ssl }}"
