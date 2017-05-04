@@ -5,7 +5,7 @@ webui_listen_address: ['0.0.0.0']
 webui_http_listen_port: 8080
 webui_https_listen_port: 8143
 webui_worker_count: 1
-webui_use_ssl: false
+webui_use_ssl: "{{ false if web_server_nodes |length > 1 else true }}"
 webui_max_active_jobs: 10
 
 webui_redis_db_index: 3
