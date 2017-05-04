@@ -11,6 +11,13 @@
    regexp: '^lua-time-limit'
    line: 'lua-time-limit 15000'
 
+- name: Change the port to configured port
+  lineinfile:
+   name: "{{ redis_conf_path }}"
+   regexp: '^port'
+   line: 'port {{ redis_port }}'
+  when: redis_port is defined
+
 - name: add password if set
   lineinfile:
    name: "{{ redis_conf_path }}"
