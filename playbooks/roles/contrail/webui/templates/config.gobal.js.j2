@@ -126,7 +126,7 @@ config.serviceEndPointTakePublicURL = true;
  *      if you do not want to specify then use ''
  *****************************************************************************/
 config.networkManager = {};
-config.networkManager.ip = '127.0.0.1';
+config.networkManager.ip = '{{ neutron_metadata_ip }} ';
 config.networkManager.port = '9696'
 config.networkManager.authProtocol = 'http';
 config.networkManager.apiVersion = [];
@@ -134,7 +134,7 @@ config.networkManager.strictSSL = false;
 config.networkManager.ca = '';
 
 config.imageManager = {};
-config.imageManager.ip = '127.0.0.1';
+config.imageManager.ip = ' {{ glance_api_ip}} ';
 config.imageManager.port = '9292';
 config.imageManager.authProtocol = 'http';
 config.imageManager.apiVersion = ['v1', 'v2'];
@@ -142,7 +142,7 @@ config.imageManager.strictSSL = false;
 config.imageManager.ca = '';
 
 config.computeManager = {};
-config.computeManager.ip = '127.0.0.1';
+config.computeManager.ip = '{{ nova_api_ip }}';
 config.computeManager.port = '8774';
 config.computeManager.authProtocol = 'http';
 config.computeManager.apiVersion = ['v1.1', 'v2'];
