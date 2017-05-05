@@ -71,21 +71,6 @@ backend contrail-api-backend
     server {{ contrail_api_ip }} {{ contrail_api_ip }}:{{ contrail_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
 {% endfor %}
 
-frontend contrail-webui
-    bind *:{{ contrail_webui_frontend_port }}
-    timeout client 86400000
-    default_backend    contrail-webui-backend
-
-backend contrail-webui-backend
-    mode http
-    balance roundrobin
-    cookie SERVERID insert indirect nocache
-    timeout server 30000
-    timeout connect 4000
-{% for webui_ip in contrail_api_server_list %}
-    server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} cookie {{ webui_ip }} weight 1 maxconn 1024 check port {{ contrail_api_backend_port }}
-{% endfor %}
-
 frontend contrail-analytics-api
     bind *:{{ contrail_analytics_api_frontend_port }}
     default_backend    contrail-analytics-api-backend

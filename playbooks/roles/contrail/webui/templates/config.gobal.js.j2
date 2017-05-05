@@ -262,7 +262,7 @@ config.webui_addresses = {{ webui_listen_address|to_json }};
  * to https, if set true, then no https request will be processed, but only http
  * request
  */
-config.insecure_access = {{ 'false' if webui_use_ssl else 'true' }};
+config.insecure_access = false;
 
 // HTTP port for NodeJS Server.
 config.http_port = '{{ webui_http_listen_port }}';
