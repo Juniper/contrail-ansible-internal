@@ -28,23 +28,23 @@
     - restart config api supervisord
     - restart config api systemd
 
-- name: configure config api multi tenancy in case of openstack
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value={{ multi_tenancy }}
-  notify:
-    - restart config api supervisord
-    - restart config api systemd
-  when: cloud_orchestrator == "openstack" and multi_tenancy
-
-- name: Disable multi_tenancy in case of non-openstack system
-  ini_file: dest={{ api_conf }} section=DEFAULTS option=multi_tenancy value=False
-  notify:
-    - restart config api supervisord
-    - restart config api systemd
-  when: cloud_orchestrator != "openstack"
-
 - name: configure config api auth
   ini_file: dest={{ api_conf }} section=DEFAULTS option=auth value={{ auth }}
   notify:
     - restart config api supervisord
     - restart config api systemd
   when: cloud_orchestrator == "openstack"
+
+- name: configure config api aaa mode in case of openstack
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=aaa_mode value={{ api_aaa_mode }}
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: cloud_orchestrator == "openstack"
+
+- name: Disable AAA in case of non-openstack system
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=aaa_mode value="no-auth"
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: cloud_orchestrator != "openstack"
