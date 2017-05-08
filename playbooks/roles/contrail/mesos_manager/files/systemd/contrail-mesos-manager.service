@@ -10,6 +10,16 @@ ExecStart=/usr/bin/contrail-mesos-manager -c /etc/contrail/contrail-mesos.conf
 TimeoutStartSec=0
 MountFlags=slave
 Restart=on-abnormal
+PIDFile=/var/run/contrail/contrail-mesos-manager.pid
+User=contrail
+Group=contrail
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectHome=yes
+ReadOnlyDirectories=/
+ReadWriteDirectories=-/var/log/contrail
+ReadWriteDirectories=-/etc/contrail
 
 [Install]
 WantedBy=multi-user.target
