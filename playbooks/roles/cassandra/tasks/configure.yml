@@ -9,7 +9,6 @@
    - { regexp: 'initial_token:(.*)', replace: '# initial_token:' }
    - { regexp: 'start_rpc: (.*)', replace: 'start_rpc: true' }
    - { regexp: 'compaction_throughput_mb_per_sec: 16(.*)', replace: 'compaction_throughput_mb_per_sec: 96' }
-   - { regexp: 'saved_caches_directory: (.*)', replace: 'saved_caches_directory: {{ cassandra_saved_caches_dir }}' }
    - { regexp: 'commitlog_directory: (.*)', replace: 'commitlog_directory: {{ cassandra_commitlog_dir }}' }
    - { regexp: '    - /var/lib/cassandra/data(.*)', replace: '{% for data_dir in cassandra_data_dirs %}    - {{ data_dir }}{% if not loop.last %}\n{% endif %}{% endfor %}' }
    - { regexp: '          - seeds: (.*)', replace: '          - seeds: "{% for seed in cassandra_seeds %}{{ seed }}{% if not loop.last %}, {% endif %}{% endfor %}"' }
@@ -18,6 +17,7 @@
    - { regexp: 'start_native_transport: (.*)', replace: 'start_native_transport: {{ cassandra_start_cql }}' }
    - { regexp: 'native_transport_port: (.*)', replace: 'native_transport_port: {{ cassandra_cql_port }}' }
    - { regexp: 'rpc_port: (.*)', replace: 'rpc_port: {{ cassandra_rpc_port }}' }
+   - { regexp: 'authenticator:(.*)', replace: '{% if cassandra_user != "" %}authenticator: PasswordAuthenticator{% else %}authenticator: AllowAllAuthenticator{% endif %}'}
   notify: restart cassandra
   tags: [test]
 
@@ -34,10 +34,17 @@
    - { regexp: '# JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc-`date +%%s`.log"(.*)', replace: 'JVM_OPTS="$JVM_OPTS -Xloggc:/var/log/cassandra/gc-`date +%%s`.log"' }
    - { regexp: 'if [ "$JVM_VERSION" < "1.8" ] && [ "$JVM_PATCH_VERSION" < "25" ] ; then(.*)', replace: 'if [ "$JVM_VERSION" < "1.8" ] && [ "$JVM_PATCH_VERSION" -lt "25" ] ; then' }
    - { regexp: 'JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=(.*)', replace: 'JVM_OPTS="$JVM_OPTS -XX:MaxTenuringThreshold=15"' }
-   - { regexp: '# MAX_HEAP_SIZE=(.*)', replace: 'MAX_HEAP_SIZE="{{ cassandra_java_max_heap_size }}"' }
-   - { regexp: '# HEAP_NEWSIZE=(.*)', replace: 'HEAP_NEWSIZE="{{ cassandra_java_max_heap_newsize }}"' }
    - { regexp: 'JMX_PORT=(.*)', replace: 'JMX_PORT="{{ cassandra_rmi_port }}"' }
   notify: restart cassandra
   tags: [test]
 
 - meta: flush_handlers
+
+- name: Configure Cassandra User and Password if provided
+  command: >
+    cqlsh {{ cassandra_listen_address }} -u cassandra -p cassandra -e "CREATE USER IF NOT EXISTS {{ cassandra_user }} WITH PASSWORD '{{ cassandra_password }}'"
+  register: result
+  until: result|success
+  retries: 10
+  delay: 5
+  when: cassandra_user != ""
