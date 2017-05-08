@@ -28,3 +28,19 @@
   notify:
     - restart query-engine supervisord
     - restart query-engine systemd
+
+- name: Configure Cassandra User and Password if provided
+  ini_file:
+    dest: "{{ analytics_query_engine_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CASSANDRA:
+      cassandra_user: "{{ analyticsdb_cassandra_user }}"
+      cassandra_password: "{{ analyticsdb_cassandra_password }}"
+  when: analyticsdb_cassandra_user != ''
+  notify:
+   - restart query-engine supervisord
+   - restart query-engine systemd

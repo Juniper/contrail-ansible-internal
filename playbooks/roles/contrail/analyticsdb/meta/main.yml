@@ -7,3 +7,5 @@ dependencies:
     cassandra_seeds: "{{ analyticsdb_list }}"
     cassandra_listen_address: "{{ my_analyticsdb_ip }}"
     cassandra_packages: "{{ analyticsdb_cassandra_packages }}"
+    cassandra_user: "{{ analyticsdb_cassandra_user }}"
+    cassandra_password: "{{ analyticsdb_cassandra_password }}"

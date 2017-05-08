@@ -37,3 +37,19 @@
   notify:
     - restart analytics collector supervisord
     - restart analytics collector systemd
+
+- name: Configure Cassandra User and Password if provided
+  ini_file:
+    dest: "{{ analytics_collector_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CASSANDRA:
+      cassandra_user: "{{ analyticsdb_cassandra_user }}"
+      cassandra_password: "{{ analyticsdb_cassandra_password }}"
+  when: analyticsdb_cassandra_user != ''
+  notify:
+   - restart analytics collector supervisord
+   - restart analytics collector systemd

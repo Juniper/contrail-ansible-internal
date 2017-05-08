@@ -65,5 +65,8 @@ cassandra_log_level: info
 cassandra_service_manage: true
 cassandra_service_name: cassandra
 
+cassandra_user: ''
+cassandra_password: ''
+
 # Whether to setup cassandra or disable if already running
 enable_cassandra: true
