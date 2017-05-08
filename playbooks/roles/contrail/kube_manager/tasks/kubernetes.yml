@@ -24,9 +24,9 @@
       service_subnets: "{{ service_subnets }}"
       pod_subnets: "{{ pod_subnets }}"
       cluster_project: "{{ cluster_project }}"
-      cluster_name: "{{ kubernetes_cluster_name }}"
+      cluster_name: "{{ kubernetes_cluster_name|default('') }}"
     VNC:
-      vnc_endpoint_ip: "{{ controller_list }}"
+      vnc_endpoint_ip: "{{ controller_list | join(',') }}"
       vnc_endpoint_port: "{{ api_server_port }}"
       rabbit_server: "{{ rabbitmq_servers_with_port }}"
       cassandra_server_list: "{{ configdb_servers_with_port }}"
@@ -43,7 +43,7 @@
     - restart kube-manager systemd
 
 - name: Configure DEFAULTS.token in contrail-kubernetes.conf
-  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ kubernetes_token }}"  create=yes
+  ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ kubernetes_token|default('') }}"  create=yes
   notify:
     - restart kube-manager supervisord
     - restart kube-manager systemd
@@ -59,11 +59,11 @@
     DEFAULTS:
       nested_mode: 1
     KUBERNETES:
-      cluster_network: "{{ kubernetes_cluster_network }}"
+      cluster_network: "{{ kubernetes_cluster_network|default('default-cluster') }}"
     AUTH:
-      auth_password: "{{ auth_admin_password }}"
-      auth_user: "{{ auth_admin_user }}"
-      auth_tenant: "{{ auth_admin_tenant }}"
+      auth_password: "{{ auth_admin_password|default('') }}"
+      auth_user: "{{ auth_admin_user|default('') }}"
+      auth_tenant: "{{ auth_admin_tenant|default('') }}"
   when: nested_mode == true
   notify:
     - restart kube-manager supervisord
