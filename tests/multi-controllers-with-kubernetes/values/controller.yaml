@@ -7,7 +7,7 @@
       collectors: "192.168.0.63:8086 192.168.0.64:8086 192.168.0.65:8086"
       listen_port: 8082
       rabbit_server: "192.168.0.63:5672,192.168.0.64:5672,192.168.0.65:5672"
-      multi_tenancy: false
+      aaa_mode: "no-auth"
 /etc/contrail/contrail-config-nodemgr.conf:
   ini_file:
     COLLECTOR:
