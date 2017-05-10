@@ -28,7 +28,7 @@ kafka_log_cleaner_threads: 2
 kafka_log_cleaner_dedupe_buffer_size: 250000000
 kafka_log_cleaner_enable: true
 kafka_delete_topic_enable: true
-kafka_replication_factor: 1
+kafka_replication_factor: "{{ 1 if analyticsdb_list|length == 1 else 2 }}"
 kafka_num_partitions: 30
 
 supervisor_database_ready: false
