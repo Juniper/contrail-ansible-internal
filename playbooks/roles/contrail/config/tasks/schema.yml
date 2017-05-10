@@ -27,3 +27,19 @@
   notify:
     - restart schema supervisord
     - restart schema systemd
+
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ schema_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CASSANDRA:
+      cassandra_user: "{{ configdb_cassandra_user }}"
+      cassandra_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart schema supervisord
+    - restart schema systemd
+  when: configdb_cassandra_user != ''
