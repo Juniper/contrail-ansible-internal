@@ -25,6 +25,8 @@ dependencies:
     cassandra_listen_address: "{{ my_controller_ip }}"
     cassandra_cluster_name: "{{ configdb_cassandra_cluster_name }}"
     enable_cassandra: "{{ contrail_enable_configdb }}"
+    cassandra_user: "{{ configdb_cassandra_user }}"
+    cassandra_password: "{{ configdb_cassandra_password }}"
     tags: [configdb]
 
   - role: zookeeper

@@ -40,6 +40,22 @@
     - restart contrail-dns supervisord
     - restart contrail-dns systemd
 
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ dns_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CONFIGDB:
+      config_db_username: "{{ configdb_cassandra_user }}"
+      config_db_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart contrail-dns supervisord
+    - restart contrail-dns systemd
+  when: configdb_cassandra_user != ''
+
 - name: Configure rndc key for named
   lineinfile: dest="{{ item }}" line="    secret {{ rndc_key }};" regexp="^[\s\t]+secret " state=present backrefs=yes
   notify:
