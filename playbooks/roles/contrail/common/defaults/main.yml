@@ -20,6 +20,8 @@ analyticsdb_nodes: ''
 analyticsdb_list: "{{ analyticsdb_nodes.split(',') if analyticsdb_nodes else controller_list }}"
 analyticsdb_port: 9160
 analyticsdb_cql_port: 9042
+analyticsdb_cassandra_user: ''
+analyticsdb_cassandra_password: ''
 # external_configdb_servers - are list of cassandra servers managed externally
 external_configdb_servers: ''
 configdb_servers: ''
