@@ -11,6 +11,7 @@
 # listen_port which break ansible logic
 - name: Copy systemd file for contrail-api to systemd unit file location
   copy: src=systemd/contrail-api.service dest=/etc/systemd/system/contrail-api.service
+  when: ansible_os_family != 'RedHat'
 
 # Rest of the services will be enabled by contrail-ansible
 - name: Enable contrail-ansible.service
@@ -18,6 +19,7 @@
 
 - name: Enable contrail-api.service
   file: src=/etc/systemd/system/contrail-api.service dest=/etc/systemd/system/multi-user.target.wants/contrail-api.service state=link
+  when: ansible_os_family != 'RedHat'
 
 # This task is to avoid below error while enabling the service
 # update-rc.d: error: kafka Default-Start contains no runlevels, aborting.
