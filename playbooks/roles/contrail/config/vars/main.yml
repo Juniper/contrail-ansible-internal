@@ -2,3 +2,16 @@
 config_setup_target: "{{ 'setup' if enable_config_service else 'disable' }}"
 config_service_state: "{{ 'started' if enable_config_service else 'stopped' }}"
 config_service_enabled: "{{ 'yes' if enable_config_service else 'no' }}"
+
+contrail_rabbitmq_vhost_definitions_detected:
+  - name: "{{ rabbitmq_vhost }}"
+
+contrail_rabbitmq_users_definitions_detected:
+  - vhost:    "{{ rabbitmq_vhost }}"
+    user:     "{{ rabbitmq_user }}"
+    password: "{{ rabbitmq_password }}"
+    tags:
+    - administrator
+
+contrail_rabbitmq_vhost_definitions: "{{ [] if rabbitmq_vhost == '/' else contrail_rabbitmq_vhost_definitions_detected }}"
+contrail_rabbitmq_users_definitions: "{{ [] if rabbitmq_user == 'guest' else contrail_rabbitmq_users_definitions_detected }}"

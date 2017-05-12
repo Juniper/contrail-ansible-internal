@@ -2,7 +2,7 @@
 - name: create the ssl folder for rabbitmq
   file:
     path=/etc/rabbitmq/ssl/
-    owner="{{ rabbitmq_user }}"
+    owner="{{ rabbitmq_owner }}"
     group="{{ rabbitmq_group }}"
     mode=0750
     state=directory
@@ -13,7 +13,7 @@
   copy:
     src={{ item.src }}
     dest={{ item.dest }}
-    owner="{{ rabbitmq_user }}"
+    owner="{{ rabbitmq_owner }}"
     group="{{ rabbitmq_group }}"
     mode=0640
     backup=yes
@@ -46,7 +46,7 @@
   template:
     src=rabbitmq.config.j2
     dest=/etc/rabbitmq/rabbitmq.config
-    owner="{{ rabbitmq_user }}"
+    owner="{{ rabbitmq_owner }}"
     group="{{ rabbitmq_group }}"
     mode=0644
     backup=yes
@@ -56,7 +56,7 @@
   template:
     src=rabbitmq-env.conf.j2
     dest=/etc/rabbitmq/rabbitmq-env.conf
-    owner="{{ rabbitmq_user }}"
+    owner="{{ rabbitmq_owner }}"
     group="{{ rabbitmq_group }}"
     mode=0644
     backup=yes
@@ -67,7 +67,7 @@
   copy:
     content="{{ rabbitmq_erlang_cookie }}"
     dest=/var/lib/rabbitmq/.erlang.cookie
-    owner="{{ rabbitmq_user }}"
+    owner="{{ rabbitmq_owner }}"
     group="{{ rabbitmq_group }}"
     mode=0400
   notify: restart rabbitmq-server

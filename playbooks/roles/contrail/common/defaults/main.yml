@@ -61,6 +61,7 @@ external_rabbitmq_servers: ''
 # external_rabbitmq_servers to be used as rabbitmq_server_list if it is set
 rabbitmq_server_list: "{{ external_rabbitmq_servers.split(',') if external_rabbitmq_servers else config_server_list }}"
 rabbitmq_port: 5672
+rabbitmq_vhost: '/'
 rabbitmq_user: guest
 rabbitmq_password: guest
 

@@ -17,6 +17,9 @@
       partitions: "{{ anlaytics_uve_partition_count }}"
       rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
       rabbitmq_port: "{{ rabbitmq_port }}"
+      rabbitmq_vhost: "{{ rabbitmq_vhost }}"
+      rabbitmq_user: "{{ rabbitmq_user }}"
+      rabbitmq_password: "{{ rabbitmq_password }}"
       http_server_port: "{{ alarmgen_introspect_port }}"
       collectors: "{{ analytics_collectors_with_port }}"
     REDIS:

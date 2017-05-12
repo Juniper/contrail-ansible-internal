@@ -9,6 +9,9 @@
   with_inidata:
     DEFAULTS:
       rabbit_server: "{{ rabbitmq_servers_with_port }}"
+      rabbit_vhost: "{{ rabbitmq_vhost }}"
+      rabbit_user: "{{ rabbitmq_user }}"
+      rabbit_password: "{{ rabbitmq_password }}"
       api_server_ip: 127.0.0.1
       api_server_port: "{{ api_server_port }}"
       api_server_use_ssl: "{{ api_server_use_ssl }}"
