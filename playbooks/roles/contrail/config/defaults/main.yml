@@ -49,10 +49,11 @@ config_packages: "{{ config_packages_RedHat if ansible_os_family == 'RedHat' els
 
 # Rabbitmq details
 contrail_rabbitmq_os_package: true
-contrail_rabbitmq_remove_default_user: false
+contrail_rabbitmq_remove_default_user: "{{ false if rabbitmq_user == 'guest' else true }}"
 contrail_rabbitmq_ssl: false
 contrail_rabbitmq_listen_address: 0.0.0.0
-contrail_rabbitmq_allow_remote_guest: true
+contrail_rabbitmq_allow_remote_guest: "{{ true if rabbitmq_user == 'guest' else false }}"
+
 
 # Cassandra defaults
 configdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
