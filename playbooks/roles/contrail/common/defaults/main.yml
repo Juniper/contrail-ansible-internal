@@ -28,6 +28,8 @@ configdb_servers: ''
 # external_configdb_servers to be used as configdb_server_list if it is set
 configdb_server_list: "{{ external_configdb_servers.split(',') if external_configdb_servers else \
                         (configdb_servers.split(',') if configdb_servers else config_server_list) }}"
+configdb_cassandra_user: ''
+configdb_cassandra_password: ''
 
 # Support bootstrap clusters while add/remove nodes
 configdb_seed_nodes: "{{ config_seed_list }}"

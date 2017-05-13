@@ -36,3 +36,19 @@
   notify:
     - restart control supervisord
     - restart control systemd
+
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ control_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CONFIGDB:
+      config_db_username: "{{ configdb_cassandra_user }}"
+      config_db_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart control supervisord
+    - restart control systemd
+  when: configdb_cassandra_user != ''

@@ -48,3 +48,19 @@
     - restart config api supervisord
     - restart config api systemd
   when: cloud_orchestrator != "openstack"
+
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ api_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CASSANDRA:
+      cassandra_user: "{{ configdb_cassandra_user }}"
+      cassandra_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: configdb_cassandra_user != ''
