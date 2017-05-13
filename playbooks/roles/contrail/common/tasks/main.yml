@@ -15,5 +15,8 @@
   when: contrail_service_mgr == 'systemd'
   tags: [package]
 
+- include: setup_coredump.yml
+  tags: [configure]
+
 - include: copy_ssl_certs.yml
   tags: [configure]
