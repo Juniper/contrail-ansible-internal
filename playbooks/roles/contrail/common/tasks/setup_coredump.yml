@@ -1,0 +1,31 @@
+---
+# Setup coredump
+
+- name: Check if /etc/sysconfig/init present
+  stat: path=/etc/sysconfig/init
+  register: check_sys_config_init
+
+- name: Remove daemon corefile limit
+  lineinfile:
+    dest: /etc/sysconfig/init
+    state: absent
+    regexp: '^DAEMON_COREFILE_LIMIT=(.*)'
+  when: check_sys_config_init.stat.exists
+
+- name: Set daemon corefile limit
+  lineinfile:
+    dest: /etc/sysconfig/init
+    line: 'DAEMON_COREFILE_LIMIT="unlimited"'
+  when: ansible_distribution in ['RedHat', 'Fedora', 'CentOS']
+
+- name: Set the core pattern
+  lineinfile:
+    dest: /etc/sysctl.conf
+    regexp: '^kernel.core_pattern ='
+    line: 'kernel.core_pattern = /var/crashes/core.%e.%p.%h.%t'
+
+- name: Reload sysctl
+  shell: sysctl -p
+
+- name: Create /var/crashes
+  file: path=/var/crashes state=directory mode=777
