@@ -21,7 +21,7 @@
       region_name: "{{ region }}"
     SCHEDULER:
       analytics_server_list: "{{ analytics_api_servers_with_port }}"
-      aaa_mode: "{{ analytics_aaa_mode_orig }}"
+      aaa_mode: "{{ analytics_api_aaa_mode_orig }}"
     SANDESH:
       sandesh_ssl_enable: "{{ sandesh_ssl_enable }}"
       introspect_ssl_enable: "{{ introspect_ssl_enable }}"
