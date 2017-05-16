@@ -10,3 +10,6 @@
 
 - name: setup daemons
   include: ceph_daemon_config.yml
+
+- name: prepare variables for storage stats
+  include: contrail_storage_stats_prep_vars.yml
