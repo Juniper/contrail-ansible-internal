@@ -9,6 +9,16 @@
   set_fact:
     haproxy_version: "{{ '1.5' if '1.5.' in haproxy_version_result.stdout else '1.4' }}"
 
+- name: Run script to get Tor Agent specific HAProxy configuration
+  shell: '/contrail-ansible-internal/scripts/contrail-haproxy-toragent.py --tor_agent_config " {{ haproxy_toragent_config|string }} " '
+  register: haproxy_toragent_stanza
+  when: haproxy_toragent_config is defined
+
+- name: Set the haproxy tor agent output
+  set_fact:
+    haproxy_toragent_configuration: "{{ haproxy_toragent_stanza.stdout }}"
+  when: haproxy_toragent_stanza is defined and haproxy_toragent_stanza.stdout != ''
+
 - name: Copy HAProxy configuration in place.
   template:
     src: haproxy.cfg.j2

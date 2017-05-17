@@ -81,3 +81,5 @@ backend contrail-analytics-api-backend
 {% for analytics_api_ip in contrail_analytics_api_list %}
     server {{ analytics_api_ip }} {{ analytics_api_ip }}:{{ contrail_analytics_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
 {% endfor %}
+
+{{ haproxy_toragent_configuration }}
