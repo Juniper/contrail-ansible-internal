@@ -21,9 +21,9 @@
       kubernetes_api_port: "{{ kubernetes_api_port }}"
       kubernetes_api_secure_ip: "{{ config_ip }}"
       kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
-      service_subnets: "{{ service_subnets }}"
-      pod_subnets: "{{ pod_subnets }}"
-      cluster_project: "{{ cluster_project }}"
+      service_subnets: "{{ kubernetes_service_subnets }}"
+      pod_subnets: "{{ kubernetes_pod_subnets }}"
+      cluster_project: "{{ kubernetes_cluster_project|default({})|to_json }}"
       cluster_name: "{{ kubernetes_cluster_name|default('') }}"
     VNC:
       vnc_endpoint_ip: "{{ controller_list | join(',') }}"
@@ -34,6 +34,7 @@
       admin_password: "{{ admin_password }}"
       admin_tenant: "{{ admin_tenant }}"
       collectors: "{{ analytics_collectors_with_port }}"
+      public_fip_pool: "{{ kubernetes_vnc_public_fip_pool|default({})|to_json }}"
     AUTH:
       auth_token_url: "{{ auth_url }}"
       auth_user: "{{ admin_user }}"
