@@ -1,9 +1,8 @@
 ---
-# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
 # Service management
-#- name: Make sure agent nodemanager service is up
-#  systemd: name="contrail-vrouter-nodemgr" state=started enabled=yes
-#  tags: [service, contrail.agent.nodemgr.service, contrail.agent.service]
+- name: Make sure agent nodemanager service is up
+  systemd: name="contrail-vrouter-nodemgr" state=started enabled=yes
+  tags: [service, contrail.agent.nodemgr.service, contrail.agent.service]
 
 # Service management
 - name: Make sure vrouter agent service is up
