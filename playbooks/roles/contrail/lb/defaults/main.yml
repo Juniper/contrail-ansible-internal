@@ -32,3 +32,6 @@ check_interval:  2000
 
 # Extra global vars (see README for example usage).
 haproxy_global_vars: []
+
+# HA proxy configuration for TOR Agents
+haproxy_toragent_configuration:
