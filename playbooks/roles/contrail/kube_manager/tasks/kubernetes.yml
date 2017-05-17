@@ -33,6 +33,7 @@
       admin_user: "{{ admin_user }}"
       admin_password: "{{ admin_password }}"
       admin_tenant: "{{ admin_tenant }}"
+      collectors: "{{ analytics_collectors_with_port }}"
     AUTH:
       auth_token_url: "{{ auth_url }}"
       auth_user: "{{ admin_user }}"
