@@ -32,3 +32,9 @@
   shell: "/usr/share/contrail-utils/provision_encap.py  --use_admin_api  \
     --encap_priority {{ encap_priority }} \
     --oper add {{ provision_cmd_keystone_args }}"
+
+- name: Provision global vrouter configuration
+  shell: "/usr/share/contrail-utils/provision_global_vrouter_config.py  --use_admin_api  \
+    --flow_export_rate {{ flow_export_rate }} \
+    --oper add {{ provision_cmd_keystone_args }}"
+  when: flow_export_rate is defined
