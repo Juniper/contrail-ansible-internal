@@ -9,3 +9,12 @@ dependencies:
     cassandra_packages: "{{ analyticsdb_cassandra_packages }}"
     cassandra_user: "{{ analyticsdb_cassandra_user }}"
     cassandra_password: "{{ analyticsdb_cassandra_password }}"
+
+  - role: zookeeper
+    zookeeper_debian_apt_install: true
+    zookeeper_hosts: "{{ analyticsdb_zk_server_list }}"
+    client_port: "{{ analyticsdb_zk_port }}"
+    peer_port1: "{{ analyticsdb_zk_peer_port1 }}"
+    peer_port2: "{{ analyticsdb_zk_peer_port2 }}"
+    enable_zookeeper: "{{ contrail_enable_analyticsdb_zookeeper }}"
+    tags: [zookeeper]
