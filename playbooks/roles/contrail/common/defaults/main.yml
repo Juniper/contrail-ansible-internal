@@ -70,6 +70,8 @@ api_server_ip: "{{ config_ip }}"
 api_server_port: 8082
 api_server_admin_port: 8095
 api_server_use_ssl: False
+api_cloud_admin_role: ''
+api_global_read_only_role: ''
 region: RegionOne
 
 
