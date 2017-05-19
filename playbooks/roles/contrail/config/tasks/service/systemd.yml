@@ -8,10 +8,9 @@
   systemd: name="contrail-device-manager" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
   tags: [service, contrail.device-manager.service, contrail.controller.service, contrail.config.service]
 
-# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
-#- name: Make sure config nodemanager service is in desired state
-#  systemd: name="contrail-config-nodemgr" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
-#  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]
+- name: Make sure config nodemanager service is in desired state
+  systemd: name="contrail-config-nodemgr" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"
+  tags: [service, contrail.config.nodemgr.service, contrail.controller.service, contrail.config.service]
 
 - name: Make sure schema service is in desired state
   systemd: name="contrail-schema" state="{{ config_service_state }}" enabled="{{ config_service_enabled }}"

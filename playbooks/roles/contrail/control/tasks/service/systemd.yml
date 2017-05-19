@@ -12,7 +12,6 @@
   systemd: name="contrail-named" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
   tags: [service, contrail.dns.service, contrail.controller.service, contrail.controlnode.service]
 
-# Disabling because of https://github.com/Juniper/contrail-ansible/issues/221
-#- name: Make sure control nodemanager service is in desired state
-#  systemd: name="contrail-control-nodemgr" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
-#  tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]
+- name: Make sure control nodemanager service is in desired state
+  systemd: name="contrail-control-nodemgr" state="{{ control_service_state }}" enabled="{{ control_service_enabled }}"
+  tags: [service, contrail.control.nodemgr.service, contrail.controller.service, contrail.controlnode.service]
