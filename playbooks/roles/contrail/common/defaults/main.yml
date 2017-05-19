@@ -44,6 +44,16 @@ configdb_ssl_storage_port: 7011
 external_zookeeper_servers: ''
 zk_server_list: "{{ external_zookeeper_servers.split(',') if external_zookeeper_servers else config_server_list }}"
 zk_port: 2181
+zk_peer_port1: 2888
+zk_peer_port2: 3888
+
+# List of analyticsdb zookeeper servers
+# external_analyticsdb_zookeeper_servers - are list of zookeeper servers managed externally
+external_analyticsdb_zookeeper_servers: []
+analyticsdb_zk_server_list: "{{ external_analyticsdb_zookeeper_servers if external_analyticsdb_zookeeper_servers else analyticsdb_list }}"
+analyticsdb_zk_port: 2182
+analyticsdb_zk_peer_port1: 2889
+analyticsdb_zk_peer_port2: 3889
 
 # List of rabbitmq servers
 # external_rabbitmq_servers - are list of rabbitmq servers managed externally
