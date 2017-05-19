@@ -6,3 +6,23 @@
 - name: Start ceph-rest-api service
   systemd: name=ceph-rest-api state=started enabled=yes
   tags: [service, storage.cephcontroller.cephmon.service]
+
+- name: setup stats-daemon egginfo
+  file: src={{pyshared_egg}} path={{lib_egg}} state=link
+
+- name: setup stats-daemon
+  file: src={{pyshared_stats}} path={{lib_stats}} state=link
+
+- name: setup stats-daemon
+  file: path={{lib_stats}}/__init__.py state=touch
+
+- name: setup stats-daemon
+  file: path={{lib_stats}}/sandesh/__init__.py state=touch
+
+- name: setup stats-daemon
+  file: path={{lib_stats}}/sandesh/storage/__init__.py state=touch
+
+- name: Start stats-daemon service
+  systemd: name=contrail-storage-stats state=started enabled=yes
+  tags: [service, storage.cephcontroller.cephmon.service]
+  when: enable_stats_daemon == True
