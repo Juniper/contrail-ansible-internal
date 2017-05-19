@@ -17,8 +17,7 @@
 - name: Set the haproxy tor agent output
   set_fact:
     haproxy_toragent_configuration: "{{ haproxy_toragent_stanza.stdout }}"
-  when:
-    - haproxy_toragent_stanza.stdout != ''
+  when: haproxy_toragent_stanza is defined and haproxy_toragent_stanza.stdout != ''
 
 - name: Copy HAProxy configuration in place.
   template:
