@@ -1,0 +1,8 @@
+---
+- name: Make sure ceph mon service is up
+  systemd: name=ceph-mon@{{ansible_hostname}}-storage state=started enabled=yes
+  tags: [service, storage.cephcontroller.cephmon.service]
+
+- name: Start ceph-rest-api service
+  systemd: name=ceph-rest-api state=started enabled=yes
+  tags: [service, storage.cephcontroller.cephmon.service]

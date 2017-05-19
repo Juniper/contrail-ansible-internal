@@ -18,3 +18,8 @@
 
 - include: configure.yml
   tags: [storage.ceph_controller.configure, configure]
+
+- name: Include contrail service manager for systemd
+  include: service/systemd.yml
+  when: contrail_service_mgr == 'systemd'
+  tags: [storage.ceph_controller.service, service]
