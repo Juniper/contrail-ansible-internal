@@ -1,7 +1,7 @@
 ---
 # handlers file for ansible-role-cassandra
 - name: restart cassandra
-  service: name={{ cassandra_service_name }} state=restarted
+  service: name=contrail-database state=restarted
   when: cassandra_service_manage and ansible_test_mode is not defined
 
 - name: update apt cache
