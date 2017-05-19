@@ -7,3 +7,7 @@ ceph_client_admin_keyring_file: /etc/ceph/ceph.client.admin.keyring
 ceph_monip_list: ''
 ceph_monname_list: ''
 monmap_cfg: ''
+pyshared_egg: /usr/share/pyshared/stats_daemon-0.1.dev0.egg-info
+pyshared_stats: /usr/share/pyshared/stats_daemon
+lib_egg: /usr/lib/python2.7/dist-packages/stats_daemon-0.1.dev0.egg-info
+lib_stats: /usr/lib/python2.7/dist-packages/stats_daemon
