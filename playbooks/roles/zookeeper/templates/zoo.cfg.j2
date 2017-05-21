@@ -13,11 +13,11 @@ autopurge.snapRetainCount={{ zookeeper_autopurge_snapRetainCount }}
 {% for server in zookeeper_hosts %}
 {% if server.host is defined %}
 {% if server.ip is defined %}
-server.{{server.id}}={{server.ip}}:2888:3888
+server.{{server.id}}={{server.ip}}:{{peer_port1}}:{{peer_port2}}
 {% else %}
-server.{{server.id}}={{server.host}}:2888:3888
+server.{{server.id}}={{server.host}}:{{peer_port1}}:{{peer_port2}}
 {% endif %}
 {% else %}
-server.{{loop.index}}={{server}}:2888:3888
+server.{{loop.index}}={{server}}:{{peer_port1}}:{{peer_port2}}
 {% endif %}
 {% endfor %}
