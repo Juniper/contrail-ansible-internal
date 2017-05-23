@@ -39,6 +39,7 @@ config_packages_Debian:
   - python-bottle
   - contrail-config-openstack
   - python-memcache
+  - contrail-database-common
 
 config_packages_RedHat:
   - contrail-openstack-config
