@@ -5,7 +5,7 @@
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"
-    create: yes
+    create: no
   with_inidata:
     COLLECTOR:
       server_list: "{{ analytics_collectors_with_port }}"
