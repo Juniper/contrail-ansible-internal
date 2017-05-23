@@ -5,7 +5,7 @@
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"
-    create: yes
+    create: no
   with_inidata:
     DEFAULTS:
       hostip: "{{ my_analyticsdb_ip }}"
