@@ -1,7 +1,7 @@
 ---
 - name: Wait till config api server answers before creating config objects
   uri:
-    url: "{{ api_server_url }}"
+    url: "{{ local_api_server_url }}"
     status_code: 200
   register: api_server_connect_status
   until: api_server_connect_status.status == 200
