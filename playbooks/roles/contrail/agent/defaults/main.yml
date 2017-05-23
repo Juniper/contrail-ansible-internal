@@ -1,5 +1,23 @@
 ---
-agent_packages:
+agent_packages_redhat:
+  - contrail-vrouter-common
+  - contrail-vrouter-utils
+  - contrail-lib
+  - contrail-utils
+  - python-contrail-vrouter-api
+  - python-opencontrail-vrouter-netns
+  - contrail-vrouter-agent
+  - contrail-vrouter-init
+  - contrail-nodemgr
+  - python-yaml
+  - rsync
+  - curl
+  - haproxy
+  - iptables
+  - tcpdump
+
+agent_packages_ubuntu:
+  - contrail-vrouter-dkms
   - contrail-vrouter-common
   - contrail-vrouter-utils
   - contrail-lib
