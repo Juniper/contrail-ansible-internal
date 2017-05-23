@@ -4,6 +4,8 @@ contrail_kube_manager_packages:
   - python-contrail
   - python-eventlet
   - python-bitstring
+  - contrail-utils
+  - contrail-setup
 kube_manager_conf: "/etc/contrail/contrail-kubernetes.conf"
 kubernetes_api_server: 127.0.0.1
 kubernetes_api_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 8080 }}"
