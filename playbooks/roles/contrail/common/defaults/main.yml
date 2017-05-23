@@ -72,6 +72,11 @@ api_server_admin_port: 8095
 api_server_use_ssl: False
 region: RegionOne
 
+#ceph_controller_nodes is comma seperated ips of ceph controllers
+ceph_controller_nodes: ''
+ceph_controller_list: "{{ ceph_controller_nodes.split(',') if ceph_controller_nodes else [ ansible_default_ipv4.address ] }}"
+contrail_ceph_rest_api_list: "{{ceph_controller_list}}"
+
 # Analytics defaults
 # Analytics node list, defaults to controller node list.
 analytics_nodes: ''

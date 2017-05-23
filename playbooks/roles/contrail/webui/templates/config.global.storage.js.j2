@@ -1,0 +1,20 @@
+/*
+ * Copyright (c) 2014 Juniper Networks, Inc. All rights reserved.
+ */
+
+ /*****************************************************************************
+
+  * Ceph Rest API configuration
+
+  *****************************************************************************/
+ var config = {};
+
+ config.ceph = {};
+ config.ceph.server_ip ={{ contrail_ceph_rest_api_list[0]|to_json }};
+ config.ceph.server_port = '5005';
+
+ // Export this as a module.
+ module.exports = config;
+
+
+

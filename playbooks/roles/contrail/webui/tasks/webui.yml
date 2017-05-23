@@ -7,6 +7,14 @@
     - restart webui-middleware supervisord
     - restart webui-middleware systemd
 
+- name: Configure webui storage config in config.global.storage.js
+  template: src="config.global.storage.js.j2" dest=/etc/contrail/config.global.storage.js owner=root group=root mode=0644
+  notify:
+    - restart webui supervisord
+    - restart webui systemd
+    - restart webui-middleware supervisord
+    - restart webui-middleware systemd
+  when:  ansible_os_family == 'Debian'
 
 - name: Configure webui static user auth
   template: src="contrail-webui-userauth.js.j2" dest=/etc/contrail/contrail-webui-userauth.js owner=root group=root mode=0644
