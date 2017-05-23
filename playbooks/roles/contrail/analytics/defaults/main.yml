@@ -15,7 +15,6 @@ analytics_api_log_level: "{{ log_level }}"
 analytics_api_introspect_port: 8090
 analytics_api_listen_port: "{{ analytics_server_port }}"
 analytics_api_listen_address: 0.0.0.0
-analytics_api_aaa_mode: 'cloud-admin'
 
 # Alarmgen
 alarmgen_conf: "/etc/contrail/contrail-alarm-gen.conf"
