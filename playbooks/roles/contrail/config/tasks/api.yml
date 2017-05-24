@@ -67,3 +67,17 @@
     - restart config api supervisord
     - restart config api systemd
   when: configdb_cassandra_user != ''
+
+- name: Configure cloud admin role if provided
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=cloud_admin_role value={{ api_cloud_admin_role }}
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: api_cloud_admin_role != ''
+
+- name: Configure global read-only role if provided
+  ini_file: dest={{ api_conf }} section=DEFAULTS option=global_read_only_role value={{ api_global_read_only_role }}
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: api_global_read_only_role != ''
