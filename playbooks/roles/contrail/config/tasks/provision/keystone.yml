@@ -1,7 +1,7 @@
 ---
 - name: Wait till config api server answers before creating config objects
   uri:
-    url: "{{ api_server_url }}"
+    url: "{{ local_api_server_url }}"
     user: "{{ keystone_admin_user }}"
     password: "{{ keystone_admin_password }}"
     force_basic_auth: yes
