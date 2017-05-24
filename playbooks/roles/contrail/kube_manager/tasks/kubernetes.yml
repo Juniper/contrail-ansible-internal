@@ -34,6 +34,7 @@
       admin_password: "{{ admin_password }}"
       admin_tenant: "{{ admin_tenant }}"
       public_fip_pool: "{{ kubernetes_vnc_public_fip_pool|default({})|to_json }}"
+      collectors: "{{ analytics_collectors_with_port }}"
     AUTH:
       auth_token_url: "{{ auth_url }}"
       auth_user: "{{ admin_user }}"
