@@ -151,8 +151,8 @@ config.computeManager.ca = '';
 
 config.identityManager = {};
 config.identityManager.ip = '{{ keystone_ip }}';
-config.identityManager.port = '5000';
-config.identityManager.authProtocol = 'http';
+config.identityManager.port = '{{ keystone_public_port }}';
+config.identityManager.authProtocol = '{{ keystone_auth_protocol }}';
 /******************************************************************************
  * Note: config.identityManager.apiVersion is not controlled by boolean flag
  * config.serviceEndPointFromConfig. If specified apiVersion here, then these
@@ -175,7 +175,7 @@ config.storageManager.ca = '';
 
 // VNConfig API server and port.
 config.cnfg = {};
-config.cnfg.server_ip = {{ '127.0.0.1'|to_json if enable_config_service else config_server_list|to_json }};
+config.cnfg.server_ip = {{ config_server_list|to_json }};
 config.cnfg.server_port = '{{ api_server_port }}';
 config.cnfg.authProtocol = '{{ 'https' if api_server_use_ssl else 'http' }}';
 {# What is for this strictSSL? #}
@@ -190,6 +190,15 @@ config.analytics.authProtocol = '{{ 'https' if analytics_server_use_ssl else 'ht
 {# What is for this strictSSL? #}
 config.analytics.strictSSL = false;
 config.analytics.ca = '';
+
+//DNS API Server and port.
+/* Please note: being introspect port, SSL options for dns should come from
+   config.introspect.ssl configuration
+ */
+config.dns = {};
+config.dns.server_ip = {{ control_node_list|to_json }};
+config.dns.server_port = '8092';
+config.dns.statusURL = "/Snh_PageReq?x=AllEntries%20VdnsServersReq";
 
 {# Only required when vcenter available #}
 {# refering fab testbed.py vcenter is a cloud orchestrator is it true? #}
