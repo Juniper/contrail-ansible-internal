@@ -128,6 +128,7 @@ keystone_cafile: /etc/contrailctl/ssl/ca-cert.pem
 neutron_metadata_ip: "{{ keystone_ip }}"
 neutron_metadata_port: 8775
 
+network_manager_ip: "{{ keystone_ip }}"
 glance_api_ip: "{{ keystone_ip }}"
 nova_api_ip: "{{ keystone_ip }}"
 
