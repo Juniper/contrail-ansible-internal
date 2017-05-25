@@ -19,7 +19,6 @@
     KUBERNETES:
       kubernetes_api_server: "{{ kubernetes_api_server }}"
       kubernetes_api_port: "{{ kubernetes_api_port }}"
-      kubernetes_api_secure_ip: "{{ config_ip }}"
       kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
       service_subnets: "{{ kubernetes_service_subnets }}"
       pod_subnets: "{{ kubernetes_pod_subnets }}"
