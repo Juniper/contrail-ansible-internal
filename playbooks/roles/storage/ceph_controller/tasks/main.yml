@@ -16,6 +16,10 @@
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, storage.ceph_controller.install]
 
+- name: Prepare ceph for config
+  include: ceph_prep_vars.yml
+  tags: [storage.ceph_controller.configure, configure, storage.ceph_controller.service, service]
+
 - include: configure.yml
   tags: [storage.ceph_controller.configure, configure]
 
