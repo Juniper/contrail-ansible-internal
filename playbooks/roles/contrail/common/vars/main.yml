@@ -46,12 +46,13 @@ global_vnc_api_configs:
 
 # vnc api client input file's auth configuration
 keystone_admin_auth_url: "{{ keystone_auth_protocol }}://{{ keystone_ip }}:{{ keystone_admin_port }}/{{ keystone_version }}"
+keystone_authn_url: "/{{ keystone_version }}/tokens if keystone_version == 'v2.0' else /{{ keystone_version }}/auth/tokens"
 auth_vnc_api_configs:
   AUTHN_TYPE: "keystone"
   AUTHN_PROTOCOL: "{{ keystone_auth_protocol }}"
   AUTHN_SERVER: "{{ keystone_ip }}"
   AUTHN_PORT: "{{ keystone_admin_port }}"
-  AUTHN_URL: "/{{ keystone_version }}/tokens"
+  AUTHN_URL: "{{ keystone_authn_url }}"
 
 global_vnc_api_ssl_configs:
   cafile: "{{ apiserver_cafile }}"
