@@ -7,7 +7,7 @@
   tags: [configure, rabbitmq.configure, test]
 
 - include: service.yml
-  tags: [service, rabbitmq.service]
+  tags: [service, rabbitmq.service, configure, rabbitmq.configure]
 
 - include: cluster.yml
   tags: [configure, rabbitmq.configure]
