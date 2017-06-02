@@ -126,7 +126,7 @@ config.serviceEndPointTakePublicURL = true;
  *      if you do not want to specify then use ''
  *****************************************************************************/
 config.networkManager = {};
-config.networkManager.ip = '{{ neutron_metadata_ip }}';
+config.networkManager.ip = '{{ network_manager_ip }}';
 config.networkManager.port = '9696'
 config.networkManager.authProtocol = 'http';
 config.networkManager.apiVersion = [];
