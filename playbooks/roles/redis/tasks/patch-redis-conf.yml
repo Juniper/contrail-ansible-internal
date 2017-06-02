@@ -1,10 +1,10 @@
 ---
-- name: Change bind interface.
+- name: Comment out bind.
   lineinfile:
    backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^bind'
-   line: 'bind {{ my_analytics_ip }} 127.0.0.1'
+   line: '#bind 127.0.0.1'
 
 - name: change lua time limit
   lineinfile:
