@@ -4,7 +4,7 @@
    backrefs: yes
    name: "{{ redis_conf_path }}"
    regexp: '^bind'
-   line: 'bind {{ my_analytics_ip }} 127.0.0.1'
+   line: 'bind {{ redis_server_ip }} 127.0.0.1'
 
 - name: change lua time limit
   lineinfile:
