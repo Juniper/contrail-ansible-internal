@@ -4,5 +4,9 @@
   service: name=contrail-database state=restarted
   when: cassandra_service_manage and ansible_test_mode is not defined
 
+- name: restart datastax-agent
+  service: name=datastax-agent state=restarted
+  when: enable_datastax_agent and ansible_test_mode is not defined
+
 - name: update apt cache
   apt: update_cache=yes

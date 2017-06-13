@@ -9,6 +9,8 @@ dependencies:
     cassandra_packages: "{{ analyticsdb_cassandra_packages }}"
     cassandra_user: "{{ analyticsdb_cassandra_user }}"
     cassandra_password: "{{ analyticsdb_cassandra_password }}"
+    opscenter_server_ip: "{{ opscenter_ip }}"
+    enable_datastax_agent: True
 
   - role: zookeeper
     zookeeper_debian_apt_install: true

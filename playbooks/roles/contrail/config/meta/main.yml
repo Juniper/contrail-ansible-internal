@@ -29,6 +29,7 @@ dependencies:
     enable_cassandra: "{{ contrail_enable_configdb }}"
     cassandra_user: "{{ configdb_cassandra_user }}"
     cassandra_password: "{{ configdb_cassandra_password }}"
+    enable_datastax_agent: False
     tags: [configdb]
 
   - role: zookeeper

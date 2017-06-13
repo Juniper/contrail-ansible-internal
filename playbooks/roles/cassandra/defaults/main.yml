@@ -67,5 +67,8 @@ cassandra_service_manage: true
 cassandra_user: ''
 cassandra_password: ''
 
+opscenter_server_ip : "{{ controller_ip }}"
+datastax_agent_conf_dir: /var/lib/datastax-agent/conf
+
 # Whether to setup cassandra or disable if already running
 enable_cassandra: true

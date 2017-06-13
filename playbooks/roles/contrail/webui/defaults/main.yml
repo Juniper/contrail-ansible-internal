@@ -38,4 +38,6 @@ enable_webui_service: true
 # In case of config is not enabled no need to setup redis here
 contrail_enable_redis: "{{ true if enable_webui_service else false }}"
 
+opscenter_conf_dir: /etc/opscenter
+
 supervisor_webui_ready: false
