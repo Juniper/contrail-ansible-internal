@@ -6,14 +6,14 @@
    - { regexp: 'cluster_name: (.*)', replace: 'cluster_name: {{ cassandra_cluster_name }}' }
    - { regexp: 'rpc_address: (.*)', replace: 'rpc_address: {{ cassandra_listen_address }}' }
    - { regexp: '# num_tokens: 256 (.*)', replace: 'num_tokens: 256' }
-   - { regexp: 'initial_token:(.*)', replace: '# initial_token:' }
+   - { regexp: '^initial_token:(.*)', replace: '# initial_token:' }
    - { regexp: 'start_rpc: (.*)', replace: 'start_rpc: true' }
    - { regexp: 'compaction_throughput_mb_per_sec: 16(.*)', replace: 'compaction_throughput_mb_per_sec: 96' }
    - { regexp: 'commitlog_directory: (.*)', replace: 'commitlog_directory: {{ cassandra_commitlog_dir }}' }
    - { regexp: '    - /var/lib/cassandra/data(.*)', replace: '{% for data_dir in cassandra_data_dirs %}    - {{ data_dir }}{% if not loop.last %}\n{% endif %}{% endfor %}' }
    - { regexp: '          - seeds: (.*)', replace: '          - seeds: "{% for seed in cassandra_seeds %}{{ seed }}{% if not loop.last %}, {% endif %}{% endfor %}"' }
-   - { regexp: 'storage_port: (.*)', replace: 'storage_port: {{ cassandra_storage_port }}' }
-   - { regexp: 'ssl_storage_port: (.*)', replace: 'ssl_storage_port: {{ cassandra_ssl_storage_port }}' }
+   - { regexp: '^storage_port: (.*)', replace: 'storage_port: {{ cassandra_storage_port }}' }
+   - { regexp: '^ssl_storage_port: (.*)', replace: 'ssl_storage_port: {{ cassandra_ssl_storage_port }}' }
    - { regexp: 'start_native_transport: (.*)', replace: 'start_native_transport: {{ cassandra_start_cql }}' }
    - { regexp: 'native_transport_port: (.*)', replace: 'native_transport_port: {{ cassandra_cql_port }}' }
    - { regexp: 'rpc_port: (.*)', replace: 'rpc_port: {{ cassandra_rpc_port }}' }
