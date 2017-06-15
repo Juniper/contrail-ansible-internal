@@ -39,3 +39,16 @@ enable_webui_service: true
 contrail_enable_redis: "{{ true if enable_webui_service else false }}"
 
 supervisor_webui_ready: false
+
+webui_enable_underlay: false
+webui_enable_mx: false
+webui_enable_udd: false
+
+webui_service_endpoint_from_config: true
+
+webui_network_manager_auth_protocol: http
+webui_image_manager_auth_protocol: http
+webui_compute_manager_auth_protocol: http
+
+webui_server_options_key_file: /usr/src/contrail/contrail-web-core/keys/cs-key.pem
+webui_server_options_cert_file: /usr/src/contrail/contrail-web-core/keys/cs-cert.pem
