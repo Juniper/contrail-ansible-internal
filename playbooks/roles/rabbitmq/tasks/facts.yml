@@ -1,0 +1,24 @@
+---
+- name: Collect hostnames resolved for rabbitmq_nodes
+  shell: getent hosts {{ rabbitmq_seed_list|union(rabbitmq_nodes)|unique|join(" ") }} | awk '{print $2}' | cut -d . -f1
+  register: rabbitmq_nodes_names_var
+
+- name: Set fact for rabbitmq_nodes_names
+  set_fact: rabbitmq_nodes_names="{{ rabbitmq_nodes_names_var.stdout.split('\n') }}"
+  when: rabbitmq_nodes_names is not defined
+
+- name: Get hostname resolved for leader_ip
+  shell: getent hosts {{ rabbitmq_cluster_nodes_leader_ip }} | awk '{print $2}' | cut -d . -f1
+  register: rabbitmq_cluster_nodes_leader_var
+
+- name: Set fact for rabbitmq_cluster_nodes_leader
+  set_fact: rabbitmq_cluster_nodes_leader="{{ rabbitmq_cluster_nodes_leader_var.stdout.split('\n')|first }}"
+  when: rabbitmq_cluster_nodes_leader is not defined
+
+- name: Get hostname for my ip
+  shell: getent hosts {{ rabbitmq_nodes | intersect(ansible_all_ipv4_addresses) | first }} | awk '{print $2}' | cut -d . -f1
+  register: rabbitmq_my_nodename_var
+
+- name: Set fact for my node
+  set_fact: rabbitmq_my_node="rabbit@{{ rabbitmq_my_nodename_var.stdout.split('\n')|first }}"
+  when: rabbitmq_my_node is not defined

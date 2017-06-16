@@ -26,22 +26,6 @@
       dest: "{{ rabbitmq_conf_ssl_options_certfile }}"
   when: rabbitmq_ssl
 
-- name: Collect hostnames resolved for rabbitmq_nodes
-  shell: getent  hosts {{ rabbitmq_nodes|join(" ") }} | awk '{print $2}'
-  register: rabbitmq_nodes_names_var
-
-- name: Set fact for rabbitmq_nodes_names
-  set_fact: rabbitmq_nodes_names="{{ rabbitmq_nodes_names_var.stdout.split('\n') }}"
-  when: rabbitmq_nodes_names is not defined
-
-- name: Collect hostnames resolved for rabbitmq_seed_list
-  shell: getent  hosts {{ rabbitmq_seed_list|join(" ") }} | awk '{print $2}' | cut -d . -f1
-  register: rabbitmq_seed_nodes_names_var
-
-- name: Set fact for rabbitmq_seed_nodes
-  set_fact: rabbitmq_seed_nodes_names="{{ rabbitmq_seed_nodes_names_var.stdout.split('\n') }}"
-  when: rabbitmq_seed_nodes_names is not defined
-
 - name: generate the configuration of rabbitmq
   template:
     src=rabbitmq.config.j2
@@ -61,7 +45,7 @@
     mode=0644
     backup=yes
   notify: restart rabbitmq-server
-  when: rabbitmq_conf_env is defined
+  when: rabbitmq_conf_env_full is defined
 
 - name: Copy erlang cookie
   copy:

@@ -51,7 +51,9 @@ rabbitmq_conf_ssl_options_certfile            : "/etc/rabbitmq/ssl/{{ rabbitmq_s
 rabbitmq_conf_ssl_options_keyfile             : "/etc/rabbitmq/ssl/{{ rabbitmq_server_key | basename }}"
 rabbitmq_conf_ssl_options_fail_if_no_peer_cert: "true"
 
-rabbitmq_env: false
+rabbitmq_conf_env_internal:
+  NODENAME: "{{ rabbitmq_my_node }}"
+rabbitmq_conf_env_full: "{{ (rabbitmq_conf_env|default({}))|combine(rabbitmq_conf_env_internal) }}"
 
 rabbitmq_remove_default_user: true
 rabbitmq_allow_remote_guest: false
@@ -60,7 +62,7 @@ update_cache: false
 
 enable_rabbitmq: true
 rabbitmq_seed_list: "{{ rabbitmq_nodes }}"
-rabbitmq_cluster_nodes_leader: "{{ rabbitmq_seed_nodes_names|sort|first }}"
+rabbitmq_cluster_nodes_leader_ip: "{{ rabbitmq_seed_list|first }}"
 
 rabbitmq_owner: rabbitmq
 rabbitmq_group: "{{ rabbitmq_owner }}"

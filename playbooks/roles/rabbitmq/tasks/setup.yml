@@ -3,6 +3,9 @@
   when: external_package_install is not defined
   tags: [install, rabbitmq.install, package, rabbitmq.package]
 
+- include: facts.yml
+  tags: always
+
 - include: configuration.yml
   tags: [configure, rabbitmq.configure, test]
 

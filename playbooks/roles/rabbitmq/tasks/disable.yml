@@ -1,3 +1,5 @@
 ---
+- include: facts.yml
+
 - include: service.yml
   tags: [service, rabbitmq.service]
