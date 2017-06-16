@@ -1,5 +1,5 @@
 ---
-rabbitmq_cluster_node_role: "{%- if rabbitmq_cluster_nodes_leader == ansible_hostname -%}leader{% else %}follower{% endif %}"
+rabbitmq_cluster_node_role: "{%- if rabbitmq_cluster_nodes_leader_ip in ansible_all_ipv4_addresses -%}leader{% else %}follower{% endif %}"
 rabbitmq_setup_target: "{{ 'setup' if enable_rabbitmq else 'disable' }}"
 rabbitmq_service_state: "{{ 'started' if enable_rabbitmq else 'stopped' }}"
 rabbitmq_service_enabled: "{{ 'yes' if enable_rabbitmq else 'no' }}"
