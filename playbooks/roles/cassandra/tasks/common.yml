@@ -1,4 +1,7 @@
 ---
+- name: Make sure cassandra dir has the right ownership
+  file: dest=/var/lib/cassandra state=directory owner=cassandra group=cassandra
+
 - name: Make sure cassandra_commitlog_dir exist
   file: path="{{ cassandra_commitlog_dir }}" state=directory mode=0755 owner=cassandra group=cassandra
 
