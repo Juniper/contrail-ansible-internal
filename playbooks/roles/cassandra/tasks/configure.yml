@@ -38,6 +38,12 @@
   notify: restart cassandra
   tags: [test]
 
+
+- debug: msg="Start cassandra before creating cassandra user password"
+  notify: restart cassandra
+  changed_when: true
+  when: cassandra_user != ""
+
 - meta: flush_handlers
 
 - name: Configure Cassandra User and Password if provided
