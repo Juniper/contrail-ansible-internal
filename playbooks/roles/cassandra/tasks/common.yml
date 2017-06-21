@@ -8,3 +8,6 @@
 - name: Make sure cassandra_data_dirs exist
   file: path="{{ item }}" state=directory mode=0755 owner=cassandra group=cassandra
   with_items: "{{ cassandra_data_dirs }}"
+
+- name: Make sure hints_directory exists
+  file: path="{{ cassandra_hints_dir }}" state=directory mode=0755 owner=cassandra group=cassandra

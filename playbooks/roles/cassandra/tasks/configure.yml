@@ -18,6 +18,7 @@
    - { regexp: 'native_transport_port: (.*)', replace: 'native_transport_port: {{ cassandra_cql_port }}' }
    - { regexp: 'rpc_port: (.*)', replace: 'rpc_port: {{ cassandra_rpc_port }}' }
    - { regexp: 'authenticator:(.*)', replace: '{% if cassandra_user != "" %}authenticator: PasswordAuthenticator{% else %}authenticator: AllowAllAuthenticator{% endif %}'}
+   - { regexp: '# hints_directory: (.*)', replace: 'hints_directory: /var/lib/cassandra/hints' }
   notify: restart cassandra
   tags: [test]
 
