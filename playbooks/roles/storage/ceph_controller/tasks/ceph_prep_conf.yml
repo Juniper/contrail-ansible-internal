@@ -68,3 +68,8 @@
   template:
     src: ceph.client.admin.keyring.j2
     dest: "{{ ceph_client_admin_keyring_file }}"
+
+- name: remove ceph-osd udev rules
+  file:
+    dest: /lib/udev/rules.d/95-ceph-osd.rules
+    state: absent
