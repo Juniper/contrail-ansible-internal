@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014 Juniper Networks, Inc. All rights reserved.
+ * Copyright (c) 2017 Juniper Networks, Inc. All rights reserved.
  */
 
 var config = {};
@@ -32,7 +32,7 @@ config.orchestration.Manager = 'none';
  * false - These values should be taken from auth catalog list
  *
  *****************************************************************************/
-config.serviceEndPointFromConfig = true;
+config.serviceEndPointFromConfig = {{ webui_service_endpoint_from_config | to_json }};
 
 /****************************************************************************
  * This boolean flag specifies wheather region list should be taken from config
@@ -128,7 +128,7 @@ config.serviceEndPointTakePublicURL = true;
 config.networkManager = {};
 config.networkManager.ip = '{{ network_manager_ip }}';
 config.networkManager.port = '9696'
-config.networkManager.authProtocol = 'http';
+config.networkManager.authProtocol = '{{ webui_network_manager_auth_protocol }}';
 config.networkManager.apiVersion = [];
 config.networkManager.strictSSL = false;
 config.networkManager.ca = '';
@@ -136,7 +136,7 @@ config.networkManager.ca = '';
 config.imageManager = {};
 config.imageManager.ip = '{{ glance_api_ip}}';
 config.imageManager.port = '9292';
-config.imageManager.authProtocol = 'http';
+config.imageManager.authProtocol = '{{ webui_image_manager_auth_protocol }}';
 config.imageManager.apiVersion = ['v1', 'v2'];
 config.imageManager.strictSSL = false;
 config.imageManager.ca = '';
@@ -144,7 +144,7 @@ config.imageManager.ca = '';
 config.computeManager = {};
 config.computeManager.ip = '{{ nova_api_ip }}';
 config.computeManager.port = '8774';
-config.computeManager.authProtocol = 'http';
+config.computeManager.authProtocol = '{{ webui_compute_manager_auth_protocol }}';
 config.computeManager.apiVersion = ['v1.1', 'v2'];
 config.computeManager.strictSSL = false;
 config.computeManager.ca = '';
@@ -323,6 +323,30 @@ config.qe.enable_stat_queries = false;
  */
 config.logs = {};
 config.logs.level = '{{ webui_log_level }}';
+
+/*****************************************************************************
+ * Below are the optional feature list which can be enabled/disabled from
+ * UI Menu.
+ *
+ *****************************************************************************/
+config.optFeatureList = {};
+config.optFeatureList.mon_infra_underlay = {{ webui_enable_underlay | to_json }};
+config.optFeatureList.mon_infra_mx = {{ webui_enable_mx | to_json }};
+config.optFeatureList.query_udd_webController = {{ webui_enable_udd | to_json }};
+
+/*****************************************************************************
+ *
+ * This section describes the various options for server configurations.
+ *
+ *  key_file:
+ *      Private key file path to use for SSL
+ *  cert_file:
+ *      Public x509 certificate file path to use
+ *
+ *****************************************************************************/
+config.server_options = {};
+config.server_options.key_file = '{{ webui_server_options_key_file }}';
+config.server_options.cert_file = '{{ webui_server_options_cert_file }}';
 
 /******************************************************************************
  * Boolean flag getDomainProjectsFromApiServer indicates wheather the project

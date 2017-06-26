@@ -1,6 +1,6 @@
 ---
 - name: Configure webui configs in config.global.js
-  template: src="config.gobal.js.j2" dest=/etc/contrail/config.global.js owner=root group=root mode=0644
+  template: src="config.global.js.j2" dest=/etc/contrail/config.global.js owner=root group=root mode=0644
   notify:
     - restart webui supervisord
     - restart webui systemd
