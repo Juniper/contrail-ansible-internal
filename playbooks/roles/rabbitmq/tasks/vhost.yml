@@ -6,6 +6,7 @@
     tracing={{ item.tracing | default('no') }}
     state=present
   with_items: "{{ rabbitmq_vhost_definitions }}"
+  when: rabbitmq_cluster_node_role == 'leader'
 
 - name: add rabbitmq user and set privileges
   rabbitmq_user:
@@ -20,6 +21,7 @@
     state=present
     force={{ item.force|default('yes') }}
   with_items: "{{ rabbitmq_users_definitions }}"
+  when: rabbitmq_cluster_node_role == 'leader'
 
 - name: remove guest user (hostname)
   rabbitmq_user:
@@ -29,11 +31,11 @@
     state=absent
   register: rm_guest_hostname
   ignore_errors: true
-  when: rabbitmq_remove_default_user
+  when: rabbitmq_remove_default_user and rabbitmq_cluster_node_role == 'leader'
 
 - name: remove guest user (default)
   rabbitmq_user:
     user=guest
     vhost=/
     state=absent
-  when: rm_guest_hostname|failed and rabbitmq_remove_default_user
+  when: rm_guest_hostname|failed and rabbitmq_remove_default_user and rabbitmq_cluster_node_role == 'leader'
