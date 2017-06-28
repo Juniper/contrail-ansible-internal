@@ -34,7 +34,7 @@
   tags: [contrail.vncapi, contrail.vncapi.configure, test]
 
 - name: Configure vrouter agent and nodemgr using contrail-compute-setup
-  shell: contrail-compute-setup --self_ip {{ vhost_address }} --cfgm_ip {{ api_server_ip }}
+  shell: contrail-compute-setup --self_ip {{ vhost_address }} --cfgm_ip {{ api_server_ip }} {{ gateway_mode_config }}
   tags: [contrail.agent.vrouter.configure, contrail.agent.vrouter]
 
 - name: setup cni

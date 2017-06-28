@@ -27,3 +27,5 @@ vrouter_physical_interface_orig: >-
       {%- else -%}{{ ansible_default_ipv4.interface }}{%- endif -%}
     {%- endif -%}
   {%- endif -%}
+
+gateway_mode_config: "{{ '--compute_as_gateway ' +  gateway_mode if gateway_mode else '' }}"
