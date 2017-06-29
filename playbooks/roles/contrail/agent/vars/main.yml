@@ -28,4 +28,18 @@ vrouter_physical_interface_orig: >-
     {%- endif -%}
   {%- endif -%}
 
-gateway_mode_config: "{{ '--compute_as_gateway ' +  gateway_mode if gateway_mode else '' }}"
+#set args for ontrail-compute-setup scripts.
+#This is one place where all the arguments for
+#the script will be collected for the script
+contrail_compute_setup_args: >-
+  {%- set cargs = ' --self_ip ' ~ vhost_address ~ ' --cfgm_ip ' ~ api_server_ip -%}
+  {%- if non_mgmt_ip -%}
+    {%- set cargs = cargs ~ ' --non_mgmt_ip ' ~ non_mgmt_ip -%}   
+  {%- endif -%}
+  {%- if non_mgmt_gw -%}
+    {%- set cargs = cargs ~ ' --non_mgmt_gw ' ~ non_mgmt_gw -%}   
+  {%- endif -%}
+  {%- if gateway_mode -%}
+    {%- set cargs = cargs ~ ' --compute_as_gateway ' ~ gateway_mode -%}
+  {%- endif -%}
+  {{ cargs }}

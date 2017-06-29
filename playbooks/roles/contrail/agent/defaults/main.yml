@@ -62,3 +62,5 @@ vrouter_max_control_nodes: 3
 contrail_compute_mode: "container"
 supervisor_vrouter_ready: false
 gateway_mode: ''
+non_mgmt_ip: ''
+non_mgmt_gw: ''
