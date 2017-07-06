@@ -1,47 +1,24 @@
 ---
 # defaults file for ansible-role-cassandra
 cassandra_distro: dsc
-cassandra_version: '2.2'
-cassandra_version_branch: '2.2'
+cassandra_version: '3.10'
+cassandra_version_branch: '3.10'
 cassandra_deps:
-  - 'openjdk-7-jre'
-  - 'openjdk-7-jdk'
+  - 'openjdk-8-jre'
 update_java_alternatives: false
-cassandra_packages: "{{ ['cassandra', 'opscenter'] if ansible_os_family == 'Debian' else ['cassandra22', 'opscenter'] }}"
+cassandra_packages: "{{ ['cassandra', 'opscenter'] }}"
 
-cassandra_1_2:
+cassandra_3_10:
   repo:
-    dsc:
-      debian: 'deb http://debian.datastax.com/community 1.2 main'
     apache:
-      debian: 'deb http://www.apache.org/dist/cassandra/debian 12x main'
-
-cassandra_2_0:
-  repo:
-    dsc:
-      debian: 'deb http://debian.datastax.com/community 2.0 main'
-    apache:
-      debian: 'deb http://www.apache.org/dist/cassandra/debian 20x main'
-
-cassandra_2_1:
-  repo:
-    dsc:
-      debian: 'deb http://debian.datastax.com/community 2.1 main'
-    apache:
-      debian: 'deb http://www.apache.org/dist/cassandra/debian 21x main'
-
-cassandra_2_2:
-  repo:
-    dsc:
-      debian: 'deb http://debian.datastax.com/community 2.2 main'
-    apache:
-      debian: 'deb http://www.apache.org/dist/cassandra/debian 22x main'
+      debian: 'deb http://www.apache.org/dist/cassandra/debian 310x main'
 
 cassandra_manage_repo: false
 
 cassandra_cluster_name: MyCluster
 cassandra_commitlog_dir: /var/lib/cassandra/commitlog
 cassandra_saved_caches_dir: /var/lib/cassandra/saved_caches
+cassandra_hints_dir: /var/lib/cassandra/hints
 cassandra_conf_dir: "{{ '/etc/cassandra/conf' if ansible_os_family == 'RedHat' else '/etc/cassandra' }}"
 cassandra_data_dirs:
   - /var/lib/cassandra/data

@@ -56,9 +56,9 @@ contrail_rabbitmq_allow_remote_guest: "{{ true if rabbitmq_user == 'guest' else 
 
 
 # Cassandra defaults
-configdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
+configdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' }}"
 configdb_cassandra_cluster_name: ContrailConfigDB
-configdb_cassandra_packages: "{{ 'cassandra' if ansible_os_family == 'Debian' else 'cassandra22' }}"
+configdb_cassandra_packages: "{{ 'cassandra' }}"
 enable_config_service: true
 
 # In case of external_rabbitmq_servers, or config is not enabled no need to setup rabbitmq here
