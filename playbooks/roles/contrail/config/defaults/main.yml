@@ -40,10 +40,12 @@ config_packages_Debian:
   - contrail-config-openstack
   - python-memcache
   - contrail-database-common
+  - python-backports.ssl-match-hostname
 
 config_packages_RedHat:
   - contrail-openstack-config
   - contrail-database-common
+  - python-backports-ssl_match_hostname
 
 config_packages: "{{ config_packages_RedHat if ansible_os_family == 'RedHat' else config_packages_Debian }}"
 
