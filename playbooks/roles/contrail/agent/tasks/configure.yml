@@ -39,7 +39,7 @@
 
 - name: setup cni
   include: cni.yml
-  when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
+  when: cloud_orchestrator == 'mesos'
 
 # Write vrouter_physical_interface_detected back to contrailctl/agent.conf
 # This will only be written if vrouter_physical_interface is not passed from contrailctl,
