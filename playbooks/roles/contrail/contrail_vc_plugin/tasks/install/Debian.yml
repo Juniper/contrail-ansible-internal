@@ -1,0 +1,10 @@
+---
+- name: Install contrail vcenter pnd dependent packages
+  apt: name={{ item }} state=latest
+  with_items: "{{ vc_plugin_packages }}"
+
+#- name: Install vcenter packages
+#  shell: dpkg -i *.deb
+#  args:
+#    chdir: /opt/contrail/contrail_vcenter_plugin_install_repo
+
