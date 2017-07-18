@@ -41,6 +41,22 @@
   include: cni.yml
   when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
 
+- name: Configure contrail-lbaas-auth.conf for kubernetes
+  ini_file:
+    dest: "/etc/contrail/contrail-lbaas-auth.conf"
+    section: "KUBERNETES"
+    option: "{{ item.key }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_dict:
+    kubernetes_token: "{{ kubernetes_token }}"
+    kubernetes_api_server: "{{ kubernetes_api_server }}"
+    kubernetes_api_port: "{{ kubernetes_api_port }}"
+    kubernetes_api_secure_port: "{{ kubernetes_api_secure_port }}"
+  when:
+    - cloud_orchestrator in ['kubernetes', 'openshift']
+    - kubernetes_api_server is defined
+
 # Write vrouter_physical_interface_detected back to contrailctl/agent.conf
 # This will only be written if vrouter_physical_interface is not passed from contrailctl,
 # And vrouter_physical_interface_detected is not already passed from contrailctl.

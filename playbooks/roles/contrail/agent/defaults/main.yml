@@ -64,3 +64,7 @@ supervisor_vrouter_ready: false
 gateway_mode: ''
 non_mgmt_ip: ''
 non_mgmt_gw: ''
+
+kubernetes_token: ''
+kubernetes_api_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 8080 }}"
+kubernetes_api_secure_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 6443 }}"
