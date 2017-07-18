@@ -1,0 +1,3 @@
+---
+- name: Install contrail cni
+  package: name='contrail-k8s-cni' state=installed
