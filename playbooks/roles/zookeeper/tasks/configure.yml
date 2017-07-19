@@ -8,6 +8,9 @@
 - name: Make sure zookeeper data directory exists with appropriate ownership
   file: path="{{ data_dir }}" state=directory owner=zookeeper group=zookeeper
 
+- name: Make sure zookeeper log directory exists with appropriate ownership
+  file: path="{{ log_dir }}" state=directory owner=zookeeper group=zookeeper
+
 - name: Make a symlink for myid file within zookeeper data directory
   file: dest="{{ data_dir }}/myid" src="{{ zookeeper_cfg_dir }}/myid" state=link
   tags: [test]
