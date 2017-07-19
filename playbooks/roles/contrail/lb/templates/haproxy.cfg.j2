@@ -71,6 +71,23 @@ backend contrail-api-backend
     server {{ contrail_api_ip }} {{ contrail_api_ip }}:{{ contrail_api_backend_port }} check inter {{ check_interval }} rise 2 fall 3
 {% endfor %}
 
+frontend contrail-webui-http
+    bind *:{{ contrail_webui_frontend_port }}
+    http-request replace-value Host (.*):.* \1
+    http-request redirect location https://%[req.hdr(Host)]:{{ contrail_webui_https_port }}
+
+frontend contrail-webui-https
+    bind *:{{ contrail_webui_https_port }} ssl crt {{ ssl_certs_dir }}/contrailcertbundle.pem
+    reqadd X-Forwarded-Proto:\ https
+    default_backend contrail-webui-http-backend
+
+backend contrail-webui-http-backend
+    balance roundrobin
+    cookie SERVERID insert indirect nocache
+{% for webui_ip in web_server_nodes %}
+    server {{ webui_ip }} {{ webui_ip }}:{{ contrail_webui_backend_port }} cookie {{ webui_ip }} weight 1 maxconn 1024 check port {{ contrail_api_backend_port }}
+{% endfor %}
+
 frontend contrail-analytics-api
     bind *:{{ contrail_analytics_api_frontend_port }}
     default_backend    contrail-analytics-api-backend

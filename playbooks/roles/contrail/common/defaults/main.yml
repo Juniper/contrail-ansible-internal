@@ -9,6 +9,8 @@ controller_ip: "{{ controller_list[0] }}"
 config_nodes: ''
 config_server_list: "{{ config_nodes.split(',') if config_nodes else controller_list }}"
 contrail_api_server_list: "{{ config_server_list }}"
+webui_nodes: ''
+web_server_nodes: "{{ webui_nodes.split(',') if webui_nodes else controller_list }}"
 
 # Support bootstrap clusters while add/remove nodes
 config_seeds: ''
