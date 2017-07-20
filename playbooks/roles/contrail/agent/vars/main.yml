@@ -28,18 +28,71 @@ vrouter_physical_interface_orig: >-
     {%- endif -%}
   {%- endif -%}
 
+# Qos cmd config
+qos_queue_id_config: "{{ ' --qos_queue_id ' + qos_queue_id_list | join(' ') if qos_queue_id_list else ''}}"
+qos_logical_queue_config: "{{ ' --qos_logical_queue ' + qos_logical_queue_list | join(' ') if qos_logical_queue_list else ''}}"
+qos_default_hw_queue: "{{ ' --default_hw_queue_qos' if qos_default_nic_queue else ''}}"
+qos_priority_tagging_config: "{{ ' --qos_priority_tagging ' + qos_priority_tagging | string if qos_priority_tagging else '' }}"
+
+# qos scheduling cmd config
+priority_id_config: "{{ ' --priority_id ' + priority_id_list | join(' ')  if priority_id_list else '' }}"
+priority_scheduling_config: "{{ ' --priority_scheduling ' + priority_scheduling_list | join(' ') if priority_scheduling_list else '' }}"
+priority_bandwidth_config: "{{ ' --priority_bandwidth ' + priority_bandwidth_list | join(' ') if priority_bandwidth_list else '' }}"
+
+# vgw cmd
+vgw_public_subnet_config: "{{ ' --vgw_public_subnet ' + '[' + vgw_public_subnet_list | join(';') | regex_replace(' ', '') | regex_replace('u', '') | quote  + ']' if vgw_public_subnet_list else '' }}"
+vgw_public_vn_name_config: "{{ ' --vgw_public_vn_name ' + '[' + vgw_public_vn_name_list | join(';') | regex_replace(' ', '') | quote + ']' if vgw_public_vn_name_list else '' }}"
+vgw_intf_list_config: "{{ ' --vgw_intf_list ' + '[' + vgw_intf_list | join(';') | regex_replace(' ', '') | quote + ']' if vgw_intf_list else '' }}"
+vgw_gateway_routes_config: "{{ ' --vgw_gateway_routes ' + '[' + vgw_gateway_route_list | join(';') | regex_replace(' ', '') | regex_replace('u', '') | quote + ']' if vgw_gateway_route_list else '' }}"
+
 #set args for ontrail-compute-setup scripts.
 #This is one place where all the arguments for
 #the script will be collected for the script
 contrail_compute_setup_args: >-
   {%- set cargs = ' --self_ip ' ~ vhost_address ~ ' --cfgm_ip ' ~ api_server_ip -%}
   {%- if non_mgmt_ip -%}
-    {%- set cargs = cargs ~ ' --non_mgmt_ip ' ~ non_mgmt_ip -%}   
+    {%- set cargs = cargs ~ ' --non_mgmt_ip ' ~ non_mgmt_ip -%}
   {%- endif -%}
   {%- if non_mgmt_gw -%}
-    {%- set cargs = cargs ~ ' --non_mgmt_gw ' ~ non_mgmt_gw -%}   
+    {%- set cargs = cargs ~ ' --non_mgmt_gw ' ~ non_mgmt_gw -%}
   {%- endif -%}
   {%- if gateway_mode -%}
     {%- set cargs = cargs ~ ' --compute_as_gateway ' ~ gateway_mode -%}
+  {%- endif -%}
+  {%- if qos_queue_id_config -%}
+    {%- set cargs = cargs ~ qos_queue_id_config -%}
+  {%- endif -%}
+  {%- if qos_logical_queue_config -%}
+    {%- set cargs = cargs ~ qos_logical_queue_config -%}
+  {%- endif -%}
+  {%- if qos_default_hw_queue -%}
+    {%- set cargs = cargs ~ qos_default_hw_queue -%}
+  {%- endif -%}
+  {%- if qos_priority_tagging_config -%}
+    {%- set cargs = cargs ~ qos_priority_tagging_config -%}
+  {%- endif -%}
+  {%- if priority_id_config -%}
+    {%- set cargs = cargs ~ priority_id_config -%}
+  {%- endif -%}
+  {%- if priority_scheduling_config -%}
+    {%- set cargs = cargs ~ priority_scheduling_config -%}
+  {%- endif -%}
+  {%- if priority_bandwidth_config -%}
+    {%- set cargs = cargs ~ priority_bandwidth_config -%}
+  {%- endif -%}
+  {%- if vgw_public_subnet_config -%}
+    {%- set cargs = cargs ~ vgw_public_subnet_config -%}
+  {%- endif -%}
+  {%- if vgw_public_vn_name_config -%}
+    {%- set cargs = cargs ~ vgw_public_vn_name_config -%}
+  {%- endif -%}
+  {%- if vgw_intf_list_config -%}
+    {%- set cargs = cargs ~ vgw_intf_list_config -%}
+  {%- endif -%}
+  {%- if vgw_gateway_routes_config -%}
+    {%- set cargs = cargs ~ vgw_gateway_routes_config -%}
+  {%- endif -%}
+  {%- if vrouter_module_params -%}
+    {%- set cargs = cargs ~ ' --vrouter_module_params ' ~  vrouter_module_params  -%}
   {%- endif -%}
   {{ cargs }}
