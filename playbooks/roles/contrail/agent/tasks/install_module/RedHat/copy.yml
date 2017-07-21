@@ -1,0 +1,31 @@
+---
+- name: retrieve major kernel version
+  set_fact: major_kernel={{ ansible_kernel.split('-')[0] }}
+
+- name: check if vrouter.ko exists for the major kernel version
+  shell: ls -1rt /opt/contrail/vrouter-kernel-modules/{{ major_kernel }}-*/vrouter.ko | tail -1
+  register: vrouter_ko
+
+- stat: path={{ vrouter_ko.stdout }}
+  register: vrouter_ko_path
+
+- name: "Fail if vrouter.ko is not found for the major kernel - {{ major_kernel }}"
+  fail: msg="vrouter.ko for the major kernel version - {{ major_kernel }} is not found/supported"
+  when: vrouter_ko_path.stat.exists == False
+
+- name: make sure contrail vrouter module directory exist
+  file: path="/lib/modules/{{ ansible_kernel }}/kernel/net/contrail/" state=directory
+
+- name: copy vrouter module {{ vrouter_ko_path.stat.path }} to
+        /lib/modules/{{ ansible_kernel }}/kernel/net/contrail/vrouter.ko
+  copy: src={{ vrouter_ko_path.stat.path }} dest="/lib/modules/{{ ansible_kernel }}/kernel/net/contrail/"
+  register: vrouter_module_copy
+
+- name: Update modules dependencies
+  shell: depmod -a
+
+- name: Load vrouter kernel module
+  shell: modprobe vrouter
+
+- name: verify vrouter kernel modules is loaded
+  shell: lsmod | grep vrouter
