@@ -1,2 +1,3 @@
 ---
-# Currently not handling vrouter module from within the agent for redhat
+- name: Copying pre-compiled vrouter.ko depending upon Major kernel version
+  include: copy.yml
