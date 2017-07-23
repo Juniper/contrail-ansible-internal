@@ -39,7 +39,7 @@
 
 - name: setup cni
   include: cni.yml
-  when: cloud_orchestrator in ['kubernetes', 'mesos', 'openshift']
+  when: cloud_orchestrator == 'mesos'
 
 - name: Configure contrail-lbaas-auth.conf for kubernetes
   ini_file:

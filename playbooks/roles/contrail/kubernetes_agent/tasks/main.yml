@@ -1,0 +1,14 @@
+---
+- include: install/{{ ansible_os_family }}.yml
+  tags: [contrail.kubernetesagent.package, package]
+
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(kubernetes-agent): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(kubernetes-agent):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, contrail.kubernetesagent.install]
+
+- name: setup cni
+  include: cni.yml
+  when: cloud_orchestrator in ['kubernetes', 'openshift']
+  tags: [configure, contrail.kubernetesagent.configure]
