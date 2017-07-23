@@ -68,3 +68,22 @@ non_mgmt_gw: ''
 kubernetes_token: ''
 kubernetes_api_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 8080 }}"
 kubernetes_api_secure_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 6443 }}"
+
+# qos scheduling default configs
+priority_id_config: ''
+priority_scheduling_config: ''
+priority_bandwidth_config: ''
+
+# qos queueing default configs
+qos_queue_id_config: ''
+qos_logical_queue_config: ''
+qos_priority_tagging_config: ''
+
+# vgw defaults
+vgw_public_subnet_config: ''
+vgw_public_vn_name_config: ''
+vgw_intf_list_config: ''
+vgw_gateway_routes_config: ''
+
+# vrouter module params
+vrouter_module_params: ''
