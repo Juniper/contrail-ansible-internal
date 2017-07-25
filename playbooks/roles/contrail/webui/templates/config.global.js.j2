@@ -15,6 +15,8 @@ config.orchestration = {};
  *****************************************************************************/
 {% if cloud_orchestrator == 'openstack' %}
 config.orchestration.Manager = 'openstack';
+{% elif cloud_orchestrator == 'vcenter' %}
+config.orchestration.Manager = 'vcenter';
 {% else %}
 config.orchestration.Manager = 'none';
 {% endif %}
@@ -206,14 +208,14 @@ config.dns.statusURL = "/Snh_PageReq?x=AllEntries%20VdnsServersReq";
 {% if cloud_orchestrator == 'vcenter' %}
 // vcenter related parameters
 config.vcenter = {};
-config.vcenter.server_ip = '127.0.0.1';         //vCenter IP
+config.vcenter.server_ip = '{{ webui_vcenter_server_ip }}';         //vCenter IP
 config.vcenter.server_port = '443';             //Port
-config.vcenter.authProtocol = 'https';          //http or https
-config.vcenter.datacenter = 'vcenter';          //datacenter name
-config.vcenter.dvsswitch = 'vswitch';           //dvsswitch name
+config.vcenter.authProtocol = '{{ webui_vcenter_auth_protocol }}';          //http or https
+config.vcenter.datacenter = '{{ vcplugin_datacenter }}';          //datacenter name
+config.vcenter.dvsswitch = '{{ vcplugin_dvs }}';           //dvsswitch name
 config.vcenter.strictSSL = false;               //Validate the certificate or ignore
 config.vcenter.ca = '';                         //specify the certificate key file
-config.vcenter.wsdl = '/usr/src/contrail/contrail-web-core/webroot/js/vim.wsdl';
+config.vcenter.wsdl = '{{ webui_vcenter_wsdl_path }}';
 {% endif %}
 
 /*****************************************************************************
