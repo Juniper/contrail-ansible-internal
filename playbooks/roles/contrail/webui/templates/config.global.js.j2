@@ -381,6 +381,11 @@ config.network.L2_enable = false;
  *****************************************************************************/
 config.getDomainsFromApiServer = {{ 'false' if cloud_orchestrator == 'openstack' else 'true' }};
 
+/*****************************************************************************
+ * Location of the json schema for the Config Editor.
+*****************************************************************************/
+config.jsonSchemaPath = {{ webui_config_editor_schema_path | to_json }};
+
 // Export this as a module.
 module.exports = config;
 
