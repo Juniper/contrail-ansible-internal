@@ -7,6 +7,7 @@ agent_packages_redhat:
   - python-contrail-vrouter-api
   - python-opencontrail-vrouter-netns
   - contrail-vrouter-agent
+  - contrail-vrouter
   - contrail-vrouter-init
   - contrail-nodemgr
   - python-yaml
