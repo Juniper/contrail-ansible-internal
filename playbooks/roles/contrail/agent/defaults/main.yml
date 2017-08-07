@@ -88,3 +88,6 @@ vgw_gateway_routes_config: ''
 
 # vrouter module params
 vrouter_module_params: ''
+
+# List of controller nodes for a compute node
+compute_controller_list: ''
