@@ -1,0 +1,28 @@
+---
+- include: install/{{ ansible_os_family }}.yml
+  tags: [contrail.vcenterplugin.package, package]
+
+- name: Add init script for vcenter plugin
+  include: init_script.yml
+  tags: [contrail.vcenterplugin.package, package]
+
+- name: Add custom bash prompt
+  lineinfile:
+    line: "export PS1='\\[\\e]0;\\u@\\h(contrail-vcenter-plugin): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(contrail-vcenter-plugin):\\w\\$ '"
+    dest: /root/.bashrc
+  tags: [install, contrail.vcenterplugin.install]
+
+- name: setup vcenter plugin
+  include: configure_vc_plugin.yml
+  when: cloud_orchestrator == "vcenter"
+  tags: [configure, contrail.vcenterplugin.configure]
+
+- name: Create esxi host to compute map file
+  include: create_map_file.yml
+  when: cloud_orchestrator == "vcenter"
+  tags: [configure, contrail.vcenterplugin.configure]
+
+- name: Start vc plugin service
+  shell: service contrail-vcenter-plugin start
+  tags: [service, contrail.vcenterplugin.service]
+

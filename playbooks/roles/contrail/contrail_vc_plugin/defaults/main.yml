@@ -1,0 +1,10 @@
+---
+# vcenter plugin install packages
+vc_plugin_packages:
+  #- libcontrail-java-api 
+  #- libcontrail-vijava
+  #- libcontrail-vrouter-java-api
+  #- contrail-vcenter-plugin
+  - contrail-install-vcenter-plugin
+  - openjdk-7-jre-headless
+
