@@ -1,0 +1,8 @@
+---
+- name: install contrail-kube-manager related packages
+  package: name={{ item }} state=latest
+  with_items: "{{ contrail_kube_manager_packages }}"
+
+- name: install supervisor
+  package: name=supervisor state=latest
+  when: contrail_service_mgr == 'supervisord'
