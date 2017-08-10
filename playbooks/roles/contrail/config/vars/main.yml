@@ -14,4 +14,4 @@ contrail_rabbitmq_users_definitions_detected:
     - administrator
 
 contrail_rabbitmq_vhost_definitions: "{{ [] if rabbitmq_vhost == '/' else contrail_rabbitmq_vhost_definitions_detected }}"
-contrail_rabbitmq_users_definitions: "{{ [] if rabbitmq_user == 'guest' else contrail_rabbitmq_users_definitions_detected }}"
+contrail_rabbitmq_users_definitions: "{{ [] if rabbitmq_user == 'guest' and rabbitmq_password == 'guest' else contrail_rabbitmq_users_definitions_detected }}"
