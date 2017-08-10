@@ -23,6 +23,28 @@
       sandesh_keyfile: "{{ sandesh_keyfile }}"
       sandesh_certfile: "{{ sandesh_certfile }}"
       sandesh_ca_cert: "{{ sandesh_ca_cert }}"
+    CONFIGDB:
+      rabbitmq_server_list: "{{ rabbitmq_servers_with_port_space_delim }}"
+      rabbitmq_vhost: "{{ rabbitmq_vhost }}"
+      rabbitmq_user: "{{ rabbitmq_user }}"
+      rabbitmq_password: "{{ rabbitmq_password }}"
+      config_db_server_list: "{{ configdb_servers_with_port }}"
   notify:
     - restart topology supervisord
     - restart topology systemd
+
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ analytics_topology_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CONFIGDB:
+      config_db_username: "{{ configdb_cassandra_user }}"
+      config_db_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart topology supervisord
+    - restart topology systemd
+  when: configdb_cassandra_user != ''

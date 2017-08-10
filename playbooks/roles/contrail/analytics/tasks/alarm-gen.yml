@@ -15,11 +15,6 @@
       kafka_broker_list: "{{ kafka_brokers_with_port }}"
       zk_list: "{{ zk_servers_with_port_space_delim }}"
       partitions: "{{ anlaytics_uve_partition_count }}"
-      rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
-      rabbitmq_port: "{{ rabbitmq_port }}"
-      rabbitmq_vhost: "{{ rabbitmq_vhost }}"
-      rabbitmq_user: "{{ rabbitmq_user }}"
-      rabbitmq_password: "{{ rabbitmq_password }}"
       http_server_port: "{{ alarmgen_introspect_port }}"
       collectors: "{{ analytics_collectors_with_port }}"
     REDIS:
@@ -35,6 +30,29 @@
       sandesh_keyfile: "{{ sandesh_keyfile }}"
       sandesh_certfile: "{{ sandesh_certfile }}"
       sandesh_ca_cert: "{{ sandesh_ca_cert }}"
+    CONFIGDB:
+      rabbitmq_server_list: "{{ rabbitmq_server_list | join(',') }}"
+      rabbitmq_port: "{{ rabbitmq_port }}"
+      rabbitmq_vhost: "{{ rabbitmq_vhost }}"
+      rabbitmq_user: "{{ rabbitmq_user }}"
+      rabbitmq_password: "{{ rabbitmq_password }}"
+      config_db_server_list: "{{ configdb_servers_with_port }}"
   notify:
     - restart alarm-gen supervisord
     - restart alarm-gen systemd
+
+- name: Configure configdb's cassandra user and password when provided
+  ini_file:
+    dest: "{{ alarmgen_conf }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    CONFIGDB:
+      config_db_username: "{{ configdb_cassandra_user }}"
+      config_db_password: "{{ configdb_cassandra_password }}"
+  notify:
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
+  when: configdb_cassandra_user != ''
