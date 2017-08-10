@@ -15,11 +15,12 @@ zookeeper_register_path_env: false
 client_port: 2181
 peer_port1: 2888
 peer_port2: 3888
-init_limit: 5
-sync_limit: 2
+init_limit: 10
+sync_limit: 5
 tick_time: 2000
-zookeeper_autopurge_purgeInterval: 0
-zookeeper_autopurge_snapRetainCount: 10
+max_session_timeout: 120000
+zookeeper_autopurge_purgeInterval: 3
+zookeeper_autopurge_snapRetainCount: 3
 
 data_dir: /var/lib/zookeeper
 log_dir: /var/log/zookeeper
