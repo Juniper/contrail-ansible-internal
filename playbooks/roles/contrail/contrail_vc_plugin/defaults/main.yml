@@ -5,4 +5,4 @@ vc_plugin_packages:
   - libcontrail-vijava
   - libcontrail-vrouter-java-api
   - contrail-vcenter-plugin
-  - openjdk-7-jre-headless
+openjdk_pkg: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
