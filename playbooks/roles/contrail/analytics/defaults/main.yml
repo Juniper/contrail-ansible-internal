@@ -24,7 +24,9 @@ alarmgen_introspect_port: 5995
 
 anlaytics_uve_partition_count: 30
 
-nodemanager_conf: /etc/contrail/contrail-analytics-nodemgr.conf
+analytics_nodemgr_conf: /etc/contrail/contrail-analytics-nodemgr.conf
+analytics_nodemgr_log: /var/log/contrail/contrail-analytics-nodemgr.log
+analytics_nodemgr_log_level: "{{ log_level }}"
 
 analytics_collector_conf: /etc/contrail/contrail-collector.conf
 analytics_collector_log: /var/log/contrail/contrail-collector.log
