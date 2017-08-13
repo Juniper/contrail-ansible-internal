@@ -1,12 +1,16 @@
 ---
 - name: configure control nodemanager
   ini_file:
-    dest: "{{ nodemanager_conf }}"
+    dest: "{{ control_nodemgr_conf }}"
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"
     create: no
   with_inidata:
+    DEFAULTS:
+      log_file: "{{ control_nodemgr_log }}"
+      log_level: "{{ control_nodemgr_log_level }}"
+      log_local: "{{ log_local }}"
     COLLECTOR:
       server_list: "{{ analytics_collectors_with_port }}"
     SANDESH:

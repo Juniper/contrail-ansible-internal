@@ -1,7 +1,7 @@
 ---
 - name: configure database nodemanager
   ini_file:
-    dest: "{{ nodemanager_conf }}"
+    dest: "{{ database_nodemgr_conf }}"
     section: "{{ item.section }}"
     option: "{{ item.option }}"
     value: "{{ item.value }}"
@@ -10,6 +10,9 @@
     DEFAULTS:
       hostip: "{{ my_analyticsdb_ip }}"
       minimum_diskGB: "{{ analyticsdb_minimum_diskGB }}"
+      log_file: "{{ database_nodemgr_log }}"
+      log_level: "{{ database_nodemgr_log_level }}"
+      log_local: "{{ log_local }}"
     COLLECTOR:
       server_list: "{{ analytics_collectors_with_port }}"
     SANDESH:

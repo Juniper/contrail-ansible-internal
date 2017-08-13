@@ -5,7 +5,9 @@ contrail_database_packages:
   - opscenter
 
 # Node manager
-nodemanager_conf: "/etc/contrail/contrail-database-nodemgr.conf"
+database_nodemgr_conf: "/etc/contrail/contrail-database-nodemgr.conf"
+database_nodemgr_log: /var/log/contrail/contrail-database-nodemgr.log
+database_nodemgr_log_level: SYS_NOTICE
 
 # Cassandra defaults
 analyticsdb_cassandra_deps: "{{ 'openjdk-8-jre-headless' }}"
