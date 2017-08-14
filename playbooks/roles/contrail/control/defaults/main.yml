@@ -20,7 +20,10 @@ rndc_config_file: contrail-rndc.conf
 rndc_key: "xvysmOR8lnUQRBcunkC6vg=="
 dns_introspect_port: 8092
 dns_server_port: 53
-nodemanager_conf: /etc/contrail/contrail-control-nodemgr.conf
+
+control_nodemgr_conf: /etc/contrail/contrail-control-nodemgr.conf
+control_nodemgr_log: /var/log/contrail/contrail-control-nodemgr.log
+control_nodemgr_log_level: "{{ log_level }}"
 
 control_packages:
   - contrail-openstack-control

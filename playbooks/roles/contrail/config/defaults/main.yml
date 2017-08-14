@@ -9,7 +9,9 @@ auth: keystone
 api_aaa_mode: "cloud-admin"
 
 # Node manager
-nodemanager_conf: "/etc/contrail/contrail-config-nodemgr.conf"
+config_nodemgr_conf: "/etc/contrail/contrail-config-nodemgr.conf"
+config_nodemgr_log: /var/log/contrail/contrail-config-nodemgr.log
+config_nodemgr_log_level: SYS_NOTICE
 
 # Schema Transormer
 schema_conf: /etc/contrail/contrail-schema.conf
