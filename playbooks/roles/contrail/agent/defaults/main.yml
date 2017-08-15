@@ -91,3 +91,6 @@ vrouter_module_params: ''
 
 # List of controller nodes for a compute node
 compute_controller_list: ''
+
+# Metadata Service SSL Enable/Disable
+metadata_ssl_enable: false

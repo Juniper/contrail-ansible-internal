@@ -45,7 +45,7 @@ vgw_public_vn_name_config: "{{ ' --vgw_public_vn_name ' + '[' + vgw_public_vn_na
 vgw_intf_list_config: "{{ ' --vgw_intf_list ' + '[' + vgw_intf_list | join(';') | regex_replace(' ', '') | quote + ']' if vgw_intf_list else '' }}"
 vgw_gateway_routes_config: "{{ ' --vgw_gateway_routes ' + '[' + vgw_gateway_route_list | join(';') | regex_replace(' ', '') | regex_replace('u', '') | quote + ']' if vgw_gateway_route_list else '' }}"
 
-#set args for ontrail-compute-setup scripts.
+#set args for contrail-compute-setup scripts.
 #This is one place where all the arguments for
 #the script will be collected for the script
 contrail_compute_setup_args: >-
@@ -97,5 +97,8 @@ contrail_compute_setup_args: >-
   {%- endif -%}
   {%- if vrouter_module_params -%}
     {%- set cargs = cargs ~ ' --vrouter_module_params ' ~  vrouter_module_params  -%}
+  {%- endif -%}
+  {%- if metadata_ssl_enable -%}
+    {%- set cargs = cargs ~ ' --metadata_use_ssl ' -%}
   {%- endif -%}
   {{ cargs }}
