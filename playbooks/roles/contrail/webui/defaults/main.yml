@@ -54,3 +54,5 @@ webui_compute_manager_auth_protocol: http
 
 webui_server_options_key_file: /usr/src/contrail/contrail-web-core/keys/cs-key.pem
 webui_server_options_cert_file: /usr/src/contrail/contrail-web-core/keys/cs-cert.pem
+
+webui_config_editor_schema_path: /usr/src/contrail/contrail-web-core/src/serverroot/configJsonSchemas
