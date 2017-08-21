@@ -11,7 +11,7 @@
   tags: [always]
   when: contrail_service_mgr == 'supervisord'
 
-- include_role: name=contrail/common tasks_from=keystoneauth
+- include_role: name=contrail/common tasks_from=analytics_keystoneauth
   tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
 
 - include_role: name=contrail/common tasks_from=vncapi

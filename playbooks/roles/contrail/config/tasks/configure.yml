@@ -4,7 +4,7 @@
 - name: Configure /etc/contrail/ctrl-details
   template: src=ctrl-details.j2 dest=/etc/contrail/ctrl-details
 
-- include_role: name=contrail/common tasks_from=keystoneauth
+- include_role: name=contrail/common tasks_from=config_keystoneauth
   tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
 
 - include_role: name=contrail/common tasks_from=vncapi
