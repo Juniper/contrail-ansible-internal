@@ -20,6 +20,10 @@
       rabbitmq_vhost: "{{ rabbitmq_vhost }}"
       rabbitmq_user: "{{ rabbitmq_user }}"
       rabbitmq_password: "{{ rabbitmq_password }}"
+      rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+      kombu_ssl_certfile: "{{ contrail_rabbitmq_ssl_certfile }}"
+      kombu_ssl_keyfile: "{{ contrail_rabbitmq_ssl_keyfile }}"
+      kombu_ssl_ca_certs: "{{ contrail_rabbitmq_ssl_cacertfile }}"
       http_server_port: "{{ alarmgen_introspect_port }}"
       collectors: "{{ analytics_collectors_with_port }}"
     REDIS:
