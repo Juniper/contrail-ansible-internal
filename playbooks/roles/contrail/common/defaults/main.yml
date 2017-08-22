@@ -62,10 +62,19 @@ analyticsdb_zk_peer_port2: 3889
 external_rabbitmq_servers: ''
 # external_rabbitmq_servers to be used as rabbitmq_server_list if it is set
 rabbitmq_server_list: "{{ external_rabbitmq_servers.split(',') if external_rabbitmq_servers else config_server_list }}"
-rabbitmq_port: 5672
 rabbitmq_vhost: '/'
 rabbitmq_user: guest
 rabbitmq_password: guest
+# Rabbitmq ssl settings
+rabbitmq_ssl: false
+rabbitmq_cacert     : "/etc/contrailctl/ssl/ca-cert.pem"
+rabbitmq_server_key : "/etc/contrailctl/ssl/server-privkey.pem"
+rabbitmq_server_cert: "/etc/contrailctl/ssl/server.pem"
+rabbitmq_port: "{{ 5671 if rabbitmq_ssl else 5672 }}"
+contrail_rabbitmq_ssl: "{{ rabbitmq_ssl }}"
+contrail_rabbitmq_ssl_cacertfile          : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_cacert | basename }}"
+contrail_rabbitmq_ssl_certfile            : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_server_cert | basename }}"
+contrail_rabbitmq_ssl_keyfile             : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_server_key | basename }}"
 
 config_ip: "{{ controller_ip }}"
 api_server_ip: "{{ config_ip }}"
@@ -75,7 +84,6 @@ api_server_use_ssl: False
 api_cloud_admin_role: ''
 api_global_read_only_role: ''
 region: RegionOne
-
 
 #ceph_controller_nodes is comma seperated ips of ceph controllers
 ceph_controller_nodes: ''

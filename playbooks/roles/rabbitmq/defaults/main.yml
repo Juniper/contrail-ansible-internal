@@ -30,10 +30,10 @@ rabbitmq_users_definitions: []
 rabbitmq_federation: false
 
 # defaults file for rabbitmq
-rabbitmq_cacert     : "files/rabbitmq_cacert.pem"
-rabbitmq_server_key : "files/rabbitmq_server_key.pem"
-rabbitmq_server_cert: "files/rabbitmq_server_cert.pem"
-rabbitmq_ssl        : true
+rabbitmq_cacert     : "/etc/contrailctl/ssl/ca-cert.pem"
+rabbitmq_server_key : "/etc/contrailctl/ssl/server-privkey.pem"
+rabbitmq_server_cert: "/etc/contrailctl/ssl/server.pem"
+rabbitmq_ssl        : false
 
 # ######################
 # RabbitMQ Configuration

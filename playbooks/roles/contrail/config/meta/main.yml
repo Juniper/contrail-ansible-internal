@@ -3,7 +3,6 @@ dependencies:
   - contrail/common
 
   - role: rabbitmq
-    rabbitmq_ssl: "{{ contrail_rabbitmq_ssl }}"
     rabbitmq_os_package: "{{ contrail_rabbitmq_os_package }}"
     rabbitmq_remove_default_user: "{{ contrail_rabbitmq_remove_default_user }}"
     rabbitmq_conf_tcp_listeners_address: "{{ contrail_rabbitmq_listen_address }}"
