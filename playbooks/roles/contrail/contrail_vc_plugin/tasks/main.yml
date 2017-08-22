@@ -14,12 +14,10 @@
 
 - name: setup vcenter plugin
   include: configure_vc_plugin.yml
-  when: cloud_orchestrator == "vcenter"
   tags: [configure, contrail.vcenterplugin.configure]
 
 - name: Create esxi host to compute map file
   include: create_map_file.yml
-  when: cloud_orchestrator == "vcenter"
   tags: [configure, contrail.vcenterplugin.configure]
 
 - name: Start vc plugin service

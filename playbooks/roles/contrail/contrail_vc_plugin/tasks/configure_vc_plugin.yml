@@ -1,46 +1,35 @@
 ---
-- name: Ensure /etc/contrail exists
-  file: path=/etc/contrail state=directory mode=a+x
-
-- name: create vcenter plugin config file
-  file: path=/etc/contrail/contrail-vcenter-plugin.conf state=touch mode=a+x
-
 - name: configure vc plugin.conf file
-  blockinfile:
+  ini_file:
     dest: /etc/contrail/contrail-vcenter-plugin.conf
-    block: |
-      # Copyright (c) 2014 Juniper Networks, Inc. All rights reserved.
-      #
-      # Vcenter Plugin  configuration options
-      #
-
-      [DEFAULT]
-      # Everything in this section is optional
-
-      # Vcenter plugin URL
-      vcenter.url={{ vcplugin_vc_url }}
-
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      vcenter.url: "{{ vcplugin_vc_url }}"
       #Vcenter credentials
-      vcenter.username={{ vcplugin_username }}
-      vcenter.password={{ vcplugin_password }}
+      vcenter.username: "{{ vcplugin_username }}"
+      vcenter.password: "{{ vcplugin_password }}"
 
-      vcenter.datacenter={{ vcplugin_datacenter }}
-      vcenter.dvswitch={{ vcplugin_dvs }}
-      vcenter.ipfabricpg={{ vcplugin_ipfabricpg }}
+      vcenter.datacenter: "{{ vcplugin_datacenter }}"
+      vcenter.dvswitch: "{{ vcplugin_dvs }}"
+      vcenter.ipfabricpg: "{{ vcplugin_ipfabricpg }}"
 
-      mode={{ vcplugin_mode }}
+      mode: "{{ vcplugin_mode }}"
 
-      auth_url =
-      admin_user=
-      admin_password=
-      admin_tenant_name=
+      auth_url: "{{ keystone_admin_auth_url | default('') }}"
+      admin_user: "{{ keystone_admin_user | default('') }}"
+      admin_password: "{{ keystone_admin_password | default('') }}"
+      admin_tenant_name: "{{ keystone_admin_tenant | default('') }}"
 
       # IP address and port to be used to connect to api server.
-      api.hostname={{ config_ip }}
-      api.port=8082
+      api.hostname: "{{ config_ip }}"
+      api.port: 8082
 
-      zookeeper.serverlist={{ analytics_nodes }}:2181
+      zookeeper.serverlist: "{{ zk_servers_with_port_space_delim }}"
 
       # HTTP Introspect
-      introspect.port={{ vcplugin_introspect_port }}
+      introspect.port: "{{ vcplugin_introspect_port }}"
 
