@@ -11,6 +11,9 @@
   tags: [always]
   when: contrail_service_mgr == 'supervisord'
 
+- include_role: name=contrail/common tasks_from=copy_keystone_ssl_certs
+  tags: [contrail.keystonesslcerts, contrail.keystonesslcerts.configure]
+
 - include_role: name=contrail/common tasks_from=analytics_keystoneauth
   tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
 

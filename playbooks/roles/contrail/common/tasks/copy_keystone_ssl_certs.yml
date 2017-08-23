@@ -1,0 +1,29 @@
+---
+# Copy Rabbitmq SSL Cert to Container
+
+- name: Check if source SSL Cert present
+  stat: path={{ keystone_cafile }}
+  register: check_keystone_cafile
+
+- name: create the contrail keystone ssl certs store dir
+  file:
+    path=/etc/contrail/keystone/ssl/
+    owner=contrail
+    group=contrail
+    mode=0750
+    state=directory
+    recurse=yes
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https' and keystone_insecure == False and check_keystone_cafile.stat.exists
+
+- name: copy the keystone ssl certificates
+  copy:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=contrail
+    group=contrail
+    mode=0640
+    backup=yes
+  with_items:
+    - src: "{{ keystone_cafile }}"
+      dest: "/etc/contrail/keystone/ssl/{{ keystone_cafile | basename }}"
+  when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https' and keystone_insecure == False and check_keystone_cafile.stat.exists
