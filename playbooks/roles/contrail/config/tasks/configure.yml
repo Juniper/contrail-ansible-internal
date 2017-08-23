@@ -4,6 +4,9 @@
 - name: Configure /etc/contrail/ctrl-details
   template: src=ctrl-details.j2 dest=/etc/contrail/ctrl-details
 
+- include_role: name=contrail/common tasks_from=copy_keystone_ssl_certs
+  tags: [contrail.keystonesslcerts, contrail.keystonesslcerts.configure]
+
 - include_role: name=contrail/common tasks_from=config_keystoneauth
   tags: [contrail.keystoneauth, contrail.keystoneauth.configure]
 
