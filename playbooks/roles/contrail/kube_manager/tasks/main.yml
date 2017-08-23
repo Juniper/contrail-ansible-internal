@@ -4,7 +4,7 @@
 
 - name: Add custom bash prompt
   lineinfile:
-    line: "export PS1='\\[\\e]0;\\u@\\h(kubemanager): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(controller):\\w\\$ '"
+    line: "export PS1='\\[\\e]0;\\u@\\h(kubemanager): \\w\\a\\]${debian_chroot:+($debian_chroot)}\\u@\\h(kubemanager):\\w\\$ '"
     dest: /root/.bashrc
   tags: [install, contrail.kube_manager.install]
 
@@ -12,7 +12,8 @@
   tags: [contrail.kube_manager.install, install]
 
 - name: Include contrail service manager specific code
-  include: install/{{ contrail_service_mgr }}.yml
+  include: install/systemd.yml
+  when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
   tags: [install, contrail.kube_manager.install]
 
 - include_role: name=contrail/common tasks_from=logsowner
