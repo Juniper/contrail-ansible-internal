@@ -1,0 +1,29 @@
+---
+# Copy Rabbitmq SSL Cert to Container
+
+- name: create the contrail rabbitmq ssl certs store dir
+  file:
+    path=/etc/contrail/rabbitmq/ssl/
+    owner=contrail
+    group=contrail
+    mode=0750
+    state=directory
+    recurse=yes
+  when: rabbitmq_ssl
+
+- name: copy the rabbitmq ssl certificates
+  copy:
+    src={{ item.src }}
+    dest={{ item.dest }}
+    owner=contrail
+    group=contrail
+    mode=0640
+    backup=yes
+  with_items:
+    - src: "{{ rabbitmq_cacert }}"
+      dest: "{{ contrail_rabbitmq_ssl_cacertfile }}"
+    - src: "{{ rabbitmq_server_key }}"
+      dest: "{{ contrail_rabbitmq_ssl_keyfile }}"
+    - src: "{{ rabbitmq_server_cert }}"
+      dest: "{{ contrail_rabbitmq_ssl_certfile }}"
+  when: rabbitmq_ssl

@@ -29,6 +29,9 @@
       rabbitmq_user: "{{ rabbitmq_user }}"
       rabbitmq_password: "{{ rabbitmq_password }}"
       rabbitmq_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+      rabbitmq_ssl_certfile: "{{ contrail_rabbitmq_ssl_certfile }}"
+      rabbitmq_ssl_keyfile: "{{ contrail_rabbitmq_ssl_keyfile }}"
+      rabbitmq_ssl_ca_certs: "{{ contrail_rabbitmq_ssl_cacertfile }}"
       # Config db configs
       config_db_server_list: "{{ configdb_servers_with_cql_port }}"
     SANDESH:
