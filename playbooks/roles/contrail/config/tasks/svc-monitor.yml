@@ -21,6 +21,10 @@
       rabbit_vhost: "{{ rabbitmq_vhost }}"
       rabbit_user: "{{ rabbitmq_user }}"
       rabbit_password: "{{ rabbitmq_password }}"
+      rabbit_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+      kombu_ssl_certfile: "{{ contrail_rabbitmq_ssl_certfile }}"
+      kombu_ssl_keyfile: "{{ contrail_rabbitmq_ssl_keyfile }}"
+      kombu_ssl_ca_certs: "{{ contrail_rabbitmq_ssl_cacertfile }}"
       region_name: "{{ region }}"
     SCHEDULER:
       analytics_server_list: "{{ analytics_api_servers_with_port }}"
