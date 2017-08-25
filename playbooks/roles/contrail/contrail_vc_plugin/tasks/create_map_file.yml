@@ -1,0 +1,12 @@
+---
+- name: Ensure /etc/contrail exists
+  file: path=/etc/contrail state=directory mode=a+x
+
+- name: Create ESXiToVRouterIp.map file
+  file: path=/etc/contrail/ESXiToVRouterIp.map state=touch mode=a+x
+
+- name: Update computeVM map file
+  lineinfile:
+    dest: /etc/contrail/ESXiToVRouterIp.map
+    line: "{{ item }}"
+  with_items: "{{ vcplugin_esxtocomputemap.split(',') }}"

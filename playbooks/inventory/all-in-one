@@ -21,3 +21,7 @@ localhost   ansible_connection=local
 
 [ceph-controller]
 localhost   ansible_connection=local
+
+[contrail-vc-plugin]
+localhost   ansible_connection=local
+

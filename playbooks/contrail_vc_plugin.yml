@@ -1,0 +1,14 @@
+---
+- name: "Setup Contrail Vcenter Plugin"
+  hosts: contrail-vc-plugin
+
+  pre_tasks:
+    - include_vars: contrail_vc_plugin.yml
+      tags: always
+
+  roles:
+    - role: common
+
+    - role: contrail/contrail_vc_plugin
+      tags: [contrail.contrail_vc_plugin]
+
