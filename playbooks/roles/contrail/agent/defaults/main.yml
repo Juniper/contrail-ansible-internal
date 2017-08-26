@@ -94,3 +94,17 @@ compute_controller_list: ''
 
 # Metadata Service SSL Enable/Disable
 metadata_ssl_enable: false
+
+vgw_public_subnet_list: []
+vgw_public_vn_name_list: []
+vgw_intf_list: []
+vgw_gateway_route_list: []
+
+qos_priority_tagging: true
+qos_logical_queue_list: []
+qos_default_nic_queue: false
+qos_queue_id_list: []
+
+priority_id_list: []
+priority_scheduling_list: []
+priority_bandwidth_list: []
