@@ -32,7 +32,7 @@ vrouter_physical_interface_orig: >-
 qos_queue_id_config: "{{ ' --qos_queue_id ' + qos_queue_id_list | join(' ') if qos_queue_id_list else ''}}"
 qos_logical_queue_config: "{{ ' --qos_logical_queue ' + qos_logical_queue_list | join(' ') if qos_logical_queue_list else ''}}"
 qos_default_hw_queue: "{{ ' --default_hw_queue_qos' if qos_default_nic_queue else ''}}"
-qos_priority_tagging_config: "{{ ' --qos_priority_tagging ' + qos_priority_tagging | string if qos_priority_tagging else '' }}"
+qos_priority_tagging_config: "{{ ' --qos_priority_tagging ' + qos_priority_tagging | string if not qos_priority_tagging else '' }}"
 
 # qos scheduling cmd config
 priority_id_config: "{{ ' --priority_id ' + priority_id_list | join(' ')  if priority_id_list else '' }}"

@@ -100,9 +100,9 @@ vgw_public_vn_name_list: []
 vgw_intf_list: []
 vgw_gateway_route_list: []
 
-qos_priority_tagging: ''
+qos_priority_tagging: true
 qos_logical_queue_list: []
-qos_default_nic_queue: ''
+qos_default_nic_queue: false
 qos_queue_id_list: []
 
 priority_id_list: []
