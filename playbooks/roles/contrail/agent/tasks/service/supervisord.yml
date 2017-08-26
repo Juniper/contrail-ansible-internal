@@ -1,4 +1,8 @@
 ---
+- name: start supervisor-vrouter in RH to simulate supervisord start via entrypoint.sh
+  service: name=supervisor-vrouter state=started enabled=yes
+  when: ansible_os_family == ‘RedHat’
+
 # Service management
 - name: Make sure agent nodemanager service is up
   supervisorctl: name="contrail-vrouter-nodemgr" state=started config=/etc/contrail/supervisord_vrouter.conf
