@@ -12,3 +12,6 @@
 - name: Copy systemd file for kube-manager to systemd unit file location
   copy: src=systemd/contrail-kube-manager.service dest=/etc/systemd/system/contrail-kube-manager.service
 
+- name: Enable contrail-kube-manager.service
+  file: src=/etc/systemd/system/contrail-kube-manager.service dest=/etc/systemd/system/multi-user.target.wants/contrail-kube-manager.service state=link
+
