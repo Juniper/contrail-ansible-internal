@@ -101,4 +101,10 @@ contrail_compute_setup_args: >-
   {%- if metadata_ssl_enable -%}
     {%- set cargs = cargs ~ ' --metadata_use_ssl ' -%}
   {%- endif -%}
+  {%- if tsn_servers_config -%}
+    {%- set cargs = cargs ~ tsn_servers_config -%}
+  {%- endif -%}
+  {%- if tsn_evpn_mode_config -%}
+    {%- set cargs = cargs ~ tsn_evpn_mode_config -%}
+  {%- endif -%}
   {{ cargs }}
