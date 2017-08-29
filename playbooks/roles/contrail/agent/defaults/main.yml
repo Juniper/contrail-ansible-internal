@@ -74,17 +74,28 @@ kubernetes_api_secure_port: "{{ 8443 if cloud_orchestrator == 'openshift' else 6
 priority_id_config: ''
 priority_scheduling_config: ''
 priority_bandwidth_config: ''
+priority_id_list: []
+priority_scheduling_list: []
+priority_bandwidth_list: []
 
 # qos queueing default configs
 qos_queue_id_config: ''
 qos_logical_queue_config: ''
 qos_priority_tagging_config: ''
+qos_priority_tagging: true
+qos_logical_queue_list: []
+qos_default_nic_queue: false
+qos_queue_id_list: []
 
 # vgw defaults
 vgw_public_subnet_config: ''
 vgw_public_vn_name_config: ''
 vgw_intf_list_config: ''
 vgw_gateway_routes_config: ''
+vgw_public_subnet_list: []
+vgw_public_vn_name_list: []
+vgw_intf_list: []
+vgw_gateway_route_list: []
 
 # vrouter module params
 vrouter_module_params: ''
@@ -95,16 +106,10 @@ compute_controller_list: ''
 # Metadata Service SSL Enable/Disable
 metadata_ssl_enable: false
 
-vgw_public_subnet_list: []
-vgw_public_vn_name_list: []
-vgw_intf_list: []
-vgw_gateway_route_list: []
+# Tsn evpn mode
+tsn_evpn_mode: false
+tsn_evpn_mode_config: "{{ ' --tsn_evpn_mode ' if tsn_evpn_mode else '' }}"
 
-qos_priority_tagging: true
-qos_logical_queue_list: []
-qos_default_nic_queue: false
-qos_queue_id_list: []
-
-priority_id_list: []
-priority_scheduling_list: []
-priority_bandwidth_list: []
+# Tsn List
+tsn_server_list: []
+tsn_servers_config: "{{ ' --tsn_servers ' + tsn_server_list | join(' ') if tsn_server_list else '' }}"
