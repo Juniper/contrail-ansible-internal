@@ -1,0 +1,5 @@
+---
+- name: Install contrail vcenter and dependent packages
+  apt: name={{ item }} state=latest
+  with_items: "{{ vc_plugin_packages + [openjdk_pkg] }}"
+

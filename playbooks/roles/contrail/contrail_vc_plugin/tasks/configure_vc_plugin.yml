@@ -1,0 +1,35 @@
+---
+- name: configure vc plugin.conf file
+  ini_file:
+    dest: /etc/contrail/contrail-vcenter-plugin.conf
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{ item.value }}"
+    create: yes
+  with_inidata:
+    DEFAULT:
+      vcenter.url: "{{ vcplugin_vc_url }}"
+      #Vcenter credentials
+      vcenter.username: "{{ vcplugin_username }}"
+      vcenter.password: "{{ vcplugin_password }}"
+
+      vcenter.datacenter: "{{ vcplugin_datacenter }}"
+      vcenter.dvswitch: "{{ vcplugin_dvs }}"
+      vcenter.ipfabricpg: "{{ vcplugin_ipfabricpg }}"
+
+      mode: "{{ vcplugin_mode }}"
+
+      auth_url: "{{ keystone_admin_auth_url | default('') }}"
+      admin_user: "{{ keystone_admin_user | default('') }}"
+      admin_password: "{{ keystone_admin_password | default('') }}"
+      admin_tenant_name: "{{ keystone_admin_tenant | default('') }}"
+
+      # IP address and port to be used to connect to api server.
+      api.hostname: "{{ config_ip }}"
+      api.port: 8082
+
+      zookeeper.serverlist: "{{ zk_servers_with_port_space_delim }}"
+
+      # HTTP Introspect
+      introspect.port: "{{ vcplugin_introspect_port }}"
+

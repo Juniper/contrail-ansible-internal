@@ -1,0 +1,8 @@
+---
+# vcenter plugin install packages
+vc_plugin_packages:
+  - libcontrail-java-api
+  - libcontrail-vijava
+  - libcontrail-vrouter-java-api
+  - contrail-vcenter-plugin
+openjdk_pkg: "{{ 'openjdk-8-jre-headless' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'openjdk-7-jre-headless' }}"
