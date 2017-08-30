@@ -108,3 +108,11 @@ qos_queue_id_list: []
 priority_id_list: []
 priority_scheduling_list: []
 priority_bandwidth_list: []
+
+# Tsn evpn mode
+tsn_evpn_mode: false
+tsn_evpn_mode_config: "{{ ' --tsn_evpn_mode ' if tsn_evpn_mode else '' }}"
+
+# Tsn List
+tsn_server_list: []
+tsn_servers_config: "{{ ' --tsn_servers ' + tsn_server_list | join(' ') if tsn_server_list else '' }}"
