@@ -28,7 +28,7 @@
       api.hostname: "{{ config_ip }}"
       api.port: 8082
 
-      zookeeper.serverlist: "{{ zk_servers_with_port_space_delim }}"
+      zookeeper.serverlist: "{{ zk_servers_with_port }}"
 
       # HTTP Introspect
       introspect.port: "{{ vcplugin_introspect_port }}"
