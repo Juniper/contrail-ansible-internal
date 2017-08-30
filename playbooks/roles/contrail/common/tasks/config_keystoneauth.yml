@@ -23,3 +23,17 @@
   notify:
     - restart config api supervisord
     - restart config api systemd
+
+- name: configure keystone user domain name in keystone auth configuration file
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=admin_user_domain_name value={{ keystone_user_domain_name }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3'
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+
+- name: configure keystone project domain name in keystone auth configuration file
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=project_domain_name value={{ keystone_project_domain_name }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3'
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
