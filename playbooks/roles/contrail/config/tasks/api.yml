@@ -85,3 +85,10 @@
     - restart config api supervisord
     - restart config api systemd
   when: api_global_read_only_role != ''
+
+- name: Configure strict compliance if requested
+  ini_file: dest={{ api_conf }} section=NEUTRON option=strict_compliance value={{ api_strict_compliance }}
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+  when: api_strict_compliance

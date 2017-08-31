@@ -7,6 +7,7 @@ api_listen_port: "{{ api_server_port }}"
 list_optimization_enabled: True
 auth: keystone
 api_aaa_mode: "cloud-admin"
+api_strict_compliance: False
 
 # Node manager
 config_nodemgr_conf: "/etc/contrail/contrail-config-nodemgr.conf"
