@@ -15,7 +15,7 @@ analyticsdb_cassandra_cluster_name: Contrail
 analyticsdb_cassandra_packages: "{{ ['cassandra'] }}"
 
 # Analytics DB
-analyticsdb_minimum_diskGB: 256
+analyticsdb_minimum_diskgb: 256
 
 # Kafka defaults
 kafka_conf: "/usr/share/kafka/config/server.properties"
