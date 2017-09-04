@@ -77,3 +77,6 @@ contrail_enable_zookeeper: "{{ false if external_zookeeper_servers or not enable
 supervisor_config_ready: false
 
 encap_priority: "MPLSoUDP,MPLSoGRE,VXLAN"
+
+# Config DB
+configdb_minimum_diskgb: 256
