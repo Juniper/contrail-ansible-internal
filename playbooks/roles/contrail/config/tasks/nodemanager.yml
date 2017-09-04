@@ -8,6 +8,7 @@
     create: no
   with_inidata:
     DEFAULTS:
+      minimum_diskGB: "{{ configdb_minimum_diskgb }}"
       log_file: "{{ config_nodemgr_log }}"
       log_level: "{{ config_nodemgr_log_level }}"
       log_local: "{{ log_local }}"
