@@ -80,4 +80,4 @@ supervisor_config_ready: false
 encap_priority: "MPLSoUDP,MPLSoGRE,VXLAN"
 
 # Config DB
-configdb_minimum_diskgb: 256
+configdb_minimum_diskgb: 20

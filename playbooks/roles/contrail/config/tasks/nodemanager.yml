@@ -9,6 +9,8 @@
   with_inidata:
     DEFAULTS:
       minimum_diskGB: "{{ configdb_minimum_diskgb }}"
+      hostip: "{{ my_controller_ip }}"
+      db_port: "{{ configdb_cql_port }}"
       log_file: "{{ config_nodemgr_log }}"
       log_level: "{{ config_nodemgr_log_level }}"
       log_local: "{{ log_local }}"

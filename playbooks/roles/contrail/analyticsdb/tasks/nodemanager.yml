@@ -9,6 +9,7 @@
   with_inidata:
     DEFAULTS:
       hostip: "{{ my_analyticsdb_ip }}"
+      db_port: "{{ analyticsdb_cql_port }}"
       minimum_diskGB: "{{ analyticsdb_minimum_diskgb }}"
       log_file: "{{ database_nodemgr_log }}"
       log_level: "{{ database_nodemgr_log_level }}"
