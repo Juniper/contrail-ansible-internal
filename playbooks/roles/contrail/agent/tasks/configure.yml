@@ -11,6 +11,39 @@
   tags: [always]
   when: contrail_service_mgr == 'supervisord'
 
+- name: Detect vrouter_physical_interface when not in agent.conf and vhost has taken over ip from physical interface
+  set_fact:
+    physical_interface_list: "{{ physical_interface_list  + [item] }}"
+  when:
+    - vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
+    - hostvars[inventory_hostname]['ansible_' + item | string ].get('macaddress', None) == vhost_macaddress
+    - item != vhost_interface
+  with_items: "{{ ansible_interfaces }}"
+
+- name: Detect vrouter_physical_interface if not a bond interface
+  set_fact:
+    vrouter_physical_interface_orig: "{{ item if physical_interface_list | length == 1 else 'no_physical_interface_vars_n_vhost_exists' }}"
+  when: vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
+  with_items: "{{ physical_interface_list }}"
+
+- name: Check if vrouter_physical_interface is a bond interface
+  stat: path="{{'/sys/class/net/' + item + '/bonding'}}"
+  with_items: "{{ physical_interface_list }}"
+  when:
+    - physical_interface_list | length > 1
+    - vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
+  register: bond_interface
+
+- name: Detect vrouter_physical_interface when it is bond interface
+  set_fact:
+    vrouter_physical_interface_orig: "{{ item.0 if item.1.stat.exists == True else 'no_physical_interface_vars_n_vhost_exists' }}"
+  when:
+    - physical_interface_list | length > 1
+    - vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
+  with_together:
+    - "{{ physical_interface_list }}"
+    - "{{ bond_interface.results }}"
+
 - name: Fail if vrouter_physical_interface params provided and vhost has taken over ip from physical interface
   fail: msg="No vrouter_physical_interface or vrouter_physical_interface_detected found, and no way to detect \
              physical interface, as vhost interface has taken over the IP address"
