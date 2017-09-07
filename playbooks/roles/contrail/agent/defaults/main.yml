@@ -53,6 +53,8 @@ vrouter_physical_interface_mac_address: "{{ hostvars[inventory_hostname][vrouter
 vhost_address_with_netmask: "{{ vhost_address }}/{{ vhost_netmask }}"
 vhost_address_with_prefix: "{{ vhost_address_with_netmask | ipaddr('host/prefix') }}"
 vhost_gateway: "{{ ansible_default_ipv4.gateway }}"
+vhost_macaddress: "{{ hostvars[inventory_hostname][vhost_ansible_interface]['macaddress'] }}"
+physical_interface_list: []
 
 vrouter_agent_conf: "/etc/contrail/contrail-vrouter-agent.conf"
 vrouter_platform: default
