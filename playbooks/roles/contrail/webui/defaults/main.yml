@@ -12,6 +12,11 @@ webui_redis_db_index: 3
 webui_redis_dump_file: /var/lib/redis/dump-webui.rdb
 webui_log_level: debug
 
+# vcenter config options
+webui_vcenter_server_ip : '{{ vcplugin_vc_url | default("https://127.0.0.1/sdk") | regex_replace("https?://(.*)/sdk","\1") }}'
+webui_vcenter_wsdl_path: '/usr/src/contrail/contrail-web-core/webroot/js/vim.wsdl'
+webui_vcenter_auth_protocol: '{{ vcplugin_vc_url | default("https://127.0.0.1/sdk") | regex_replace("(https?)://.*/sdk","\1") }}'
+
 # Contrail Web Storage disable by default
 
 webui_storage_enable: False
