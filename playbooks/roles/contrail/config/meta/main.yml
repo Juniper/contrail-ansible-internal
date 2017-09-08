@@ -11,6 +11,13 @@ dependencies:
     rabbitmq_seed_list: "{{ config_seed_list }}"
     rabbitmq_vhost_definitions: "{{ contrail_rabbitmq_vhost_definitions }}"
     rabbitmq_users_definitions: "{{ contrail_rabbitmq_users_definitions }}"
+    rabbitmq_port: "{{ rabbitmq_port }}"
+    rabbitmq_ssl: "{{ contrail_rabbitmq_ssl }}"
+    rabbitmq_ssl_port: "{{ rabbitmq_ssl_port }}"
+    rabbitmq_cacert     : "{{ contrail_rabbitmq_ssl_cacertfile }}"
+    rabbitmq_server_key : "{{ contrail_rabbitmq_ssl_keyfile }}"
+    rabbitmq_server_cert: "{{ contrail_rabbitmq_ssl_certfile }}"
+    rabbitmq_ha_queues: "{{ rabbitmq_ha_queues }}"
     enable_rabbitmq: "{{ contrail_enable_rabbitmq }}"
     tags: [rabbitmq]
 
