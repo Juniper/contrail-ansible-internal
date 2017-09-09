@@ -12,6 +12,11 @@
     dest: /root/.bashrc
   tags: [install, contrail.vcenterplugin.install]
 
+- name: Include contrail service manager specific code
+  include: systemd.yml
+  when: contrail_service_mgr == 'systemd'
+  tags: [install, contrail.vcenterplugin.install]
+
 - name: setup vcenter plugin
   include: configure_vc_plugin.yml
   tags: [configure, contrail.vcenterplugin.configure]
@@ -22,5 +27,10 @@
 
 - name: Start vc plugin service
   shell: service contrail-vcenter-plugin start
+  tags: [service, contrail.vcenterplugin.service]
+
+- name: Make sure enter-pluginservice is up
+  systemd: name="contrail-vcenter-plugin" state=started enabled=yes
+  when: contrail_service_mgr == 'systemd'
   tags: [service, contrail.vcenterplugin.service]
 
