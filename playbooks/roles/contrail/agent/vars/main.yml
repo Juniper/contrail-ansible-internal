@@ -51,7 +51,7 @@ vgw_gateway_routes_config: "{{ ' --vgw_gateway_routes ' + '[' + vgw_gateway_rout
 contrail_compute_setup_args: >-
   {%- set cargs = ' --self_ip ' ~ vhost_address ~ ' --cfgm_ip ' ~ api_server_ip -%}
   {%- if compute_controller_list -%}
-    {%- set cargs = cargs ~ ' --control-nodes ' ~ compute_controller_list -%}
+    {%- set cargs = cargs ~ ' --control-nodes ' ~ compute_controller_list | join(' ') -%}
   {%- endif -%}
   {%- if non_mgmt_ip -%}
     {%- set cargs = cargs ~ ' --non_mgmt_ip ' ~ non_mgmt_ip -%}
