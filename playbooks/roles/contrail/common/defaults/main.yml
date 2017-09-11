@@ -73,10 +73,9 @@ rabbitmq_ssl: false
 rabbitmq_cacert     : "/etc/contrailctl/ssl/ca-cert.pem"
 rabbitmq_server_key : "/etc/contrailctl/ssl/server-privkey.pem"
 rabbitmq_server_cert: "/etc/contrailctl/ssl/server.pem"
-contrail_rabbitmq_ssl: "{{ rabbitmq_ssl }}"
-contrail_rabbitmq_ssl_cacertfile          : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_cacert | basename }}"
-contrail_rabbitmq_ssl_certfile            : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_server_cert | basename }}"
-contrail_rabbitmq_ssl_keyfile             : "/etc/contrail/rabbitmq/ssl/{{ rabbitmq_server_key | basename }}"
+contrail_rabbitmq_ssl_cacertfile          : "/etc/rabbitmq/ssl/{{ rabbitmq_cacert | basename }}"
+contrail_rabbitmq_ssl_certfile            : "/etc/rabbitmq/ssl/{{ rabbitmq_server_cert | basename }}"
+contrail_rabbitmq_ssl_keyfile             : "/etc/rabbitmq/ssl/{{ rabbitmq_server_key | basename }}"
 contrail_rabbitmq_port: "{{ rabbitmq_ssl_port if rabbitmq_ssl else rabbitmq_port }}"
 
 config_ip: "{{ controller_ip }}"

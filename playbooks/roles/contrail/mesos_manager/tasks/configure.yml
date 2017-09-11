@@ -37,7 +37,7 @@
       rabbit_user: "{{ rabbitmq_user }}"
       rabbit_password: "{{ rabbitmq_password }}"
       rabbit_ha_mode: "{{ rabbitmq_ha_queues }}"
-      rabbit_use_ssl: "{{ contrail_rabbitmq_ssl }}"
+      rabbit_use_ssl: "{{ rabbitmq_ssl }}"
       kombu_ssl_certfile: "{{ contrail_rabbitmq_ssl_certfile }}"
       kombu_ssl_keyfile: "{{ contrail_rabbitmq_ssl_keyfile }}"
       kombu_ssl_ca_certs: "{{ contrail_rabbitmq_ssl_cacertfile }}"

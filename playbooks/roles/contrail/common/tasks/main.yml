@@ -20,6 +20,3 @@
 
 - include: copy_ssl_certs.yml
   tags: [configure]
-
-- include: copy_rabbitmq_ssl_certs.yml
-  tags: [configure]
