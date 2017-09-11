@@ -77,3 +77,18 @@
     - restart snmp-collector systemd
     - restart topology supervisord
     - restart topology systemd
+
+- name: configure keystone identity_uri in keystone auth configuration file if defined
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=identity_uri value={{ keystone_identity_uri }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_identity_uri is defined
+  notify:
+    - restart analytics-api supervisord
+    - restart analytics-api systemd
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
+    - restart snmp-collector supervisord
+    - restart snmp-collector systemd
+    - restart topology supervisord
+    - restart topology systemd
