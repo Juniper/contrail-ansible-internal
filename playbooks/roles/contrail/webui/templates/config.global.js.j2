@@ -152,9 +152,9 @@ config.computeManager.strictSSL = false;
 config.computeManager.ca = '';
 
 config.identityManager = {};
-config.identityManager.ip = '{{ keystone_ip }}';
-config.identityManager.port = '{{ keystone_public_port }}';
-config.identityManager.authProtocol = '{{ keystone_auth_protocol }}';
+config.identityManager.ip = '{{ webui_keystone_ip }}';
+config.identityManager.port = '{{ webui_keystone_public_port }}';
+config.identityManager.authProtocol = '{{ webui_keystone_auth_protocol }}';
 /******************************************************************************
  * Note: config.identityManager.apiVersion is not controlled by boolean flag
  * config.serviceEndPointFromConfig. If specified apiVersion here, then these
@@ -165,6 +165,7 @@ config.identityManager.authProtocol = '{{ keystone_auth_protocol }}';
 config.identityManager.apiVersion = ['v2.0'];
 config.identityManager.strictSSL = false;
 config.identityManager.ca = '';
+config.identityManager.urlPrefix = {{ webui_identity_manager_urlPrefix|to_json }};
 
 config.storageManager = {};
 config.storageManager.ip = '127.0.0.1';

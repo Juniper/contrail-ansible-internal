@@ -25,6 +25,10 @@ webui_storage_enable: False
 webui_admin_user: "{{ keystone_admin_user }}"
 webui_admin_password: "{{ keystone_admin_password }}"
 webui_admin_tenant_name: "{{ keystone_admin_tenant }}"
+webui_identity_manager_urlPrefix: '{{ keystone_identity_uri | default("") | regex_replace("https?://[^/]*/(.*)","\1") }}'
+webui_keystone_ip: '{{ keystone_identity_uri | default(keystone_ip) | regex_replace("https?://([^:/]*).*","\1") }}'
+webui_keystone_public_port: '{{ keystone_identity_uri | default(keystone_public_port) | regex_replace("https?:[^:]*:?(.*)/.*","\1") }}'
+webui_keystone_auth_protocol: '{{ keystone_identity_uri | default(keystone_auth_protocol) | regex_replace("(https?)://.*","\1") }}'
 
 webui_packages_Debian:
  - contrail-openstack-webui
