@@ -26,11 +26,11 @@
   tags: [configure, contrail.vcenterplugin.configure]
 
 - name: Start vc plugin service
-  shell: service contrail-vcenter-plugin start
+  shell: service contrail-vcenter-plugin restart
   tags: [service, contrail.vcenterplugin.service]
 
 - name: Make sure enter-pluginservice is up
-  systemd: name="contrail-vcenter-plugin" state=started enabled=yes
+  systemd: name="contrail-vcenter-plugin" state=restarted enabled=yes
   when: contrail_service_mgr == 'systemd'
   tags: [service, contrail.vcenterplugin.service]
 
