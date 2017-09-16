@@ -1,6 +1,6 @@
 [Unit]
 Description=Contrail kube-manager
-After=network.target
+After=network.target contrail-ansible.service
 
 [Service]
 Type=simple
