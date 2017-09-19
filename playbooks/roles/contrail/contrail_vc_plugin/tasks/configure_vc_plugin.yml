@@ -16,6 +16,7 @@
       vcenter.datacenter: "{{ vcplugin_datacenter }}"
       vcenter.dvswitch: "{{ vcplugin_dvs }}"
       vcenter.ipfabricpg: "{{ vcplugin_ipfabricpg }}"
+      vcenter.cluster_name: "{{ vcplugin_clustername | default('') }}"
 
       mode: "{{ vcplugin_mode }}"
 
