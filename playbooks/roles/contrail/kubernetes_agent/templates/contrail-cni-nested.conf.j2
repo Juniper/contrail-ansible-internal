@@ -3,7 +3,7 @@
    "contrail" : {
        "mode"              : "k8s",
        "vif-type"          : "macvlan",
-       "parent-interface"  : "eth0",
+       "parent-interface"  : "{{ kubernetes_node_data_interface }}",
        "vrouter-ip"        : "{{ vrouter_agent_ip }}",
        "vrouter-port"      : {{ vrouter_agent_port }},
        "config-dir"        : "/var/lib/contrail/ports/vm",

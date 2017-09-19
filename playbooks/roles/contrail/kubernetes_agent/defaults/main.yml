@@ -2,3 +2,4 @@
 nested_mode: false
 vrouter_agent_ip: "{{ agent_ip if agent_ip is defined else '127.0.0.1' }}"
 vrouter_agent_port: 9091
+kubernetes_node_data_interface: 'eth0'
