@@ -1,4 +1,1 @@
 ---
-- name: Make sure kube-manager service is up
-  systemd: name="contrail-kube-manager" state=started enabled=yes
-  tags: [service, contrail.kube-manager.service, contrail.controller.service]
