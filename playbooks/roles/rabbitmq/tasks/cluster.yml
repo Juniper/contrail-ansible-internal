@@ -1,4 +1,8 @@
 ---
+- name: Start rabbitmq-server in the leader node
+  include: service.yml
+  when: rabbitmq_cluster_node_role == 'leader'
+
 - name: Wait for master node to be up
   wait_for: host={{ rabbitmq_cluster_nodes_leader }} port={{ rabbitmq_conf_tcp_listeners_port }} delay=10
   when: rabbitmq_cluster_node_role == 'follower'

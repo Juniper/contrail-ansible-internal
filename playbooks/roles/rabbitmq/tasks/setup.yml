@@ -9,12 +9,12 @@
 - include: configuration.yml
   tags: [configure, rabbitmq.configure, test]
 
-- include: service.yml
-  tags: [service, rabbitmq.service]
-
 - include: cluster.yml
   tags: [configure, rabbitmq.configure]
   when: "{{ rabbitmq_nodes |length}} > 1"
+
+- include: service.yml
+  tags: [service, rabbitmq.service]
 
 - include: plugins.yml
   tags: [configure, rabbitmq.configure]
