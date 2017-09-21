@@ -180,3 +180,13 @@ apiserver_certfile: /etc/contrailctl/ssl/server.pem
 apiserver_keyfile: /etc/contrailctl/ssl/server-privkey.pem
 apiserver_cafile: /etc/contrailctl/ssl/ca-cert.pem
 apiserver_certbundle: /etc/contrailctl/ssl/apiservercertbundle.pem
+
+# WebUI SSL Defaults
+webui_auth_protocol: http
+
+# SSL Cert/Key defaults
+ssl_certfile: /etc/contrailctl/ssl/server.pem
+ssl_keyfile: /etc/contrailctl/ssl/server-privkey.pem
+ssl_cafile: /etc/contrailctl/ssl/ca-cert.pem
+ssl_certbundle: /etc/contrailctl/ssl/contrailcertbundle.pem
+
