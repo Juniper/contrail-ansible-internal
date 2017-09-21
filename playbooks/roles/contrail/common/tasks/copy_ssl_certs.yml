@@ -18,6 +18,3 @@
       - { src: "{{ ssl_certs_src_dir }}/server-privkey.pem",  dest: "{{ ssl_certs_dir }}/private/server-privkey.pem" }
   when: check_ssl_certs_src_dir.stat.exists
 
-- name: Merge CA/Cert files to contrailcertbundle.pem
-  shell: cat "{{ ssl_certs_src_dir }}/server.pem" "{{ ssl_certs_src_dir }}/server-privkey.pem" "{{ ssl_certs_src_dir }}/ca-cert.pem" > "{{ ssl_certs_dir }}/contrailcertbundle.pem"
-  when: check_ssl_certs_src_dir.stat.exists

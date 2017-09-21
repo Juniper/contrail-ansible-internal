@@ -73,13 +73,17 @@ backend contrail-api-backend
 
 frontend contrail-webui-http
     bind *:{{ contrail_webui_frontend_port }}
+{% if webui_auth_protocol == 'https' %}
     http-request replace-value Host (.*):.* \1
     http-request redirect location https://%[req.hdr(Host)]:{{ contrail_webui_https_port }}
 
 frontend contrail-webui-https
-    bind *:{{ contrail_webui_https_port }} ssl crt {{ ssl_certs_dir }}/contrailcertbundle.pem
+    bind *:{{ contrail_webui_https_port }} ssl crt {{ ssl_certbundle }}
     reqadd X-Forwarded-Proto:\ https
     default_backend contrail-webui-http-backend
+{% else %}
+    default_backend contrail-webui-http-backend
+{% endif %}
 
 backend contrail-webui-http-backend
     balance roundrobin
