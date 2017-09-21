@@ -50,12 +50,14 @@
       auth_tenant: "{{ admin_tenant }}"
   notify:
     - restart kube-manager supervisord
+    - check kube-manager systemd
     - restart kube-manager systemd
 
 - name: Configure DEFAULTS.token in contrail-kubernetes.conf
   ini_file: dest={{ kube_manager_conf }} section=DEFAULTS option=token value="{{ kubernetes_token|default('') }}"  create=yes
   notify:
     - restart kube-manager supervisord
+    - check kube-manager systemd
     - restart kube-manager systemd
 
 - name: Configuration related to nested kubernetes
@@ -77,4 +79,5 @@
   when: nested_mode == true
   notify:
     - restart kube-manager supervisord
+    - check kube-manager systemd
     - restart kube-manager systemd
