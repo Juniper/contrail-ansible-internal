@@ -20,7 +20,7 @@
 
       mode: "{{ vcplugin_mode }}"
 
-      auth_url: "{{ keystone_admin_auth_url | default('') }}"
+      auth_url: "{{ (keystone_admin_auth_url | default('')) | trim }}/"
       admin_user: "{{ keystone_admin_user | default('') }}"
       admin_password: "{{ keystone_admin_password | default('') }}"
       admin_tenant_name: "{{ keystone_admin_tenant | default('') }}"
