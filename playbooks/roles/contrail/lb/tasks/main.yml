@@ -21,5 +21,10 @@
   when: apiserver_auth_protocol == 'https'
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
 
+- name: Include SSL certificate bundling specific code
+  include: ssl/certbundle.yml
+  when: webui_auth_protocol == 'https'
+  tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
+
 - include: configure.yml
   tags: [contrail.lb.configure, contrail.haproxy.configure, configure]
