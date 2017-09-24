@@ -2,6 +2,7 @@
 - name: check kube-manager systemd
   shell: "systemctl is-active contrail-kube-manager"
   register: contrail_kube_manager_status
+  failed_when: "'FAILED' in contrail_kube_manager_status.stderr"
 
 - name: restart kube-manager systemd
   systemd: name="contrail-kube-manager" state=restarted
