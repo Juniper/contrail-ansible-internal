@@ -45,7 +45,7 @@ global_vnc_api_configs:
   BASE_URL: "/"
 
 # vnc api client input file's auth configuration
-keystone_admin_auth_url: "{{ keystone_auth_protocol }}://{{ keystone_ip }}:{{ keystone_admin_port }}/{{ keystone_version }}"
+keystone_admin_auth_url: "{% if keystone_auth_url is defined %} {{ keystone_auth_url }} {% else %} {{ keystone_auth_protocol }}://{{ keystone_ip }}:{{ keystone_admin_port }}/{{ keystone_version }} {% endif %}"
 keystone_authn_url: "/{{ keystone_version }}{{ '/' if keystone_version == 'v2.0' else '/auth/' }}tokens"
 auth_vnc_api_configs:
   AUTHN_TYPE: "keystone"
