@@ -36,10 +36,10 @@ analytics_collector_introspect_port: 8089
 analytics_collector_syslog_port: -1
 analytics_collector_listen_port: "{{ analytics_collector_port }}"
 analytics_collector_listen_address: 0.0.0.0
-analytics_collector_analytics_flow_ttl: 48
-analytics_collector_analytics_statistics_ttl: 2160
-analytics_collector_analytics_config_audit_ttl: 24
-analytics_collector_analytics_data_ttl: 2
+analytics_collector_analytics_data_ttl: 48
+analytics_collector_analytics_config_audit_ttl: 2160
+analytics_collector_analytics_statistics_ttl: 168
+analytics_collector_analytics_flow_ttl: 2
 
 #query engine defaults
 analytics_query_engine_conf: /etc/contrail/contrail-query-engine.conf
