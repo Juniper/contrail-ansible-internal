@@ -1,0 +1,4 @@
+---
+# Service management
+- name: Make sure memcached service is in expected state
+  service: name=memcached state=started enabled=yes
