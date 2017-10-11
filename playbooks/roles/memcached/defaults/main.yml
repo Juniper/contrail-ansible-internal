@@ -1,0 +1,3 @@
+---
+# Defaults for memcached service
+memcached_port: 11911
