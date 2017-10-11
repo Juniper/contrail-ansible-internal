@@ -1,0 +1,3 @@
+---
+- name: Install memcached package
+  package: name=memcached state=latest
