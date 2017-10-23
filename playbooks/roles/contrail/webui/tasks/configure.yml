@@ -4,6 +4,4 @@
 - include: webui.yml
   tags: [contrail.webui, contrail.webui.configure]
 
-- include: opscenter.yml
-
 - meta: flush_handlers
