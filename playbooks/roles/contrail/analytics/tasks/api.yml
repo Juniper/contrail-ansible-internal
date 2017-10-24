@@ -12,7 +12,6 @@
       log_file: "{{ analytics_api_log }}"
       log_level: "{{ analytics_api_log_level }}"
       log_local: "{{ log_local }}"
-      cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
       partitions: "{{ anlaytics_uve_partition_count }}"
       api_server: "{{ api_servers_with_port }}"
       api_server_use_ssl: "{{ api_server_use_ssl }}"
