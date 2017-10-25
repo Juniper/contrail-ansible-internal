@@ -65,7 +65,22 @@
 
 - name: configure keystone project domain name in keystone auth configuration file
   ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=project_domain_name value={{ keystone_project_domain_name }}  create=yes
-  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3'
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is defined
+  notify:
+    - restart analytics-api supervisord
+    - restart analytics-api systemd
+    - restart analytics collector supervisord
+    - restart analytics collector systemd
+    - restart alarm-gen supervisord
+    - restart alarm-gen systemd
+    - restart snmp-collector supervisord
+    - restart snmp-collector systemd
+    - restart topology supervisord
+    - restart topology systemd
+
+- name: configure keystone domain id in keystone auth configuration file
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=domain_id value={{ keystone_domain_id }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is undefined
   notify:
     - restart analytics-api supervisord
     - restart analytics-api systemd
