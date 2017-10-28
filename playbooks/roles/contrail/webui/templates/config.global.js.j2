@@ -136,7 +136,7 @@ config.networkManager.strictSSL = false;
 config.networkManager.ca = '';
 
 config.imageManager = {};
-config.imageManager.ip = '{{ glance_api_ip}}';
+config.imageManager.ip = '{{ image_manager_ip}}';
 config.imageManager.port = '9292';
 config.imageManager.authProtocol = '{{ webui_image_manager_auth_protocol }}';
 config.imageManager.apiVersion = ['v1', 'v2'];
@@ -144,7 +144,7 @@ config.imageManager.strictSSL = false;
 config.imageManager.ca = '';
 
 config.computeManager = {};
-config.computeManager.ip = '{{ nova_api_ip }}';
+config.computeManager.ip = '{{ compute_manager_ip }}';
 config.computeManager.port = '8774';
 config.computeManager.authProtocol = '{{ webui_compute_manager_auth_protocol }}';
 config.computeManager.apiVersion = ['v1.1', 'v2'];
