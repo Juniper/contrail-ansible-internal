@@ -11,13 +11,13 @@ vrouter_physical_interface_orig: >-
     {%- else -%}
       {#- set interface of ctrl_data_network if passed -#}
       {%- if ctrl_data_ip is defined -%}
-        {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface].get('ipv4',{}).get('address', None) == ctrl_data_ip -%}
+        {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface | regex_replace('-', '_')].get('ipv4',{}).get('address', None) == ctrl_data_ip -%}
           {{ iface }}{%- endfor -%}
       {%- elif ctrl_data_network is defined -%}
         {%- set ip_in_ctrl_data_network = ansible_all_ipv4_addresses | ipaddr( ctrl_data_network ) -%}
         {%- if ip_in_ctrl_data_network | count == 1 -%}
           {#- Iterate all interfaces on the host and findout the interface that have the IP address-#}
-          {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface].get('ipv4',{}).get('address', None) == ip_in_ctrl_data_network |first -%}
+          {%- for iface in ansible_interfaces if hostvars[inventory_hostname]['ansible_' + iface | regex_replace('-', '_')].get('ipv4',{}).get('address', None) == ip_in_ctrl_data_network |first -%}
             {{ iface }}{%- endfor -%}
         {#- multiple IPs there found on the machine that are in ctrl_data_network -#}
         {%- elif ip_in_ctrl_data_network | count > 1 -%}multiple_ips_found
