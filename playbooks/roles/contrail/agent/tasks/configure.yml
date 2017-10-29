@@ -16,7 +16,7 @@
     physical_interface_list: "{{ physical_interface_list  + [item] }}"
   when:
     - vrouter_physical_interface_orig == 'no_physical_interface_vars_n_vhost_exists'
-    - hostvars[inventory_hostname]['ansible_' + item | string ].get('macaddress', None) == vhost_macaddress
+    - hostvars[inventory_hostname]['ansible_' + item | string | regex_replace('-', '_')].get('macaddress', None) == vhost_macaddress
     - item != vhost_interface
   with_items: "{{ ansible_interfaces }}"
 
