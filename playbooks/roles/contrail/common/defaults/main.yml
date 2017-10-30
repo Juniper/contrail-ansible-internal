@@ -138,7 +138,7 @@ keystone_certfile: /etc/contrailctl/ssl/server.pem
 keystone_keyfile: /etc/contrailctl/ssl/server-privkey.pem
 keystone_cafile: /etc/contrailctl/ssl/ca-cert.pem
 keystone_user_domain_name: Default
-keystone_project_domain_name: Default
+keystone_domain_id: default
 
 neutron_metadata_ip: "{{ keystone_ip }}"
 neutron_metadata_port: 8775
