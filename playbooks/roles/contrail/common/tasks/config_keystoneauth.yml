@@ -40,7 +40,14 @@
 
 - name: configure keystone project domain name in keystone auth configuration file
   ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=project_domain_name value={{ keystone_project_domain_name }}  create=yes
-  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3'
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is defined
+  notify:
+    - restart config api supervisord
+    - restart config api systemd
+
+- name: configure keystone domain id in keystone auth configuration file
+  ini_file: dest={{ keystone_auth_conf }} section=KEYSTONE option=domain_id value={{ keystone_domain_id }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is undefined
   notify:
     - restart config api supervisord
     - restart config api systemd
