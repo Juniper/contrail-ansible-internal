@@ -39,3 +39,6 @@ dependencies:
     peer_port2: "{{ zk_peer_port2 }}"
     enable_zookeeper: "{{ contrail_enable_zookeeper }}"
     tags: [zookeeper]
+
+  - role: memcached
+    tags: [memcached]
