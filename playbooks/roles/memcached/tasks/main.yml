@@ -1,0 +1,14 @@
+---
+- name: Install Memcached packages
+  include: install/{{ansible_os_family}}.yml
+  tags: [install, memcached.install, package, memcached.package]
+
+- name: Configure memcached service
+  include: configure.yml
+  tags: [configure, memcached.configure]
+
+- name: Start memcached service
+  include: service.yml
+  tags: [service, memcached.service]
+
+- meta: flush_handlers
