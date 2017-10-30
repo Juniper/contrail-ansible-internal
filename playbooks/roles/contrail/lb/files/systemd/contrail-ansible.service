@@ -3,10 +3,11 @@ Description=Contrail lb configuration
 After=network.target
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=/usr/local/bin/contrailctl config sync -c lb -F -v -t configure,service
 TimeoutStartSec=0
 MountFlags=slave
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
