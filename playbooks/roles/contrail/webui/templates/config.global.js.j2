@@ -13,7 +13,9 @@ config.orchestration = {};
  * If you do not want to specify any model, set it to 'none'
  *
  *****************************************************************************/
-{% if cloud_orchestrator == 'openstack' %}
+{% if cloud_orchestrator == 'openstack' and api_aaa_mode == 'no-auth' %}
+config.orchestration.Manager = 'none';
+{% elif cloud_orchestrator == 'openstack' %}
 config.orchestration.Manager = 'openstack';
 {% elif cloud_orchestrator == 'vcenter' %}
 config.orchestration.Manager = 'vcenter';
