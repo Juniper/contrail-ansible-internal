@@ -37,6 +37,7 @@ api_server_url: "http://{{ config_server_list[0] }}:{{ api_server_port }}"
 local_api_server_url: "http://127.0.0.1:{{ '8095' if cloud_orchestrator == 'openstack' and api_aaa_mode != 'no-auth' else api_server_port }}"
 
 provision_auth: "{% if cloud_orchestrator == 'openstack' and api_aaa_mode != 'no-auth' %}keystone{% else %}noauth{% endif %}"
+auth: "{% if cloud_orchestrator == 'openstack' %}keystone{% else %}no-auth{% endif %}"
 
 # vnc api client input file's global configuration
 global_vnc_api_configs:
