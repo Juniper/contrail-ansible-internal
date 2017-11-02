@@ -17,6 +17,7 @@ ProtectHome=yes
 ReadOnlyDirectories=/
 ReadWriteDirectories=-/var/log/contrail
 ReadWriteDirectories=-/etc/contrail
+ReadWriteDirectories=-/var/lib/contrail
 
 [Install]
 WantedBy=multi-user.target
