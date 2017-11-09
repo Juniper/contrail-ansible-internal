@@ -9,4 +9,4 @@
   lineinfile:
     dest: /etc/contrail/ESXiToVRouterIp.map
     line: "{{ item }}"
-  with_items: "{{ vcplugin_esxtocomputemap.split(',') }}"
+  with_items: "{{ vcplugin_esxtocomputemap.rstrip(',').split(',') }}"
