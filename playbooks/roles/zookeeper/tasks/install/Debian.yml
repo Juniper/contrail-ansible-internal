@@ -1,4 +1,10 @@
 ---
+- name: Avoid zookeeper starting as a part of installation
+  lineinfile: dest=/etc/sensitive_services line=zookeeper state=present create=yes
+
+- name: install policy-rc.d to selectively disable automated service start by apt
+  copy: src=policy-rc.d dest=/usr/sbin/policy-rc.d mode=0755
+
 - name: Install zookeeper with apt
   include: apt.yml
   when: zookeeper_debian_apt_install
