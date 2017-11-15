@@ -29,4 +29,5 @@
   tags: [contrail.controller.service, contrail.controlnode.service, service]
 
 - include: provision/main.yml
+  when: cloud_orchestrator != "openstack"
   tags: [contrail.controller.provision, contrail.control.provision, provision]
