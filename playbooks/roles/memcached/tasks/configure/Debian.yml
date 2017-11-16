@@ -4,6 +4,6 @@
   with_items:
    - { regexp: '-p 11211', replace: '-p {{memcached_port}}' }
   notify: restart memcached
-  tags: [test]
+  tags: [configure, memcached.configure, test]
 
 - meta: flush_handlers
