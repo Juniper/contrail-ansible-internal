@@ -4,7 +4,7 @@
   tags: [install, memcached.install, package, memcached.package]
 
 - name: Configure memcached service
-  include: configure.yml
+  include: configure/{{ansible_os_family}}.yml
   tags: [configure, memcached.configure]
 
 - name: Start memcached service
