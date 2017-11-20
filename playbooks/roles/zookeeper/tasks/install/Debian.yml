@@ -5,6 +5,10 @@
 - name: install policy-rc.d to selectively disable automated service start by apt
   copy: src=policy-rc.d dest=/usr/sbin/policy-rc.d mode=0755
 
+- name: disable auto start zookeeper service in case of systemd
+  shell: systemctl mask zookeeper
+  when: contrail_service_mgr == 'systemd'
+
 - name: Install zookeeper with apt
   include: apt.yml
   when: zookeeper_debian_apt_install
