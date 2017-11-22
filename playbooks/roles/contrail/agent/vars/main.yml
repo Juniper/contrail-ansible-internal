@@ -45,6 +45,12 @@ vgw_public_vn_name_config: "{{ ' --vgw_public_vn_name ' + '[' + vgw_public_vn_na
 vgw_intf_list_config: "{{ ' --vgw_intf_list ' + '[' + vgw_intf_list | join(';') | regex_replace(' ', '') | quote + ']' if vgw_intf_list else '' }}"
 vgw_gateway_routes_config: "{{ ' --vgw_gateway_routes ' + '[' + vgw_gateway_route_list | join(';') | regex_replace(' ', '') | regex_replace('u', '') | quote + ']' if vgw_gateway_route_list else '' }}"
 
+# Enable/Disable backup of config and resource files
+resource_backup_restore_args: "{{ ' --resource_backup_restore ' if resource_backup_restore else '' }}"
+backup_idle_timeout_args: "{{ ' --backup_idle_timeout ' + backup_idle_timeout | string if backup_idle_timeout else '' }}"
+restore_audit_timeout_args: "{{ ' --restore_audit_timeout ' + restore_audit_timeout | string if restore_audit_timeout else '' }}"
+backup_file_count_args: "{{ ' --backup_file_count ' + backup_file_count | string if backup_file_count else '' }}"
+
 #set args for contrail-compute-setup scripts.
 #This is one place where all the arguments for
 #the script will be collected for the script
@@ -106,5 +112,17 @@ contrail_compute_setup_args: >-
   {%- endif -%}
   {%- if tsn_evpn_mode_config -%}
     {%- set cargs = cargs ~ tsn_evpn_mode_config -%}
+  {%- endif -%}
+  {%- if resource_backup_restore_args -%}
+    {%- set cargs = cargs ~ resource_backup_restore_args -%}
+  {%- endif -%}
+  {%- if backup_idle_timeout_args -%}
+    {%- set cargs = cargs ~ backup_idle_timeout_args -%}
+  {%- endif -%}
+  {%- if restore_audit_timeout_args -%}
+    {%- set cargs = cargs ~ restore_audit_timeout_args -%}
+  {%- endif -%}
+  {%- if backup_file_count_args -%}
+    {%- set cargs = cargs ~ backup_file_count_args -%}
   {%- endif -%}
   {{ cargs }}
