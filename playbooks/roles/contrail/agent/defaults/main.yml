@@ -118,3 +118,9 @@ tsn_evpn_mode_config: "{{ ' --tsn_evpn_mode ' if tsn_evpn_mode else '' }}"
 # Tsn List
 tsn_server_list: []
 tsn_servers_config: "{{ ' --tsn_servers ' + tsn_server_list | join(' ') if tsn_server_list else '' }}"
+
+# Enable/Disable backup of config and resource files
+resource_backup_restore: false
+backup_idle_timeout: ''
+restore_audit_timeout: ''
+backup_file_count: ''
