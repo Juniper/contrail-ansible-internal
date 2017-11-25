@@ -53,7 +53,7 @@ supervisor_webui_ready: false
 
 webui_enable_underlay: false
 webui_enable_mx: false
-webui_enable_udd: true
+webui_enable_udd: false
 
 webui_service_endpoint_from_config: true
 
