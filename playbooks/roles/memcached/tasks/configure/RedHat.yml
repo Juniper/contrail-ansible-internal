@@ -1,0 +1,9 @@
+---
+- name: Configure Memcached config file
+  replace: dest=/etc/sysconfig/memcached regexp={{ item.regexp }} replace={{ item.replace }}
+  with_items:
+   - { regexp: 'PORT="11211"', replace: 'PORT="{{memcached_port}}"' }
+  notify: restart memcached
+  tags: [test]
+
+- meta: flush_handlers
