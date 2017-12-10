@@ -55,13 +55,3 @@
   retries: 120
   delay: 5
   when: cassandra_user != ""
-
-- name: Configure Datastax-agent
-  lineinfile: dest={{ datastax_agent_conf_dir }}/address.yaml line={{ item }} create=yes state=present
-  with_items:
-  - 'stomp_interface: {{ opscenter_server_ip }}'
-  when: enable_datastax_agent
-  notify:
-    restart datastax-agent
-
-- meta: flush_handlers

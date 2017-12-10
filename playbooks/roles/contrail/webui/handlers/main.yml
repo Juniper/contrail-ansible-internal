@@ -14,7 +14,3 @@
 - name: restart webui-middleware systemd
   systemd: name="contrail-webui-middleware" state=restarted
   when: contrail_service_mgr == 'systemd' and ansible_test_mode is not defined
-
-- name: restart opscenter
-  service: name="opscenterd" state=restarted
-  when: ansible_test_mode is not defined

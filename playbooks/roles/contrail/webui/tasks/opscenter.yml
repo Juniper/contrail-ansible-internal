@@ -1,9 +1,0 @@
----
-- name: "Configure OpsCenter"
-  ini_file:
-    dest: '{{ opscenter_conf_dir }}/opscenterd.conf'
-    section: 'authentication'
-    option: 'enabled'
-    value: 'True'
-  notify:
-    restart opscenter
