@@ -71,7 +71,7 @@ systemd_wants_locations:
   - /lib/systemd/system/plymouth*
   - /lib/systemd/system/systemd-update-utmp*
 
-contrail_service_mgr: "{{ 'systemd' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' else 'supervisord' }}"
+contrail_service_mgr: "{{ 'systemd' if ansible_distribution + ansible_distribution_version == 'Ubuntu16.04' or ansible_os_family == 'RedHat' else 'supervisord' }}"
 
 # analytics_api_aaa_mode is cloud-admin in case of openstack, and no-auth in non-openstack - also this can be overridden
 # by providing the variable in the inventory - this is configured in
