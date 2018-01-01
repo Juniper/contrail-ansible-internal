@@ -11,9 +11,14 @@
 - include_role: name=contrail/common tasks_from=cleanup
   tags: [contrail.kube_manager.install, install]
 
-- name: Include contrail service manager specific code
+- name: Include contrail service manager specific code (systemd)
   include: install/systemd.yml
   when: contrail_service_mgr == 'systemd' or ansible_os_family == 'RedHat'
+  tags: [install, contrail.kube_manager.install]
+
+- name: Include contrail service manager specific code (supervisord)
+  include: install/supervisord.yml
+  when: contrail_service_mgr == 'supervisord'
   tags: [install, contrail.kube_manager.install]
 
 - include_role: name=contrail/common tasks_from=logsowner
