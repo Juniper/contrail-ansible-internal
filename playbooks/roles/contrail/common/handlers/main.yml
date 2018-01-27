@@ -1,0 +1,5 @@
+---
+# Handlers for common role
+- name: reload sysctl
+  shell: sysctl -p
+
