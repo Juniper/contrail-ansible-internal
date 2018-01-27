@@ -1,0 +1,16 @@
+---
+# Setup TCP Keepalive
+
+- name: Configure TCP keepalive
+  lineinfile:
+    dest: /usr/lib/sysctl.d/99-tcp-keepalive-contrail.conf
+    state: present
+    create: yes
+    line: "{{ item }}"
+  with_items:
+      - 'net.ipv4.tcp_keepalive_time = 15'
+      - 'net.ipv4.tcp_keepalive_intvl = 15'
+      - 'net.ipv4.tcp_keepalive_probes = 5'
+  notify:
+    - reload sysctl
+- meta: flush_handlers

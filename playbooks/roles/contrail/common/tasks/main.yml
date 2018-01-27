@@ -20,3 +20,7 @@
 
 - include: copy_ssl_certs.yml
   tags: [configure]
+
+- include: setup_tcp_keepalive.yaml
+  tags: [configure]
+
