@@ -16,3 +16,11 @@
   ini_file: dest={{ vncapi_conf }} section=auth option={{ item.key }} value={{ item.value }}  create=yes
   with_dict: "{{ auth_ssl_configs }}"
   when: cloud_orchestrator == 'openstack' and keystone_auth_protocol == 'https' and keystone_insecure == False
+
+- name: configure keystone domain id in vnc api config file
+  ini_file: dest={{ vncapi_conf }} section=auth option=AUTHN_DOMAIN value={{ keystone_project_domain_name }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is defined
+
+- name: configure keystone domain id in vnc api config file
+  ini_file: dest={{ vncapi_conf }} section=auth option=AUTHN_DOMAIN value={{ keystone_domain_id }}  create=yes
+  when: cloud_orchestrator == 'openstack' and keystone_version == 'v3' and keystone_project_domain_name is undefined
