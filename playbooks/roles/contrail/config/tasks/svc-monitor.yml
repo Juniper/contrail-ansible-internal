@@ -26,7 +26,7 @@
       kombu_ssl_certfile: "{{ contrail_rabbitmq_ssl_certfile }}"
       kombu_ssl_keyfile: "{{ contrail_rabbitmq_ssl_keyfile }}"
       kombu_ssl_ca_certs: "{{ contrail_rabbitmq_ssl_cacertfile }}"
-      region_name: "{{ region }}"
+      region_name: "{{ keystone_region_name }}"
     SCHEDULER:
       analytics_server_list: "{{ analytics_api_servers_with_port }}"
       aaa_mode: "{{ analytics_api_aaa_mode_orig }}"
