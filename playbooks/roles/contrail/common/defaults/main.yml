@@ -85,7 +85,6 @@ api_server_admin_port: 8095
 api_server_use_ssl: False
 api_cloud_admin_role: ''
 api_global_read_only_role: ''
-region: RegionOne
 
 #ceph_controller_nodes is comma seperated ips of ceph controllers
 ceph_controller_nodes: ''
@@ -139,6 +138,7 @@ keystone_keyfile: /etc/contrailctl/ssl/server-privkey.pem
 keystone_cafile: /etc/contrailctl/ssl/ca-cert.pem
 keystone_user_domain_name: Default
 keystone_domain_id: default
+keystone_region_name: RegionOne
 
 neutron_metadata_ip: "{{ keystone_ip }}"
 neutron_metadata_port: 8775
