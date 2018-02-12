@@ -260,6 +260,8 @@ config.files.download_path = '/tmp';
 config.cassandra = {};
 config.cassandra.server_ips = {{ configdb_server_list|to_json }};
 config.cassandra.server_port = '{{ configdb_cql_port }}';
+config.cassandra.username = '{{ configdb_cassandra_user }}';
+config.cassandra.password = '{{ configdb_cassandra_password }}';
 {# What is for enable_edit? #}
 config.cassandra.enable_edit = false;
 
