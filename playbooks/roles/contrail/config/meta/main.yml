@@ -12,6 +12,7 @@ dependencies:
     rabbitmq_vhost_definitions: "{{ contrail_rabbitmq_vhost_definitions }}"
     rabbitmq_users_definitions: "{{ contrail_rabbitmq_users_definitions }}"
     enable_rabbitmq: "{{ contrail_enable_rabbitmq }}"
+    rabbitmq_policy_configuration: "{{ contrail_rabbitmq_policy_configuration_definitions }}"
     tags: [rabbitmq]
 
   - role: cassandra

@@ -1,0 +1,8 @@
+---
+
+- name: Set rabbitmq policy
+  rabbitmq_policy:
+    name={{ item.name }}
+    pattern={{ item.pattern }}
+    tags={{ item.tags }}
+  with_items: "{{ rabbitmq_policy_configuration }}"

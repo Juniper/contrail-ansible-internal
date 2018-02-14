@@ -13,5 +13,12 @@ contrail_rabbitmq_users_definitions_detected:
     tags:
     - administrator
 
+contrail_rabbitmq_policy_defined:
+  - name: contrail-rabbitmq-policy
+    pattern: '.'
+    vhost: "{{ rabbitmq_vhost }}"
+    tags: "ha-mode=all"
+
 contrail_rabbitmq_vhost_definitions: "{{ [] if rabbitmq_vhost == '/' else contrail_rabbitmq_vhost_definitions_detected }}"
 contrail_rabbitmq_users_definitions: "{{ [] if rabbitmq_user == 'guest' and rabbitmq_password == 'guest' else contrail_rabbitmq_users_definitions_detected }}"
+contrail_rabbitmq_policy_definitions: "{{ contrail_rabbitmq_policy_defined if rabbitmq_ha_mode else [] }}"

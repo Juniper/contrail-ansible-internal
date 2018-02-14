@@ -26,4 +26,10 @@
   tags: [configure, rabbitmq.configure]
   when: rabbitmq_federation
 
+- include: policy.yaml
+  tags: [configure, rabbitmq.configure]
+  when: (rabbitmq_policy_configuration) and
+        (not rabbitmq_federation)
+
+
 - meta: flush_handlers
