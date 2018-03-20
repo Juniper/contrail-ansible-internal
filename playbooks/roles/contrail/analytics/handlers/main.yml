@@ -1,6 +1,6 @@
 ---
 - name: restart alarm-gen supervisord
-  supervisorctl: name="contrail-alarm-gen:0" state=restarted config=/etc/contrail/supervisord_analytics.conf
+  supervisorctl: name="contrail-alarm-gen" state=restarted config=/etc/contrail/supervisord_analytics.conf
   when: supervisor_analytics_ready and contrail_service_mgr == 'supervisord' and ansible_test_mode is not defined
 
 - name: restart alarm-gen systemd
