@@ -1,8 +1,6 @@
 [Unit]
 Description=Contrail kube-manager
 After=network.target contrail-ansible.service
-StartLimitBurst=5
-StartLimitInterval=2
 
 [Service]
 Type=simple
@@ -12,6 +10,8 @@ TimeoutStartSec=0
 MountFlags=slave
 Restart=always
 RestartSec=1
+StartLimitBurst=5
+StartLimitInterval=2
 PIDFile=/var/run/contrail/contrail-kube-manager.pid
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=yes
