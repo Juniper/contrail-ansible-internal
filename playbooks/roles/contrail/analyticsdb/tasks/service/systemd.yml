@@ -4,5 +4,5 @@
   tags: [contrail.analyticsdb.nodemgr.service]
 
 - name: Make sure kafka is up
-  systemd: name="kafka" state=started enabled=yes
+  systemd: name="confluent-kafka" state=started enabled=yes
   tags: [contrail.analyticsdb.kafka.service]

@@ -18,8 +18,8 @@ analyticsdb_cassandra_packages: "{{ ['cassandra'] }}"
 analyticsdb_minimum_diskgb: 256
 
 # Kafka defaults
-kafka_conf: "/usr/share/kafka/config/server.properties"
-kafka_log_conf: "/usr/share/kafka/config/log4j.properties"
+kafka_conf: "/etc/kafka/server.properties"
+kafka_log_conf: "/etc/kafka/log4j.properties"
 kafka_port: 9092
 kafka_listeners: "PLAINTEXT://:9092"
 kafka_log_retention_bytes: 268435456
