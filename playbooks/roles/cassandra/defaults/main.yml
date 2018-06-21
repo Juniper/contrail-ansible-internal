@@ -1,8 +1,8 @@
 ---
 # defaults file for ansible-role-cassandra
 cassandra_distro: dsc
-cassandra_version: '3.10'
-cassandra_version_branch: '3.10'
+cassandra_version: '3.11.2'
+cassandra_version_branch: '3.11.2'
 update_java_alternatives: false
 cassandra_packages: "{{ ['cassandra', 'opscenter'] }}"
 
