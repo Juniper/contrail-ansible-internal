@@ -9,7 +9,7 @@
   with_inidata:
     DEFAULT:
       cassandra_server_list: "{{ analyticsdb_servers_with_cql_port }}"
-      zookeeper_server_list: "{{ zk_servers_with_port }}"
+      zookeeper_server_list: "{{ analyticsdb_zk_servers_with_port }}"
       kafka_broker_list: "{{ kafka_brokers_with_port }}"
       hostip: "{{ my_analytics_ip }}"
       log_file: "{{ analytics_collector_log }}"

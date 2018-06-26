@@ -8,7 +8,7 @@
     create: yes
   with_inidata:
     DEFAULTS:
-      zookeeper: "{{ zk_servers_with_port }}"
+      zookeeper: "{{ analyticsdb_zk_servers_with_port }}"
       log_file: "{{ analytics_snmp_collector_log }}"
       log_level: "{{ analytics_snmp_collector_log_level }}"
       log_local: "{{ log_local }}"

@@ -13,7 +13,7 @@
       log_level: "{{ alarmgen_log_level }}"
       log_local: "{{ log_local }}"
       kafka_broker_list: "{{ kafka_brokers_with_port }}"
-      zk_list: "{{ zk_servers_with_port_space_delim }}"
+      zk_list: "{{ analyticsdb_zk_servers_with_port_space_delim }}"
       partitions: "{{ anlaytics_uve_partition_count }}"
       http_server_port: "{{ alarmgen_introspect_port }}"
       collectors: "{{ analytics_collectors_with_port }}"

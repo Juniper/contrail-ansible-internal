@@ -20,7 +20,7 @@
       rest_api_ip: "{{ analytics_api_listen_address }}"
       aaa_mode: "{{ analytics_api_aaa_mode_orig }}"
       collectors: "{{ analytics_collectors_with_port }}"
-      zk_list: "{{ zk_servers_with_port_space_delim }}"
+      zk_list: "{{ analyticsdb_zk_servers_with_port_space_delim }}"
     REDIS:
       redis_uve_list: "{{ analytics_redis_servers_with_port }}"
       redis_query_port: "{{ analytics_redis_port }}"
