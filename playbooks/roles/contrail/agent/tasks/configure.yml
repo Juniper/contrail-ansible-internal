@@ -97,6 +97,23 @@
   ini_file: dest="/etc/contrailctl/agent.conf" section=AGENT
             option=vrouter_physical_interface_detected
             value="{{ vrouter_physical_interface_orig }}"
-  when: vrouter_physical_interface is not defined and vrouter_physical_interface_detected is not defined
+  when:
+    - vrouter_physical_interface is not defined and vrouter_physical_interface_detected is not defined
 
 - meta: flush_handlers
+
+# Write sample_destination to contrailctl/agent.conf
+- name: Write sample_destination
+  ini_file:
+    dest="/etc/contrailctl/agent.conf"
+    section=SESSION
+    option=sample_destination
+    value="{{ sample_destination }}"
+
+# Write slo_destination to contrailctl/agent.conf
+- name: Write slo_destination
+  ini_file:
+    dest="/etc/contrailctl/agent.conf"
+    section=SESSION
+    option=slo_destination
+    value="{{ slo_destination }}"

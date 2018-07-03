@@ -124,3 +124,7 @@ resource_backup_restore: false
 backup_idle_timeout: ''
 restore_audit_timeout: ''
 backup_file_count: ''
+
+# Session destination defaults
+slo_destination: "{{ slo_destination_list if slo_destination_list else 'collector' }}"
+sample_destination: "{{ sample_destination_list if sample_destination_list else 'collector' }}"
