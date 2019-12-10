@@ -48,7 +48,7 @@
 - meta: flush_handlers
 
 - name: Configure Cassandra User and Password if provided
-  command: >
+  shell: >
     cqlsh {{ cassandra_listen_address }} {{ cassandra_cql_port }} -u cassandra -p cassandra -e "CREATE USER IF NOT EXISTS {{ cassandra_user }} WITH PASSWORD '{{ cassandra_password }}'" || cqlsh {{ cassandra_listen_address }} {{ cassandra_cql_port }} -u {{ cassandra_user }} -p '{{ cassandra_password }}' -e "LIST ROLES"
   register: result
   until: result|success
